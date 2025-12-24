@@ -49,13 +49,26 @@ class SpeechService: NSObject, ObservableObject {
     private func loadAvailableVoices() {
         let voices = AVSpeechSynthesisVoice.speechVoices()
 
-        // Only include these specific voices (kid-friendly)
-        let allowedVoices: Set<String> = [
-            "whisper", "tessa", "superstar", "shelly", "samantha",
-            "rishi", "kathy", "karen", "flo", "eddy"
+        // Premium/Enhanced voices that sound warm and natural (great for kids)
+        let premiumVoices: Set<String> = [
+            "ava", "zoe", "evan", "tom", "nicky", "reed", "rocko", "sandy",
+            "grandma", "grandpa", "joelle", "jamie", "aaron", "liam"
         ]
 
+        // Good quality standard voices as fallback
+        let standardVoices: Set<String> = [
+            "samantha", "alex", "victoria", "daniel", "moira", "tessa"
+        ]
+
+        // Fun novelty voices (optional, kids might like these)
+        let noveltyVoices: Set<String> = [
+            "superstar", "flo", "eddy", "grandma", "grandpa"
+        ]
+
+        let allowedVoices = premiumVoices.union(standardVoices).union(noveltyVoices)
+
         // Filter to allowed English voices and create options
+        // Prefer premium quality voices
         availableVoices = voices
             .filter { $0.language.starts(with: "en") }
             .filter { allowedVoices.contains($0.name.lowercased()) }
@@ -63,9 +76,16 @@ class SpeechService: NSObject, ObservableObject {
                 let displayName = voice.name
                 return VoiceOption(id: voice.identifier, name: displayName, language: voice.language)
             }
-            .sorted { $0.name < $1.name }
+            .sorted { v1, v2 in
+                // Sort premium voices first, then by name
+                let v1Premium = premiumVoices.contains(v1.name.lowercased())
+                let v2Premium = premiumVoices.contains(v2.name.lowercased())
+                if v1Premium && !v2Premium { return true }
+                if !v1Premium && v2Premium { return false }
+                return v1.name < v2.name
+            }
 
-        // Remove duplicates by name
+        // Remove duplicates by name (keep first occurrence which is premium)
         var seen = Set<String>()
         availableVoices = availableVoices.filter { voice in
             if seen.contains(voice.name) {
