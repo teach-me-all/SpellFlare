@@ -104,52 +104,81 @@ struct VoicePickerSheet: View {
 
 // MARK: - Word Presentation View
 struct WordPresentationView: View {
+    @EnvironmentObject var appState: AppState
     @ObservedObject var viewModel: GameViewModel
     @Binding var showVoicePicker: Bool
 
     var body: some View {
-        VStack(spacing: 6) {
-            // Progress indicator with counter and voice button
+        VStack(spacing: 2) {
+            // Top row with back button and counter
             HStack {
-                ProgressBar(progress: viewModel.progress)
-                    .frame(height: 5)
+                Button {
+                    viewModel.cleanup()
+                    appState.navigateToHome()
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.system(size: 16))
+                        .foregroundColor(.white.opacity(0.7))
+                }
+                .buttonStyle(.plain)
+
+                Spacer()
 
                 Text("\(viewModel.correctCount)/10")
-                    .font(.system(size: 10))
+                    .font(.system(size: 9))
                     .foregroundColor(.white.opacity(0.7))
-                    .fixedSize()
+            }
+            .padding(.horizontal, 8)
+            .padding(.top, 2)
 
+            // Turtle progress bar
+            TurtleProgressBar(progress: viewModel.progress)
+                .frame(height: 14)
+                .padding(.horizontal, 8)
+
+            // Voice selector with hint
+            VStack(spacing: 1) {
                 Button {
                     showVoicePicker = true
                 } label: {
-                    Image(systemName: "person.wave.2")
-                        .font(.system(size: 10))
+                    HStack(spacing: 3) {
+                        Image(systemName: "speaker.wave.2")
+                            .font(.system(size: 8))
+                        Text(String(SpeechService.shared.selectedVoice.name.prefix(5)))
+                            .font(.system(size: 8))
+                    }
+                    .foregroundColor(.purple)
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 3)
+                    .background(Color.white.opacity(0.9))
+                    .cornerRadius(8)
                 }
                 .buttonStyle(.plain)
-                .foregroundColor(.cyan)
+
+                Text("Change if unclear")
+                    .font(.system(size: 9))
+                    .foregroundColor(.white.opacity(0.5))
             }
-            .padding(.horizontal, 8)
-            .padding(.top, 4)
 
             Spacer()
 
             // Word indicator
             Text("🔊")
-                .font(.system(size: 36))
+                .font(.system(size: 28))
 
             Text("Listen carefully!")
-                .font(.caption2)
+                .font(.system(size: 10))
                 .foregroundColor(.cyan)
 
             Spacer()
 
-            // Action buttons - horizontal layout
-            HStack(spacing: 6) {
+            // Action buttons - compact horizontal layout
+            HStack(spacing: 4) {
                 Button {
                     viewModel.repeatWord()
                 } label: {
                     Image(systemName: "arrow.counterclockwise")
-                        .font(.caption)
+                        .font(.system(size: 12))
                 }
                 .buttonStyle(.bordered)
                 .tint(.white)
@@ -158,76 +187,101 @@ struct WordPresentationView: View {
                     viewModel.startSpelling()
                 } label: {
                     Text("Spell It!")
-                        .font(.caption2)
+                        .font(.system(size: 11))
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.cyan)
             }
-            .padding(.horizontal, 8)
-            .padding(.bottom, 4)
+            .padding(.horizontal, 6)
+            .padding(.bottom, 2)
         }
     }
 }
 
 // MARK: - Spelling Input View
 struct SpellingInputView: View {
+    @EnvironmentObject var appState: AppState
     @ObservedObject var viewModel: GameViewModel
     @Binding var showVoicePicker: Bool
     @FocusState private var isFocused: Bool
 
     var body: some View {
-        VStack(spacing: 8) {
-            // Progress with voice button
+        VStack(spacing: 2) {
+            // Top row with back button
             HStack {
-                ProgressBar(progress: viewModel.progress)
-                    .frame(height: 6)
+                Button {
+                    viewModel.cleanup()
+                    appState.navigateToHome()
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.system(size: 14))
+                        .foregroundColor(.white.opacity(0.7))
+                }
+                .buttonStyle(.plain)
 
+                Spacer()
+
+                // Voice selector
                 Button {
                     showVoicePicker = true
                 } label: {
-                    Image(systemName: "person.wave.2")
-                        .font(.system(size: 10))
+                    HStack(spacing: 2) {
+                        Image(systemName: "speaker.wave.2")
+                            .font(.system(size: 8))
+                        Text(String(SpeechService.shared.selectedVoice.name.prefix(4)))
+                            .font(.system(size: 8))
+                    }
+                    .foregroundColor(.purple)
+                    .padding(.horizontal, 5)
+                    .padding(.vertical, 2)
+                    .background(Color.white.opacity(0.9))
+                    .cornerRadius(6)
                 }
                 .buttonStyle(.plain)
-                .foregroundColor(.cyan)
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 6)
+            .padding(.top, 2)
+
+            // Turtle progress bar
+            TurtleProgressBar(progress: viewModel.progress)
+                .frame(height: 12)
+                .padding(.horizontal, 6)
 
             Text("Type the spelling")
-                .font(.caption)
+                .font(.system(size: 9))
                 .foregroundColor(.cyan)
 
             // Text input with dictation support
             TextField("Spell here...", text: $viewModel.userSpelling)
                 .textFieldStyle(.plain)
-                .font(.system(.body, design: .monospaced))
+                .font(.system(size: 14, design: .monospaced))
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
-                .padding(8)
+                .padding(5)
                 .background(Color.white.opacity(0.15))
                 .foregroundColor(.white)
-                .cornerRadius(8)
+                .cornerRadius(6)
                 .focused($isFocused)
-                .padding(.horizontal)
+                .padding(.horizontal, 6)
 
             // Show current input
             if !viewModel.userSpelling.isEmpty {
                 Text(viewModel.userSpelling.uppercased())
-                    .font(.system(.caption, design: .monospaced))
+                    .font(.system(size: 10, design: .monospaced))
                     .fontWeight(.bold)
                     .foregroundColor(.cyan)
             }
 
             Spacer()
 
-            // Action buttons
-            HStack(spacing: 8) {
+            // Action buttons - compact
+            HStack(spacing: 4) {
                 Button {
                     viewModel.repeatWord()
                 } label: {
                     Image(systemName: "speaker.wave.2")
-                        .font(.caption)
+                        .font(.system(size: 11))
                 }
                 .buttonStyle(.bordered)
                 .tint(.white)
@@ -236,23 +290,66 @@ struct SpellingInputView: View {
                     viewModel.submitSpelling()
                 } label: {
                     Text("Done")
-                        .font(.caption)
+                        .font(.system(size: 11))
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.cyan)
                 .disabled(viewModel.userSpelling.isEmpty)
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 6)
+            .padding(.bottom, 2)
         }
-        .padding(.vertical, 8)
         .onAppear {
             isFocused = true
         }
     }
 }
 
-// MARK: - Progress Bar
+// MARK: - Turtle Progress Bar
+struct TurtleProgressBar: View {
+    let progress: Double
+
+    var body: some View {
+        GeometryReader { geo in
+            let barWidth = geo.size.width * 0.8
+            let turtleOffset = barWidth * progress
+
+            HStack {
+                Spacer()
+                ZStack(alignment: .leading) {
+                    // Background track
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(Color.white.opacity(0.2))
+                        .frame(width: barWidth, height: 6)
+
+                    // Progress fill
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(
+                            LinearGradient(
+                                colors: [.cyan, .white],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .frame(width: barWidth * progress, height: 6)
+                        .animation(.easeOut(duration: 0.5), value: progress)
+
+                    // Turtle indicator (flipped to face right)
+                    Text("🐢")
+                        .font(.system(size: 12))
+                        .scaleEffect(x: -1, y: 1)
+                        .offset(x: turtleOffset - 6, y: -2)
+                        .animation(.easeOut(duration: 0.5), value: progress)
+                }
+                .frame(width: barWidth)
+                Spacer()
+            }
+        }
+    }
+}
+
+// MARK: - Progress Bar (Legacy)
 struct ProgressBar: View {
     let progress: Double
 

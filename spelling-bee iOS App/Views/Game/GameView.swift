@@ -133,6 +133,7 @@ struct GameHeader: View {
 
     var body: some View {
         VStack(spacing: 12) {
+            // Top row with exit, level, and score
             HStack {
                 Button(action: onExit) {
                     Image(systemName: "xmark.circle.fill")
@@ -148,48 +149,73 @@ struct GameHeader: View {
 
                 Spacer()
 
-                // Voice selector button
-                Button {
-                    showVoicePicker = true
-                } label: {
-                    HStack(spacing: 4) {
-                        Image(systemName: "speaker.wave.2.fill")
-                            .font(.system(size: 14))
-                        Text(String(SpeechService.shared.selectedVoice.name.prefix(4)))
-                            .font(.system(size: 12, weight: .medium))
-                    }
-                    .foregroundColor(.purple)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 6)
-                    .background(Color.white.opacity(0.9))
-                    .cornerRadius(16)
-                }
-
                 Text("\(viewModel.correctCount)/10")
                     .font(.headline)
                     .foregroundColor(.cyan)
-                    .padding(.leading, 8)
             }
 
-            // Progress bar
+            // Progress bar with turtle (80% width)
             GeometryReader { geo in
-                ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(Color.white.opacity(0.2))
+                let barWidth = geo.size.width * 0.8
+                let turtleOffset = barWidth * viewModel.progress
 
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(
-                            LinearGradient(
-                                colors: [.cyan, .white],
-                                startPoint: .leading,
-                                endPoint: .trailing
+                HStack {
+                    Spacer()
+                    ZStack(alignment: .leading) {
+                        // Background track
+                        RoundedRectangle(cornerRadius: 6)
+                            .fill(Color.white.opacity(0.2))
+                            .frame(width: barWidth)
+
+                        // Progress fill
+                        RoundedRectangle(cornerRadius: 6)
+                            .fill(
+                                LinearGradient(
+                                    colors: [.cyan, .white],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
                             )
-                        )
-                        .frame(width: geo.size.width * viewModel.progress)
-                        .animation(.easeOut(duration: 0.3), value: viewModel.progress)
+                            .frame(width: barWidth * viewModel.progress)
+                            .animation(.easeOut(duration: 0.5), value: viewModel.progress)
+
+                        // Turtle indicator (flipped to face right)
+                        Text("🐢")
+                            .font(.system(size: 20))
+                            .scaleEffect(x: -1, y: 1)
+                            .offset(x: turtleOffset - 10)
+                            .animation(.easeOut(duration: 0.5), value: viewModel.progress)
+                    }
+                    .frame(width: barWidth)
+                    Spacer()
                 }
             }
-            .frame(height: 8)
+            .frame(height: 24)
+
+            // Voice selector with hint
+            VStack(spacing: 4) {
+                Button {
+                    showVoicePicker = true
+                } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: "speaker.wave.2.fill")
+                            .font(.system(size: 14))
+                        Text(SpeechService.shared.selectedVoice.name)
+                            .font(.system(size: 14, weight: .medium))
+                        Image(systemName: "chevron.down")
+                            .font(.system(size: 10))
+                    }
+                    .foregroundColor(.purple)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 8)
+                    .background(Color.white.opacity(0.9))
+                    .cornerRadius(20)
+                }
+
+                Text("Change voice if the word is not clear")
+                    .font(.system(size: 14))
+                    .foregroundColor(.white.opacity(0.6))
+            }
         }
         .padding()
     }
