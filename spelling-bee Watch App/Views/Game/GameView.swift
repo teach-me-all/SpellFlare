@@ -10,6 +10,7 @@ import SwiftUI
 struct GameView: View {
     @EnvironmentObject var appState: AppState
     @StateObject private var viewModel = GameViewModel()
+    @State private var showVoicePicker = false
 
     let level: Int
 
@@ -17,9 +18,9 @@ struct GameView: View {
         VStack {
             switch viewModel.phase {
             case .presenting:
-                WordPresentationView(viewModel: viewModel)
+                WordPresentationView(viewModel: viewModel, showVoicePicker: $showVoicePicker)
             case .spelling:
-                SpellingInputView(viewModel: viewModel)
+                SpellingInputView(viewModel: viewModel, showVoicePicker: $showVoicePicker)
             case .feedback:
                 FeedbackView(viewModel: viewModel)
             case .levelComplete:
@@ -34,75 +35,163 @@ struct GameView: View {
         .onDisappear {
             viewModel.cleanup()
         }
+        .sheet(isPresented: $showVoicePicker) {
+            VoicePickerSheet()
+        }
+    }
+}
+
+// MARK: - Voice Picker Sheet
+struct VoicePickerSheet: View {
+    @ObservedObject var speechService = SpeechService.shared
+    @Environment(\.dismiss) var dismiss
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 8) {
+                Text("Choose Voice")
+                    .font(.headline)
+                    .foregroundColor(.cyan)
+                    .padding(.top)
+
+                ForEach(speechService.availableVoices) { voice in
+                    Button {
+                        speechService.selectedVoice = voice
+                        speechService.previewVoice(voice)
+                    } label: {
+                        HStack {
+                            Text(voice.name)
+                                .font(.caption)
+                                .foregroundColor(.white)
+
+                            Spacer()
+
+                            if voice == speechService.selectedVoice {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundColor(.cyan)
+                                    .font(.caption)
+                            }
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(
+                            voice == speechService.selectedVoice
+                                ? Color.cyan.opacity(0.2)
+                                : Color.white.opacity(0.1)
+                        )
+                        .cornerRadius(8)
+                    }
+                    .buttonStyle(.plain)
+                }
+
+                Button {
+                    dismiss()
+                } label: {
+                    Text("Done")
+                        .font(.caption)
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(.cyan)
+                .padding(.top, 8)
+            }
+            .padding(.horizontal)
+            .padding(.bottom)
+        }
     }
 }
 
 // MARK: - Word Presentation View
 struct WordPresentationView: View {
     @ObservedObject var viewModel: GameViewModel
+    @Binding var showVoicePicker: Bool
 
     var body: some View {
-        VStack(spacing: 12) {
-            // Progress indicator
-            ProgressBar(progress: viewModel.progress)
-                .frame(height: 6)
-                .padding(.horizontal)
+        VStack(spacing: 6) {
+            // Progress indicator with counter and voice button
+            HStack {
+                ProgressBar(progress: viewModel.progress)
+                    .frame(height: 5)
 
-            Text("\(viewModel.correctCount)/10")
-                .font(.caption2)
-                .foregroundColor(.white.opacity(0.7))
+                Text("\(viewModel.correctCount)/10")
+                    .font(.system(size: 10))
+                    .foregroundColor(.white.opacity(0.7))
+                    .fixedSize()
+
+                Button {
+                    showVoicePicker = true
+                } label: {
+                    Image(systemName: "person.wave.2")
+                        .font(.system(size: 10))
+                }
+                .buttonStyle(.plain)
+                .foregroundColor(.cyan)
+            }
+            .padding(.horizontal, 8)
+            .padding(.top, 4)
 
             Spacer()
 
             // Word indicator
             Text("🔊")
-                .font(.system(size: 40))
+                .font(.system(size: 36))
 
             Text("Listen carefully!")
-                .font(.caption)
+                .font(.caption2)
                 .foregroundColor(.cyan)
 
             Spacer()
 
-            // Action buttons
-            VStack(spacing: 8) {
+            // Action buttons - horizontal layout
+            HStack(spacing: 6) {
                 Button {
                     viewModel.repeatWord()
                 } label: {
-                    Label("Repeat", systemImage: "arrow.counterclockwise")
+                    Image(systemName: "arrow.counterclockwise")
                         .font(.caption)
-                        .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.bordered)
-                .tint(.white.opacity(0.3))
+                .tint(.white)
 
                 Button {
                     viewModel.startSpelling()
                 } label: {
-                    Label("Spell It!", systemImage: "pencil")
-                        .font(.caption)
+                    Text("Spell It!")
+                        .font(.caption2)
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.cyan)
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 8)
+            .padding(.bottom, 4)
         }
-        .padding(.vertical, 8)
     }
 }
 
 // MARK: - Spelling Input View
 struct SpellingInputView: View {
     @ObservedObject var viewModel: GameViewModel
+    @Binding var showVoicePicker: Bool
     @FocusState private var isFocused: Bool
 
     var body: some View {
         VStack(spacing: 8) {
-            // Progress
-            ProgressBar(progress: viewModel.progress)
-                .frame(height: 6)
-                .padding(.horizontal)
+            // Progress with voice button
+            HStack {
+                ProgressBar(progress: viewModel.progress)
+                    .frame(height: 6)
+
+                Button {
+                    showVoicePicker = true
+                } label: {
+                    Image(systemName: "person.wave.2")
+                        .font(.system(size: 10))
+                }
+                .buttonStyle(.plain)
+                .foregroundColor(.cyan)
+            }
+            .padding(.horizontal)
 
             Text("Type the spelling")
                 .font(.caption)
@@ -140,7 +229,7 @@ struct SpellingInputView: View {
                         .font(.caption)
                 }
                 .buttonStyle(.bordered)
-                .tint(.white.opacity(0.3))
+                .tint(.white)
 
                 Button {
                     viewModel.submitSpelling()

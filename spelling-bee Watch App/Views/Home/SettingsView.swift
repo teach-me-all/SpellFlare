@@ -2,24 +2,25 @@
 //  SettingsView.swift
 //  spelling-bee Watch App
 //
-//  Settings screen for changing grade and viewing profile.
+//  Settings screen for changing grade, voice, and viewing profile.
 //
 
 import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var appState: AppState
+    @ObservedObject var speechService = SpeechService.shared
     @Environment(\.dismiss) var dismiss
     @State private var selectedGrade: Int = 1
     @State private var showResetConfirm = false
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
+            VStack(spacing: 12) {
                 // Profile Info
                 if let profile = appState.profile {
                     VStack(spacing: 4) {
-                        Text("🐝 \(profile.name)")
+                        Text("\(profile.name)")
                             .font(.headline)
                             .foregroundColor(.cyan)
 
@@ -34,8 +35,8 @@ struct SettingsView: View {
                     .background(Color.white.opacity(0.3))
 
                 // Grade Picker
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Change Grade")
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Grade")
                         .font(.caption)
                         .foregroundColor(.cyan)
 
@@ -45,10 +46,43 @@ struct SettingsView: View {
                         }
                     }
                     .pickerStyle(.wheel)
-                    .frame(height: 60)
+                    .frame(height: 50)
                     .onChange(of: selectedGrade) { newValue in
                         appState.updateGrade(newValue)
                     }
+                }
+
+                Divider()
+                    .background(Color.white.opacity(0.3))
+
+                // Voice Picker
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Voice")
+                        .font(.caption)
+                        .foregroundColor(.cyan)
+
+                    Picker("Voice", selection: $speechService.selectedVoice) {
+                        ForEach(speechService.availableVoices) { voice in
+                            Text(voice.name).tag(voice)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .frame(height: 50)
+
+                    Button {
+                        speechService.previewVoice(speechService.selectedVoice)
+                    } label: {
+                        HStack {
+                            Image(systemName: "speaker.wave.2")
+                                .font(.caption2)
+                            Text("Preview")
+                                .font(.caption2)
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(.cyan)
+                    .disabled(speechService.isSpeaking)
                 }
 
                 Divider()
