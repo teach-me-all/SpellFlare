@@ -91,8 +91,13 @@ class SpeechService: NSObject, ObservableObject {
     }
 
     func previewVoice(_ voice: VoiceOption) {
+        previewVoiceWithWord(voice, word: nil)
+    }
+
+    func previewVoiceWithWord(_ voice: VoiceOption, word: String?) {
         stopSpeaking()
-        let utterance = AVSpeechUtterance(string: "Hello, I am \(voice.name)")
+        let text = word ?? "Hello, I am \(voice.name)"
+        let utterance = AVSpeechUtterance(string: text)
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.9
         if let avVoice = AVSpeechSynthesisVoice(identifier: voice.id) {
             utterance.voice = avVoice
@@ -110,17 +115,22 @@ class SpeechService: NSObject, ObservableObject {
         return AVSpeechSynthesisVoice(language: "en-US")
     }
 
-    /// Speaks a word clearly for spelling practice
+    /// Speaks a word clearly for spelling practice with a 1 second delay
     func speakWord(_ word: String) {
         stopSpeaking()
-
-        let utterance = AVSpeechUtterance(string: word)
-        utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.8 // Slightly slower for kids
-        utterance.pitchMultiplier = 1.0
-        utterance.voice = getSelectedAVVoice()
-
         isSpeaking = true
-        synthesizer.speak(utterance)
+
+        // Add 1 second delay before speaking the word
+        Task {
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
+            await MainActor.run {
+                let utterance = AVSpeechUtterance(string: word)
+                utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.9 // 90% of original speed
+                utterance.pitchMultiplier = 1.0
+                utterance.voice = self.getSelectedAVVoice()
+                self.synthesizer.speak(utterance)
+            }
+        }
     }
 
     /// Spells out a word letter by letter

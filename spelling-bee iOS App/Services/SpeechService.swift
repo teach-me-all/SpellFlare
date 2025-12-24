@@ -93,8 +93,13 @@ class SpeechService: NSObject, ObservableObject {
     }
 
     func previewVoice(_ voice: VoiceOption) {
+        previewVoiceWithWord(voice, word: nil)
+    }
+
+    func previewVoiceWithWord(_ voice: VoiceOption, word: String?) {
         stopSpeaking()
-        let utterance = AVSpeechUtterance(string: "Hello, I am \(voice.name)")
+        let text = word ?? "Hello, I am \(voice.name)"
+        let utterance = AVSpeechUtterance(string: text)
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.9
         if let avVoice = AVSpeechSynthesisVoice(identifier: voice.id) {
             utterance.voice = avVoice
@@ -123,14 +128,19 @@ class SpeechService: NSObject, ObservableObject {
 
     func speakWord(_ word: String) {
         stopSpeaking()
-
-        let utterance = AVSpeechUtterance(string: word)
-        utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.8
-        utterance.pitchMultiplier = 1.0
-        utterance.voice = getSelectedAVVoice()
-
         isSpeaking = true
-        synthesizer.speak(utterance)
+
+        // Add 1 second delay before speaking the word
+        Task {
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
+            await MainActor.run {
+                let utterance = AVSpeechUtterance(string: word)
+                utterance.rate = AVSpeechUtteranceDefaultSpeechRate * 0.9 // 90% of original speed
+                utterance.pitchMultiplier = 1.0
+                utterance.voice = self.getSelectedAVVoice()
+                self.synthesizer.speak(utterance)
+            }
+        }
     }
 
     func spellWord(_ word: String) {
@@ -187,14 +197,24 @@ class SpeechService: NSObject, ObservableObject {
 
         recognizedText = ""
 
-        // Small delay to ensure audio session is ready
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+        // Pre-configure audio session before the delay
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setCategory(.record, mode: .measurement, options: [])
+            try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
+        } catch {
+            print("Audio session pre-config failed: \(error)")
+        }
+
+        // Longer delay to ensure audio session is fully ready and avoid missing first letter
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             self?.startRecognitionSession()
         }
     }
 
     private func startRecognitionSession() {
-        // Configure audio session for recording
+        // Audio session should already be configured from startListening()
+        // but ensure it's set correctly
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(.record, mode: .measurement, options: [])
@@ -204,21 +224,7 @@ class SpeechService: NSObject, ObservableObject {
             return
         }
 
-        // Create recognition request
-        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-        guard let recognitionRequest = recognitionRequest else {
-            print("Failed to create recognition request")
-            return
-        }
-
-        recognitionRequest.shouldReportPartialResults = true
-
-        // Use on-device recognition if available (iOS 13+)
-        if #available(iOS 13, *) {
-            recognitionRequest.requiresOnDeviceRecognition = false
-        }
-
-        // Configure audio engine
+        // Configure audio engine first
         let inputNode = audioEngine.inputNode
 
         // Remove any existing tap
@@ -233,49 +239,71 @@ class SpeechService: NSObject, ObservableObject {
             return
         }
 
-        // Install tap on input node with smaller buffer for more responsive updates
-        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { [weak self] buffer, _ in
-            self?.recognitionRequest?.append(buffer)
-        }
-
-        // Start recognition task
-        recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { [weak self] result, error in
-            Task { @MainActor in
-                guard let self = self else { return }
-
-                if let result = result {
-                    let text = result.bestTranscription.formattedString
-                    // Only update if we have text - don't clear with empty results
-                    if !text.isEmpty {
-                        self.recognizedText = text
-                        print("Recognized: \(text)")
-                    }
-                }
-
-                // Only stop on final result
-                if result?.isFinal == true {
-                    print("Final result received")
-                    // Don't call stopListening here - let user control when to stop
-                }
-
-                if let error = error as NSError? {
-                    // Error code 1110 = no speech detected, 216 = request cancelled - these are normal
-                    if error.code != 1110 && error.code != 216 {
-                        print("Recognition error: \(error.localizedDescription) (code: \(error.code))")
-                    }
-                }
-            }
-        }
-
-        // Start audio engine
+        // Start audio engine FIRST to warm up the buffer before recognition starts
         audioEngine.prepare()
         do {
             try audioEngine.start()
             isListening = true
-            print("Speech recognition started successfully")
+            print("Audio engine started - warming up buffer")
         } catch {
             print("Audio engine start failed: \(error)")
-            stopListening()
+            return
+        }
+
+        // Small delay to let audio buffer warm up before starting recognition
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+            guard let self = self else { return }
+
+            // Create recognition request
+            self.recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
+            guard let recognitionRequest = self.recognitionRequest else {
+                print("Failed to create recognition request")
+                self.stopListening()
+                return
+            }
+
+            recognitionRequest.shouldReportPartialResults = true
+
+            // Use on-device recognition if available (iOS 13+)
+            if #available(iOS 13, *) {
+                recognitionRequest.requiresOnDeviceRecognition = false
+            }
+
+            // Install tap on input node with smaller buffer for more responsive updates
+            inputNode.installTap(onBus: 0, bufferSize: 512, format: recordingFormat) { [weak self] buffer, _ in
+                self?.recognitionRequest?.append(buffer)
+            }
+
+            // Start recognition task
+            self.recognitionTask = self.speechRecognizer?.recognitionTask(with: recognitionRequest) { [weak self] result, error in
+                Task { @MainActor in
+                    guard let self = self else { return }
+
+                    if let result = result {
+                        let text = result.bestTranscription.formattedString
+                        // Only update if we have text - don't clear with empty results
+                        if !text.isEmpty {
+                            self.recognizedText = text
+                            print("Recognized: \(text)")
+                        }
+                    }
+
+                    // Only stop on final result
+                    if result?.isFinal == true {
+                        print("Final result received")
+                        // Don't call stopListening here - let user control when to stop
+                    }
+
+                    if let error = error as NSError? {
+                        // Error code 1110 = no speech detected, 216 = request cancelled - these are normal
+                        if error.code != 1110 && error.code != 216 {
+                            print("Recognition error: \(error.localizedDescription) (code: \(error.code))")
+                        }
+                    }
+                }
+            }
+
+            print("Speech recognition started successfully")
         }
     }
 

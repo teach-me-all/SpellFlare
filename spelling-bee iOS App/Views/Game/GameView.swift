@@ -57,7 +57,7 @@ struct GameView: View {
             }
         }
         .sheet(isPresented: $showVoicePicker) {
-            GameVoicePickerSheet()
+            GameVoicePickerSheet(currentWord: viewModel.currentWord?.text)
         }
         .onAppear {
             if let grade = appState.profile?.grade {
@@ -74,6 +74,7 @@ struct GameView: View {
 struct GameVoicePickerSheet: View {
     @ObservedObject var speechService = SpeechService.shared
     @Environment(\.dismiss) var dismiss
+    let currentWord: String?
 
     var body: some View {
         NavigationStack {
@@ -81,7 +82,7 @@ struct GameVoicePickerSheet: View {
                 ForEach(speechService.availableVoices) { voice in
                     Button {
                         speechService.selectedVoice = voice
-                        speechService.previewVoice(voice)
+                        speechService.previewVoiceWithWord(voice, word: currentWord)
                     } label: {
                         HStack {
                             VStack(alignment: .leading, spacing: 4) {
@@ -101,7 +102,7 @@ struct GameVoicePickerSheet: View {
                             }
 
                             Button {
-                                speechService.previewVoice(voice)
+                                speechService.previewVoiceWithWord(voice, word: currentWord)
                             } label: {
                                 Image(systemName: "play.circle.fill")
                                     .font(.title2)

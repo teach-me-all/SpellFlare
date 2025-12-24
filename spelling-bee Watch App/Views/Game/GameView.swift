@@ -36,7 +36,7 @@ struct GameView: View {
             viewModel.cleanup()
         }
         .sheet(isPresented: $showVoicePicker) {
-            VoicePickerSheet()
+            VoicePickerSheet(currentWord: viewModel.currentWord?.text)
         }
     }
 }
@@ -45,6 +45,7 @@ struct GameView: View {
 struct VoicePickerSheet: View {
     @ObservedObject var speechService = SpeechService.shared
     @Environment(\.dismiss) var dismiss
+    let currentWord: String?
 
     var body: some View {
         ScrollView {
@@ -57,7 +58,7 @@ struct VoicePickerSheet: View {
                 ForEach(speechService.availableVoices) { voice in
                     Button {
                         speechService.selectedVoice = voice
-                        speechService.previewVoice(voice)
+                        speechService.previewVoiceWithWord(voice, word: currentWord)
                     } label: {
                         HStack {
                             Text(voice.name)
