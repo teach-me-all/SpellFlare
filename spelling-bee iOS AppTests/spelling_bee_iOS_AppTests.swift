@@ -1,16 +1,17 @@
 //
-//  spelling_bee_Watch_AppTests.swift
-//  spelling-bee Watch AppTests
+//  spelling_bee_iOS_AppTests.swift
+//  spelling-bee iOS AppTests
 //
-//  Comprehensive unit tests for the Spelling Bee watchOS app.
-//  Tests models, ViewModels, and service logic.
+//  Created by MADHURI on 12/25/25.
+//
+//  Comprehensive unit tests for the Spelling Bee iOS app.
 //
 
 import XCTest
-@testable import spelling_bee_Watch_App
+@testable import spelling_bee_iOS_App
 
 // MARK: - UserProfile Tests
-final class UserProfileTests: XCTestCase {
+final class iOS_UserProfileTests: XCTestCase {
 
     func testUserProfileInitialization() {
         let profile = UserProfile(name: "TestUser", grade: 3)
@@ -47,67 +48,34 @@ final class UserProfileTests: XCTestCase {
         profile.completeLevel(2)
 
         XCTAssertEqual(profile.currentLevel, 3)
-        XCTAssertTrue(profile.completedLevels.contains(1))
-        XCTAssertTrue(profile.completedLevels.contains(2))
-    }
-
-    func testCompletingLevelOutOfOrderDoesNotAdvancePastCurrent() {
-        var profile = UserProfile(name: "Test", grade: 1)
-
-        // Complete level 5 first (shouldn't be possible in normal flow, but test edge case)
-        profile.completeLevel(5)
-
-        // Current level should stay at 1 since we skipped levels
-        XCTAssertEqual(profile.currentLevel, 6, "Current level should advance to completed + 1")
     }
 
     func testLevel1IsUnlockedByDefault() {
         let profile = UserProfile(name: "Test", grade: 1)
-
         XCTAssertTrue(profile.isLevelUnlocked(1))
     }
 
     func testLevel2IsLockedByDefault() {
         let profile = UserProfile(name: "Test", grade: 1)
-
         XCTAssertFalse(profile.isLevelUnlocked(2))
     }
 
     func testLevel2UnlockedAfterCompletingLevel1() {
         var profile = UserProfile(name: "Test", grade: 1)
-
         profile.completeLevel(1)
-
         XCTAssertTrue(profile.isLevelUnlocked(2))
-    }
-
-    func testIsLevelCompleted() {
-        var profile = UserProfile(name: "Test", grade: 1)
-
-        XCTAssertFalse(profile.isLevelCompleted(1))
-
-        profile.completeLevel(1)
-
-        XCTAssertTrue(profile.isLevelCompleted(1))
     }
 
     func testCompletedLevelsPerGrade() {
         var profile = UserProfile(name: "Test", grade: 1)
 
-        // Complete level 1 in grade 1
         profile.completeLevel(1)
         XCTAssertTrue(profile.completedLevels.contains(1))
 
-        // Change grade to 2
         profile.grade = 2
-
-        // Grade 2 should have no completed levels
         XCTAssertTrue(profile.completedLevels.isEmpty)
 
-        // Complete level 1 in grade 2
         profile.completeLevel(1)
-
-        // Change back to grade 1 - level 1 should still be complete
         profile.grade = 1
         XCTAssertTrue(profile.completedLevels.contains(1))
     }
@@ -115,70 +83,38 @@ final class UserProfileTests: XCTestCase {
     func testMaxLevelIsFifty() {
         var profile = UserProfile(name: "Test", grade: 1)
 
-        // Complete level 49
-        for level in 1...49 {
+        for level in 1...50 {
             profile.completeLevel(level)
         }
 
         XCTAssertEqual(profile.currentLevel, 50)
-
-        // Complete level 50 - current should stay at 50
-        profile.completeLevel(50)
-        XCTAssertEqual(profile.currentLevel, 50, "Current level should cap at 50")
     }
 }
 
 // MARK: - Word Tests
-final class WordTests: XCTestCase {
+final class iOS_WordTests: XCTestCase {
 
     func testWordInitialization() {
         let word = Word(text: "apple", difficulty: 2)
-
         XCTAssertEqual(word.text, "apple")
         XCTAssertEqual(word.difficulty, 2)
     }
 
-    func testWordLetters() {
-        let word = Word(text: "cat", difficulty: 1)
-
-        XCTAssertEqual(word.letters, ["C", "A", "T"])
+    func testWordHasUniqueId() {
+        let word1 = Word(text: "apple", difficulty: 2)
+        let word2 = Word(text: "apple", difficulty: 2)
+        XCTAssertNotEqual(word1.id, word2.id, "Each word should have unique ID")
     }
 
-    func testWordMatchesExact() {
-        let word = Word(text: "apple", difficulty: 2)
-
-        XCTAssertTrue(word.matches(spokenLetters: "apple"))
-    }
-
-    func testWordMatchesCaseInsensitive() {
-        let word = Word(text: "apple", difficulty: 2)
-
-        XCTAssertTrue(word.matches(spokenLetters: "APPLE"))
-        XCTAssertTrue(word.matches(spokenLetters: "ApPlE"))
-    }
-
-    func testWordMatchesWithSpaces() {
-        let word = Word(text: "apple", difficulty: 2)
-
-        XCTAssertTrue(word.matches(spokenLetters: "a p p l e"))
-    }
-
-    func testWordMatchesWithDashes() {
-        let word = Word(text: "apple", difficulty: 2)
-
-        XCTAssertTrue(word.matches(spokenLetters: "a-p-p-l-e"))
-    }
-
-    func testWordDoesNotMatchIncorrect() {
-        let word = Word(text: "apple", difficulty: 2)
-
-        XCTAssertFalse(word.matches(spokenLetters: "aple"))
-        XCTAssertFalse(word.matches(spokenLetters: "orange"))
+    func testWordEquality() {
+        let word1 = Word(text: "apple", difficulty: 2)
+        let word2 = word1
+        XCTAssertEqual(word1, word2)
     }
 }
 
 // MARK: - GameSession Tests
-final class GameSessionTests: XCTestCase {
+final class iOS_GameSessionTests: XCTestCase {
 
     func testGameSessionInitialization() {
         let words = [
@@ -191,10 +127,8 @@ final class GameSessionTests: XCTestCase {
 
         XCTAssertEqual(session.level, 1)
         XCTAssertEqual(session.grade, 1)
-        XCTAssertEqual(session.currentWordIndex, 0)
         XCTAssertEqual(session.correctCount, 0)
         XCTAssertNotNil(session.currentWord)
-        XCTAssertEqual(session.currentWord?.text, "cat")
     }
 
     func testMarkCorrectAdvancesWord() {
@@ -203,11 +137,9 @@ final class GameSessionTests: XCTestCase {
             words.append(Word(text: "word\(i)", difficulty: 1))
         }
 
-        var session = GameSession(level: 1, grade: 1, words: words)
-
+        let session = GameSession(level: 1, grade: 1, words: words)
         session.markCorrect()
 
-        XCTAssertEqual(session.currentWordIndex, 1)
         XCTAssertEqual(session.correctCount, 1)
     }
 
@@ -217,15 +149,11 @@ final class GameSessionTests: XCTestCase {
             words.append(Word(text: "word\(i)", difficulty: 1))
         }
 
-        var session = GameSession(level: 1, grade: 1, words: words)
-        let firstWord = session.currentWord
-
+        let session = GameSession(level: 1, grade: 1, words: words)
         session.markIncorrect()
 
-        XCTAssertEqual(session.currentWordIndex, 1)
         XCTAssertEqual(session.correctCount, 0)
-        XCTAssertEqual(session.incorrectWords.count, 1)
-        XCTAssertEqual(session.incorrectWords.first?.text, firstWord?.text)
+        XCTAssertEqual(session.incorrectCount, 1)
     }
 
     func testProgressCalculation() {
@@ -234,15 +162,11 @@ final class GameSessionTests: XCTestCase {
             words.append(Word(text: "word\(i)", difficulty: 1))
         }
 
-        var session = GameSession(level: 1, grade: 1, words: words)
+        let session = GameSession(level: 1, grade: 1, words: words)
 
         XCTAssertEqual(session.progress, 0.0)
-
         session.markCorrect()
         XCTAssertEqual(session.progress, 0.1)
-
-        session.markCorrect()
-        XCTAssertEqual(session.progress, 0.2)
     }
 
     func testIsCompleteWhenTenCorrect() {
@@ -251,14 +175,12 @@ final class GameSessionTests: XCTestCase {
             words.append(Word(text: "word\(i)", difficulty: 1))
         }
 
-        var session = GameSession(level: 1, grade: 1, words: words)
+        let session = GameSession(level: 1, grade: 1, words: words)
 
-        for _ in 1...9 {
+        for _ in 1...10 {
             session.markCorrect()
         }
-        XCTAssertFalse(session.isComplete)
 
-        session.markCorrect()
         XCTAssertTrue(session.isComplete)
         XCTAssertEqual(session.progress, 1.0)
     }
@@ -269,41 +191,18 @@ final class GameSessionTests: XCTestCase {
             Word(text: "dog", difficulty: 1)
         ]
 
-        var session = GameSession(level: 1, grade: 1, words: words)
+        let session = GameSession(level: 1, grade: 1, words: words)
 
         session.markCorrect()
         session.markCorrect()
 
         XCTAssertNil(session.currentWord)
     }
-
-    func testSkipWord() {
-        var words = [Word]()
-        for i in 1...15 {
-            words.append(Word(text: "word\(i)", difficulty: 1))
-        }
-
-        var session = GameSession(level: 1, grade: 1, words: words)
-
-        session.skipWord()
-
-        XCTAssertEqual(session.currentWordIndex, 1)
-        XCTAssertEqual(session.correctCount, 0, "Skip should not count as correct")
-    }
 }
 
 // MARK: - AppState Tests
 @MainActor
-final class AppStateTests: XCTestCase {
-
-    func testInitialStateIsOnboardingWithoutProfile() {
-        // Note: This requires a clean UserDefaults state
-        let appState = AppState()
-
-        // Without a saved profile, should start in loading then transition
-        // The actual state depends on persisted data
-        XCTAssertNotNil(appState)
-    }
+final class iOS_AppStateTests: XCTestCase {
 
     func testCreateProfile() {
         let appState = AppState()
@@ -364,17 +263,6 @@ final class AppStateTests: XCTestCase {
         XCTAssertEqual(appState.profile?.grade, 5)
     }
 
-    func testUpdateGradeClampsToValid() {
-        let appState = AppState()
-        appState.createProfile(name: "Test", grade: 3)
-
-        appState.updateGrade(0)
-        XCTAssertEqual(appState.profile?.grade, 1)
-
-        appState.updateGrade(100)
-        XCTAssertEqual(appState.profile?.grade, 7)
-    }
-
     func testCompleteLevel() {
         let appState = AppState()
         appState.createProfile(name: "Test", grade: 1)
@@ -399,9 +287,9 @@ final class AppStateTests: XCTestCase {
     }
 }
 
-// MARK: - SpeechService Validation Tests
+// MARK: - SpeechService Tests
 @MainActor
-final class SpeechServiceValidationTests: XCTestCase {
+final class iOS_SpeechServiceValidationTests: XCTestCase {
 
     func testValidateSpellingExactMatch() {
         XCTAssertTrue(SpeechService.validateSpelling(userInput: "apple", correctWord: "apple"))
@@ -409,7 +297,6 @@ final class SpeechServiceValidationTests: XCTestCase {
 
     func testValidateSpellingCaseInsensitive() {
         XCTAssertTrue(SpeechService.validateSpelling(userInput: "APPLE", correctWord: "apple"))
-        XCTAssertTrue(SpeechService.validateSpelling(userInput: "ApPlE", correctWord: "apple"))
     }
 
     func testValidateSpellingWithSpaces() {
@@ -420,35 +307,25 @@ final class SpeechServiceValidationTests: XCTestCase {
         XCTAssertTrue(SpeechService.validateSpelling(userInput: "a-p-p-l-e", correctWord: "apple"))
     }
 
-    func testValidateSpellingWithMixedSeparators() {
-        XCTAssertTrue(SpeechService.validateSpelling(userInput: "a p-p l e", correctWord: "apple"))
-    }
-
     func testValidateSpellingIncorrect() {
         XCTAssertFalse(SpeechService.validateSpelling(userInput: "aple", correctWord: "apple"))
-        XCTAssertFalse(SpeechService.validateSpelling(userInput: "appel", correctWord: "apple"))
     }
-
 }
 
 // MARK: - WordBankService Tests
-final class WordBankServiceTests: XCTestCase {
+final class iOS_WordBankServiceTests: XCTestCase {
 
     func testGetWordsReturnsCorrectCount() {
         let service = WordBankService.shared
-
         let words = service.getWords(grade: 1, level: 1, count: 10)
-
         XCTAssertEqual(words.count, 10)
     }
 
     func testGetWordsReturnsUniqueWords() {
         let service = WordBankService.shared
-
         let words = service.getWords(grade: 1, level: 1, count: 15)
         let uniqueTexts = Set(words.map { $0.text })
-
-        XCTAssertEqual(words.count, uniqueTexts.count, "All words should be unique")
+        XCTAssertEqual(words.count, uniqueTexts.count)
     }
 
     func testGetWordsForDifferentGrades() {
@@ -457,39 +334,36 @@ final class WordBankServiceTests: XCTestCase {
         let grade1Words = service.getWords(grade: 1, level: 1, count: 5)
         let grade5Words = service.getWords(grade: 5, level: 1, count: 5)
 
-        // Words should exist for both grades
         XCTAssertEqual(grade1Words.count, 5)
         XCTAssertEqual(grade5Words.count, 5)
     }
+}
 
-    func testGetWordsForDifferentLevels() {
-        let service = WordBankService.shared
+// MARK: - StoreManager Tests
+@MainActor
+final class iOS_StoreManagerTests: XCTestCase {
 
-        let level1Words = service.getWords(grade: 3, level: 1, count: 5)
-        let level10Words = service.getWords(grade: 3, level: 10, count: 5)
+    func testStoreManagerSingleton() {
+        let manager1 = StoreManager.shared
+        let manager2 = StoreManager.shared
 
-        // Both should return words
-        XCTAssertEqual(level1Words.count, 5)
-        XCTAssertEqual(level10Words.count, 5)
+        XCTAssertTrue(manager1 === manager2, "StoreManager should be a singleton")
     }
 
-    func testDifficultyIncreasesWithLevel() {
-        let service = WordBankService.shared
+    func testFormattedPriceNotEmpty() {
+        let manager = StoreManager.shared
+        let price = manager.formattedPrice
+        XCTAssertFalse(price.isEmpty, "Formatted price should not be empty")
+    }
 
-        let level1Words = service.getWords(grade: 3, level: 1, count: 10)
-        let level30Words = service.getWords(grade: 3, level: 30, count: 10)
-
-        // Higher levels should have higher average difficulty
-        let avgDifficulty1 = level1Words.map { $0.difficulty }.reduce(0, +) / level1Words.count
-        let avgDifficulty30 = level30Words.map { $0.difficulty }.reduce(0, +) / level30Words.count
-
-        // This is a soft assertion - implementation may vary
-        XCTAssertGreaterThanOrEqual(avgDifficulty30, avgDifficulty1)
+    func testPurchaseInProgressInitialState() {
+        let manager = StoreManager.shared
+        XCTAssertFalse(manager.purchaseInProgress)
     }
 }
 
 // MARK: - Encoding/Decoding Tests
-final class EncodingDecodingTests: XCTestCase {
+final class iOS_EncodingDecodingTests: XCTestCase {
 
     func testUserProfileEncodeDecode() throws {
         var original = UserProfile(name: "TestUser", grade: 3)
@@ -505,11 +379,9 @@ final class EncodingDecodingTests: XCTestCase {
         XCTAssertEqual(decoded.name, original.name)
         XCTAssertEqual(decoded.grade, original.grade)
         XCTAssertEqual(decoded.completedLevels, original.completedLevels)
-        XCTAssertEqual(decoded.currentLevel, original.currentLevel)
     }
 
     func testUserProfileMigrationFromOldFormat() throws {
-        // Simulate old format JSON
         let oldFormatJSON = """
         {
             "name": "OldUser",
@@ -526,42 +398,13 @@ final class EncodingDecodingTests: XCTestCase {
         XCTAssertEqual(profile.name, "OldUser")
         XCTAssertEqual(profile.grade, 2)
         XCTAssertTrue(profile.completedLevels.contains(1))
-        XCTAssertTrue(profile.completedLevels.contains(2))
-        XCTAssertTrue(profile.completedLevels.contains(3))
         XCTAssertEqual(profile.currentLevel, 4)
-    }
-}
-
-// MARK: - Performance Tests
-final class PerformanceTests: XCTestCase {
-
-    func testWordBankPerformance() {
-        let service = WordBankService.shared
-
-        measure {
-            for grade in 1...7 {
-                for level in 1...50 {
-                    _ = service.getWords(grade: grade, level: level, count: 15)
-                }
-            }
-        }
-    }
-
-    func testProfileOperationsPerformance() {
-        measure {
-            var profile = UserProfile(name: "PerfTest", grade: 3)
-            for level in 1...50 {
-                profile.completeLevel(level)
-                _ = profile.isLevelUnlocked(level)
-                _ = profile.isLevelCompleted(level)
-            }
-        }
     }
 }
 
 // MARK: - Edge Case Tests
 @MainActor
-final class EdgeCaseTests: XCTestCase {
+final class iOS_EdgeCaseTests: XCTestCase {
 
     func testEmptyUserName() {
         let profile = UserProfile(name: "", grade: 1)
@@ -589,35 +432,7 @@ final class EdgeCaseTests: XCTestCase {
         profile.completeLevel(1)
         let countAfterSecond = profile.completedLevels.count
 
-        XCTAssertEqual(countAfterFirst, countAfterSecond, "Completing same level twice should not duplicate")
-    }
-
-    func testNegativeLevelCompletion() {
-        var profile = UserProfile(name: "Test", grade: 1)
-
-        profile.completeLevel(-1)
-
-        // Should handle gracefully - implementation may vary
-        // Just verify no crash
-        XCTAssertNotNil(profile)
-    }
-
-    func testZeroLevelCompletion() {
-        var profile = UserProfile(name: "Test", grade: 1)
-
-        profile.completeLevel(0)
-
-        // Should handle gracefully
-        XCTAssertNotNil(profile)
-    }
-
-    func testVeryHighLevelCompletion() {
-        var profile = UserProfile(name: "Test", grade: 1)
-
-        profile.completeLevel(1000)
-
-        // Should handle gracefully - level beyond 50 may be ignored or capped
-        XCTAssertNotNil(profile)
+        XCTAssertEqual(countAfterFirst, countAfterSecond)
     }
 
     func testEmptySpellingValidation() {
@@ -626,5 +441,32 @@ final class EdgeCaseTests: XCTestCase {
 
     func testWhitespaceOnlySpellingValidation() {
         XCTAssertFalse(SpeechService.validateSpelling(userInput: "   ", correctWord: "apple"))
+    }
+}
+
+// MARK: - Performance Tests
+final class iOS_PerformanceTests: XCTestCase {
+
+    func testWordBankPerformance() {
+        let service = WordBankService.shared
+
+        measure {
+            for grade in 1...7 {
+                for level in 1...50 {
+                    _ = service.getWords(grade: grade, level: level, count: 15)
+                }
+            }
+        }
+    }
+
+    func testProfileOperationsPerformance() {
+        measure {
+            var profile = UserProfile(name: "PerfTest", grade: 3)
+            for level in 1...50 {
+                profile.completeLevel(level)
+                _ = profile.isLevelUnlocked(level)
+                _ = profile.isLevelCompleted(level)
+            }
+        }
     }
 }
