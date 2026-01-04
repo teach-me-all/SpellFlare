@@ -17,7 +17,11 @@ struct OnboardingView: View {
         ZStack {
             // Background gradient
             LinearGradient(
-                colors: [Color.orange.opacity(0.3), Color.yellow.opacity(0.2)],
+                colors: [
+                    Color(red: 0.4, green: 0.2, blue: 0.9),
+                    Color(red: 0.5, green: 0.3, blue: 0.95),
+                    Color(red: 0.45, green: 0.25, blue: 0.85)
+                ],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -43,7 +47,7 @@ struct OnboardingView: View {
                 HStack(spacing: 12) {
                     ForEach(0..<3) { index in
                         Circle()
-                            .fill(index == currentStep ? Color.orange : Color.gray.opacity(0.3))
+                            .fill(index == currentStep ? Color.cyan : Color.white.opacity(0.3))
                             .frame(width: 10, height: 10)
                     }
                 }
@@ -67,10 +71,10 @@ struct WelcomeStep: View {
             Text("🐝")
                 .font(.system(size: 100))
 
-            Text("Spellflare")
+            Text("SpellFlare")
                 .font(.largeTitle)
                 .fontWeight(.bold)
-                .foregroundColor(.orange)
+                .foregroundColor(.white)
 
             Text("Learn to spell with fun!")
                 .font(.title3)
@@ -82,7 +86,7 @@ struct WelcomeStep: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.orange)
+                    .background(Color.cyan)
                     .cornerRadius(16)
             }
             .padding(.horizontal, 40)
@@ -119,7 +123,7 @@ struct NameStep: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.orange)
+                    .background(Color.cyan)
                     .cornerRadius(16)
             }
             .padding(.horizontal, 40)
@@ -160,7 +164,7 @@ struct GradeStep: View {
                         }
                         .frame(width: 80, height: 70)
                         .foregroundColor(selectedGrade == grade ? .white : .primary)
-                        .background(selectedGrade == grade ? Color.orange : Color.white.opacity(0.8))
+                        .background(selectedGrade == grade ? Color.purple : Color.white.opacity(0.8))
                         .cornerRadius(12)
                     }
                 }
@@ -173,7 +177,7 @@ struct GradeStep: View {
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.green)
+                    .background(Color.cyan)
                     .cornerRadius(16)
             }
             .padding(.horizontal, 40)

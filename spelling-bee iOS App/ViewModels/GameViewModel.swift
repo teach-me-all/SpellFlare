@@ -31,6 +31,10 @@ class GameViewModel: ObservableObject {
     @Published var userSpelling = ""
     @Published var showPreTestAd = false
 
+    // MARK: - Retry Tracking
+    @Published var currentWordRetryCount: Int = 0
+    @Published var hasSeenKeyboardHint: Bool = false
+
     // MARK: - Services
     private let speechService = SpeechService.shared
     private let wordBank = WordBankService.shared
@@ -54,6 +58,10 @@ class GameViewModel: ObservableObject {
 
     var isLevelComplete: Bool {
         session?.isComplete ?? false
+    }
+
+    var shouldShowKeyboardHint: Bool {
+        currentWordRetryCount >= 2 && !hasSeenKeyboardHint
     }
 
     // MARK: - Game Flow
@@ -91,6 +99,10 @@ class GameViewModel: ObservableObject {
             checkLevelCompletion()
             return
         }
+
+        // Reset retry tracking for new word
+        currentWordRetryCount = 0
+        hasSeenKeyboardHint = false
 
         phase = .presenting
         speechService.speakWord(word.text)
@@ -144,6 +156,9 @@ class GameViewModel: ObservableObject {
         phase = .feedback
         showRetryOption = true
 
+        // Increment retry count
+        currentWordRetryCount += 1
+
         let encouragements = [
             "Nice try!",
             "Almost there!",
@@ -156,8 +171,25 @@ class GameViewModel: ObservableObject {
     func retry() {
         showRetryOption = false
         userSpelling = ""
+
+        // Mark hint acknowledged if shown
+        if shouldShowKeyboardHint {
+            hasSeenKeyboardHint = true
+        }
+
         phase = .presenting
         presentCurrentWord()
+    }
+
+    func switchToKeyboard() {
+        showRetryOption = false
+        userSpelling = ""
+        hasSeenKeyboardHint = true
+        phase = .spelling
+    }
+
+    func trackRecordingCancellation() {
+        currentWordRetryCount += 1
     }
 
     func giveUp() {
@@ -183,6 +215,10 @@ class GameViewModel: ObservableObject {
         showRetryOption = false
         feedbackType = nil
         userSpelling = ""
+
+        // Reset retry tracking
+        currentWordRetryCount = 0
+        hasSeenKeyboardHint = false
 
         if isLevelComplete {
             phase = .levelComplete

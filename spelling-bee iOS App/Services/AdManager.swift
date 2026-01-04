@@ -109,7 +109,7 @@ struct PlaceholderAdView: View {
                     Text("🐝")
                         .font(.system(size: 60))
 
-                    Text("Spellflare")
+                    Text("SpellFlare")
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(.white)

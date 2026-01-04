@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FeedbackView: View {
     @ObservedObject var viewModel: GameViewModel
+    @Binding var useKeyboardMode: Bool
 
     @State private var iconScale: CGFloat = 0
     @State private var textOpacity: Double = 0
@@ -89,16 +90,45 @@ struct FeedbackView: View {
                 // Actions for incorrect (retry option available)
                 if viewModel.showRetryOption {
                     VStack(spacing: 12) {
+                        // Show hint after 2 retries
+                        if viewModel.shouldShowKeyboardHint {
+                            Text("Trouble spelling the word? Try keyboard instead.")
+                                .font(.subheadline)
+                                .foregroundColor(.white.opacity(0.9))
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal, 20)
+                                .padding(.bottom, 4)
+                        }
+
                         Button {
                             viewModel.retry()
                         } label: {
-                            Label("Try Again", systemImage: "arrow.counterclockwise")
+                            Label(
+                                viewModel.shouldShowKeyboardHint ? "Speak Again" : "Try Again",
+                                systemImage: viewModel.shouldShowKeyboardHint ? "mic.fill" : "arrow.counterclockwise"
+                            )
                                 .font(.headline)
                                 .foregroundColor(.purple)
                                 .frame(maxWidth: .infinity)
                                 .padding()
                                 .background(Color.white)
                                 .cornerRadius(12)
+                        }
+
+                        // Show keyboard option after 2 retries
+                        if viewModel.shouldShowKeyboardHint {
+                            Button {
+                                useKeyboardMode = true
+                                viewModel.switchToKeyboard()
+                            } label: {
+                                Label("Use Keyboard", systemImage: "keyboard")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color.cyan)
+                                    .cornerRadius(12)
+                            }
                         }
 
                         Button {
@@ -397,7 +427,7 @@ struct FeedbackView_Previews: PreviewProvider {
             )
             .ignoresSafeArea()
 
-            FeedbackView(viewModel: GameViewModel())
+            FeedbackView(viewModel: GameViewModel(), useKeyboardMode: .constant(false))
         }
     }
 }

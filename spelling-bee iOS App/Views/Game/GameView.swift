@@ -11,6 +11,7 @@ struct GameView: View {
     @EnvironmentObject var appState: AppState
     @StateObject private var viewModel = GameViewModel()
     @State private var showVoicePicker = false
+    @State private var useKeyboardMode = false
 
     let level: Int
 
@@ -55,9 +56,9 @@ struct GameView: View {
                 case .presenting:
                     WordPresentationView(viewModel: viewModel)
                 case .spelling:
-                    SpellingInputView(viewModel: viewModel)
+                    SpellingInputView(viewModel: viewModel, initialKeyboardMode: $useKeyboardMode)
                 case .feedback:
-                    FeedbackView(viewModel: viewModel)
+                    FeedbackView(viewModel: viewModel, useKeyboardMode: $useKeyboardMode)
                 case .levelComplete:
                     LevelCompleteView(viewModel: viewModel, level: level)
                 }
@@ -297,8 +298,10 @@ struct SpellingInputView: View {
     @State private var isRecording = false
     @State private var pulseAnimation = false
     @State private var useKeyboard = false
+    @Binding var initialKeyboardMode: Bool
     @State private var keyboardInput = ""
     @FocusState private var isKeyboardFocused: Bool
+    @State private var hasRecordedInThisAttempt = false
 
     var body: some View {
         VStack(spacing: 16) {
@@ -309,6 +312,33 @@ struct SpellingInputView: View {
             }
             .pickerStyle(.segmented)
             .padding(.horizontal, 30)
+
+            // Show keyboard hint after 2 cancellations in voice mode
+            if viewModel.shouldShowKeyboardHint && !useKeyboard {
+                VStack(spacing: 12) {
+                    Text("Trouble spelling the word? Try keyboard instead.")
+                        .font(.subheadline)
+                        .foregroundColor(.white.opacity(0.9))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 20)
+                        .padding(.top, 8)
+
+                    Button {
+                        useKeyboard = true
+                        initialKeyboardMode = true
+                        viewModel.hasSeenKeyboardHint = true
+                    } label: {
+                        Label("Use Keyboard", systemImage: "keyboard")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.cyan)
+                            .cornerRadius(12)
+                    }
+                    .padding(.horizontal, 30)
+                }
+            }
 
             if useKeyboard {
                 // Keyboard input mode
@@ -353,6 +383,10 @@ struct SpellingInputView: View {
             speechService.recognizedText = ""
             keyboardInput = ""
             isRecording = false
+            hasRecordedInThisAttempt = false
+
+            // Set initial keyboard mode from parent
+            useKeyboard = initialKeyboardMode
         }
         .onDisappear {
             if isRecording {
@@ -460,12 +494,20 @@ struct SpellingInputView: View {
 
     private func toggleRecording() {
         if isRecording {
+            // User is stopping/canceling recording
             speechService.stopListening()
             isRecording = false
+
+            // If user started recording and then canceled, count as retry
+            if hasRecordedInThisAttempt && !speechService.recognizedText.isEmpty {
+                viewModel.trackRecordingCancellation()
+            }
         } else {
+            // User is starting recording
             speechService.recognizedText = ""
             speechService.startListening()
             isRecording = true
+            hasRecordedInThisAttempt = true
         }
     }
 
