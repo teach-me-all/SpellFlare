@@ -60,4 +60,14 @@ class WordBankService {
         // Create Word objects with correct difficulty for each word
         return selected.map { Word(text: $0.text, difficulty: $0.difficulty) }
     }
+
+    func getSentences(for word: Word) -> [WordSentence] {
+        return (1...3).map { sentenceNum in
+            WordSentence(
+                word: word.text,
+                difficulty: word.difficulty,
+                sentenceNumber: sentenceNum
+            )
+        }
+    }
 }

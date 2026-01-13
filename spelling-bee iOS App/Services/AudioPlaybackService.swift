@@ -45,6 +45,12 @@ class AudioPlaybackService: NSObject, ObservableObject, AVAudioPlayerDelegate {
         playAudioFile(path, completion: completion)
     }
 
+    /// Play sentence audio
+    func playSentence(_ word: String, difficulty: Int, sentenceNumber: Int, completion: (() -> Void)? = nil) {
+        let path = "Audio/\(currentVoice)/sentences/difficulty_\(difficulty)/\(word.lowercased())_sentence\(sentenceNumber)"
+        playAudioFile(path, completion: completion)
+    }
+
     /// Stop current playback
     func stop() {
         audioPlayer?.stop()
@@ -55,9 +61,16 @@ class AudioPlaybackService: NSObject, ObservableObject, AVAudioPlayerDelegate {
     // MARK: - Private Methods
 
     private func playAudioFile(_ resourcePath: String, completion: (() -> Void)?) {
-        // Try to load audio file from bundle
-        guard let url = Bundle.main.url(forResource: resourcePath, withExtension: "wav") else {
-            print("❌ Audio file not found: \(resourcePath).wav")
+        // Try to load audio file from bundle (try both WAV and MP3)
+        var url = Bundle.main.url(forResource: resourcePath, withExtension: "wav")
+
+        if url == nil {
+            // Try MP3 if WAV not found
+            url = Bundle.main.url(forResource: resourcePath, withExtension: "mp3")
+        }
+
+        guard let audioURL = url else {
+            print("❌ Audio file not found: \(resourcePath).wav or .mp3")
             completion?()
             return
         }
@@ -68,7 +81,7 @@ class AudioPlaybackService: NSObject, ObservableObject, AVAudioPlayerDelegate {
             try AVAudioSession.sharedInstance().setActive(true)
 
             // Create and configure audio player
-            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer = try AVAudioPlayer(contentsOf: audioURL)
             audioPlayer?.delegate = self
             audioPlayer?.prepareToPlay()
 

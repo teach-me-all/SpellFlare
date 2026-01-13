@@ -1,0 +1,721 @@
+Difficulty,Word,Sentence Number,Text,Output Filename
+1,cat,1,The cat is sleeping on the couch.,difficulty_1/cat_sentence1.wav
+1,cat,2,I saw a black cat in the garden.,difficulty_1/cat_sentence2.wav
+1,cat,3,My cat loves to play with yarn.,difficulty_1/cat_sentence3.wav
+1,dog,1,The dog barked at the mailman.,difficulty_1/dog_sentence1.wav
+1,dog,2,My dog likes to fetch the ball.,difficulty_1/dog_sentence2.wav
+1,dog,3,The brown dog wagged its tail.,difficulty_1/dog_sentence3.wav
+1,sun,1,The sun is shining brightly today.,difficulty_1/sun_sentence1.wav
+1,sun,2,We love playing in the sun.,difficulty_1/sun_sentence2.wav
+1,sun,3,The sun rises in the morning.,difficulty_1/sun_sentence3.wav
+1,run,1,I can run very fast.,difficulty_1/run_sentence1.wav
+1,run,2,Let's run to the park together.,difficulty_1/run_sentence2.wav
+1,run,3,The children run around the playground.,difficulty_1/run_sentence3.wav
+1,big,1,That is a big elephant.,difficulty_1/big_sentence1.wav
+1,big,2,My brother wears big shoes.,difficulty_1/big_sentence2.wav
+1,big,3,We live in a big house.,difficulty_1/big_sentence3.wav
+1,red,1,I have a red crayon.,difficulty_1/red_sentence1.wav
+1,red,2,The apple is bright red.,difficulty_1/red_sentence2.wav
+1,red,3,She wore a red dress today.,difficulty_1/red_sentence3.wav
+1,hat,1,I wear a hat when it's cold.,difficulty_1/hat_sentence1.wav
+1,hat,2,The blue hat looks nice.,difficulty_1/hat_sentence2.wav
+1,hat,3,Dad forgot his hat at home.,difficulty_1/hat_sentence3.wav
+1,sit,1,Please sit down on the chair.,difficulty_1/sit_sentence1.wav
+1,sit,2,We sit together at lunch.,difficulty_1/sit_sentence2.wav
+1,sit,3,The dog will sit when you ask.,difficulty_1/sit_sentence3.wav
+1,cup,1,I drink water from a cup.,difficulty_1/cup_sentence1.wav
+1,cup,2,The cup is on the table.,difficulty_1/cup_sentence2.wav
+1,cup,3,Mom filled the cup with juice.,difficulty_1/cup_sentence3.wav
+1,bed,1,I sleep in my bed at night.,difficulty_1/bed_sentence1.wav
+1,bed,2,The bed has soft pillows.,difficulty_1/bed_sentence2.wav
+1,bed,3,Time to go to bed now.,difficulty_1/bed_sentence3.wav
+1,mom,1,My mom makes the best cookies.,difficulty_1/mom_sentence1.wav
+1,mom,2,Mom reads me stories at bedtime.,difficulty_1/mom_sentence2.wav
+1,mom,3,I love my mom very much.,difficulty_1/mom_sentence3.wav
+1,dad,1,Dad drives us to school.,difficulty_1/dad_sentence1.wav
+1,dad,2,My dad is very tall.,difficulty_1/dad_sentence2.wav
+1,dad,3,Dad helps me with my homework.,difficulty_1/dad_sentence3.wav
+1,pet,1,I have a pet hamster.,difficulty_1/pet_sentence1.wav
+1,pet,2,We take care of our pet every day.,difficulty_1/pet_sentence2.wav
+1,pet,3,My pet likes to eat carrots.,difficulty_1/pet_sentence3.wav
+1,fun,1,Playing games is so much fun.,difficulty_1/fun_sentence1.wav
+1,fun,2,We had fun at the park today.,difficulty_1/fun_sentence2.wav
+1,fun,3,Birthday parties are always fun.,difficulty_1/fun_sentence3.wav
+1,hot,1,The soup is very hot.,difficulty_1/hot_sentence1.wav
+1,hot,2,It feels hot outside today.,difficulty_1/hot_sentence2.wav
+1,hot,3,"Be careful, the stove is hot.",difficulty_1/hot_sentence3.wav
+1,top,1,The book is on top of the desk.,difficulty_1/top_sentence1.wav
+1,top,2,I climbed to the top of the hill.,difficulty_1/top_sentence2.wav
+1,top,3,The toy is on the top shelf.,difficulty_1/top_sentence3.wav
+1,box,1,I put my toys in a box.,difficulty_1/box_sentence1.wav
+1,box,2,The box is full of books.,difficulty_1/box_sentence2.wav
+1,box,3,Can you open the box for me?,difficulty_1/box_sentence3.wav
+1,fox,1,The fox has a bushy tail.,difficulty_1/fox_sentence1.wav
+1,fox,2,We saw a red fox in the woods.,difficulty_1/fox_sentence2.wav
+1,fox,3,The fox ran across the field.,difficulty_1/fox_sentence3.wav
+1,yes,1,"Yes, I would like some ice cream.",difficulty_1/yes_sentence1.wav
+1,yes,2,She said yes when I asked.,difficulty_1/yes_sentence2.wav
+1,yes,3,"Yes, we can go to the park.",difficulty_1/yes_sentence3.wav
+1,bus,1,The bus takes us to school.,difficulty_1/bus_sentence1.wav
+1,bus,2,We wait for the yellow bus.,difficulty_1/bus_sentence2.wav
+1,bus,3,The bus stops at the corner.,difficulty_1/bus_sentence3.wav
+2,ball,1,Let's kick the ball around.,difficulty_2/ball_sentence1.wav
+2,ball,2,The red ball bounced high.,difficulty_2/ball_sentence2.wav
+2,ball,3,She threw the ball to her friend.,difficulty_2/ball_sentence3.wav
+2,tree,1,The tree has green leaves.,difficulty_2/tree_sentence1.wav
+2,tree,2,We climbed the tall tree.,difficulty_2/tree_sentence2.wav
+2,tree,3,A bird lives in that tree.,difficulty_2/tree_sentence3.wav
+2,book,1,I love reading this book.,difficulty_2/book_sentence1.wav
+2,book,2,The book has many pictures.,difficulty_2/book_sentence2.wav
+2,book,3,Can you hand me that book?,difficulty_2/book_sentence3.wav
+2,fish,1,The fish swims in the water.,difficulty_2/fish_sentence1.wav
+2,fish,2,We caught three fish today.,difficulty_2/fish_sentence2.wav
+2,fish,3,My pet fish is orange and white.,difficulty_2/fish_sentence3.wav
+2,bird,1,The bird is singing a song.,difficulty_2/bird_sentence1.wav
+2,bird,2,A blue bird flew past the window.,difficulty_2/bird_sentence2.wav
+2,bird,3,The bird built a nest in the tree.,difficulty_2/bird_sentence3.wav
+2,cake,1,The birthday cake is delicious.,difficulty_2/cake_sentence1.wav
+2,cake,2,Mom baked a chocolate cake.,difficulty_2/cake_sentence2.wav
+2,cake,3,We shared the cake with everyone.,difficulty_2/cake_sentence3.wav
+2,play,1,Let's play outside together.,difficulty_2/play_sentence1.wav
+2,play,2,The children play in the park.,difficulty_2/play_sentence2.wav
+2,play,3,I like to play with my friends.,difficulty_2/play_sentence3.wav
+2,jump,1,I can jump really high.,difficulty_2/jump_sentence1.wav
+2,jump,2,Let's jump over the puddle.,difficulty_2/jump_sentence2.wav
+2,jump,3,The frog can jump very far.,difficulty_2/jump_sentence3.wav
+2,swim,1,I learned how to swim last summer.,difficulty_2/swim_sentence1.wav
+2,swim,2,Fish can swim underwater.,difficulty_2/swim_sentence2.wav
+2,swim,3,We swim at the pool every week.,difficulty_2/swim_sentence3.wav
+2,blue,1,The sky is bright blue today.,difficulty_2/blue_sentence1.wav
+2,blue,2,I have a blue backpack.,difficulty_2/blue_sentence2.wav
+2,blue,3,Her favorite color is blue.,difficulty_2/blue_sentence3.wav
+2,green,1,The grass is green and fresh.,difficulty_2/green_sentence1.wav
+2,green,2,I painted my room green.,difficulty_2/green_sentence2.wav
+2,green,3,Trees have green leaves in spring.,difficulty_2/green_sentence3.wav
+2,happy,1,I feel happy when I play.,difficulty_2/happy_sentence1.wav
+2,happy,2,The happy puppy wagged its tail.,difficulty_2/happy_sentence2.wav
+2,happy,3,Everyone looks happy today.,difficulty_2/happy_sentence3.wav
+2,water,1,I drink water when I'm thirsty.,difficulty_2/water_sentence1.wav
+2,water,2,The water in the pool is cold.,difficulty_2/water_sentence2.wav
+2,water,3,Plants need water to grow.,difficulty_2/water_sentence3.wav
+2,apple,1,I ate a red apple for lunch.,difficulty_2/apple_sentence1.wav
+2,apple,2,The apple tastes sweet and juicy.,difficulty_2/apple_sentence2.wav
+2,apple,3,Mom put an apple in my lunch box.,difficulty_2/apple_sentence3.wav
+2,house,1,We live in a white house.,difficulty_2/house_sentence1.wav
+2,house,2,The house has a big backyard.,difficulty_2/house_sentence2.wav
+2,house,3,My friend's house is down the street.,difficulty_2/house_sentence3.wav
+2,mouse,1,The little mouse ran away quickly.,difficulty_2/mouse_sentence1.wav
+2,mouse,2,We saw a mouse in the barn.,difficulty_2/mouse_sentence2.wav
+2,mouse,3,The mouse nibbled on the cheese.,difficulty_2/mouse_sentence3.wav
+2,sleep,1,I need to sleep early tonight.,difficulty_2/sleep_sentence1.wav
+2,sleep,2,The baby can sleep for hours.,difficulty_2/sleep_sentence2.wav
+2,sleep,3,Let's sleep under the stars tonight.,difficulty_2/sleep_sentence3.wav
+2,dream,1,I had a wonderful dream last night.,difficulty_2/dream_sentence1.wav
+2,dream,2,"In my dream, I could fly.",difficulty_2/dream_sentence2.wav
+2,dream,3,What did you dream about?,difficulty_2/dream_sentence3.wav
+2,smile,1,Your smile makes me happy.,difficulty_2/smile_sentence1.wav
+2,smile,2,She has a big smile on her face.,difficulty_2/smile_sentence2.wav
+2,smile,3,Don't forget to smile for the camera.,difficulty_2/smile_sentence3.wav
+2,light,1,"Turn on the light, please.",difficulty_2/light_sentence1.wav
+2,light,2,The light from the sun is bright.,difficulty_2/light_sentence2.wav
+2,light,3,My backpack is very light.,difficulty_2/light_sentence3.wav
+3,friend,1,The word friend is used in many ways.,difficulty_3/friend_sentence1.wav
+3,friend,2,The teacher explained what friend means.,difficulty_3/friend_sentence2.wav
+3,friend,3,Many people find friend challenging to spell.,difficulty_3/friend_sentence3.wav
+3,school,1,The word school is used in many ways.,difficulty_3/school_sentence1.wav
+3,school,2,The teacher explained what school means.,difficulty_3/school_sentence2.wav
+3,school,3,Many people find school challenging to spell.,difficulty_3/school_sentence3.wav
+3,write,1,The word write is used in many ways.,difficulty_3/write_sentence1.wav
+3,write,2,The teacher explained what write means.,difficulty_3/write_sentence2.wav
+3,write,3,Many people find write challenging to spell.,difficulty_3/write_sentence3.wav
+3,plant,1,The word plant is used in many ways.,difficulty_3/plant_sentence1.wav
+3,plant,2,The teacher explained what plant means.,difficulty_3/plant_sentence2.wav
+3,plant,3,Many people find plant challenging to spell.,difficulty_3/plant_sentence3.wav
+3,cloud,1,The word cloud is used in many ways.,difficulty_3/cloud_sentence1.wav
+3,cloud,2,The teacher explained what cloud means.,difficulty_3/cloud_sentence2.wav
+3,cloud,3,Many people find cloud challenging to spell.,difficulty_3/cloud_sentence3.wav
+3,train,1,The word train is used in many ways.,difficulty_3/train_sentence1.wav
+3,train,2,The teacher explained what train means.,difficulty_3/train_sentence2.wav
+3,train,3,Many people find train challenging to spell.,difficulty_3/train_sentence3.wav
+3,beach,1,The word beach is used in many ways.,difficulty_3/beach_sentence1.wav
+3,beach,2,The teacher explained what beach means.,difficulty_3/beach_sentence2.wav
+3,beach,3,Many people find beach challenging to spell.,difficulty_3/beach_sentence3.wav
+3,clean,1,The word clean is used in many ways.,difficulty_3/clean_sentence1.wav
+3,clean,2,The teacher explained what clean means.,difficulty_3/clean_sentence2.wav
+3,clean,3,Many people find clean challenging to spell.,difficulty_3/clean_sentence3.wav
+3,bring,1,The word bring is used in many ways.,difficulty_3/bring_sentence1.wav
+3,bring,2,The teacher explained what bring means.,difficulty_3/bring_sentence2.wav
+3,bring,3,Many people find bring challenging to spell.,difficulty_3/bring_sentence3.wav
+3,thing,1,The word thing is used in many ways.,difficulty_3/thing_sentence1.wav
+3,thing,2,The teacher explained what thing means.,difficulty_3/thing_sentence2.wav
+3,thing,3,Many people find thing challenging to spell.,difficulty_3/thing_sentence3.wav
+3,laugh,1,The word laugh is used in many ways.,difficulty_3/laugh_sentence1.wav
+3,laugh,2,The teacher explained what laugh means.,difficulty_3/laugh_sentence2.wav
+3,laugh,3,Many people find laugh challenging to spell.,difficulty_3/laugh_sentence3.wav
+3,watch,1,The word watch is used in many ways.,difficulty_3/watch_sentence1.wav
+3,watch,2,The teacher explained what watch means.,difficulty_3/watch_sentence2.wav
+3,watch,3,Many people find watch challenging to spell.,difficulty_3/watch_sentence3.wav
+3,catch,1,The word catch is used in many ways.,difficulty_3/catch_sentence1.wav
+3,catch,2,The teacher explained what catch means.,difficulty_3/catch_sentence2.wav
+3,catch,3,Many people find catch challenging to spell.,difficulty_3/catch_sentence3.wav
+3,match,1,The word match is used in many ways.,difficulty_3/match_sentence1.wav
+3,match,2,The teacher explained what match means.,difficulty_3/match_sentence2.wav
+3,match,3,Many people find match challenging to spell.,difficulty_3/match_sentence3.wav
+3,patch,1,The word patch is used in many ways.,difficulty_3/patch_sentence1.wav
+3,patch,2,The teacher explained what patch means.,difficulty_3/patch_sentence2.wav
+3,patch,3,Many people find patch challenging to spell.,difficulty_3/patch_sentence3.wav
+3,lunch,1,The word lunch is used in many ways.,difficulty_3/lunch_sentence1.wav
+3,lunch,2,The teacher explained what lunch means.,difficulty_3/lunch_sentence2.wav
+3,lunch,3,Many people find lunch challenging to spell.,difficulty_3/lunch_sentence3.wav
+3,bench,1,The word bench is used in many ways.,difficulty_3/bench_sentence1.wav
+3,bench,2,The teacher explained what bench means.,difficulty_3/bench_sentence2.wav
+3,bench,3,Many people find bench challenging to spell.,difficulty_3/bench_sentence3.wav
+3,branch,1,The word branch is used in many ways.,difficulty_3/branch_sentence1.wav
+3,branch,2,The teacher explained what branch means.,difficulty_3/branch_sentence2.wav
+3,branch,3,Many people find branch challenging to spell.,difficulty_3/branch_sentence3.wav
+3,crunch,1,The word crunch is used in many ways.,difficulty_3/crunch_sentence1.wav
+3,crunch,2,The teacher explained what crunch means.,difficulty_3/crunch_sentence2.wav
+3,crunch,3,Many people find crunch challenging to spell.,difficulty_3/crunch_sentence3.wav
+3,french,1,The word french is used in many ways.,difficulty_3/french_sentence1.wav
+3,french,2,The teacher explained what french means.,difficulty_3/french_sentence2.wav
+3,french,3,Many people find french challenging to spell.,difficulty_3/french_sentence3.wav
+4,beautiful,1,The word beautiful is used in many ways.,difficulty_4/beautiful_sentence1.wav
+4,beautiful,2,The teacher explained what beautiful means.,difficulty_4/beautiful_sentence2.wav
+4,beautiful,3,Many people find beautiful challenging to spell.,difficulty_4/beautiful_sentence3.wav
+4,different,1,The word different is used in many ways.,difficulty_4/different_sentence1.wav
+4,different,2,The teacher explained what different means.,difficulty_4/different_sentence2.wav
+4,different,3,Many people find different challenging to spell.,difficulty_4/different_sentence3.wav
+4,important,1,The word important is used in many ways.,difficulty_4/important_sentence1.wav
+4,important,2,The teacher explained what important means.,difficulty_4/important_sentence2.wav
+4,important,3,Many people find important challenging to spell.,difficulty_4/important_sentence3.wav
+4,together,1,The word together is used in many ways.,difficulty_4/together_sentence1.wav
+4,together,2,The teacher explained what together means.,difficulty_4/together_sentence2.wav
+4,together,3,Many people find together challenging to spell.,difficulty_4/together_sentence3.wav
+4,remember,1,The word remember is used in many ways.,difficulty_4/remember_sentence1.wav
+4,remember,2,The teacher explained what remember means.,difficulty_4/remember_sentence2.wav
+4,remember,3,Many people find remember challenging to spell.,difficulty_4/remember_sentence3.wav
+4,between,1,The word between is used in many ways.,difficulty_4/between_sentence1.wav
+4,between,2,The teacher explained what between means.,difficulty_4/between_sentence2.wav
+4,between,3,Many people find between challenging to spell.,difficulty_4/between_sentence3.wav
+4,another,1,The word another is used in many ways.,difficulty_4/another_sentence1.wav
+4,another,2,The teacher explained what another means.,difficulty_4/another_sentence2.wav
+4,another,3,Many people find another challenging to spell.,difficulty_4/another_sentence3.wav
+4,through,1,The word through is used in many ways.,difficulty_4/through_sentence1.wav
+4,through,2,The teacher explained what through means.,difficulty_4/through_sentence2.wav
+4,through,3,Many people find through challenging to spell.,difficulty_4/through_sentence3.wav
+4,thought,1,The word thought is used in many ways.,difficulty_4/thought_sentence1.wav
+4,thought,2,The teacher explained what thought means.,difficulty_4/thought_sentence2.wav
+4,thought,3,Many people find thought challenging to spell.,difficulty_4/thought_sentence3.wav
+4,brought,1,The word brought is used in many ways.,difficulty_4/brought_sentence1.wav
+4,brought,2,The teacher explained what brought means.,difficulty_4/brought_sentence2.wav
+4,brought,3,Many people find brought challenging to spell.,difficulty_4/brought_sentence3.wav
+4,daughter,1,The word daughter is used in many ways.,difficulty_4/daughter_sentence1.wav
+4,daughter,2,The teacher explained what daughter means.,difficulty_4/daughter_sentence2.wav
+4,daughter,3,Many people find daughter challenging to spell.,difficulty_4/daughter_sentence3.wav
+4,neighbor,1,The word neighbor is used in many ways.,difficulty_4/neighbor_sentence1.wav
+4,neighbor,2,The teacher explained what neighbor means.,difficulty_4/neighbor_sentence2.wav
+4,neighbor,3,Many people find neighbor challenging to spell.,difficulty_4/neighbor_sentence3.wav
+4,weight,1,The word weight is used in many ways.,difficulty_4/weight_sentence1.wav
+4,weight,2,The teacher explained what weight means.,difficulty_4/weight_sentence2.wav
+4,weight,3,Many people find weight challenging to spell.,difficulty_4/weight_sentence3.wav
+4,height,1,The word height is used in many ways.,difficulty_4/height_sentence1.wav
+4,height,2,The teacher explained what height means.,difficulty_4/height_sentence2.wav
+4,height,3,Many people find height challenging to spell.,difficulty_4/height_sentence3.wav
+4,straight,1,The word straight is used in many ways.,difficulty_4/straight_sentence1.wav
+4,straight,2,The teacher explained what straight means.,difficulty_4/straight_sentence2.wav
+4,straight,3,Many people find straight challenging to spell.,difficulty_4/straight_sentence3.wav
+4,caught,1,The word caught is used in many ways.,difficulty_4/caught_sentence1.wav
+4,caught,2,The teacher explained what caught means.,difficulty_4/caught_sentence2.wav
+4,caught,3,Many people find caught challenging to spell.,difficulty_4/caught_sentence3.wav
+4,taught,1,The word taught is used in many ways.,difficulty_4/taught_sentence1.wav
+4,taught,2,The teacher explained what taught means.,difficulty_4/taught_sentence2.wav
+4,taught,3,Many people find taught challenging to spell.,difficulty_4/taught_sentence3.wav
+4,bought,1,The word bought is used in many ways.,difficulty_4/bought_sentence1.wav
+4,bought,2,The teacher explained what bought means.,difficulty_4/bought_sentence2.wav
+4,bought,3,Many people find bought challenging to spell.,difficulty_4/bought_sentence3.wav
+4,fought,1,The word fought is used in many ways.,difficulty_4/fought_sentence1.wav
+4,fought,2,The teacher explained what fought means.,difficulty_4/fought_sentence2.wav
+4,fought,3,Many people find fought challenging to spell.,difficulty_4/fought_sentence3.wav
+4,sought,1,The word sought is used in many ways.,difficulty_4/sought_sentence1.wav
+4,sought,2,The teacher explained what sought means.,difficulty_4/sought_sentence2.wav
+4,sought,3,Many people find sought challenging to spell.,difficulty_4/sought_sentence3.wav
+5,character,1,The word character is used in many ways.,difficulty_5/character_sentence1.wav
+5,character,2,The teacher explained what character means.,difficulty_5/character_sentence2.wav
+5,character,3,Many people find character challenging to spell.,difficulty_5/character_sentence3.wav
+5,paragraph,1,The word paragraph is used in many ways.,difficulty_5/paragraph_sentence1.wav
+5,paragraph,2,The teacher explained what paragraph means.,difficulty_5/paragraph_sentence2.wav
+5,paragraph,3,Many people find paragraph challenging to spell.,difficulty_5/paragraph_sentence3.wav
+5,adventure,1,The word adventure is used in many ways.,difficulty_5/adventure_sentence1.wav
+5,adventure,2,The teacher explained what adventure means.,difficulty_5/adventure_sentence2.wav
+5,adventure,3,Many people find adventure challenging to spell.,difficulty_5/adventure_sentence3.wav
+5,attention,1,The word attention is used in many ways.,difficulty_5/attention_sentence1.wav
+5,attention,2,The teacher explained what attention means.,difficulty_5/attention_sentence2.wav
+5,attention,3,Many people find attention challenging to spell.,difficulty_5/attention_sentence3.wav
+5,celebrate,1,The word celebrate is used in many ways.,difficulty_5/celebrate_sentence1.wav
+5,celebrate,2,The teacher explained what celebrate means.,difficulty_5/celebrate_sentence2.wav
+5,celebrate,3,Many people find celebrate challenging to spell.,difficulty_5/celebrate_sentence3.wav
+5,community,1,The word community is used in many ways.,difficulty_5/community_sentence1.wav
+5,community,2,The teacher explained what community means.,difficulty_5/community_sentence2.wav
+5,community,3,Many people find community challenging to spell.,difficulty_5/community_sentence3.wav
+5,continue,1,The word continue is used in many ways.,difficulty_5/continue_sentence1.wav
+5,continue,2,The teacher explained what continue means.,difficulty_5/continue_sentence2.wav
+5,continue,3,Many people find continue challenging to spell.,difficulty_5/continue_sentence3.wav
+5,describe,1,The word describe is used in many ways.,difficulty_5/describe_sentence1.wav
+5,describe,2,The teacher explained what describe means.,difficulty_5/describe_sentence2.wav
+5,describe,3,Many people find describe challenging to spell.,difficulty_5/describe_sentence3.wav
+5,discover,1,The word discover is used in many ways.,difficulty_5/discover_sentence1.wav
+5,discover,2,The teacher explained what discover means.,difficulty_5/discover_sentence2.wav
+5,discover,3,Many people find discover challenging to spell.,difficulty_5/discover_sentence3.wav
+5,education,1,The word education is used in many ways.,difficulty_5/education_sentence1.wav
+5,education,2,The teacher explained what education means.,difficulty_5/education_sentence2.wav
+5,education,3,Many people find education challenging to spell.,difficulty_5/education_sentence3.wav
+5,especially,1,The word especially is used in many ways.,difficulty_5/especially_sentence1.wav
+5,especially,2,The teacher explained what especially means.,difficulty_5/especially_sentence2.wav
+5,especially,3,Many people find especially challenging to spell.,difficulty_5/especially_sentence3.wav
+5,experience,1,The word experience is used in many ways.,difficulty_5/experience_sentence1.wav
+5,experience,2,The teacher explained what experience means.,difficulty_5/experience_sentence2.wav
+5,experience,3,Many people find experience challenging to spell.,difficulty_5/experience_sentence3.wav
+5,favorite,1,The word favorite is used in many ways.,difficulty_5/favorite_sentence1.wav
+5,favorite,2,The teacher explained what favorite means.,difficulty_5/favorite_sentence2.wav
+5,favorite,3,Many people find favorite challenging to spell.,difficulty_5/favorite_sentence3.wav
+5,government,1,The word government is used in many ways.,difficulty_5/government_sentence1.wav
+5,government,2,The teacher explained what government means.,difficulty_5/government_sentence2.wav
+5,government,3,Many people find government challenging to spell.,difficulty_5/government_sentence3.wav
+5,important,1,The word important is used in many ways.,difficulty_5/important_sentence1.wav
+5,important,2,The teacher explained what important means.,difficulty_5/important_sentence2.wav
+5,important,3,Many people find important challenging to spell.,difficulty_5/important_sentence3.wav
+5,interested,1,The word interested is used in many ways.,difficulty_5/interested_sentence1.wav
+5,interested,2,The teacher explained what interested means.,difficulty_5/interested_sentence2.wav
+5,interested,3,Many people find interested challenging to spell.,difficulty_5/interested_sentence3.wav
+5,knowledge,1,The word knowledge is used in many ways.,difficulty_5/knowledge_sentence1.wav
+5,knowledge,2,The teacher explained what knowledge means.,difficulty_5/knowledge_sentence2.wav
+5,knowledge,3,Many people find knowledge challenging to spell.,difficulty_5/knowledge_sentence3.wav
+5,literature,1,The word literature is used in many ways.,difficulty_5/literature_sentence1.wav
+5,literature,2,The teacher explained what literature means.,difficulty_5/literature_sentence2.wav
+5,literature,3,Many people find literature challenging to spell.,difficulty_5/literature_sentence3.wav
+5,necessary,1,The word necessary is used in many ways.,difficulty_5/necessary_sentence1.wav
+5,necessary,2,The teacher explained what necessary means.,difficulty_5/necessary_sentence2.wav
+5,necessary,3,Many people find necessary challenging to spell.,difficulty_5/necessary_sentence3.wav
+5,particular,1,The word particular is used in many ways.,difficulty_5/particular_sentence1.wav
+5,particular,2,The teacher explained what particular means.,difficulty_5/particular_sentence2.wav
+5,particular,3,Many people find particular challenging to spell.,difficulty_5/particular_sentence3.wav
+6,accomplish,1,The word accomplish is used in many ways.,difficulty_6/accomplish_sentence1.wav
+6,accomplish,2,The teacher explained what accomplish means.,difficulty_6/accomplish_sentence2.wav
+6,accomplish,3,Many people find accomplish challenging to spell.,difficulty_6/accomplish_sentence3.wav
+6,throughout,1,The word throughout is used in many ways.,difficulty_6/throughout_sentence1.wav
+6,throughout,2,The teacher explained what throughout means.,difficulty_6/throughout_sentence2.wav
+6,throughout,3,Many people find throughout challenging to spell.,difficulty_6/throughout_sentence3.wav
+6,appreciate,1,The word appreciate is used in many ways.,difficulty_6/appreciate_sentence1.wav
+6,appreciate,2,The teacher explained what appreciate means.,difficulty_6/appreciate_sentence2.wav
+6,appreciate,3,Many people find appreciate challenging to spell.,difficulty_6/appreciate_sentence3.wav
+6,atmosphere,1,The word atmosphere is used in many ways.,difficulty_6/atmosphere_sentence1.wav
+6,atmosphere,2,The teacher explained what atmosphere means.,difficulty_6/atmosphere_sentence2.wav
+6,atmosphere,3,Many people find atmosphere challenging to spell.,difficulty_6/atmosphere_sentence3.wav
+6,boundaries,1,The word boundaries is used in many ways.,difficulty_6/boundaries_sentence1.wav
+6,boundaries,2,The teacher explained what boundaries means.,difficulty_6/boundaries_sentence2.wav
+6,boundaries,3,Many people find boundaries challenging to spell.,difficulty_6/boundaries_sentence3.wav
+6,challenge,1,The word challenge is used in many ways.,difficulty_6/challenge_sentence1.wav
+6,challenge,2,The teacher explained what challenge means.,difficulty_6/challenge_sentence2.wav
+6,challenge,3,Many people find challenge challenging to spell.,difficulty_6/challenge_sentence3.wav
+6,commercial,1,The word commercial is used in many ways.,difficulty_6/commercial_sentence1.wav
+6,commercial,2,The teacher explained what commercial means.,difficulty_6/commercial_sentence2.wav
+6,commercial,3,Many people find commercial challenging to spell.,difficulty_6/commercial_sentence3.wav
+6,competition,1,The word competition is used in many ways.,difficulty_6/competition_sentence1.wav
+6,competition,2,The teacher explained what competition means.,difficulty_6/competition_sentence2.wav
+6,competition,3,Many people find competition challenging to spell.,difficulty_6/competition_sentence3.wav
+6,concentrate,1,The word concentrate is used in many ways.,difficulty_6/concentrate_sentence1.wav
+6,concentrate,2,The teacher explained what concentrate means.,difficulty_6/concentrate_sentence2.wav
+6,concentrate,3,Many people find concentrate challenging to spell.,difficulty_6/concentrate_sentence3.wav
+6,conscience,1,The word conscience is used in many ways.,difficulty_6/conscience_sentence1.wav
+6,conscience,2,The teacher explained what conscience means.,difficulty_6/conscience_sentence2.wav
+6,conscience,3,Many people find conscience challenging to spell.,difficulty_6/conscience_sentence3.wav
+6,consequence,1,The word consequence is used in many ways.,difficulty_6/consequence_sentence1.wav
+6,consequence,2,The teacher explained what consequence means.,difficulty_6/consequence_sentence2.wav
+6,consequence,3,Many people find consequence challenging to spell.,difficulty_6/consequence_sentence3.wav
+6,consistent,1,The word consistent is used in many ways.,difficulty_6/consistent_sentence1.wav
+6,consistent,2,The teacher explained what consistent means.,difficulty_6/consistent_sentence2.wav
+6,consistent,3,Many people find consistent challenging to spell.,difficulty_6/consistent_sentence3.wav
+6,demonstrate,1,The word demonstrate is used in many ways.,difficulty_6/demonstrate_sentence1.wav
+6,demonstrate,2,The teacher explained what demonstrate means.,difficulty_6/demonstrate_sentence2.wav
+6,demonstrate,3,Many people find demonstrate challenging to spell.,difficulty_6/demonstrate_sentence3.wav
+6,development,1,The word development is used in many ways.,difficulty_6/development_sentence1.wav
+6,development,2,The teacher explained what development means.,difficulty_6/development_sentence2.wav
+6,development,3,Many people find development challenging to spell.,difficulty_6/development_sentence3.wav
+6,environment,1,The word environment is used in many ways.,difficulty_6/environment_sentence1.wav
+6,environment,2,The teacher explained what environment means.,difficulty_6/environment_sentence2.wav
+6,environment,3,Many people find environment challenging to spell.,difficulty_6/environment_sentence3.wav
+6,essentially,1,The word essentially is used in many ways.,difficulty_6/essentially_sentence1.wav
+6,essentially,2,The teacher explained what essentially means.,difficulty_6/essentially_sentence2.wav
+6,essentially,3,Many people find essentially challenging to spell.,difficulty_6/essentially_sentence3.wav
+6,exaggerate,1,The word exaggerate is used in many ways.,difficulty_6/exaggerate_sentence1.wav
+6,exaggerate,2,The teacher explained what exaggerate means.,difficulty_6/exaggerate_sentence2.wav
+6,exaggerate,3,Many people find exaggerate challenging to spell.,difficulty_6/exaggerate_sentence3.wav
+6,explanation,1,The word explanation is used in many ways.,difficulty_6/explanation_sentence1.wav
+6,explanation,2,The teacher explained what explanation means.,difficulty_6/explanation_sentence2.wav
+6,explanation,3,Many people find explanation challenging to spell.,difficulty_6/explanation_sentence3.wav
+6,extraordinary,1,The word extraordinary is used in many ways.,difficulty_6/extraordinary_sentence1.wav
+6,extraordinary,2,The teacher explained what extraordinary means.,difficulty_6/extraordinary_sentence2.wav
+6,extraordinary,3,Many people find extraordinary challenging to spell.,difficulty_6/extraordinary_sentence3.wav
+6,fascinating,1,The word fascinating is used in many ways.,difficulty_6/fascinating_sentence1.wav
+6,fascinating,2,The teacher explained what fascinating means.,difficulty_6/fascinating_sentence2.wav
+6,fascinating,3,Many people find fascinating challenging to spell.,difficulty_6/fascinating_sentence3.wav
+7,accommodate,1,The word accommodate is used in many ways.,difficulty_7/accommodate_sentence1.wav
+7,accommodate,2,The teacher explained what accommodate means.,difficulty_7/accommodate_sentence2.wav
+7,accommodate,3,Many people find accommodate challenging to spell.,difficulty_7/accommodate_sentence3.wav
+7,achievement,1,The word achievement is used in many ways.,difficulty_7/achievement_sentence1.wav
+7,achievement,2,The teacher explained what achievement means.,difficulty_7/achievement_sentence2.wav
+7,achievement,3,Many people find achievement challenging to spell.,difficulty_7/achievement_sentence3.wav
+7,acknowledge,1,The word acknowledge is used in many ways.,difficulty_7/acknowledge_sentence1.wav
+7,acknowledge,2,The teacher explained what acknowledge means.,difficulty_7/acknowledge_sentence2.wav
+7,acknowledge,3,Many people find acknowledge challenging to spell.,difficulty_7/acknowledge_sentence3.wav
+7,acquaintance,1,The word acquaintance is used in many ways.,difficulty_7/acquaintance_sentence1.wav
+7,acquaintance,2,The teacher explained what acquaintance means.,difficulty_7/acquaintance_sentence2.wav
+7,acquaintance,3,Many people find acquaintance challenging to spell.,difficulty_7/acquaintance_sentence3.wav
+7,advertisement,1,The word advertisement is used in many ways.,difficulty_7/advertisement_sentence1.wav
+7,advertisement,2,The teacher explained what advertisement means.,difficulty_7/advertisement_sentence2.wav
+7,advertisement,3,Many people find advertisement challenging to spell.,difficulty_7/advertisement_sentence3.wav
+7,anniversary,1,The word anniversary is used in many ways.,difficulty_7/anniversary_sentence1.wav
+7,anniversary,2,The teacher explained what anniversary means.,difficulty_7/anniversary_sentence2.wav
+7,anniversary,3,Many people find anniversary challenging to spell.,difficulty_7/anniversary_sentence3.wav
+7,anticipation,1,The word anticipation is used in many ways.,difficulty_7/anticipation_sentence1.wav
+7,anticipation,2,The teacher explained what anticipation means.,difficulty_7/anticipation_sentence2.wav
+7,anticipation,3,Many people find anticipation challenging to spell.,difficulty_7/anticipation_sentence3.wav
+7,appreciation,1,The word appreciation is used in many ways.,difficulty_7/appreciation_sentence1.wav
+7,appreciation,2,The teacher explained what appreciation means.,difficulty_7/appreciation_sentence2.wav
+7,appreciation,3,Many people find appreciation challenging to spell.,difficulty_7/appreciation_sentence3.wav
+7,approximately,1,The word approximately is used in many ways.,difficulty_7/approximately_sentence1.wav
+7,approximately,2,The teacher explained what approximately means.,difficulty_7/approximately_sentence2.wav
+7,approximately,3,Many people find approximately challenging to spell.,difficulty_7/approximately_sentence3.wav
+7,archaeological,1,The word archaeological is used in many ways.,difficulty_7/archaeological_sentence1.wav
+7,archaeological,2,The teacher explained what archaeological means.,difficulty_7/archaeological_sentence2.wav
+7,archaeological,3,Many people find archaeological challenging to spell.,difficulty_7/archaeological_sentence3.wav
+7,argumentative,1,The word argumentative is used in many ways.,difficulty_7/argumentative_sentence1.wav
+7,argumentative,2,The teacher explained what argumentative means.,difficulty_7/argumentative_sentence2.wav
+7,argumentative,3,Many people find argumentative challenging to spell.,difficulty_7/argumentative_sentence3.wav
+7,autobiography,1,The word autobiography is used in many ways.,difficulty_7/autobiography_sentence1.wav
+7,autobiography,2,The teacher explained what autobiography means.,difficulty_7/autobiography_sentence2.wav
+7,autobiography,3,Many people find autobiography challenging to spell.,difficulty_7/autobiography_sentence3.wav
+7,bibliography,1,The word bibliography is used in many ways.,difficulty_7/bibliography_sentence1.wav
+7,bibliography,2,The teacher explained what bibliography means.,difficulty_7/bibliography_sentence2.wav
+7,bibliography,3,Many people find bibliography challenging to spell.,difficulty_7/bibliography_sentence3.wav
+7,characteristic,1,The word characteristic is used in many ways.,difficulty_7/characteristic_sentence1.wav
+7,characteristic,2,The teacher explained what characteristic means.,difficulty_7/characteristic_sentence2.wav
+7,characteristic,3,Many people find characteristic challenging to spell.,difficulty_7/characteristic_sentence3.wav
+7,chronological,1,The word chronological is used in many ways.,difficulty_7/chronological_sentence1.wav
+7,chronological,2,The teacher explained what chronological means.,difficulty_7/chronological_sentence2.wav
+7,chronological,3,Many people find chronological challenging to spell.,difficulty_7/chronological_sentence3.wav
+7,circumstances,1,The word circumstances is used in many ways.,difficulty_7/circumstances_sentence1.wav
+7,circumstances,2,The teacher explained what circumstances means.,difficulty_7/circumstances_sentence2.wav
+7,circumstances,3,Many people find circumstances challenging to spell.,difficulty_7/circumstances_sentence3.wav
+7,classification,1,The word classification is used in many ways.,difficulty_7/classification_sentence1.wav
+7,classification,2,The teacher explained what classification means.,difficulty_7/classification_sentence2.wav
+7,classification,3,Many people find classification challenging to spell.,difficulty_7/classification_sentence3.wav
+7,collaboration,1,The word collaboration is used in many ways.,difficulty_7/collaboration_sentence1.wav
+7,collaboration,2,The teacher explained what collaboration means.,difficulty_7/collaboration_sentence2.wav
+7,collaboration,3,Many people find collaboration challenging to spell.,difficulty_7/collaboration_sentence3.wav
+7,commemorate,1,The word commemorate is used in many ways.,difficulty_7/commemorate_sentence1.wav
+7,commemorate,2,The teacher explained what commemorate means.,difficulty_7/commemorate_sentence2.wav
+7,commemorate,3,Many people find commemorate challenging to spell.,difficulty_7/commemorate_sentence3.wav
+7,communication,1,The word communication is used in many ways.,difficulty_7/communication_sentence1.wav
+7,communication,2,The teacher explained what communication means.,difficulty_7/communication_sentence2.wav
+7,communication,3,Many people find communication challenging to spell.,difficulty_7/communication_sentence3.wav
+8,abbreviation,1,The word abbreviation is used in many ways.,difficulty_8/abbreviation_sentence1.wav
+8,abbreviation,2,The teacher explained what abbreviation means.,difficulty_8/abbreviation_sentence2.wav
+8,abbreviation,3,Many people find abbreviation challenging to spell.,difficulty_8/abbreviation_sentence3.wav
+8,acceleration,1,The word acceleration is used in many ways.,difficulty_8/acceleration_sentence1.wav
+8,acceleration,2,The teacher explained what acceleration means.,difficulty_8/acceleration_sentence2.wav
+8,acceleration,3,Many people find acceleration challenging to spell.,difficulty_8/acceleration_sentence3.wav
+8,accessibility,1,The word accessibility is used in many ways.,difficulty_8/accessibility_sentence1.wav
+8,accessibility,2,The teacher explained what accessibility means.,difficulty_8/accessibility_sentence2.wav
+8,accessibility,3,Many people find accessibility challenging to spell.,difficulty_8/accessibility_sentence3.wav
+8,accomplishment,1,The word accomplishment is used in many ways.,difficulty_8/accomplishment_sentence1.wav
+8,accomplishment,2,The teacher explained what accomplishment means.,difficulty_8/accomplishment_sentence2.wav
+8,accomplishment,3,Many people find accomplishment challenging to spell.,difficulty_8/accomplishment_sentence3.wav
+8,accountability,1,The word accountability is used in many ways.,difficulty_8/accountability_sentence1.wav
+8,accountability,2,The teacher explained what accountability means.,difficulty_8/accountability_sentence2.wav
+8,accountability,3,Many people find accountability challenging to spell.,difficulty_8/accountability_sentence3.wav
+8,acknowledgement,1,The word acknowledgement is used in many ways.,difficulty_8/acknowledgement_sentence1.wav
+8,acknowledgement,2,The teacher explained what acknowledgement means.,difficulty_8/acknowledgement_sentence2.wav
+8,acknowledgement,3,Many people find acknowledgement challenging to spell.,difficulty_8/acknowledgement_sentence3.wav
+8,administration,1,The word administration is used in many ways.,difficulty_8/administration_sentence1.wav
+8,administration,2,The teacher explained what administration means.,difficulty_8/administration_sentence2.wav
+8,administration,3,Many people find administration challenging to spell.,difficulty_8/administration_sentence3.wav
+8,alphabetically,1,The word alphabetically is used in many ways.,difficulty_8/alphabetically_sentence1.wav
+8,alphabetically,2,The teacher explained what alphabetically means.,difficulty_8/alphabetically_sentence2.wav
+8,alphabetically,3,Many people find alphabetically challenging to spell.,difficulty_8/alphabetically_sentence3.wav
+8,announcements,1,The word announcements is used in many ways.,difficulty_8/announcements_sentence1.wav
+8,announcements,2,The teacher explained what announcements means.,difficulty_8/announcements_sentence2.wav
+8,announcements,3,Many people find announcements challenging to spell.,difficulty_8/announcements_sentence3.wav
+8,archaeological,1,The word archaeological is used in many ways.,difficulty_8/archaeological_sentence1.wav
+8,archaeological,2,The teacher explained what archaeological means.,difficulty_8/archaeological_sentence2.wav
+8,archaeological,3,Many people find archaeological challenging to spell.,difficulty_8/archaeological_sentence3.wav
+8,assassination,1,The word assassination is used in many ways.,difficulty_8/assassination_sentence1.wav
+8,assassination,2,The teacher explained what assassination means.,difficulty_8/assassination_sentence2.wav
+8,assassination,3,Many people find assassination challenging to spell.,difficulty_8/assassination_sentence3.wav
+8,authentication,1,The word authentication is used in many ways.,difficulty_8/authentication_sentence1.wav
+8,authentication,2,The teacher explained what authentication means.,difficulty_8/authentication_sentence2.wav
+8,authentication,3,Many people find authentication challenging to spell.,difficulty_8/authentication_sentence3.wav
+8,autobiography,1,The word autobiography is used in many ways.,difficulty_8/autobiography_sentence1.wav
+8,autobiography,2,The teacher explained what autobiography means.,difficulty_8/autobiography_sentence2.wav
+8,autobiography,3,Many people find autobiography challenging to spell.,difficulty_8/autobiography_sentence3.wav
+8,biodegradable,1,The word biodegradable is used in many ways.,difficulty_8/biodegradable_sentence1.wav
+8,biodegradable,2,The teacher explained what biodegradable means.,difficulty_8/biodegradable_sentence2.wav
+8,biodegradable,3,Many people find biodegradable challenging to spell.,difficulty_8/biodegradable_sentence3.wav
+8,characteristics,1,The word characteristics is used in many ways.,difficulty_8/characteristics_sentence1.wav
+8,characteristics,2,The teacher explained what characteristics means.,difficulty_8/characteristics_sentence2.wav
+8,characteristics,3,Many people find characteristics challenging to spell.,difficulty_8/characteristics_sentence3.wav
+8,circumference,1,The word circumference is used in many ways.,difficulty_8/circumference_sentence1.wav
+8,circumference,2,The teacher explained what circumference means.,difficulty_8/circumference_sentence2.wav
+8,circumference,3,Many people find circumference challenging to spell.,difficulty_8/circumference_sentence3.wav
+8,classification,1,The word classification is used in many ways.,difficulty_8/classification_sentence1.wav
+8,classification,2,The teacher explained what classification means.,difficulty_8/classification_sentence2.wav
+8,classification,3,Many people find classification challenging to spell.,difficulty_8/classification_sentence3.wav
+8,commercialize,1,The word commercialize is used in many ways.,difficulty_8/commercialize_sentence1.wav
+8,commercialize,2,The teacher explained what commercialize means.,difficulty_8/commercialize_sentence2.wav
+8,commercialize,3,Many people find commercialize challenging to spell.,difficulty_8/commercialize_sentence3.wav
+8,communication,1,The word communication is used in many ways.,difficulty_8/communication_sentence1.wav
+8,communication,2,The teacher explained what communication means.,difficulty_8/communication_sentence2.wav
+8,communication,3,Many people find communication challenging to spell.,difficulty_8/communication_sentence3.wav
+8,comprehensive,1,The word comprehensive is used in many ways.,difficulty_8/comprehensive_sentence1.wav
+8,comprehensive,2,The teacher explained what comprehensive means.,difficulty_8/comprehensive_sentence2.wav
+8,comprehensive,3,Many people find comprehensive challenging to spell.,difficulty_8/comprehensive_sentence3.wav
+9,accommodation,1,The word accommodation is used in many ways.,difficulty_9/accommodation_sentence1.wav
+9,accommodation,2,The teacher explained what accommodation means.,difficulty_9/accommodation_sentence2.wav
+9,accommodation,3,Many people find accommodation challenging to spell.,difficulty_9/accommodation_sentence3.wav
+9,accomplishment,1,The word accomplishment is used in many ways.,difficulty_9/accomplishment_sentence1.wav
+9,accomplishment,2,The teacher explained what accomplishment means.,difficulty_9/accomplishment_sentence2.wav
+9,accomplishment,3,Many people find accomplishment challenging to spell.,difficulty_9/accomplishment_sentence3.wav
+9,acknowledgment,1,The word acknowledgment is used in many ways.,difficulty_9/acknowledgment_sentence1.wav
+9,acknowledgment,2,The teacher explained what acknowledgment means.,difficulty_9/acknowledgment_sentence2.wav
+9,acknowledgment,3,Many people find acknowledgment challenging to spell.,difficulty_9/acknowledgment_sentence3.wav
+9,administration,1,The word administration is used in many ways.,difficulty_9/administration_sentence1.wav
+9,administration,2,The teacher explained what administration means.,difficulty_9/administration_sentence2.wav
+9,administration,3,Many people find administration challenging to spell.,difficulty_9/administration_sentence3.wav
+9,alphabetically,1,The word alphabetically is used in many ways.,difficulty_9/alphabetically_sentence1.wav
+9,alphabetically,2,The teacher explained what alphabetically means.,difficulty_9/alphabetically_sentence2.wav
+9,alphabetically,3,Many people find alphabetically challenging to spell.,difficulty_9/alphabetically_sentence3.wav
+9,announcements,1,The word announcements is used in many ways.,difficulty_9/announcements_sentence1.wav
+9,announcements,2,The teacher explained what announcements means.,difficulty_9/announcements_sentence2.wav
+9,announcements,3,Many people find announcements challenging to spell.,difficulty_9/announcements_sentence3.wav
+9,approximately,1,The word approximately is used in many ways.,difficulty_9/approximately_sentence1.wav
+9,approximately,2,The teacher explained what approximately means.,difficulty_9/approximately_sentence2.wav
+9,approximately,3,Many people find approximately challenging to spell.,difficulty_9/approximately_sentence3.wav
+9,archaeological,1,The word archaeological is used in many ways.,difficulty_9/archaeological_sentence1.wav
+9,archaeological,2,The teacher explained what archaeological means.,difficulty_9/archaeological_sentence2.wav
+9,archaeological,3,Many people find archaeological challenging to spell.,difficulty_9/archaeological_sentence3.wav
+9,authentication,1,The word authentication is used in many ways.,difficulty_9/authentication_sentence1.wav
+9,authentication,2,The teacher explained what authentication means.,difficulty_9/authentication_sentence2.wav
+9,authentication,3,Many people find authentication challenging to spell.,difficulty_9/authentication_sentence3.wav
+9,autobiography,1,The word autobiography is used in many ways.,difficulty_9/autobiography_sentence1.wav
+9,autobiography,2,The teacher explained what autobiography means.,difficulty_9/autobiography_sentence2.wav
+9,autobiography,3,Many people find autobiography challenging to spell.,difficulty_9/autobiography_sentence3.wav
+9,biodegradable,1,The word biodegradable is used in many ways.,difficulty_9/biodegradable_sentence1.wav
+9,biodegradable,2,The teacher explained what biodegradable means.,difficulty_9/biodegradable_sentence2.wav
+9,biodegradable,3,Many people find biodegradable challenging to spell.,difficulty_9/biodegradable_sentence3.wav
+9,characteristics,1,The word characteristics is used in many ways.,difficulty_9/characteristics_sentence1.wav
+9,characteristics,2,The teacher explained what characteristics means.,difficulty_9/characteristics_sentence2.wav
+9,characteristics,3,Many people find characteristics challenging to spell.,difficulty_9/characteristics_sentence3.wav
+9,chronological,1,The word chronological is used in many ways.,difficulty_9/chronological_sentence1.wav
+9,chronological,2,The teacher explained what chronological means.,difficulty_9/chronological_sentence2.wav
+9,chronological,3,Many people find chronological challenging to spell.,difficulty_9/chronological_sentence3.wav
+9,circumference,1,The word circumference is used in many ways.,difficulty_9/circumference_sentence1.wav
+9,circumference,2,The teacher explained what circumference means.,difficulty_9/circumference_sentence2.wav
+9,circumference,3,Many people find circumference challenging to spell.,difficulty_9/circumference_sentence3.wav
+9,classification,1,The word classification is used in many ways.,difficulty_9/classification_sentence1.wav
+9,classification,2,The teacher explained what classification means.,difficulty_9/classification_sentence2.wav
+9,classification,3,Many people find classification challenging to spell.,difficulty_9/classification_sentence3.wav
+9,collaboration,1,The word collaboration is used in many ways.,difficulty_9/collaboration_sentence1.wav
+9,collaboration,2,The teacher explained what collaboration means.,difficulty_9/collaboration_sentence2.wav
+9,collaboration,3,Many people find collaboration challenging to spell.,difficulty_9/collaboration_sentence3.wav
+9,commercialize,1,The word commercialize is used in many ways.,difficulty_9/commercialize_sentence1.wav
+9,commercialize,2,The teacher explained what commercialize means.,difficulty_9/commercialize_sentence2.wav
+9,commercialize,3,Many people find commercialize challenging to spell.,difficulty_9/commercialize_sentence3.wav
+9,communication,1,The word communication is used in many ways.,difficulty_9/communication_sentence1.wav
+9,communication,2,The teacher explained what communication means.,difficulty_9/communication_sentence2.wav
+9,communication,3,Many people find communication challenging to spell.,difficulty_9/communication_sentence3.wav
+9,comprehensive,1,The word comprehensive is used in many ways.,difficulty_9/comprehensive_sentence1.wav
+9,comprehensive,2,The teacher explained what comprehensive means.,difficulty_9/comprehensive_sentence2.wav
+9,comprehensive,3,Many people find comprehensive challenging to spell.,difficulty_9/comprehensive_sentence3.wav
+9,confederation,1,The word confederation is used in many ways.,difficulty_9/confederation_sentence1.wav
+9,confederation,2,The teacher explained what confederation means.,difficulty_9/confederation_sentence2.wav
+9,confederation,3,Many people find confederation challenging to spell.,difficulty_9/confederation_sentence3.wav
+10,conscientious,1,The word conscientious is used in many ways.,difficulty_10/conscientious_sentence1.wav
+10,conscientious,2,The teacher explained what conscientious means.,difficulty_10/conscientious_sentence2.wav
+10,conscientious,3,Many people find conscientious challenging to spell.,difficulty_10/conscientious_sentence3.wav
+10,correspondence,1,The word correspondence is used in many ways.,difficulty_10/correspondence_sentence1.wav
+10,correspondence,2,The teacher explained what correspondence means.,difficulty_10/correspondence_sentence2.wav
+10,correspondence,3,Many people find correspondence challenging to spell.,difficulty_10/correspondence_sentence3.wav
+10,discrimination,1,The word discrimination is used in many ways.,difficulty_10/discrimination_sentence1.wav
+10,discrimination,2,The teacher explained what discrimination means.,difficulty_10/discrimination_sentence2.wav
+10,discrimination,3,Many people find discrimination challenging to spell.,difficulty_10/discrimination_sentence3.wav
+10,electromagnetic,1,The word electromagnetic is used in many ways.,difficulty_10/electromagnetic_sentence1.wav
+10,electromagnetic,2,The teacher explained what electromagnetic means.,difficulty_10/electromagnetic_sentence2.wav
+10,electromagnetic,3,Many people find electromagnetic challenging to spell.,difficulty_10/electromagnetic_sentence3.wav
+10,entrepreneurial,1,The word entrepreneurial is used in many ways.,difficulty_10/entrepreneurial_sentence1.wav
+10,entrepreneurial,2,The teacher explained what entrepreneurial means.,difficulty_10/entrepreneurial_sentence2.wav
+10,entrepreneurial,3,Many people find entrepreneurial challenging to spell.,difficulty_10/entrepreneurial_sentence3.wav
+10,environmental,1,The word environmental is used in many ways.,difficulty_10/environmental_sentence1.wav
+10,environmental,2,The teacher explained what environmental means.,difficulty_10/environmental_sentence2.wav
+10,environmental,3,Many people find environmental challenging to spell.,difficulty_10/environmental_sentence3.wav
+10,fundamentalism,1,The word fundamentalism is used in many ways.,difficulty_10/fundamentalism_sentence1.wav
+10,fundamentalism,2,The teacher explained what fundamentalism means.,difficulty_10/fundamentalism_sentence2.wav
+10,fundamentalism,3,Many people find fundamentalism challenging to spell.,difficulty_10/fundamentalism_sentence3.wav
+10,hallucination,1,The word hallucination is used in many ways.,difficulty_10/hallucination_sentence1.wav
+10,hallucination,2,The teacher explained what hallucination means.,difficulty_10/hallucination_sentence2.wav
+10,hallucination,3,Many people find hallucination challenging to spell.,difficulty_10/hallucination_sentence3.wav
+10,hospitalization,1,The word hospitalization is used in many ways.,difficulty_10/hospitalization_sentence1.wav
+10,hospitalization,2,The teacher explained what hospitalization means.,difficulty_10/hospitalization_sentence2.wav
+10,hospitalization,3,Many people find hospitalization challenging to spell.,difficulty_10/hospitalization_sentence3.wav
+10,hypothetically,1,The word hypothetically is used in many ways.,difficulty_10/hypothetically_sentence1.wav
+10,hypothetically,2,The teacher explained what hypothetically means.,difficulty_10/hypothetically_sentence2.wav
+10,hypothetically,3,Many people find hypothetically challenging to spell.,difficulty_10/hypothetically_sentence3.wav
+10,identification,1,The word identification is used in many ways.,difficulty_10/identification_sentence1.wav
+10,identification,2,The teacher explained what identification means.,difficulty_10/identification_sentence2.wav
+10,identification,3,Many people find identification challenging to spell.,difficulty_10/identification_sentence3.wav
+10,implementation,1,The word implementation is used in many ways.,difficulty_10/implementation_sentence1.wav
+10,implementation,2,The teacher explained what implementation means.,difficulty_10/implementation_sentence2.wav
+10,implementation,3,Many people find implementation challenging to spell.,difficulty_10/implementation_sentence3.wav
+10,impressionable,1,The word impressionable is used in many ways.,difficulty_10/impressionable_sentence1.wav
+10,impressionable,2,The teacher explained what impressionable means.,difficulty_10/impressionable_sentence2.wav
+10,impressionable,3,Many people find impressionable challenging to spell.,difficulty_10/impressionable_sentence3.wav
+10,incomprehensible,1,The word incomprehensible is used in many ways.,difficulty_10/incomprehensible_sentence1.wav
+10,incomprehensible,2,The teacher explained what incomprehensible means.,difficulty_10/incomprehensible_sentence2.wav
+10,incomprehensible,3,Many people find incomprehensible challenging to spell.,difficulty_10/incomprehensible_sentence3.wav
+10,individualism,1,The word individualism is used in many ways.,difficulty_10/individualism_sentence1.wav
+10,individualism,2,The teacher explained what individualism means.,difficulty_10/individualism_sentence2.wav
+10,individualism,3,Many people find individualism challenging to spell.,difficulty_10/individualism_sentence3.wav
+10,industrialization,1,The word industrialization is used in many ways.,difficulty_10/industrialization_sentence1.wav
+10,industrialization,2,The teacher explained what industrialization means.,difficulty_10/industrialization_sentence2.wav
+10,industrialization,3,Many people find industrialization challenging to spell.,difficulty_10/industrialization_sentence3.wav
+10,infrastructure,1,The word infrastructure is used in many ways.,difficulty_10/infrastructure_sentence1.wav
+10,infrastructure,2,The teacher explained what infrastructure means.,difficulty_10/infrastructure_sentence2.wav
+10,infrastructure,3,Many people find infrastructure challenging to spell.,difficulty_10/infrastructure_sentence3.wav
+10,institutionalize,1,The word institutionalize is used in many ways.,difficulty_10/institutionalize_sentence1.wav
+10,institutionalize,2,The teacher explained what institutionalize means.,difficulty_10/institutionalize_sentence2.wav
+10,institutionalize,3,Many people find institutionalize challenging to spell.,difficulty_10/institutionalize_sentence3.wav
+10,instrumentation,1,The word instrumentation is used in many ways.,difficulty_10/instrumentation_sentence1.wav
+10,instrumentation,2,The teacher explained what instrumentation means.,difficulty_10/instrumentation_sentence2.wav
+10,instrumentation,3,Many people find instrumentation challenging to spell.,difficulty_10/instrumentation_sentence3.wav
+10,intellectualism,1,The word intellectualism is used in many ways.,difficulty_10/intellectualism_sentence1.wav
+10,intellectualism,2,The teacher explained what intellectualism means.,difficulty_10/intellectualism_sentence2.wav
+10,intellectualism,3,Many people find intellectualism challenging to spell.,difficulty_10/intellectualism_sentence3.wav
+11,acknowledgeable,1,The word acknowledgeable is used in many ways.,difficulty_11/acknowledgeable_sentence1.wav
+11,acknowledgeable,2,The teacher explained what acknowledgeable means.,difficulty_11/acknowledgeable_sentence2.wav
+11,acknowledgeable,3,Many people find acknowledgeable challenging to spell.,difficulty_11/acknowledgeable_sentence3.wav
+11,characterization,1,The word characterization is used in many ways.,difficulty_11/characterization_sentence1.wav
+11,characterization,2,The teacher explained what characterization means.,difficulty_11/characterization_sentence2.wav
+11,characterization,3,Many people find characterization challenging to spell.,difficulty_11/characterization_sentence3.wav
+11,circumstantial,1,The word circumstantial is used in many ways.,difficulty_11/circumstantial_sentence1.wav
+11,circumstantial,2,The teacher explained what circumstantial means.,difficulty_11/circumstantial_sentence2.wav
+11,circumstantial,3,Many people find circumstantial challenging to spell.,difficulty_11/circumstantial_sentence3.wav
+11,commercialization,1,The word commercialization is used in many ways.,difficulty_11/commercialization_sentence1.wav
+11,commercialization,2,The teacher explained what commercialization means.,difficulty_11/commercialization_sentence2.wav
+11,commercialization,3,Many people find commercialization challenging to spell.,difficulty_11/commercialization_sentence3.wav
+11,compartmentalize,1,The word compartmentalize is used in many ways.,difficulty_11/compartmentalize_sentence1.wav
+11,compartmentalize,2,The teacher explained what compartmentalize means.,difficulty_11/compartmentalize_sentence2.wav
+11,compartmentalize,3,Many people find compartmentalize challenging to spell.,difficulty_11/compartmentalize_sentence3.wav
+11,comprehensibility,1,The word comprehensibility is used in many ways.,difficulty_11/comprehensibility_sentence1.wav
+11,comprehensibility,2,The teacher explained what comprehensibility means.,difficulty_11/comprehensibility_sentence2.wav
+11,comprehensibility,3,Many people find comprehensibility challenging to spell.,difficulty_11/comprehensibility_sentence3.wav
+11,conceptualization,1,The word conceptualization is used in many ways.,difficulty_11/conceptualization_sentence1.wav
+11,conceptualization,2,The teacher explained what conceptualization means.,difficulty_11/conceptualization_sentence2.wav
+11,conceptualization,3,Many people find conceptualization challenging to spell.,difficulty_11/conceptualization_sentence3.wav
+11,confidentiality,1,The word confidentiality is used in many ways.,difficulty_11/confidentiality_sentence1.wav
+11,confidentiality,2,The teacher explained what confidentiality means.,difficulty_11/confidentiality_sentence2.wav
+11,confidentiality,3,Many people find confidentiality challenging to spell.,difficulty_11/confidentiality_sentence3.wav
+11,congratulations,1,The word congratulations is used in many ways.,difficulty_11/congratulations_sentence1.wav
+11,congratulations,2,The teacher explained what congratulations means.,difficulty_11/congratulations_sentence2.wav
+11,congratulations,3,Many people find congratulations challenging to spell.,difficulty_11/congratulations_sentence3.wav
+11,conscientiously,1,The word conscientiously is used in many ways.,difficulty_11/conscientiously_sentence1.wav
+11,conscientiously,2,The teacher explained what conscientiously means.,difficulty_11/conscientiously_sentence2.wav
+11,conscientiously,3,Many people find conscientiously challenging to spell.,difficulty_11/conscientiously_sentence3.wav
+11,constitutionality,1,The word constitutionality is used in many ways.,difficulty_11/constitutionality_sentence1.wav
+11,constitutionality,2,The teacher explained what constitutionality means.,difficulty_11/constitutionality_sentence2.wav
+11,constitutionality,3,Many people find constitutionality challenging to spell.,difficulty_11/constitutionality_sentence3.wav
+11,contemporaneous,1,The word contemporaneous is used in many ways.,difficulty_11/contemporaneous_sentence1.wav
+11,contemporaneous,2,The teacher explained what contemporaneous means.,difficulty_11/contemporaneous_sentence2.wav
+11,contemporaneous,3,Many people find contemporaneous challenging to spell.,difficulty_11/contemporaneous_sentence3.wav
+11,conventionalize,1,The word conventionalize is used in many ways.,difficulty_11/conventionalize_sentence1.wav
+11,conventionalize,2,The teacher explained what conventionalize means.,difficulty_11/conventionalize_sentence2.wav
+11,conventionalize,3,Many people find conventionalize challenging to spell.,difficulty_11/conventionalize_sentence3.wav
+11,correspondence,1,The word correspondence is used in many ways.,difficulty_11/correspondence_sentence1.wav
+11,correspondence,2,The teacher explained what correspondence means.,difficulty_11/correspondence_sentence2.wav
+11,correspondence,3,Many people find correspondence challenging to spell.,difficulty_11/correspondence_sentence3.wav
+11,counterproductive,1,The word counterproductive is used in many ways.,difficulty_11/counterproductive_sentence1.wav
+11,counterproductive,2,The teacher explained what counterproductive means.,difficulty_11/counterproductive_sentence2.wav
+11,counterproductive,3,Many people find counterproductive challenging to spell.,difficulty_11/counterproductive_sentence3.wav
+11,crystallization,1,The word crystallization is used in many ways.,difficulty_11/crystallization_sentence1.wav
+11,crystallization,2,The teacher explained what crystallization means.,difficulty_11/crystallization_sentence2.wav
+11,crystallization,3,Many people find crystallization challenging to spell.,difficulty_11/crystallization_sentence3.wav
+11,decentralization,1,The word decentralization is used in many ways.,difficulty_11/decentralization_sentence1.wav
+11,decentralization,2,The teacher explained what decentralization means.,difficulty_11/decentralization_sentence2.wav
+11,decentralization,3,Many people find decentralization challenging to spell.,difficulty_11/decentralization_sentence3.wav
+11,demilitarization,1,The word demilitarization is used in many ways.,difficulty_11/demilitarization_sentence1.wav
+11,demilitarization,2,The teacher explained what demilitarization means.,difficulty_11/demilitarization_sentence2.wav
+11,demilitarization,3,Many people find demilitarization challenging to spell.,difficulty_11/demilitarization_sentence3.wav
+11,democratization,1,The word democratization is used in many ways.,difficulty_11/democratization_sentence1.wav
+11,democratization,2,The teacher explained what democratization means.,difficulty_11/democratization_sentence2.wav
+11,democratization,3,Many people find democratization challenging to spell.,difficulty_11/democratization_sentence3.wav
+11,departmentalize,1,The word departmentalize is used in many ways.,difficulty_11/departmentalize_sentence1.wav
+11,departmentalize,2,The teacher explained what departmentalize means.,difficulty_11/departmentalize_sentence2.wav
+11,departmentalize,3,Many people find departmentalize challenging to spell.,difficulty_11/departmentalize_sentence3.wav
+12,autobiographical,1,The word autobiographical is used in many ways.,difficulty_12/autobiographical_sentence1.wav
+12,autobiographical,2,The teacher explained what autobiographical means.,difficulty_12/autobiographical_sentence2.wav
+12,autobiographical,3,Many people find autobiographical challenging to spell.,difficulty_12/autobiographical_sentence3.wav
+12,characteristically,1,The word characteristically is used in many ways.,difficulty_12/characteristically_sentence1.wav
+12,characteristically,2,The teacher explained what characteristically means.,difficulty_12/characteristically_sentence2.wav
+12,characteristically,3,Many people find characteristically challenging to spell.,difficulty_12/characteristically_sentence3.wav
+12,compartmentalization,1,The word compartmentalization is used in many ways.,difficulty_12/compartmentalization_sentence1.wav
+12,compartmentalization,2,The teacher explained what compartmentalization means.,difficulty_12/compartmentalization_sentence2.wav
+12,compartmentalization,3,Many people find compartmentalization challenging to spell.,difficulty_12/compartmentalization_sentence3.wav
+12,comprehensively,1,The word comprehensively is used in many ways.,difficulty_12/comprehensively_sentence1.wav
+12,comprehensively,2,The teacher explained what comprehensively means.,difficulty_12/comprehensively_sentence2.wav
+12,comprehensively,3,Many people find comprehensively challenging to spell.,difficulty_12/comprehensively_sentence3.wav
+12,conceptualization,1,The word conceptualization is used in many ways.,difficulty_12/conceptualization_sentence1.wav
+12,conceptualization,2,The teacher explained what conceptualization means.,difficulty_12/conceptualization_sentence2.wav
+12,conceptualization,3,Many people find conceptualization challenging to spell.,difficulty_12/conceptualization_sentence3.wav
+12,confidentiality,1,The word confidentiality is used in many ways.,difficulty_12/confidentiality_sentence1.wav
+12,confidentiality,2,The teacher explained what confidentiality means.,difficulty_12/confidentiality_sentence2.wav
+12,confidentiality,3,Many people find confidentiality challenging to spell.,difficulty_12/confidentiality_sentence3.wav
+12,congratulatory,1,The word congratulatory is used in many ways.,difficulty_12/congratulatory_sentence1.wav
+12,congratulatory,2,The teacher explained what congratulatory means.,difficulty_12/congratulatory_sentence2.wav
+12,congratulatory,3,Many people find congratulatory challenging to spell.,difficulty_12/congratulatory_sentence3.wav
+12,conscientiously,1,The word conscientiously is used in many ways.,difficulty_12/conscientiously_sentence1.wav
+12,conscientiously,2,The teacher explained what conscientiously means.,difficulty_12/conscientiously_sentence2.wav
+12,conscientiously,3,Many people find conscientiously challenging to spell.,difficulty_12/conscientiously_sentence3.wav
+12,constitutionally,1,The word constitutionally is used in many ways.,difficulty_12/constitutionally_sentence1.wav
+12,constitutionally,2,The teacher explained what constitutionally means.,difficulty_12/constitutionally_sentence2.wav
+12,constitutionally,3,Many people find constitutionally challenging to spell.,difficulty_12/constitutionally_sentence3.wav
+12,contemporaneously,1,The word contemporaneously is used in many ways.,difficulty_12/contemporaneously_sentence1.wav
+12,contemporaneously,2,The teacher explained what contemporaneously means.,difficulty_12/contemporaneously_sentence2.wav
+12,contemporaneously,3,Many people find contemporaneously challenging to spell.,difficulty_12/contemporaneously_sentence3.wav
+12,conventionally,1,The word conventionally is used in many ways.,difficulty_12/conventionally_sentence1.wav
+12,conventionally,2,The teacher explained what conventionally means.,difficulty_12/conventionally_sentence2.wav
+12,conventionally,3,Many people find conventionally challenging to spell.,difficulty_12/conventionally_sentence3.wav
+12,correspondingly,1,The word correspondingly is used in many ways.,difficulty_12/correspondingly_sentence1.wav
+12,correspondingly,2,The teacher explained what correspondingly means.,difficulty_12/correspondingly_sentence2.wav
+12,correspondingly,3,Many people find correspondingly challenging to spell.,difficulty_12/correspondingly_sentence3.wav
+12,counterproductively,1,The word counterproductively is used in many ways.,difficulty_12/counterproductively_sentence1.wav
+12,counterproductively,2,The teacher explained what counterproductively means.,difficulty_12/counterproductively_sentence2.wav
+12,counterproductively,3,Many people find counterproductively challenging to spell.,difficulty_12/counterproductively_sentence3.wav
+12,crystallographic,1,The word crystallographic is used in many ways.,difficulty_12/crystallographic_sentence1.wav
+12,crystallographic,2,The teacher explained what crystallographic means.,difficulty_12/crystallographic_sentence2.wav
+12,crystallographic,3,Many people find crystallographic challenging to spell.,difficulty_12/crystallographic_sentence3.wav
+12,decentralization,1,The word decentralization is used in many ways.,difficulty_12/decentralization_sentence1.wav
+12,decentralization,2,The teacher explained what decentralization means.,difficulty_12/decentralization_sentence2.wav
+12,decentralization,3,Many people find decentralization challenging to spell.,difficulty_12/decentralization_sentence3.wav
+12,demilitarization,1,The word demilitarization is used in many ways.,difficulty_12/demilitarization_sentence1.wav
+12,demilitarization,2,The teacher explained what demilitarization means.,difficulty_12/demilitarization_sentence2.wav
+12,demilitarization,3,Many people find demilitarization challenging to spell.,difficulty_12/demilitarization_sentence3.wav
+12,democratization,1,The word democratization is used in many ways.,difficulty_12/democratization_sentence1.wav
+12,democratization,2,The teacher explained what democratization means.,difficulty_12/democratization_sentence2.wav
+12,democratization,3,Many people find democratization challenging to spell.,difficulty_12/democratization_sentence3.wav
+12,departmentalization,1,The word departmentalization is used in many ways.,difficulty_12/departmentalization_sentence1.wav
+12,departmentalization,2,The teacher explained what departmentalization means.,difficulty_12/departmentalization_sentence2.wav
+12,departmentalization,3,Many people find departmentalization challenging to spell.,difficulty_12/departmentalization_sentence3.wav
+12,deterministically,1,The word deterministically is used in many ways.,difficulty_12/deterministically_sentence1.wav
+12,deterministically,2,The teacher explained what deterministically means.,difficulty_12/deterministically_sentence2.wav
+12,deterministically,3,Many people find deterministically challenging to spell.,difficulty_12/deterministically_sentence3.wav
+12,developmentally,1,The word developmentally is used in many ways.,difficulty_12/developmentally_sentence1.wav
+12,developmentally,2,The teacher explained what developmentally means.,difficulty_12/developmentally_sentence2.wav
+12,developmentally,3,Many people find developmentally challenging to spell.,difficulty_12/developmentally_sentence3.wav

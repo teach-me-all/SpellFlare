@@ -35,6 +35,11 @@ class GameViewModel: ObservableObject {
     @Published var currentWordRetryCount: Int = 0
     @Published var hasSeenKeyboardHint: Bool = false
 
+    // MARK: - Give Up Animation State
+    @Published var isSpellingOut = false
+    @Published var currentSpellingLetters: [String] = []
+    @Published var animatedLetterIndex: Int = 0
+
     // MARK: - Services
     private let speechService = SpeechService.shared
     private let wordBank = WordBankService.shared
@@ -124,13 +129,28 @@ class GameViewModel: ObservableObject {
     }
 
     func submitSpelling() {
-        guard let word = currentWord else { return }
+        print("🔴 GameViewModel.submitSpelling() called")
+        print("🔴 Current phase: \(phase)")
+        print("🔴 Current word: \(currentWord?.text ?? "nil")")
+        print("🔴 User spelling: '\(userSpelling)'")
 
-        if SpeechService.validateSpelling(userInput: userSpelling, correctWord: word.text) {
+        guard let word = currentWord else {
+            print("❌ No current word, returning")
+            return
+        }
+
+        let isCorrect = SpeechService.validateSpelling(userInput: userSpelling, correctWord: word.text)
+        print("🔴 Validation result: \(isCorrect ? "CORRECT" : "INCORRECT")")
+
+        if isCorrect {
+            print("✅ Calling handleCorrectAnswer()")
             handleCorrectAnswer()
         } else {
+            print("❌ Calling handleIncorrectAnswer()")
             handleIncorrectAnswer()
         }
+
+        print("🔴 After handling answer, phase is now: \(phase)")
     }
 
     private func handleCorrectAnswer() {
@@ -201,26 +221,62 @@ class GameViewModel: ObservableObject {
         guard let word = currentWord else { return }
 
         showRetryOption = false
+        isSpellingOut = true
 
-        // First, wait for feedback to complete
+        // Prepare letters array
+        let letters = word.text.uppercased().map { String($0) }
+        currentSpellingLetters = letters
+        animatedLetterIndex = 0
+
+        // First, speak feedback
         speechService.speakFeedback("The correct spelling is") {
-            // Then start spelling after feedback finishes
             Task {
-                try? await Task.sleep(nanoseconds: 500_000_000)  // Short pause between feedback and spelling
+                try? await Task.sleep(nanoseconds: 300_000_000)  // 0.3s pause
                 await MainActor.run {
-                    self.speechService.spellWord(word.text, difficulty: word.difficulty) {
-                        // Wait for spelling to complete before advancing
-                        Task {
-                            try? await Task.sleep(nanoseconds: 500_000_000)  // Short pause after spelling
-                            await MainActor.run {
-                                self.session?.markIncorrect()
-                                self.advanceToNextWord()
-                            }
-                        }
+                    // Now spell word letter by letter with individual letter audio
+                    self.spellWordWithLetterAnimation(letters: letters)
+                }
+            }
+        }
+    }
+
+    private func spellWordWithLetterAnimation(letters: [String]) {
+        let audioService = AudioPlaybackService.shared
+
+        // Play each letter sequentially with animation
+        func playNextLetter(index: Int) {
+            guard index < letters.count else {
+                // All letters done
+                Task {
+                    try? await Task.sleep(nanoseconds: 1_000_000_000)  // 1s pause
+                    await MainActor.run {
+                        self.isSpellingOut = false
+                        self.currentSpellingLetters = []
+                        self.animatedLetterIndex = 0
+                        self.session?.markIncorrect()
+                        self.advanceToNextWord()
+                    }
+                }
+                return
+            }
+
+            // Animate this letter appearing
+            animatedLetterIndex = index
+
+            // Play letter audio
+            let letter = letters[index]
+            audioService.playLetter(letter) {
+                // After this letter's audio finishes, play next
+                Task {
+                    try? await Task.sleep(nanoseconds: 200_000_000)  // 0.2s pause between letters
+                    await MainActor.run {
+                        playNextLetter(index: index + 1)
                     }
                 }
             }
         }
+
+        playNextLetter(index: 0)
     }
 
     private func advanceToNextWord() {
@@ -256,5 +312,10 @@ class GameViewModel: ObservableObject {
     func cleanup() {
         speechService.stopSpeaking()
         speechService.stopListening()
+
+        // Reset animation state
+        isSpellingOut = false
+        currentSpellingLetters = []
+        animatedLetterIndex = 0
     }
 }

@@ -1,0 +1,5053 @@
+{
+  "metadata": {
+    "total_files": 720,
+    "total_words": 240,
+    "sentences_per_word": 3,
+    "voice": "Lisa",
+    "format": "WAV (44.1kHz, 16-bit, mono)",
+    "output_directory": "spelling-bee iOS App/Resources/Audio/Lisa/sentences/",
+    "generated_by": "generate_sentences_json.py"
+  },
+  "sentences": [
+    {
+      "difficulty": 1,
+      "word": "cat",
+      "sentenceNumber": 1,
+      "text": "The cat is sleeping on the couch.",
+      "outputFile": "difficulty_1/cat_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "cat",
+      "sentenceNumber": 2,
+      "text": "I saw a black cat in the garden.",
+      "outputFile": "difficulty_1/cat_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "cat",
+      "sentenceNumber": 3,
+      "text": "My cat loves to play with yarn.",
+      "outputFile": "difficulty_1/cat_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "dog",
+      "sentenceNumber": 1,
+      "text": "The dog barked at the mailman.",
+      "outputFile": "difficulty_1/dog_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "dog",
+      "sentenceNumber": 2,
+      "text": "My dog likes to fetch the ball.",
+      "outputFile": "difficulty_1/dog_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "dog",
+      "sentenceNumber": 3,
+      "text": "The brown dog wagged its tail.",
+      "outputFile": "difficulty_1/dog_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "sun",
+      "sentenceNumber": 1,
+      "text": "The sun is shining brightly today.",
+      "outputFile": "difficulty_1/sun_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "sun",
+      "sentenceNumber": 2,
+      "text": "We love playing in the sun.",
+      "outputFile": "difficulty_1/sun_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "sun",
+      "sentenceNumber": 3,
+      "text": "The sun rises in the morning.",
+      "outputFile": "difficulty_1/sun_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "run",
+      "sentenceNumber": 1,
+      "text": "I can run very fast.",
+      "outputFile": "difficulty_1/run_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "run",
+      "sentenceNumber": 2,
+      "text": "Let's run to the park together.",
+      "outputFile": "difficulty_1/run_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "run",
+      "sentenceNumber": 3,
+      "text": "The children run around the playground.",
+      "outputFile": "difficulty_1/run_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "big",
+      "sentenceNumber": 1,
+      "text": "That is a big elephant.",
+      "outputFile": "difficulty_1/big_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "big",
+      "sentenceNumber": 2,
+      "text": "My brother wears big shoes.",
+      "outputFile": "difficulty_1/big_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "big",
+      "sentenceNumber": 3,
+      "text": "We live in a big house.",
+      "outputFile": "difficulty_1/big_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "red",
+      "sentenceNumber": 1,
+      "text": "I have a red crayon.",
+      "outputFile": "difficulty_1/red_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "red",
+      "sentenceNumber": 2,
+      "text": "The apple is bright red.",
+      "outputFile": "difficulty_1/red_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "red",
+      "sentenceNumber": 3,
+      "text": "She wore a red dress today.",
+      "outputFile": "difficulty_1/red_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "hat",
+      "sentenceNumber": 1,
+      "text": "I wear a hat when it's cold.",
+      "outputFile": "difficulty_1/hat_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "hat",
+      "sentenceNumber": 2,
+      "text": "The blue hat looks nice.",
+      "outputFile": "difficulty_1/hat_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "hat",
+      "sentenceNumber": 3,
+      "text": "Dad forgot his hat at home.",
+      "outputFile": "difficulty_1/hat_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "sit",
+      "sentenceNumber": 1,
+      "text": "Please sit down on the chair.",
+      "outputFile": "difficulty_1/sit_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "sit",
+      "sentenceNumber": 2,
+      "text": "We sit together at lunch.",
+      "outputFile": "difficulty_1/sit_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "sit",
+      "sentenceNumber": 3,
+      "text": "The dog will sit when you ask.",
+      "outputFile": "difficulty_1/sit_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "cup",
+      "sentenceNumber": 1,
+      "text": "I drink water from a cup.",
+      "outputFile": "difficulty_1/cup_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "cup",
+      "sentenceNumber": 2,
+      "text": "The cup is on the table.",
+      "outputFile": "difficulty_1/cup_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "cup",
+      "sentenceNumber": 3,
+      "text": "Mom filled the cup with juice.",
+      "outputFile": "difficulty_1/cup_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "bed",
+      "sentenceNumber": 1,
+      "text": "I sleep in my bed at night.",
+      "outputFile": "difficulty_1/bed_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "bed",
+      "sentenceNumber": 2,
+      "text": "The bed has soft pillows.",
+      "outputFile": "difficulty_1/bed_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "bed",
+      "sentenceNumber": 3,
+      "text": "Time to go to bed now.",
+      "outputFile": "difficulty_1/bed_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "mom",
+      "sentenceNumber": 1,
+      "text": "My mom makes the best cookies.",
+      "outputFile": "difficulty_1/mom_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "mom",
+      "sentenceNumber": 2,
+      "text": "Mom reads me stories at bedtime.",
+      "outputFile": "difficulty_1/mom_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "mom",
+      "sentenceNumber": 3,
+      "text": "I love my mom very much.",
+      "outputFile": "difficulty_1/mom_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "dad",
+      "sentenceNumber": 1,
+      "text": "Dad drives us to school.",
+      "outputFile": "difficulty_1/dad_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "dad",
+      "sentenceNumber": 2,
+      "text": "My dad is very tall.",
+      "outputFile": "difficulty_1/dad_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "dad",
+      "sentenceNumber": 3,
+      "text": "Dad helps me with my homework.",
+      "outputFile": "difficulty_1/dad_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "pet",
+      "sentenceNumber": 1,
+      "text": "I have a pet hamster.",
+      "outputFile": "difficulty_1/pet_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "pet",
+      "sentenceNumber": 2,
+      "text": "We take care of our pet every day.",
+      "outputFile": "difficulty_1/pet_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "pet",
+      "sentenceNumber": 3,
+      "text": "My pet likes to eat carrots.",
+      "outputFile": "difficulty_1/pet_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "fun",
+      "sentenceNumber": 1,
+      "text": "Playing games is so much fun.",
+      "outputFile": "difficulty_1/fun_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "fun",
+      "sentenceNumber": 2,
+      "text": "We had fun at the park today.",
+      "outputFile": "difficulty_1/fun_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "fun",
+      "sentenceNumber": 3,
+      "text": "Birthday parties are always fun.",
+      "outputFile": "difficulty_1/fun_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "hot",
+      "sentenceNumber": 1,
+      "text": "The soup is very hot.",
+      "outputFile": "difficulty_1/hot_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "hot",
+      "sentenceNumber": 2,
+      "text": "It feels hot outside today.",
+      "outputFile": "difficulty_1/hot_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "hot",
+      "sentenceNumber": 3,
+      "text": "Be careful, the stove is hot.",
+      "outputFile": "difficulty_1/hot_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "top",
+      "sentenceNumber": 1,
+      "text": "The book is on top of the desk.",
+      "outputFile": "difficulty_1/top_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "top",
+      "sentenceNumber": 2,
+      "text": "I climbed to the top of the hill.",
+      "outputFile": "difficulty_1/top_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "top",
+      "sentenceNumber": 3,
+      "text": "The toy is on the top shelf.",
+      "outputFile": "difficulty_1/top_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "box",
+      "sentenceNumber": 1,
+      "text": "I put my toys in a box.",
+      "outputFile": "difficulty_1/box_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "box",
+      "sentenceNumber": 2,
+      "text": "The box is full of books.",
+      "outputFile": "difficulty_1/box_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "box",
+      "sentenceNumber": 3,
+      "text": "Can you open the box for me?",
+      "outputFile": "difficulty_1/box_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "fox",
+      "sentenceNumber": 1,
+      "text": "The fox has a bushy tail.",
+      "outputFile": "difficulty_1/fox_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "fox",
+      "sentenceNumber": 2,
+      "text": "We saw a red fox in the woods.",
+      "outputFile": "difficulty_1/fox_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "fox",
+      "sentenceNumber": 3,
+      "text": "The fox ran across the field.",
+      "outputFile": "difficulty_1/fox_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "yes",
+      "sentenceNumber": 1,
+      "text": "Yes, I would like some ice cream.",
+      "outputFile": "difficulty_1/yes_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "yes",
+      "sentenceNumber": 2,
+      "text": "She said yes when I asked.",
+      "outputFile": "difficulty_1/yes_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "yes",
+      "sentenceNumber": 3,
+      "text": "Yes, we can go to the park.",
+      "outputFile": "difficulty_1/yes_sentence3.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "bus",
+      "sentenceNumber": 1,
+      "text": "The bus takes us to school.",
+      "outputFile": "difficulty_1/bus_sentence1.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "bus",
+      "sentenceNumber": 2,
+      "text": "We wait for the yellow bus.",
+      "outputFile": "difficulty_1/bus_sentence2.wav"
+    },
+    {
+      "difficulty": 1,
+      "word": "bus",
+      "sentenceNumber": 3,
+      "text": "The bus stops at the corner.",
+      "outputFile": "difficulty_1/bus_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "ball",
+      "sentenceNumber": 1,
+      "text": "Let's kick the ball around.",
+      "outputFile": "difficulty_2/ball_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "ball",
+      "sentenceNumber": 2,
+      "text": "The red ball bounced high.",
+      "outputFile": "difficulty_2/ball_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "ball",
+      "sentenceNumber": 3,
+      "text": "She threw the ball to her friend.",
+      "outputFile": "difficulty_2/ball_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "tree",
+      "sentenceNumber": 1,
+      "text": "The tree has green leaves.",
+      "outputFile": "difficulty_2/tree_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "tree",
+      "sentenceNumber": 2,
+      "text": "We climbed the tall tree.",
+      "outputFile": "difficulty_2/tree_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "tree",
+      "sentenceNumber": 3,
+      "text": "A bird lives in that tree.",
+      "outputFile": "difficulty_2/tree_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "book",
+      "sentenceNumber": 1,
+      "text": "I love reading this book.",
+      "outputFile": "difficulty_2/book_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "book",
+      "sentenceNumber": 2,
+      "text": "The book has many pictures.",
+      "outputFile": "difficulty_2/book_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "book",
+      "sentenceNumber": 3,
+      "text": "Can you hand me that book?",
+      "outputFile": "difficulty_2/book_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "fish",
+      "sentenceNumber": 1,
+      "text": "The fish swims in the water.",
+      "outputFile": "difficulty_2/fish_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "fish",
+      "sentenceNumber": 2,
+      "text": "We caught three fish today.",
+      "outputFile": "difficulty_2/fish_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "fish",
+      "sentenceNumber": 3,
+      "text": "My pet fish is orange and white.",
+      "outputFile": "difficulty_2/fish_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "bird",
+      "sentenceNumber": 1,
+      "text": "The bird is singing a song.",
+      "outputFile": "difficulty_2/bird_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "bird",
+      "sentenceNumber": 2,
+      "text": "A blue bird flew past the window.",
+      "outputFile": "difficulty_2/bird_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "bird",
+      "sentenceNumber": 3,
+      "text": "The bird built a nest in the tree.",
+      "outputFile": "difficulty_2/bird_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "cake",
+      "sentenceNumber": 1,
+      "text": "The birthday cake is delicious.",
+      "outputFile": "difficulty_2/cake_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "cake",
+      "sentenceNumber": 2,
+      "text": "Mom baked a chocolate cake.",
+      "outputFile": "difficulty_2/cake_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "cake",
+      "sentenceNumber": 3,
+      "text": "We shared the cake with everyone.",
+      "outputFile": "difficulty_2/cake_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "play",
+      "sentenceNumber": 1,
+      "text": "Let's play outside together.",
+      "outputFile": "difficulty_2/play_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "play",
+      "sentenceNumber": 2,
+      "text": "The children play in the park.",
+      "outputFile": "difficulty_2/play_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "play",
+      "sentenceNumber": 3,
+      "text": "I like to play with my friends.",
+      "outputFile": "difficulty_2/play_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "jump",
+      "sentenceNumber": 1,
+      "text": "I can jump really high.",
+      "outputFile": "difficulty_2/jump_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "jump",
+      "sentenceNumber": 2,
+      "text": "Let's jump over the puddle.",
+      "outputFile": "difficulty_2/jump_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "jump",
+      "sentenceNumber": 3,
+      "text": "The frog can jump very far.",
+      "outputFile": "difficulty_2/jump_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "swim",
+      "sentenceNumber": 1,
+      "text": "I learned how to swim last summer.",
+      "outputFile": "difficulty_2/swim_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "swim",
+      "sentenceNumber": 2,
+      "text": "Fish can swim underwater.",
+      "outputFile": "difficulty_2/swim_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "swim",
+      "sentenceNumber": 3,
+      "text": "We swim at the pool every week.",
+      "outputFile": "difficulty_2/swim_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "blue",
+      "sentenceNumber": 1,
+      "text": "The sky is bright blue today.",
+      "outputFile": "difficulty_2/blue_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "blue",
+      "sentenceNumber": 2,
+      "text": "I have a blue backpack.",
+      "outputFile": "difficulty_2/blue_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "blue",
+      "sentenceNumber": 3,
+      "text": "Her favorite color is blue.",
+      "outputFile": "difficulty_2/blue_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "green",
+      "sentenceNumber": 1,
+      "text": "The grass is green and fresh.",
+      "outputFile": "difficulty_2/green_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "green",
+      "sentenceNumber": 2,
+      "text": "I painted my room green.",
+      "outputFile": "difficulty_2/green_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "green",
+      "sentenceNumber": 3,
+      "text": "Trees have green leaves in spring.",
+      "outputFile": "difficulty_2/green_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "happy",
+      "sentenceNumber": 1,
+      "text": "I feel happy when I play.",
+      "outputFile": "difficulty_2/happy_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "happy",
+      "sentenceNumber": 2,
+      "text": "The happy puppy wagged its tail.",
+      "outputFile": "difficulty_2/happy_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "happy",
+      "sentenceNumber": 3,
+      "text": "Everyone looks happy today.",
+      "outputFile": "difficulty_2/happy_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "water",
+      "sentenceNumber": 1,
+      "text": "I drink water when I'm thirsty.",
+      "outputFile": "difficulty_2/water_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "water",
+      "sentenceNumber": 2,
+      "text": "The water in the pool is cold.",
+      "outputFile": "difficulty_2/water_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "water",
+      "sentenceNumber": 3,
+      "text": "Plants need water to grow.",
+      "outputFile": "difficulty_2/water_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "apple",
+      "sentenceNumber": 1,
+      "text": "I ate a red apple for lunch.",
+      "outputFile": "difficulty_2/apple_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "apple",
+      "sentenceNumber": 2,
+      "text": "The apple tastes sweet and juicy.",
+      "outputFile": "difficulty_2/apple_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "apple",
+      "sentenceNumber": 3,
+      "text": "Mom put an apple in my lunch box.",
+      "outputFile": "difficulty_2/apple_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "house",
+      "sentenceNumber": 1,
+      "text": "We live in a white house.",
+      "outputFile": "difficulty_2/house_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "house",
+      "sentenceNumber": 2,
+      "text": "The house has a big backyard.",
+      "outputFile": "difficulty_2/house_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "house",
+      "sentenceNumber": 3,
+      "text": "My friend's house is down the street.",
+      "outputFile": "difficulty_2/house_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "mouse",
+      "sentenceNumber": 1,
+      "text": "The little mouse ran away quickly.",
+      "outputFile": "difficulty_2/mouse_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "mouse",
+      "sentenceNumber": 2,
+      "text": "We saw a mouse in the barn.",
+      "outputFile": "difficulty_2/mouse_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "mouse",
+      "sentenceNumber": 3,
+      "text": "The mouse nibbled on the cheese.",
+      "outputFile": "difficulty_2/mouse_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "sleep",
+      "sentenceNumber": 1,
+      "text": "I need to sleep early tonight.",
+      "outputFile": "difficulty_2/sleep_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "sleep",
+      "sentenceNumber": 2,
+      "text": "The baby can sleep for hours.",
+      "outputFile": "difficulty_2/sleep_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "sleep",
+      "sentenceNumber": 3,
+      "text": "Let's sleep under the stars tonight.",
+      "outputFile": "difficulty_2/sleep_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "dream",
+      "sentenceNumber": 1,
+      "text": "I had a wonderful dream last night.",
+      "outputFile": "difficulty_2/dream_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "dream",
+      "sentenceNumber": 2,
+      "text": "In my dream, I could fly.",
+      "outputFile": "difficulty_2/dream_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "dream",
+      "sentenceNumber": 3,
+      "text": "What did you dream about?",
+      "outputFile": "difficulty_2/dream_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "smile",
+      "sentenceNumber": 1,
+      "text": "Your smile makes me happy.",
+      "outputFile": "difficulty_2/smile_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "smile",
+      "sentenceNumber": 2,
+      "text": "She has a big smile on her face.",
+      "outputFile": "difficulty_2/smile_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "smile",
+      "sentenceNumber": 3,
+      "text": "Don't forget to smile for the camera.",
+      "outputFile": "difficulty_2/smile_sentence3.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "light",
+      "sentenceNumber": 1,
+      "text": "Turn on the light, please.",
+      "outputFile": "difficulty_2/light_sentence1.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "light",
+      "sentenceNumber": 2,
+      "text": "The light from the sun is bright.",
+      "outputFile": "difficulty_2/light_sentence2.wav"
+    },
+    {
+      "difficulty": 2,
+      "word": "light",
+      "sentenceNumber": 3,
+      "text": "My backpack is very light.",
+      "outputFile": "difficulty_2/light_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "friend",
+      "sentenceNumber": 1,
+      "text": "The word friend is used in many ways.",
+      "outputFile": "difficulty_3/friend_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "friend",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what friend means.",
+      "outputFile": "difficulty_3/friend_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "friend",
+      "sentenceNumber": 3,
+      "text": "Many people find friend challenging to spell.",
+      "outputFile": "difficulty_3/friend_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "school",
+      "sentenceNumber": 1,
+      "text": "The word school is used in many ways.",
+      "outputFile": "difficulty_3/school_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "school",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what school means.",
+      "outputFile": "difficulty_3/school_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "school",
+      "sentenceNumber": 3,
+      "text": "Many people find school challenging to spell.",
+      "outputFile": "difficulty_3/school_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "write",
+      "sentenceNumber": 1,
+      "text": "The word write is used in many ways.",
+      "outputFile": "difficulty_3/write_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "write",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what write means.",
+      "outputFile": "difficulty_3/write_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "write",
+      "sentenceNumber": 3,
+      "text": "Many people find write challenging to spell.",
+      "outputFile": "difficulty_3/write_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "plant",
+      "sentenceNumber": 1,
+      "text": "The word plant is used in many ways.",
+      "outputFile": "difficulty_3/plant_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "plant",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what plant means.",
+      "outputFile": "difficulty_3/plant_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "plant",
+      "sentenceNumber": 3,
+      "text": "Many people find plant challenging to spell.",
+      "outputFile": "difficulty_3/plant_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "cloud",
+      "sentenceNumber": 1,
+      "text": "The word cloud is used in many ways.",
+      "outputFile": "difficulty_3/cloud_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "cloud",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what cloud means.",
+      "outputFile": "difficulty_3/cloud_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "cloud",
+      "sentenceNumber": 3,
+      "text": "Many people find cloud challenging to spell.",
+      "outputFile": "difficulty_3/cloud_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "train",
+      "sentenceNumber": 1,
+      "text": "The word train is used in many ways.",
+      "outputFile": "difficulty_3/train_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "train",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what train means.",
+      "outputFile": "difficulty_3/train_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "train",
+      "sentenceNumber": 3,
+      "text": "Many people find train challenging to spell.",
+      "outputFile": "difficulty_3/train_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "beach",
+      "sentenceNumber": 1,
+      "text": "The word beach is used in many ways.",
+      "outputFile": "difficulty_3/beach_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "beach",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what beach means.",
+      "outputFile": "difficulty_3/beach_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "beach",
+      "sentenceNumber": 3,
+      "text": "Many people find beach challenging to spell.",
+      "outputFile": "difficulty_3/beach_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "clean",
+      "sentenceNumber": 1,
+      "text": "The word clean is used in many ways.",
+      "outputFile": "difficulty_3/clean_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "clean",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what clean means.",
+      "outputFile": "difficulty_3/clean_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "clean",
+      "sentenceNumber": 3,
+      "text": "Many people find clean challenging to spell.",
+      "outputFile": "difficulty_3/clean_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "bring",
+      "sentenceNumber": 1,
+      "text": "The word bring is used in many ways.",
+      "outputFile": "difficulty_3/bring_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "bring",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what bring means.",
+      "outputFile": "difficulty_3/bring_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "bring",
+      "sentenceNumber": 3,
+      "text": "Many people find bring challenging to spell.",
+      "outputFile": "difficulty_3/bring_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "thing",
+      "sentenceNumber": 1,
+      "text": "The word thing is used in many ways.",
+      "outputFile": "difficulty_3/thing_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "thing",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what thing means.",
+      "outputFile": "difficulty_3/thing_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "thing",
+      "sentenceNumber": 3,
+      "text": "Many people find thing challenging to spell.",
+      "outputFile": "difficulty_3/thing_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "laugh",
+      "sentenceNumber": 1,
+      "text": "The word laugh is used in many ways.",
+      "outputFile": "difficulty_3/laugh_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "laugh",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what laugh means.",
+      "outputFile": "difficulty_3/laugh_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "laugh",
+      "sentenceNumber": 3,
+      "text": "Many people find laugh challenging to spell.",
+      "outputFile": "difficulty_3/laugh_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "watch",
+      "sentenceNumber": 1,
+      "text": "The word watch is used in many ways.",
+      "outputFile": "difficulty_3/watch_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "watch",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what watch means.",
+      "outputFile": "difficulty_3/watch_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "watch",
+      "sentenceNumber": 3,
+      "text": "Many people find watch challenging to spell.",
+      "outputFile": "difficulty_3/watch_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "catch",
+      "sentenceNumber": 1,
+      "text": "The word catch is used in many ways.",
+      "outputFile": "difficulty_3/catch_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "catch",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what catch means.",
+      "outputFile": "difficulty_3/catch_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "catch",
+      "sentenceNumber": 3,
+      "text": "Many people find catch challenging to spell.",
+      "outputFile": "difficulty_3/catch_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "match",
+      "sentenceNumber": 1,
+      "text": "The word match is used in many ways.",
+      "outputFile": "difficulty_3/match_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "match",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what match means.",
+      "outputFile": "difficulty_3/match_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "match",
+      "sentenceNumber": 3,
+      "text": "Many people find match challenging to spell.",
+      "outputFile": "difficulty_3/match_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "patch",
+      "sentenceNumber": 1,
+      "text": "The word patch is used in many ways.",
+      "outputFile": "difficulty_3/patch_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "patch",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what patch means.",
+      "outputFile": "difficulty_3/patch_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "patch",
+      "sentenceNumber": 3,
+      "text": "Many people find patch challenging to spell.",
+      "outputFile": "difficulty_3/patch_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "lunch",
+      "sentenceNumber": 1,
+      "text": "The word lunch is used in many ways.",
+      "outputFile": "difficulty_3/lunch_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "lunch",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what lunch means.",
+      "outputFile": "difficulty_3/lunch_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "lunch",
+      "sentenceNumber": 3,
+      "text": "Many people find lunch challenging to spell.",
+      "outputFile": "difficulty_3/lunch_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "bench",
+      "sentenceNumber": 1,
+      "text": "The word bench is used in many ways.",
+      "outputFile": "difficulty_3/bench_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "bench",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what bench means.",
+      "outputFile": "difficulty_3/bench_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "bench",
+      "sentenceNumber": 3,
+      "text": "Many people find bench challenging to spell.",
+      "outputFile": "difficulty_3/bench_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "branch",
+      "sentenceNumber": 1,
+      "text": "The word branch is used in many ways.",
+      "outputFile": "difficulty_3/branch_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "branch",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what branch means.",
+      "outputFile": "difficulty_3/branch_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "branch",
+      "sentenceNumber": 3,
+      "text": "Many people find branch challenging to spell.",
+      "outputFile": "difficulty_3/branch_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "crunch",
+      "sentenceNumber": 1,
+      "text": "The word crunch is used in many ways.",
+      "outputFile": "difficulty_3/crunch_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "crunch",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what crunch means.",
+      "outputFile": "difficulty_3/crunch_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "crunch",
+      "sentenceNumber": 3,
+      "text": "Many people find crunch challenging to spell.",
+      "outputFile": "difficulty_3/crunch_sentence3.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "french",
+      "sentenceNumber": 1,
+      "text": "The word french is used in many ways.",
+      "outputFile": "difficulty_3/french_sentence1.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "french",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what french means.",
+      "outputFile": "difficulty_3/french_sentence2.wav"
+    },
+    {
+      "difficulty": 3,
+      "word": "french",
+      "sentenceNumber": 3,
+      "text": "Many people find french challenging to spell.",
+      "outputFile": "difficulty_3/french_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "beautiful",
+      "sentenceNumber": 1,
+      "text": "The word beautiful is used in many ways.",
+      "outputFile": "difficulty_4/beautiful_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "beautiful",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what beautiful means.",
+      "outputFile": "difficulty_4/beautiful_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "beautiful",
+      "sentenceNumber": 3,
+      "text": "Many people find beautiful challenging to spell.",
+      "outputFile": "difficulty_4/beautiful_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "different",
+      "sentenceNumber": 1,
+      "text": "The word different is used in many ways.",
+      "outputFile": "difficulty_4/different_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "different",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what different means.",
+      "outputFile": "difficulty_4/different_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "different",
+      "sentenceNumber": 3,
+      "text": "Many people find different challenging to spell.",
+      "outputFile": "difficulty_4/different_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "important",
+      "sentenceNumber": 1,
+      "text": "The word important is used in many ways.",
+      "outputFile": "difficulty_4/important_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "important",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what important means.",
+      "outputFile": "difficulty_4/important_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "important",
+      "sentenceNumber": 3,
+      "text": "Many people find important challenging to spell.",
+      "outputFile": "difficulty_4/important_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "together",
+      "sentenceNumber": 1,
+      "text": "The word together is used in many ways.",
+      "outputFile": "difficulty_4/together_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "together",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what together means.",
+      "outputFile": "difficulty_4/together_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "together",
+      "sentenceNumber": 3,
+      "text": "Many people find together challenging to spell.",
+      "outputFile": "difficulty_4/together_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "remember",
+      "sentenceNumber": 1,
+      "text": "The word remember is used in many ways.",
+      "outputFile": "difficulty_4/remember_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "remember",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what remember means.",
+      "outputFile": "difficulty_4/remember_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "remember",
+      "sentenceNumber": 3,
+      "text": "Many people find remember challenging to spell.",
+      "outputFile": "difficulty_4/remember_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "between",
+      "sentenceNumber": 1,
+      "text": "The word between is used in many ways.",
+      "outputFile": "difficulty_4/between_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "between",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what between means.",
+      "outputFile": "difficulty_4/between_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "between",
+      "sentenceNumber": 3,
+      "text": "Many people find between challenging to spell.",
+      "outputFile": "difficulty_4/between_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "another",
+      "sentenceNumber": 1,
+      "text": "The word another is used in many ways.",
+      "outputFile": "difficulty_4/another_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "another",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what another means.",
+      "outputFile": "difficulty_4/another_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "another",
+      "sentenceNumber": 3,
+      "text": "Many people find another challenging to spell.",
+      "outputFile": "difficulty_4/another_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "through",
+      "sentenceNumber": 1,
+      "text": "The word through is used in many ways.",
+      "outputFile": "difficulty_4/through_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "through",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what through means.",
+      "outputFile": "difficulty_4/through_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "through",
+      "sentenceNumber": 3,
+      "text": "Many people find through challenging to spell.",
+      "outputFile": "difficulty_4/through_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "thought",
+      "sentenceNumber": 1,
+      "text": "The word thought is used in many ways.",
+      "outputFile": "difficulty_4/thought_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "thought",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what thought means.",
+      "outputFile": "difficulty_4/thought_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "thought",
+      "sentenceNumber": 3,
+      "text": "Many people find thought challenging to spell.",
+      "outputFile": "difficulty_4/thought_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "brought",
+      "sentenceNumber": 1,
+      "text": "The word brought is used in many ways.",
+      "outputFile": "difficulty_4/brought_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "brought",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what brought means.",
+      "outputFile": "difficulty_4/brought_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "brought",
+      "sentenceNumber": 3,
+      "text": "Many people find brought challenging to spell.",
+      "outputFile": "difficulty_4/brought_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "daughter",
+      "sentenceNumber": 1,
+      "text": "The word daughter is used in many ways.",
+      "outputFile": "difficulty_4/daughter_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "daughter",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what daughter means.",
+      "outputFile": "difficulty_4/daughter_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "daughter",
+      "sentenceNumber": 3,
+      "text": "Many people find daughter challenging to spell.",
+      "outputFile": "difficulty_4/daughter_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "neighbor",
+      "sentenceNumber": 1,
+      "text": "The word neighbor is used in many ways.",
+      "outputFile": "difficulty_4/neighbor_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "neighbor",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what neighbor means.",
+      "outputFile": "difficulty_4/neighbor_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "neighbor",
+      "sentenceNumber": 3,
+      "text": "Many people find neighbor challenging to spell.",
+      "outputFile": "difficulty_4/neighbor_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "weight",
+      "sentenceNumber": 1,
+      "text": "The word weight is used in many ways.",
+      "outputFile": "difficulty_4/weight_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "weight",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what weight means.",
+      "outputFile": "difficulty_4/weight_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "weight",
+      "sentenceNumber": 3,
+      "text": "Many people find weight challenging to spell.",
+      "outputFile": "difficulty_4/weight_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "height",
+      "sentenceNumber": 1,
+      "text": "The word height is used in many ways.",
+      "outputFile": "difficulty_4/height_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "height",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what height means.",
+      "outputFile": "difficulty_4/height_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "height",
+      "sentenceNumber": 3,
+      "text": "Many people find height challenging to spell.",
+      "outputFile": "difficulty_4/height_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "straight",
+      "sentenceNumber": 1,
+      "text": "The word straight is used in many ways.",
+      "outputFile": "difficulty_4/straight_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "straight",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what straight means.",
+      "outputFile": "difficulty_4/straight_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "straight",
+      "sentenceNumber": 3,
+      "text": "Many people find straight challenging to spell.",
+      "outputFile": "difficulty_4/straight_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "caught",
+      "sentenceNumber": 1,
+      "text": "The word caught is used in many ways.",
+      "outputFile": "difficulty_4/caught_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "caught",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what caught means.",
+      "outputFile": "difficulty_4/caught_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "caught",
+      "sentenceNumber": 3,
+      "text": "Many people find caught challenging to spell.",
+      "outputFile": "difficulty_4/caught_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "taught",
+      "sentenceNumber": 1,
+      "text": "The word taught is used in many ways.",
+      "outputFile": "difficulty_4/taught_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "taught",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what taught means.",
+      "outputFile": "difficulty_4/taught_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "taught",
+      "sentenceNumber": 3,
+      "text": "Many people find taught challenging to spell.",
+      "outputFile": "difficulty_4/taught_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "bought",
+      "sentenceNumber": 1,
+      "text": "The word bought is used in many ways.",
+      "outputFile": "difficulty_4/bought_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "bought",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what bought means.",
+      "outputFile": "difficulty_4/bought_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "bought",
+      "sentenceNumber": 3,
+      "text": "Many people find bought challenging to spell.",
+      "outputFile": "difficulty_4/bought_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "fought",
+      "sentenceNumber": 1,
+      "text": "The word fought is used in many ways.",
+      "outputFile": "difficulty_4/fought_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "fought",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what fought means.",
+      "outputFile": "difficulty_4/fought_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "fought",
+      "sentenceNumber": 3,
+      "text": "Many people find fought challenging to spell.",
+      "outputFile": "difficulty_4/fought_sentence3.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "sought",
+      "sentenceNumber": 1,
+      "text": "The word sought is used in many ways.",
+      "outputFile": "difficulty_4/sought_sentence1.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "sought",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what sought means.",
+      "outputFile": "difficulty_4/sought_sentence2.wav"
+    },
+    {
+      "difficulty": 4,
+      "word": "sought",
+      "sentenceNumber": 3,
+      "text": "Many people find sought challenging to spell.",
+      "outputFile": "difficulty_4/sought_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "character",
+      "sentenceNumber": 1,
+      "text": "The word character is used in many ways.",
+      "outputFile": "difficulty_5/character_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "character",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what character means.",
+      "outputFile": "difficulty_5/character_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "character",
+      "sentenceNumber": 3,
+      "text": "Many people find character challenging to spell.",
+      "outputFile": "difficulty_5/character_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "paragraph",
+      "sentenceNumber": 1,
+      "text": "The word paragraph is used in many ways.",
+      "outputFile": "difficulty_5/paragraph_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "paragraph",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what paragraph means.",
+      "outputFile": "difficulty_5/paragraph_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "paragraph",
+      "sentenceNumber": 3,
+      "text": "Many people find paragraph challenging to spell.",
+      "outputFile": "difficulty_5/paragraph_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "adventure",
+      "sentenceNumber": 1,
+      "text": "The word adventure is used in many ways.",
+      "outputFile": "difficulty_5/adventure_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "adventure",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what adventure means.",
+      "outputFile": "difficulty_5/adventure_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "adventure",
+      "sentenceNumber": 3,
+      "text": "Many people find adventure challenging to spell.",
+      "outputFile": "difficulty_5/adventure_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "attention",
+      "sentenceNumber": 1,
+      "text": "The word attention is used in many ways.",
+      "outputFile": "difficulty_5/attention_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "attention",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what attention means.",
+      "outputFile": "difficulty_5/attention_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "attention",
+      "sentenceNumber": 3,
+      "text": "Many people find attention challenging to spell.",
+      "outputFile": "difficulty_5/attention_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "celebrate",
+      "sentenceNumber": 1,
+      "text": "The word celebrate is used in many ways.",
+      "outputFile": "difficulty_5/celebrate_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "celebrate",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what celebrate means.",
+      "outputFile": "difficulty_5/celebrate_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "celebrate",
+      "sentenceNumber": 3,
+      "text": "Many people find celebrate challenging to spell.",
+      "outputFile": "difficulty_5/celebrate_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "community",
+      "sentenceNumber": 1,
+      "text": "The word community is used in many ways.",
+      "outputFile": "difficulty_5/community_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "community",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what community means.",
+      "outputFile": "difficulty_5/community_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "community",
+      "sentenceNumber": 3,
+      "text": "Many people find community challenging to spell.",
+      "outputFile": "difficulty_5/community_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "continue",
+      "sentenceNumber": 1,
+      "text": "The word continue is used in many ways.",
+      "outputFile": "difficulty_5/continue_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "continue",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what continue means.",
+      "outputFile": "difficulty_5/continue_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "continue",
+      "sentenceNumber": 3,
+      "text": "Many people find continue challenging to spell.",
+      "outputFile": "difficulty_5/continue_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "describe",
+      "sentenceNumber": 1,
+      "text": "The word describe is used in many ways.",
+      "outputFile": "difficulty_5/describe_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "describe",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what describe means.",
+      "outputFile": "difficulty_5/describe_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "describe",
+      "sentenceNumber": 3,
+      "text": "Many people find describe challenging to spell.",
+      "outputFile": "difficulty_5/describe_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "discover",
+      "sentenceNumber": 1,
+      "text": "The word discover is used in many ways.",
+      "outputFile": "difficulty_5/discover_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "discover",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what discover means.",
+      "outputFile": "difficulty_5/discover_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "discover",
+      "sentenceNumber": 3,
+      "text": "Many people find discover challenging to spell.",
+      "outputFile": "difficulty_5/discover_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "education",
+      "sentenceNumber": 1,
+      "text": "The word education is used in many ways.",
+      "outputFile": "difficulty_5/education_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "education",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what education means.",
+      "outputFile": "difficulty_5/education_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "education",
+      "sentenceNumber": 3,
+      "text": "Many people find education challenging to spell.",
+      "outputFile": "difficulty_5/education_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "especially",
+      "sentenceNumber": 1,
+      "text": "The word especially is used in many ways.",
+      "outputFile": "difficulty_5/especially_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "especially",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what especially means.",
+      "outputFile": "difficulty_5/especially_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "especially",
+      "sentenceNumber": 3,
+      "text": "Many people find especially challenging to spell.",
+      "outputFile": "difficulty_5/especially_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "experience",
+      "sentenceNumber": 1,
+      "text": "The word experience is used in many ways.",
+      "outputFile": "difficulty_5/experience_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "experience",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what experience means.",
+      "outputFile": "difficulty_5/experience_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "experience",
+      "sentenceNumber": 3,
+      "text": "Many people find experience challenging to spell.",
+      "outputFile": "difficulty_5/experience_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "favorite",
+      "sentenceNumber": 1,
+      "text": "The word favorite is used in many ways.",
+      "outputFile": "difficulty_5/favorite_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "favorite",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what favorite means.",
+      "outputFile": "difficulty_5/favorite_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "favorite",
+      "sentenceNumber": 3,
+      "text": "Many people find favorite challenging to spell.",
+      "outputFile": "difficulty_5/favorite_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "government",
+      "sentenceNumber": 1,
+      "text": "The word government is used in many ways.",
+      "outputFile": "difficulty_5/government_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "government",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what government means.",
+      "outputFile": "difficulty_5/government_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "government",
+      "sentenceNumber": 3,
+      "text": "Many people find government challenging to spell.",
+      "outputFile": "difficulty_5/government_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "important",
+      "sentenceNumber": 1,
+      "text": "The word important is used in many ways.",
+      "outputFile": "difficulty_5/important_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "important",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what important means.",
+      "outputFile": "difficulty_5/important_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "important",
+      "sentenceNumber": 3,
+      "text": "Many people find important challenging to spell.",
+      "outputFile": "difficulty_5/important_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "interested",
+      "sentenceNumber": 1,
+      "text": "The word interested is used in many ways.",
+      "outputFile": "difficulty_5/interested_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "interested",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what interested means.",
+      "outputFile": "difficulty_5/interested_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "interested",
+      "sentenceNumber": 3,
+      "text": "Many people find interested challenging to spell.",
+      "outputFile": "difficulty_5/interested_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "knowledge",
+      "sentenceNumber": 1,
+      "text": "The word knowledge is used in many ways.",
+      "outputFile": "difficulty_5/knowledge_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "knowledge",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what knowledge means.",
+      "outputFile": "difficulty_5/knowledge_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "knowledge",
+      "sentenceNumber": 3,
+      "text": "Many people find knowledge challenging to spell.",
+      "outputFile": "difficulty_5/knowledge_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "literature",
+      "sentenceNumber": 1,
+      "text": "The word literature is used in many ways.",
+      "outputFile": "difficulty_5/literature_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "literature",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what literature means.",
+      "outputFile": "difficulty_5/literature_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "literature",
+      "sentenceNumber": 3,
+      "text": "Many people find literature challenging to spell.",
+      "outputFile": "difficulty_5/literature_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "necessary",
+      "sentenceNumber": 1,
+      "text": "The word necessary is used in many ways.",
+      "outputFile": "difficulty_5/necessary_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "necessary",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what necessary means.",
+      "outputFile": "difficulty_5/necessary_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "necessary",
+      "sentenceNumber": 3,
+      "text": "Many people find necessary challenging to spell.",
+      "outputFile": "difficulty_5/necessary_sentence3.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "particular",
+      "sentenceNumber": 1,
+      "text": "The word particular is used in many ways.",
+      "outputFile": "difficulty_5/particular_sentence1.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "particular",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what particular means.",
+      "outputFile": "difficulty_5/particular_sentence2.wav"
+    },
+    {
+      "difficulty": 5,
+      "word": "particular",
+      "sentenceNumber": 3,
+      "text": "Many people find particular challenging to spell.",
+      "outputFile": "difficulty_5/particular_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "accomplish",
+      "sentenceNumber": 1,
+      "text": "The word accomplish is used in many ways.",
+      "outputFile": "difficulty_6/accomplish_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "accomplish",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what accomplish means.",
+      "outputFile": "difficulty_6/accomplish_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "accomplish",
+      "sentenceNumber": 3,
+      "text": "Many people find accomplish challenging to spell.",
+      "outputFile": "difficulty_6/accomplish_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "throughout",
+      "sentenceNumber": 1,
+      "text": "The word throughout is used in many ways.",
+      "outputFile": "difficulty_6/throughout_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "throughout",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what throughout means.",
+      "outputFile": "difficulty_6/throughout_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "throughout",
+      "sentenceNumber": 3,
+      "text": "Many people find throughout challenging to spell.",
+      "outputFile": "difficulty_6/throughout_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "appreciate",
+      "sentenceNumber": 1,
+      "text": "The word appreciate is used in many ways.",
+      "outputFile": "difficulty_6/appreciate_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "appreciate",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what appreciate means.",
+      "outputFile": "difficulty_6/appreciate_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "appreciate",
+      "sentenceNumber": 3,
+      "text": "Many people find appreciate challenging to spell.",
+      "outputFile": "difficulty_6/appreciate_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "atmosphere",
+      "sentenceNumber": 1,
+      "text": "The word atmosphere is used in many ways.",
+      "outputFile": "difficulty_6/atmosphere_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "atmosphere",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what atmosphere means.",
+      "outputFile": "difficulty_6/atmosphere_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "atmosphere",
+      "sentenceNumber": 3,
+      "text": "Many people find atmosphere challenging to spell.",
+      "outputFile": "difficulty_6/atmosphere_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "boundaries",
+      "sentenceNumber": 1,
+      "text": "The word boundaries is used in many ways.",
+      "outputFile": "difficulty_6/boundaries_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "boundaries",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what boundaries means.",
+      "outputFile": "difficulty_6/boundaries_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "boundaries",
+      "sentenceNumber": 3,
+      "text": "Many people find boundaries challenging to spell.",
+      "outputFile": "difficulty_6/boundaries_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "challenge",
+      "sentenceNumber": 1,
+      "text": "The word challenge is used in many ways.",
+      "outputFile": "difficulty_6/challenge_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "challenge",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what challenge means.",
+      "outputFile": "difficulty_6/challenge_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "challenge",
+      "sentenceNumber": 3,
+      "text": "Many people find challenge challenging to spell.",
+      "outputFile": "difficulty_6/challenge_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "commercial",
+      "sentenceNumber": 1,
+      "text": "The word commercial is used in many ways.",
+      "outputFile": "difficulty_6/commercial_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "commercial",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what commercial means.",
+      "outputFile": "difficulty_6/commercial_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "commercial",
+      "sentenceNumber": 3,
+      "text": "Many people find commercial challenging to spell.",
+      "outputFile": "difficulty_6/commercial_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "competition",
+      "sentenceNumber": 1,
+      "text": "The word competition is used in many ways.",
+      "outputFile": "difficulty_6/competition_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "competition",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what competition means.",
+      "outputFile": "difficulty_6/competition_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "competition",
+      "sentenceNumber": 3,
+      "text": "Many people find competition challenging to spell.",
+      "outputFile": "difficulty_6/competition_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "concentrate",
+      "sentenceNumber": 1,
+      "text": "The word concentrate is used in many ways.",
+      "outputFile": "difficulty_6/concentrate_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "concentrate",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what concentrate means.",
+      "outputFile": "difficulty_6/concentrate_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "concentrate",
+      "sentenceNumber": 3,
+      "text": "Many people find concentrate challenging to spell.",
+      "outputFile": "difficulty_6/concentrate_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "conscience",
+      "sentenceNumber": 1,
+      "text": "The word conscience is used in many ways.",
+      "outputFile": "difficulty_6/conscience_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "conscience",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what conscience means.",
+      "outputFile": "difficulty_6/conscience_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "conscience",
+      "sentenceNumber": 3,
+      "text": "Many people find conscience challenging to spell.",
+      "outputFile": "difficulty_6/conscience_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "consequence",
+      "sentenceNumber": 1,
+      "text": "The word consequence is used in many ways.",
+      "outputFile": "difficulty_6/consequence_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "consequence",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what consequence means.",
+      "outputFile": "difficulty_6/consequence_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "consequence",
+      "sentenceNumber": 3,
+      "text": "Many people find consequence challenging to spell.",
+      "outputFile": "difficulty_6/consequence_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "consistent",
+      "sentenceNumber": 1,
+      "text": "The word consistent is used in many ways.",
+      "outputFile": "difficulty_6/consistent_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "consistent",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what consistent means.",
+      "outputFile": "difficulty_6/consistent_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "consistent",
+      "sentenceNumber": 3,
+      "text": "Many people find consistent challenging to spell.",
+      "outputFile": "difficulty_6/consistent_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "demonstrate",
+      "sentenceNumber": 1,
+      "text": "The word demonstrate is used in many ways.",
+      "outputFile": "difficulty_6/demonstrate_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "demonstrate",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what demonstrate means.",
+      "outputFile": "difficulty_6/demonstrate_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "demonstrate",
+      "sentenceNumber": 3,
+      "text": "Many people find demonstrate challenging to spell.",
+      "outputFile": "difficulty_6/demonstrate_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "development",
+      "sentenceNumber": 1,
+      "text": "The word development is used in many ways.",
+      "outputFile": "difficulty_6/development_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "development",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what development means.",
+      "outputFile": "difficulty_6/development_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "development",
+      "sentenceNumber": 3,
+      "text": "Many people find development challenging to spell.",
+      "outputFile": "difficulty_6/development_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "environment",
+      "sentenceNumber": 1,
+      "text": "The word environment is used in many ways.",
+      "outputFile": "difficulty_6/environment_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "environment",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what environment means.",
+      "outputFile": "difficulty_6/environment_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "environment",
+      "sentenceNumber": 3,
+      "text": "Many people find environment challenging to spell.",
+      "outputFile": "difficulty_6/environment_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "essentially",
+      "sentenceNumber": 1,
+      "text": "The word essentially is used in many ways.",
+      "outputFile": "difficulty_6/essentially_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "essentially",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what essentially means.",
+      "outputFile": "difficulty_6/essentially_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "essentially",
+      "sentenceNumber": 3,
+      "text": "Many people find essentially challenging to spell.",
+      "outputFile": "difficulty_6/essentially_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "exaggerate",
+      "sentenceNumber": 1,
+      "text": "The word exaggerate is used in many ways.",
+      "outputFile": "difficulty_6/exaggerate_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "exaggerate",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what exaggerate means.",
+      "outputFile": "difficulty_6/exaggerate_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "exaggerate",
+      "sentenceNumber": 3,
+      "text": "Many people find exaggerate challenging to spell.",
+      "outputFile": "difficulty_6/exaggerate_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "explanation",
+      "sentenceNumber": 1,
+      "text": "The word explanation is used in many ways.",
+      "outputFile": "difficulty_6/explanation_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "explanation",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what explanation means.",
+      "outputFile": "difficulty_6/explanation_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "explanation",
+      "sentenceNumber": 3,
+      "text": "Many people find explanation challenging to spell.",
+      "outputFile": "difficulty_6/explanation_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "extraordinary",
+      "sentenceNumber": 1,
+      "text": "The word extraordinary is used in many ways.",
+      "outputFile": "difficulty_6/extraordinary_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "extraordinary",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what extraordinary means.",
+      "outputFile": "difficulty_6/extraordinary_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "extraordinary",
+      "sentenceNumber": 3,
+      "text": "Many people find extraordinary challenging to spell.",
+      "outputFile": "difficulty_6/extraordinary_sentence3.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "fascinating",
+      "sentenceNumber": 1,
+      "text": "The word fascinating is used in many ways.",
+      "outputFile": "difficulty_6/fascinating_sentence1.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "fascinating",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what fascinating means.",
+      "outputFile": "difficulty_6/fascinating_sentence2.wav"
+    },
+    {
+      "difficulty": 6,
+      "word": "fascinating",
+      "sentenceNumber": 3,
+      "text": "Many people find fascinating challenging to spell.",
+      "outputFile": "difficulty_6/fascinating_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "accommodate",
+      "sentenceNumber": 1,
+      "text": "The word accommodate is used in many ways.",
+      "outputFile": "difficulty_7/accommodate_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "accommodate",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what accommodate means.",
+      "outputFile": "difficulty_7/accommodate_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "accommodate",
+      "sentenceNumber": 3,
+      "text": "Many people find accommodate challenging to spell.",
+      "outputFile": "difficulty_7/accommodate_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "achievement",
+      "sentenceNumber": 1,
+      "text": "The word achievement is used in many ways.",
+      "outputFile": "difficulty_7/achievement_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "achievement",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what achievement means.",
+      "outputFile": "difficulty_7/achievement_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "achievement",
+      "sentenceNumber": 3,
+      "text": "Many people find achievement challenging to spell.",
+      "outputFile": "difficulty_7/achievement_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "acknowledge",
+      "sentenceNumber": 1,
+      "text": "The word acknowledge is used in many ways.",
+      "outputFile": "difficulty_7/acknowledge_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "acknowledge",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what acknowledge means.",
+      "outputFile": "difficulty_7/acknowledge_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "acknowledge",
+      "sentenceNumber": 3,
+      "text": "Many people find acknowledge challenging to spell.",
+      "outputFile": "difficulty_7/acknowledge_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "acquaintance",
+      "sentenceNumber": 1,
+      "text": "The word acquaintance is used in many ways.",
+      "outputFile": "difficulty_7/acquaintance_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "acquaintance",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what acquaintance means.",
+      "outputFile": "difficulty_7/acquaintance_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "acquaintance",
+      "sentenceNumber": 3,
+      "text": "Many people find acquaintance challenging to spell.",
+      "outputFile": "difficulty_7/acquaintance_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "advertisement",
+      "sentenceNumber": 1,
+      "text": "The word advertisement is used in many ways.",
+      "outputFile": "difficulty_7/advertisement_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "advertisement",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what advertisement means.",
+      "outputFile": "difficulty_7/advertisement_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "advertisement",
+      "sentenceNumber": 3,
+      "text": "Many people find advertisement challenging to spell.",
+      "outputFile": "difficulty_7/advertisement_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "anniversary",
+      "sentenceNumber": 1,
+      "text": "The word anniversary is used in many ways.",
+      "outputFile": "difficulty_7/anniversary_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "anniversary",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what anniversary means.",
+      "outputFile": "difficulty_7/anniversary_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "anniversary",
+      "sentenceNumber": 3,
+      "text": "Many people find anniversary challenging to spell.",
+      "outputFile": "difficulty_7/anniversary_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "anticipation",
+      "sentenceNumber": 1,
+      "text": "The word anticipation is used in many ways.",
+      "outputFile": "difficulty_7/anticipation_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "anticipation",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what anticipation means.",
+      "outputFile": "difficulty_7/anticipation_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "anticipation",
+      "sentenceNumber": 3,
+      "text": "Many people find anticipation challenging to spell.",
+      "outputFile": "difficulty_7/anticipation_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "appreciation",
+      "sentenceNumber": 1,
+      "text": "The word appreciation is used in many ways.",
+      "outputFile": "difficulty_7/appreciation_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "appreciation",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what appreciation means.",
+      "outputFile": "difficulty_7/appreciation_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "appreciation",
+      "sentenceNumber": 3,
+      "text": "Many people find appreciation challenging to spell.",
+      "outputFile": "difficulty_7/appreciation_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "approximately",
+      "sentenceNumber": 1,
+      "text": "The word approximately is used in many ways.",
+      "outputFile": "difficulty_7/approximately_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "approximately",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what approximately means.",
+      "outputFile": "difficulty_7/approximately_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "approximately",
+      "sentenceNumber": 3,
+      "text": "Many people find approximately challenging to spell.",
+      "outputFile": "difficulty_7/approximately_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "archaeological",
+      "sentenceNumber": 1,
+      "text": "The word archaeological is used in many ways.",
+      "outputFile": "difficulty_7/archaeological_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "archaeological",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what archaeological means.",
+      "outputFile": "difficulty_7/archaeological_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "archaeological",
+      "sentenceNumber": 3,
+      "text": "Many people find archaeological challenging to spell.",
+      "outputFile": "difficulty_7/archaeological_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "argumentative",
+      "sentenceNumber": 1,
+      "text": "The word argumentative is used in many ways.",
+      "outputFile": "difficulty_7/argumentative_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "argumentative",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what argumentative means.",
+      "outputFile": "difficulty_7/argumentative_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "argumentative",
+      "sentenceNumber": 3,
+      "text": "Many people find argumentative challenging to spell.",
+      "outputFile": "difficulty_7/argumentative_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "autobiography",
+      "sentenceNumber": 1,
+      "text": "The word autobiography is used in many ways.",
+      "outputFile": "difficulty_7/autobiography_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "autobiography",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what autobiography means.",
+      "outputFile": "difficulty_7/autobiography_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "autobiography",
+      "sentenceNumber": 3,
+      "text": "Many people find autobiography challenging to spell.",
+      "outputFile": "difficulty_7/autobiography_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "bibliography",
+      "sentenceNumber": 1,
+      "text": "The word bibliography is used in many ways.",
+      "outputFile": "difficulty_7/bibliography_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "bibliography",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what bibliography means.",
+      "outputFile": "difficulty_7/bibliography_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "bibliography",
+      "sentenceNumber": 3,
+      "text": "Many people find bibliography challenging to spell.",
+      "outputFile": "difficulty_7/bibliography_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "characteristic",
+      "sentenceNumber": 1,
+      "text": "The word characteristic is used in many ways.",
+      "outputFile": "difficulty_7/characteristic_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "characteristic",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what characteristic means.",
+      "outputFile": "difficulty_7/characteristic_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "characteristic",
+      "sentenceNumber": 3,
+      "text": "Many people find characteristic challenging to spell.",
+      "outputFile": "difficulty_7/characteristic_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "chronological",
+      "sentenceNumber": 1,
+      "text": "The word chronological is used in many ways.",
+      "outputFile": "difficulty_7/chronological_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "chronological",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what chronological means.",
+      "outputFile": "difficulty_7/chronological_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "chronological",
+      "sentenceNumber": 3,
+      "text": "Many people find chronological challenging to spell.",
+      "outputFile": "difficulty_7/chronological_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "circumstances",
+      "sentenceNumber": 1,
+      "text": "The word circumstances is used in many ways.",
+      "outputFile": "difficulty_7/circumstances_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "circumstances",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what circumstances means.",
+      "outputFile": "difficulty_7/circumstances_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "circumstances",
+      "sentenceNumber": 3,
+      "text": "Many people find circumstances challenging to spell.",
+      "outputFile": "difficulty_7/circumstances_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "classification",
+      "sentenceNumber": 1,
+      "text": "The word classification is used in many ways.",
+      "outputFile": "difficulty_7/classification_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "classification",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what classification means.",
+      "outputFile": "difficulty_7/classification_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "classification",
+      "sentenceNumber": 3,
+      "text": "Many people find classification challenging to spell.",
+      "outputFile": "difficulty_7/classification_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "collaboration",
+      "sentenceNumber": 1,
+      "text": "The word collaboration is used in many ways.",
+      "outputFile": "difficulty_7/collaboration_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "collaboration",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what collaboration means.",
+      "outputFile": "difficulty_7/collaboration_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "collaboration",
+      "sentenceNumber": 3,
+      "text": "Many people find collaboration challenging to spell.",
+      "outputFile": "difficulty_7/collaboration_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "commemorate",
+      "sentenceNumber": 1,
+      "text": "The word commemorate is used in many ways.",
+      "outputFile": "difficulty_7/commemorate_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "commemorate",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what commemorate means.",
+      "outputFile": "difficulty_7/commemorate_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "commemorate",
+      "sentenceNumber": 3,
+      "text": "Many people find commemorate challenging to spell.",
+      "outputFile": "difficulty_7/commemorate_sentence3.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "communication",
+      "sentenceNumber": 1,
+      "text": "The word communication is used in many ways.",
+      "outputFile": "difficulty_7/communication_sentence1.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "communication",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what communication means.",
+      "outputFile": "difficulty_7/communication_sentence2.wav"
+    },
+    {
+      "difficulty": 7,
+      "word": "communication",
+      "sentenceNumber": 3,
+      "text": "Many people find communication challenging to spell.",
+      "outputFile": "difficulty_7/communication_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "abbreviation",
+      "sentenceNumber": 1,
+      "text": "The word abbreviation is used in many ways.",
+      "outputFile": "difficulty_8/abbreviation_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "abbreviation",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what abbreviation means.",
+      "outputFile": "difficulty_8/abbreviation_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "abbreviation",
+      "sentenceNumber": 3,
+      "text": "Many people find abbreviation challenging to spell.",
+      "outputFile": "difficulty_8/abbreviation_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "acceleration",
+      "sentenceNumber": 1,
+      "text": "The word acceleration is used in many ways.",
+      "outputFile": "difficulty_8/acceleration_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "acceleration",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what acceleration means.",
+      "outputFile": "difficulty_8/acceleration_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "acceleration",
+      "sentenceNumber": 3,
+      "text": "Many people find acceleration challenging to spell.",
+      "outputFile": "difficulty_8/acceleration_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "accessibility",
+      "sentenceNumber": 1,
+      "text": "The word accessibility is used in many ways.",
+      "outputFile": "difficulty_8/accessibility_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "accessibility",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what accessibility means.",
+      "outputFile": "difficulty_8/accessibility_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "accessibility",
+      "sentenceNumber": 3,
+      "text": "Many people find accessibility challenging to spell.",
+      "outputFile": "difficulty_8/accessibility_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "accomplishment",
+      "sentenceNumber": 1,
+      "text": "The word accomplishment is used in many ways.",
+      "outputFile": "difficulty_8/accomplishment_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "accomplishment",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what accomplishment means.",
+      "outputFile": "difficulty_8/accomplishment_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "accomplishment",
+      "sentenceNumber": 3,
+      "text": "Many people find accomplishment challenging to spell.",
+      "outputFile": "difficulty_8/accomplishment_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "accountability",
+      "sentenceNumber": 1,
+      "text": "The word accountability is used in many ways.",
+      "outputFile": "difficulty_8/accountability_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "accountability",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what accountability means.",
+      "outputFile": "difficulty_8/accountability_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "accountability",
+      "sentenceNumber": 3,
+      "text": "Many people find accountability challenging to spell.",
+      "outputFile": "difficulty_8/accountability_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "acknowledgement",
+      "sentenceNumber": 1,
+      "text": "The word acknowledgement is used in many ways.",
+      "outputFile": "difficulty_8/acknowledgement_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "acknowledgement",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what acknowledgement means.",
+      "outputFile": "difficulty_8/acknowledgement_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "acknowledgement",
+      "sentenceNumber": 3,
+      "text": "Many people find acknowledgement challenging to spell.",
+      "outputFile": "difficulty_8/acknowledgement_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "administration",
+      "sentenceNumber": 1,
+      "text": "The word administration is used in many ways.",
+      "outputFile": "difficulty_8/administration_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "administration",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what administration means.",
+      "outputFile": "difficulty_8/administration_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "administration",
+      "sentenceNumber": 3,
+      "text": "Many people find administration challenging to spell.",
+      "outputFile": "difficulty_8/administration_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "alphabetically",
+      "sentenceNumber": 1,
+      "text": "The word alphabetically is used in many ways.",
+      "outputFile": "difficulty_8/alphabetically_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "alphabetically",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what alphabetically means.",
+      "outputFile": "difficulty_8/alphabetically_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "alphabetically",
+      "sentenceNumber": 3,
+      "text": "Many people find alphabetically challenging to spell.",
+      "outputFile": "difficulty_8/alphabetically_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "announcements",
+      "sentenceNumber": 1,
+      "text": "The word announcements is used in many ways.",
+      "outputFile": "difficulty_8/announcements_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "announcements",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what announcements means.",
+      "outputFile": "difficulty_8/announcements_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "announcements",
+      "sentenceNumber": 3,
+      "text": "Many people find announcements challenging to spell.",
+      "outputFile": "difficulty_8/announcements_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "archaeological",
+      "sentenceNumber": 1,
+      "text": "The word archaeological is used in many ways.",
+      "outputFile": "difficulty_8/archaeological_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "archaeological",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what archaeological means.",
+      "outputFile": "difficulty_8/archaeological_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "archaeological",
+      "sentenceNumber": 3,
+      "text": "Many people find archaeological challenging to spell.",
+      "outputFile": "difficulty_8/archaeological_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "assassination",
+      "sentenceNumber": 1,
+      "text": "The word assassination is used in many ways.",
+      "outputFile": "difficulty_8/assassination_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "assassination",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what assassination means.",
+      "outputFile": "difficulty_8/assassination_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "assassination",
+      "sentenceNumber": 3,
+      "text": "Many people find assassination challenging to spell.",
+      "outputFile": "difficulty_8/assassination_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "authentication",
+      "sentenceNumber": 1,
+      "text": "The word authentication is used in many ways.",
+      "outputFile": "difficulty_8/authentication_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "authentication",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what authentication means.",
+      "outputFile": "difficulty_8/authentication_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "authentication",
+      "sentenceNumber": 3,
+      "text": "Many people find authentication challenging to spell.",
+      "outputFile": "difficulty_8/authentication_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "autobiography",
+      "sentenceNumber": 1,
+      "text": "The word autobiography is used in many ways.",
+      "outputFile": "difficulty_8/autobiography_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "autobiography",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what autobiography means.",
+      "outputFile": "difficulty_8/autobiography_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "autobiography",
+      "sentenceNumber": 3,
+      "text": "Many people find autobiography challenging to spell.",
+      "outputFile": "difficulty_8/autobiography_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "biodegradable",
+      "sentenceNumber": 1,
+      "text": "The word biodegradable is used in many ways.",
+      "outputFile": "difficulty_8/biodegradable_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "biodegradable",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what biodegradable means.",
+      "outputFile": "difficulty_8/biodegradable_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "biodegradable",
+      "sentenceNumber": 3,
+      "text": "Many people find biodegradable challenging to spell.",
+      "outputFile": "difficulty_8/biodegradable_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "characteristics",
+      "sentenceNumber": 1,
+      "text": "The word characteristics is used in many ways.",
+      "outputFile": "difficulty_8/characteristics_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "characteristics",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what characteristics means.",
+      "outputFile": "difficulty_8/characteristics_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "characteristics",
+      "sentenceNumber": 3,
+      "text": "Many people find characteristics challenging to spell.",
+      "outputFile": "difficulty_8/characteristics_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "circumference",
+      "sentenceNumber": 1,
+      "text": "The word circumference is used in many ways.",
+      "outputFile": "difficulty_8/circumference_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "circumference",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what circumference means.",
+      "outputFile": "difficulty_8/circumference_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "circumference",
+      "sentenceNumber": 3,
+      "text": "Many people find circumference challenging to spell.",
+      "outputFile": "difficulty_8/circumference_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "classification",
+      "sentenceNumber": 1,
+      "text": "The word classification is used in many ways.",
+      "outputFile": "difficulty_8/classification_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "classification",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what classification means.",
+      "outputFile": "difficulty_8/classification_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "classification",
+      "sentenceNumber": 3,
+      "text": "Many people find classification challenging to spell.",
+      "outputFile": "difficulty_8/classification_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "commercialize",
+      "sentenceNumber": 1,
+      "text": "The word commercialize is used in many ways.",
+      "outputFile": "difficulty_8/commercialize_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "commercialize",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what commercialize means.",
+      "outputFile": "difficulty_8/commercialize_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "commercialize",
+      "sentenceNumber": 3,
+      "text": "Many people find commercialize challenging to spell.",
+      "outputFile": "difficulty_8/commercialize_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "communication",
+      "sentenceNumber": 1,
+      "text": "The word communication is used in many ways.",
+      "outputFile": "difficulty_8/communication_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "communication",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what communication means.",
+      "outputFile": "difficulty_8/communication_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "communication",
+      "sentenceNumber": 3,
+      "text": "Many people find communication challenging to spell.",
+      "outputFile": "difficulty_8/communication_sentence3.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "comprehensive",
+      "sentenceNumber": 1,
+      "text": "The word comprehensive is used in many ways.",
+      "outputFile": "difficulty_8/comprehensive_sentence1.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "comprehensive",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what comprehensive means.",
+      "outputFile": "difficulty_8/comprehensive_sentence2.wav"
+    },
+    {
+      "difficulty": 8,
+      "word": "comprehensive",
+      "sentenceNumber": 3,
+      "text": "Many people find comprehensive challenging to spell.",
+      "outputFile": "difficulty_8/comprehensive_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "accommodation",
+      "sentenceNumber": 1,
+      "text": "The word accommodation is used in many ways.",
+      "outputFile": "difficulty_9/accommodation_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "accommodation",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what accommodation means.",
+      "outputFile": "difficulty_9/accommodation_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "accommodation",
+      "sentenceNumber": 3,
+      "text": "Many people find accommodation challenging to spell.",
+      "outputFile": "difficulty_9/accommodation_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "accomplishment",
+      "sentenceNumber": 1,
+      "text": "The word accomplishment is used in many ways.",
+      "outputFile": "difficulty_9/accomplishment_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "accomplishment",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what accomplishment means.",
+      "outputFile": "difficulty_9/accomplishment_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "accomplishment",
+      "sentenceNumber": 3,
+      "text": "Many people find accomplishment challenging to spell.",
+      "outputFile": "difficulty_9/accomplishment_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "acknowledgment",
+      "sentenceNumber": 1,
+      "text": "The word acknowledgment is used in many ways.",
+      "outputFile": "difficulty_9/acknowledgment_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "acknowledgment",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what acknowledgment means.",
+      "outputFile": "difficulty_9/acknowledgment_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "acknowledgment",
+      "sentenceNumber": 3,
+      "text": "Many people find acknowledgment challenging to spell.",
+      "outputFile": "difficulty_9/acknowledgment_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "administration",
+      "sentenceNumber": 1,
+      "text": "The word administration is used in many ways.",
+      "outputFile": "difficulty_9/administration_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "administration",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what administration means.",
+      "outputFile": "difficulty_9/administration_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "administration",
+      "sentenceNumber": 3,
+      "text": "Many people find administration challenging to spell.",
+      "outputFile": "difficulty_9/administration_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "alphabetically",
+      "sentenceNumber": 1,
+      "text": "The word alphabetically is used in many ways.",
+      "outputFile": "difficulty_9/alphabetically_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "alphabetically",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what alphabetically means.",
+      "outputFile": "difficulty_9/alphabetically_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "alphabetically",
+      "sentenceNumber": 3,
+      "text": "Many people find alphabetically challenging to spell.",
+      "outputFile": "difficulty_9/alphabetically_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "announcements",
+      "sentenceNumber": 1,
+      "text": "The word announcements is used in many ways.",
+      "outputFile": "difficulty_9/announcements_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "announcements",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what announcements means.",
+      "outputFile": "difficulty_9/announcements_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "announcements",
+      "sentenceNumber": 3,
+      "text": "Many people find announcements challenging to spell.",
+      "outputFile": "difficulty_9/announcements_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "approximately",
+      "sentenceNumber": 1,
+      "text": "The word approximately is used in many ways.",
+      "outputFile": "difficulty_9/approximately_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "approximately",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what approximately means.",
+      "outputFile": "difficulty_9/approximately_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "approximately",
+      "sentenceNumber": 3,
+      "text": "Many people find approximately challenging to spell.",
+      "outputFile": "difficulty_9/approximately_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "archaeological",
+      "sentenceNumber": 1,
+      "text": "The word archaeological is used in many ways.",
+      "outputFile": "difficulty_9/archaeological_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "archaeological",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what archaeological means.",
+      "outputFile": "difficulty_9/archaeological_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "archaeological",
+      "sentenceNumber": 3,
+      "text": "Many people find archaeological challenging to spell.",
+      "outputFile": "difficulty_9/archaeological_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "authentication",
+      "sentenceNumber": 1,
+      "text": "The word authentication is used in many ways.",
+      "outputFile": "difficulty_9/authentication_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "authentication",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what authentication means.",
+      "outputFile": "difficulty_9/authentication_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "authentication",
+      "sentenceNumber": 3,
+      "text": "Many people find authentication challenging to spell.",
+      "outputFile": "difficulty_9/authentication_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "autobiography",
+      "sentenceNumber": 1,
+      "text": "The word autobiography is used in many ways.",
+      "outputFile": "difficulty_9/autobiography_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "autobiography",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what autobiography means.",
+      "outputFile": "difficulty_9/autobiography_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "autobiography",
+      "sentenceNumber": 3,
+      "text": "Many people find autobiography challenging to spell.",
+      "outputFile": "difficulty_9/autobiography_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "biodegradable",
+      "sentenceNumber": 1,
+      "text": "The word biodegradable is used in many ways.",
+      "outputFile": "difficulty_9/biodegradable_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "biodegradable",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what biodegradable means.",
+      "outputFile": "difficulty_9/biodegradable_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "biodegradable",
+      "sentenceNumber": 3,
+      "text": "Many people find biodegradable challenging to spell.",
+      "outputFile": "difficulty_9/biodegradable_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "characteristics",
+      "sentenceNumber": 1,
+      "text": "The word characteristics is used in many ways.",
+      "outputFile": "difficulty_9/characteristics_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "characteristics",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what characteristics means.",
+      "outputFile": "difficulty_9/characteristics_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "characteristics",
+      "sentenceNumber": 3,
+      "text": "Many people find characteristics challenging to spell.",
+      "outputFile": "difficulty_9/characteristics_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "chronological",
+      "sentenceNumber": 1,
+      "text": "The word chronological is used in many ways.",
+      "outputFile": "difficulty_9/chronological_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "chronological",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what chronological means.",
+      "outputFile": "difficulty_9/chronological_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "chronological",
+      "sentenceNumber": 3,
+      "text": "Many people find chronological challenging to spell.",
+      "outputFile": "difficulty_9/chronological_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "circumference",
+      "sentenceNumber": 1,
+      "text": "The word circumference is used in many ways.",
+      "outputFile": "difficulty_9/circumference_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "circumference",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what circumference means.",
+      "outputFile": "difficulty_9/circumference_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "circumference",
+      "sentenceNumber": 3,
+      "text": "Many people find circumference challenging to spell.",
+      "outputFile": "difficulty_9/circumference_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "classification",
+      "sentenceNumber": 1,
+      "text": "The word classification is used in many ways.",
+      "outputFile": "difficulty_9/classification_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "classification",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what classification means.",
+      "outputFile": "difficulty_9/classification_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "classification",
+      "sentenceNumber": 3,
+      "text": "Many people find classification challenging to spell.",
+      "outputFile": "difficulty_9/classification_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "collaboration",
+      "sentenceNumber": 1,
+      "text": "The word collaboration is used in many ways.",
+      "outputFile": "difficulty_9/collaboration_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "collaboration",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what collaboration means.",
+      "outputFile": "difficulty_9/collaboration_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "collaboration",
+      "sentenceNumber": 3,
+      "text": "Many people find collaboration challenging to spell.",
+      "outputFile": "difficulty_9/collaboration_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "commercialize",
+      "sentenceNumber": 1,
+      "text": "The word commercialize is used in many ways.",
+      "outputFile": "difficulty_9/commercialize_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "commercialize",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what commercialize means.",
+      "outputFile": "difficulty_9/commercialize_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "commercialize",
+      "sentenceNumber": 3,
+      "text": "Many people find commercialize challenging to spell.",
+      "outputFile": "difficulty_9/commercialize_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "communication",
+      "sentenceNumber": 1,
+      "text": "The word communication is used in many ways.",
+      "outputFile": "difficulty_9/communication_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "communication",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what communication means.",
+      "outputFile": "difficulty_9/communication_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "communication",
+      "sentenceNumber": 3,
+      "text": "Many people find communication challenging to spell.",
+      "outputFile": "difficulty_9/communication_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "comprehensive",
+      "sentenceNumber": 1,
+      "text": "The word comprehensive is used in many ways.",
+      "outputFile": "difficulty_9/comprehensive_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "comprehensive",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what comprehensive means.",
+      "outputFile": "difficulty_9/comprehensive_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "comprehensive",
+      "sentenceNumber": 3,
+      "text": "Many people find comprehensive challenging to spell.",
+      "outputFile": "difficulty_9/comprehensive_sentence3.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "confederation",
+      "sentenceNumber": 1,
+      "text": "The word confederation is used in many ways.",
+      "outputFile": "difficulty_9/confederation_sentence1.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "confederation",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what confederation means.",
+      "outputFile": "difficulty_9/confederation_sentence2.wav"
+    },
+    {
+      "difficulty": 9,
+      "word": "confederation",
+      "sentenceNumber": 3,
+      "text": "Many people find confederation challenging to spell.",
+      "outputFile": "difficulty_9/confederation_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "conscientious",
+      "sentenceNumber": 1,
+      "text": "The word conscientious is used in many ways.",
+      "outputFile": "difficulty_10/conscientious_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "conscientious",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what conscientious means.",
+      "outputFile": "difficulty_10/conscientious_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "conscientious",
+      "sentenceNumber": 3,
+      "text": "Many people find conscientious challenging to spell.",
+      "outputFile": "difficulty_10/conscientious_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "correspondence",
+      "sentenceNumber": 1,
+      "text": "The word correspondence is used in many ways.",
+      "outputFile": "difficulty_10/correspondence_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "correspondence",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what correspondence means.",
+      "outputFile": "difficulty_10/correspondence_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "correspondence",
+      "sentenceNumber": 3,
+      "text": "Many people find correspondence challenging to spell.",
+      "outputFile": "difficulty_10/correspondence_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "discrimination",
+      "sentenceNumber": 1,
+      "text": "The word discrimination is used in many ways.",
+      "outputFile": "difficulty_10/discrimination_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "discrimination",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what discrimination means.",
+      "outputFile": "difficulty_10/discrimination_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "discrimination",
+      "sentenceNumber": 3,
+      "text": "Many people find discrimination challenging to spell.",
+      "outputFile": "difficulty_10/discrimination_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "electromagnetic",
+      "sentenceNumber": 1,
+      "text": "The word electromagnetic is used in many ways.",
+      "outputFile": "difficulty_10/electromagnetic_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "electromagnetic",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what electromagnetic means.",
+      "outputFile": "difficulty_10/electromagnetic_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "electromagnetic",
+      "sentenceNumber": 3,
+      "text": "Many people find electromagnetic challenging to spell.",
+      "outputFile": "difficulty_10/electromagnetic_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "entrepreneurial",
+      "sentenceNumber": 1,
+      "text": "The word entrepreneurial is used in many ways.",
+      "outputFile": "difficulty_10/entrepreneurial_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "entrepreneurial",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what entrepreneurial means.",
+      "outputFile": "difficulty_10/entrepreneurial_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "entrepreneurial",
+      "sentenceNumber": 3,
+      "text": "Many people find entrepreneurial challenging to spell.",
+      "outputFile": "difficulty_10/entrepreneurial_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "environmental",
+      "sentenceNumber": 1,
+      "text": "The word environmental is used in many ways.",
+      "outputFile": "difficulty_10/environmental_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "environmental",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what environmental means.",
+      "outputFile": "difficulty_10/environmental_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "environmental",
+      "sentenceNumber": 3,
+      "text": "Many people find environmental challenging to spell.",
+      "outputFile": "difficulty_10/environmental_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "fundamentalism",
+      "sentenceNumber": 1,
+      "text": "The word fundamentalism is used in many ways.",
+      "outputFile": "difficulty_10/fundamentalism_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "fundamentalism",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what fundamentalism means.",
+      "outputFile": "difficulty_10/fundamentalism_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "fundamentalism",
+      "sentenceNumber": 3,
+      "text": "Many people find fundamentalism challenging to spell.",
+      "outputFile": "difficulty_10/fundamentalism_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "hallucination",
+      "sentenceNumber": 1,
+      "text": "The word hallucination is used in many ways.",
+      "outputFile": "difficulty_10/hallucination_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "hallucination",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what hallucination means.",
+      "outputFile": "difficulty_10/hallucination_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "hallucination",
+      "sentenceNumber": 3,
+      "text": "Many people find hallucination challenging to spell.",
+      "outputFile": "difficulty_10/hallucination_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "hospitalization",
+      "sentenceNumber": 1,
+      "text": "The word hospitalization is used in many ways.",
+      "outputFile": "difficulty_10/hospitalization_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "hospitalization",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what hospitalization means.",
+      "outputFile": "difficulty_10/hospitalization_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "hospitalization",
+      "sentenceNumber": 3,
+      "text": "Many people find hospitalization challenging to spell.",
+      "outputFile": "difficulty_10/hospitalization_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "hypothetically",
+      "sentenceNumber": 1,
+      "text": "The word hypothetically is used in many ways.",
+      "outputFile": "difficulty_10/hypothetically_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "hypothetically",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what hypothetically means.",
+      "outputFile": "difficulty_10/hypothetically_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "hypothetically",
+      "sentenceNumber": 3,
+      "text": "Many people find hypothetically challenging to spell.",
+      "outputFile": "difficulty_10/hypothetically_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "identification",
+      "sentenceNumber": 1,
+      "text": "The word identification is used in many ways.",
+      "outputFile": "difficulty_10/identification_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "identification",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what identification means.",
+      "outputFile": "difficulty_10/identification_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "identification",
+      "sentenceNumber": 3,
+      "text": "Many people find identification challenging to spell.",
+      "outputFile": "difficulty_10/identification_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "implementation",
+      "sentenceNumber": 1,
+      "text": "The word implementation is used in many ways.",
+      "outputFile": "difficulty_10/implementation_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "implementation",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what implementation means.",
+      "outputFile": "difficulty_10/implementation_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "implementation",
+      "sentenceNumber": 3,
+      "text": "Many people find implementation challenging to spell.",
+      "outputFile": "difficulty_10/implementation_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "impressionable",
+      "sentenceNumber": 1,
+      "text": "The word impressionable is used in many ways.",
+      "outputFile": "difficulty_10/impressionable_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "impressionable",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what impressionable means.",
+      "outputFile": "difficulty_10/impressionable_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "impressionable",
+      "sentenceNumber": 3,
+      "text": "Many people find impressionable challenging to spell.",
+      "outputFile": "difficulty_10/impressionable_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "incomprehensible",
+      "sentenceNumber": 1,
+      "text": "The word incomprehensible is used in many ways.",
+      "outputFile": "difficulty_10/incomprehensible_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "incomprehensible",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what incomprehensible means.",
+      "outputFile": "difficulty_10/incomprehensible_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "incomprehensible",
+      "sentenceNumber": 3,
+      "text": "Many people find incomprehensible challenging to spell.",
+      "outputFile": "difficulty_10/incomprehensible_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "individualism",
+      "sentenceNumber": 1,
+      "text": "The word individualism is used in many ways.",
+      "outputFile": "difficulty_10/individualism_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "individualism",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what individualism means.",
+      "outputFile": "difficulty_10/individualism_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "individualism",
+      "sentenceNumber": 3,
+      "text": "Many people find individualism challenging to spell.",
+      "outputFile": "difficulty_10/individualism_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "industrialization",
+      "sentenceNumber": 1,
+      "text": "The word industrialization is used in many ways.",
+      "outputFile": "difficulty_10/industrialization_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "industrialization",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what industrialization means.",
+      "outputFile": "difficulty_10/industrialization_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "industrialization",
+      "sentenceNumber": 3,
+      "text": "Many people find industrialization challenging to spell.",
+      "outputFile": "difficulty_10/industrialization_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "infrastructure",
+      "sentenceNumber": 1,
+      "text": "The word infrastructure is used in many ways.",
+      "outputFile": "difficulty_10/infrastructure_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "infrastructure",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what infrastructure means.",
+      "outputFile": "difficulty_10/infrastructure_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "infrastructure",
+      "sentenceNumber": 3,
+      "text": "Many people find infrastructure challenging to spell.",
+      "outputFile": "difficulty_10/infrastructure_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "institutionalize",
+      "sentenceNumber": 1,
+      "text": "The word institutionalize is used in many ways.",
+      "outputFile": "difficulty_10/institutionalize_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "institutionalize",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what institutionalize means.",
+      "outputFile": "difficulty_10/institutionalize_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "institutionalize",
+      "sentenceNumber": 3,
+      "text": "Many people find institutionalize challenging to spell.",
+      "outputFile": "difficulty_10/institutionalize_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "instrumentation",
+      "sentenceNumber": 1,
+      "text": "The word instrumentation is used in many ways.",
+      "outputFile": "difficulty_10/instrumentation_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "instrumentation",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what instrumentation means.",
+      "outputFile": "difficulty_10/instrumentation_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "instrumentation",
+      "sentenceNumber": 3,
+      "text": "Many people find instrumentation challenging to spell.",
+      "outputFile": "difficulty_10/instrumentation_sentence3.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "intellectualism",
+      "sentenceNumber": 1,
+      "text": "The word intellectualism is used in many ways.",
+      "outputFile": "difficulty_10/intellectualism_sentence1.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "intellectualism",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what intellectualism means.",
+      "outputFile": "difficulty_10/intellectualism_sentence2.wav"
+    },
+    {
+      "difficulty": 10,
+      "word": "intellectualism",
+      "sentenceNumber": 3,
+      "text": "Many people find intellectualism challenging to spell.",
+      "outputFile": "difficulty_10/intellectualism_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "acknowledgeable",
+      "sentenceNumber": 1,
+      "text": "The word acknowledgeable is used in many ways.",
+      "outputFile": "difficulty_11/acknowledgeable_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "acknowledgeable",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what acknowledgeable means.",
+      "outputFile": "difficulty_11/acknowledgeable_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "acknowledgeable",
+      "sentenceNumber": 3,
+      "text": "Many people find acknowledgeable challenging to spell.",
+      "outputFile": "difficulty_11/acknowledgeable_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "characterization",
+      "sentenceNumber": 1,
+      "text": "The word characterization is used in many ways.",
+      "outputFile": "difficulty_11/characterization_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "characterization",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what characterization means.",
+      "outputFile": "difficulty_11/characterization_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "characterization",
+      "sentenceNumber": 3,
+      "text": "Many people find characterization challenging to spell.",
+      "outputFile": "difficulty_11/characterization_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "circumstantial",
+      "sentenceNumber": 1,
+      "text": "The word circumstantial is used in many ways.",
+      "outputFile": "difficulty_11/circumstantial_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "circumstantial",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what circumstantial means.",
+      "outputFile": "difficulty_11/circumstantial_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "circumstantial",
+      "sentenceNumber": 3,
+      "text": "Many people find circumstantial challenging to spell.",
+      "outputFile": "difficulty_11/circumstantial_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "commercialization",
+      "sentenceNumber": 1,
+      "text": "The word commercialization is used in many ways.",
+      "outputFile": "difficulty_11/commercialization_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "commercialization",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what commercialization means.",
+      "outputFile": "difficulty_11/commercialization_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "commercialization",
+      "sentenceNumber": 3,
+      "text": "Many people find commercialization challenging to spell.",
+      "outputFile": "difficulty_11/commercialization_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "compartmentalize",
+      "sentenceNumber": 1,
+      "text": "The word compartmentalize is used in many ways.",
+      "outputFile": "difficulty_11/compartmentalize_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "compartmentalize",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what compartmentalize means.",
+      "outputFile": "difficulty_11/compartmentalize_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "compartmentalize",
+      "sentenceNumber": 3,
+      "text": "Many people find compartmentalize challenging to spell.",
+      "outputFile": "difficulty_11/compartmentalize_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "comprehensibility",
+      "sentenceNumber": 1,
+      "text": "The word comprehensibility is used in many ways.",
+      "outputFile": "difficulty_11/comprehensibility_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "comprehensibility",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what comprehensibility means.",
+      "outputFile": "difficulty_11/comprehensibility_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "comprehensibility",
+      "sentenceNumber": 3,
+      "text": "Many people find comprehensibility challenging to spell.",
+      "outputFile": "difficulty_11/comprehensibility_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "conceptualization",
+      "sentenceNumber": 1,
+      "text": "The word conceptualization is used in many ways.",
+      "outputFile": "difficulty_11/conceptualization_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "conceptualization",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what conceptualization means.",
+      "outputFile": "difficulty_11/conceptualization_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "conceptualization",
+      "sentenceNumber": 3,
+      "text": "Many people find conceptualization challenging to spell.",
+      "outputFile": "difficulty_11/conceptualization_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "confidentiality",
+      "sentenceNumber": 1,
+      "text": "The word confidentiality is used in many ways.",
+      "outputFile": "difficulty_11/confidentiality_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "confidentiality",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what confidentiality means.",
+      "outputFile": "difficulty_11/confidentiality_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "confidentiality",
+      "sentenceNumber": 3,
+      "text": "Many people find confidentiality challenging to spell.",
+      "outputFile": "difficulty_11/confidentiality_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "congratulations",
+      "sentenceNumber": 1,
+      "text": "The word congratulations is used in many ways.",
+      "outputFile": "difficulty_11/congratulations_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "congratulations",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what congratulations means.",
+      "outputFile": "difficulty_11/congratulations_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "congratulations",
+      "sentenceNumber": 3,
+      "text": "Many people find congratulations challenging to spell.",
+      "outputFile": "difficulty_11/congratulations_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "conscientiously",
+      "sentenceNumber": 1,
+      "text": "The word conscientiously is used in many ways.",
+      "outputFile": "difficulty_11/conscientiously_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "conscientiously",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what conscientiously means.",
+      "outputFile": "difficulty_11/conscientiously_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "conscientiously",
+      "sentenceNumber": 3,
+      "text": "Many people find conscientiously challenging to spell.",
+      "outputFile": "difficulty_11/conscientiously_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "constitutionality",
+      "sentenceNumber": 1,
+      "text": "The word constitutionality is used in many ways.",
+      "outputFile": "difficulty_11/constitutionality_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "constitutionality",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what constitutionality means.",
+      "outputFile": "difficulty_11/constitutionality_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "constitutionality",
+      "sentenceNumber": 3,
+      "text": "Many people find constitutionality challenging to spell.",
+      "outputFile": "difficulty_11/constitutionality_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "contemporaneous",
+      "sentenceNumber": 1,
+      "text": "The word contemporaneous is used in many ways.",
+      "outputFile": "difficulty_11/contemporaneous_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "contemporaneous",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what contemporaneous means.",
+      "outputFile": "difficulty_11/contemporaneous_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "contemporaneous",
+      "sentenceNumber": 3,
+      "text": "Many people find contemporaneous challenging to spell.",
+      "outputFile": "difficulty_11/contemporaneous_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "conventionalize",
+      "sentenceNumber": 1,
+      "text": "The word conventionalize is used in many ways.",
+      "outputFile": "difficulty_11/conventionalize_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "conventionalize",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what conventionalize means.",
+      "outputFile": "difficulty_11/conventionalize_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "conventionalize",
+      "sentenceNumber": 3,
+      "text": "Many people find conventionalize challenging to spell.",
+      "outputFile": "difficulty_11/conventionalize_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "correspondence",
+      "sentenceNumber": 1,
+      "text": "The word correspondence is used in many ways.",
+      "outputFile": "difficulty_11/correspondence_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "correspondence",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what correspondence means.",
+      "outputFile": "difficulty_11/correspondence_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "correspondence",
+      "sentenceNumber": 3,
+      "text": "Many people find correspondence challenging to spell.",
+      "outputFile": "difficulty_11/correspondence_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "counterproductive",
+      "sentenceNumber": 1,
+      "text": "The word counterproductive is used in many ways.",
+      "outputFile": "difficulty_11/counterproductive_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "counterproductive",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what counterproductive means.",
+      "outputFile": "difficulty_11/counterproductive_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "counterproductive",
+      "sentenceNumber": 3,
+      "text": "Many people find counterproductive challenging to spell.",
+      "outputFile": "difficulty_11/counterproductive_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "crystallization",
+      "sentenceNumber": 1,
+      "text": "The word crystallization is used in many ways.",
+      "outputFile": "difficulty_11/crystallization_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "crystallization",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what crystallization means.",
+      "outputFile": "difficulty_11/crystallization_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "crystallization",
+      "sentenceNumber": 3,
+      "text": "Many people find crystallization challenging to spell.",
+      "outputFile": "difficulty_11/crystallization_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "decentralization",
+      "sentenceNumber": 1,
+      "text": "The word decentralization is used in many ways.",
+      "outputFile": "difficulty_11/decentralization_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "decentralization",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what decentralization means.",
+      "outputFile": "difficulty_11/decentralization_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "decentralization",
+      "sentenceNumber": 3,
+      "text": "Many people find decentralization challenging to spell.",
+      "outputFile": "difficulty_11/decentralization_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "demilitarization",
+      "sentenceNumber": 1,
+      "text": "The word demilitarization is used in many ways.",
+      "outputFile": "difficulty_11/demilitarization_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "demilitarization",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what demilitarization means.",
+      "outputFile": "difficulty_11/demilitarization_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "demilitarization",
+      "sentenceNumber": 3,
+      "text": "Many people find demilitarization challenging to spell.",
+      "outputFile": "difficulty_11/demilitarization_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "democratization",
+      "sentenceNumber": 1,
+      "text": "The word democratization is used in many ways.",
+      "outputFile": "difficulty_11/democratization_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "democratization",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what democratization means.",
+      "outputFile": "difficulty_11/democratization_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "democratization",
+      "sentenceNumber": 3,
+      "text": "Many people find democratization challenging to spell.",
+      "outputFile": "difficulty_11/democratization_sentence3.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "departmentalize",
+      "sentenceNumber": 1,
+      "text": "The word departmentalize is used in many ways.",
+      "outputFile": "difficulty_11/departmentalize_sentence1.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "departmentalize",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what departmentalize means.",
+      "outputFile": "difficulty_11/departmentalize_sentence2.wav"
+    },
+    {
+      "difficulty": 11,
+      "word": "departmentalize",
+      "sentenceNumber": 3,
+      "text": "Many people find departmentalize challenging to spell.",
+      "outputFile": "difficulty_11/departmentalize_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "autobiographical",
+      "sentenceNumber": 1,
+      "text": "The word autobiographical is used in many ways.",
+      "outputFile": "difficulty_12/autobiographical_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "autobiographical",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what autobiographical means.",
+      "outputFile": "difficulty_12/autobiographical_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "autobiographical",
+      "sentenceNumber": 3,
+      "text": "Many people find autobiographical challenging to spell.",
+      "outputFile": "difficulty_12/autobiographical_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "characteristically",
+      "sentenceNumber": 1,
+      "text": "The word characteristically is used in many ways.",
+      "outputFile": "difficulty_12/characteristically_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "characteristically",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what characteristically means.",
+      "outputFile": "difficulty_12/characteristically_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "characteristically",
+      "sentenceNumber": 3,
+      "text": "Many people find characteristically challenging to spell.",
+      "outputFile": "difficulty_12/characteristically_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "compartmentalization",
+      "sentenceNumber": 1,
+      "text": "The word compartmentalization is used in many ways.",
+      "outputFile": "difficulty_12/compartmentalization_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "compartmentalization",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what compartmentalization means.",
+      "outputFile": "difficulty_12/compartmentalization_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "compartmentalization",
+      "sentenceNumber": 3,
+      "text": "Many people find compartmentalization challenging to spell.",
+      "outputFile": "difficulty_12/compartmentalization_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "comprehensively",
+      "sentenceNumber": 1,
+      "text": "The word comprehensively is used in many ways.",
+      "outputFile": "difficulty_12/comprehensively_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "comprehensively",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what comprehensively means.",
+      "outputFile": "difficulty_12/comprehensively_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "comprehensively",
+      "sentenceNumber": 3,
+      "text": "Many people find comprehensively challenging to spell.",
+      "outputFile": "difficulty_12/comprehensively_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "conceptualization",
+      "sentenceNumber": 1,
+      "text": "The word conceptualization is used in many ways.",
+      "outputFile": "difficulty_12/conceptualization_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "conceptualization",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what conceptualization means.",
+      "outputFile": "difficulty_12/conceptualization_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "conceptualization",
+      "sentenceNumber": 3,
+      "text": "Many people find conceptualization challenging to spell.",
+      "outputFile": "difficulty_12/conceptualization_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "confidentiality",
+      "sentenceNumber": 1,
+      "text": "The word confidentiality is used in many ways.",
+      "outputFile": "difficulty_12/confidentiality_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "confidentiality",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what confidentiality means.",
+      "outputFile": "difficulty_12/confidentiality_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "confidentiality",
+      "sentenceNumber": 3,
+      "text": "Many people find confidentiality challenging to spell.",
+      "outputFile": "difficulty_12/confidentiality_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "congratulatory",
+      "sentenceNumber": 1,
+      "text": "The word congratulatory is used in many ways.",
+      "outputFile": "difficulty_12/congratulatory_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "congratulatory",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what congratulatory means.",
+      "outputFile": "difficulty_12/congratulatory_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "congratulatory",
+      "sentenceNumber": 3,
+      "text": "Many people find congratulatory challenging to spell.",
+      "outputFile": "difficulty_12/congratulatory_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "conscientiously",
+      "sentenceNumber": 1,
+      "text": "The word conscientiously is used in many ways.",
+      "outputFile": "difficulty_12/conscientiously_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "conscientiously",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what conscientiously means.",
+      "outputFile": "difficulty_12/conscientiously_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "conscientiously",
+      "sentenceNumber": 3,
+      "text": "Many people find conscientiously challenging to spell.",
+      "outputFile": "difficulty_12/conscientiously_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "constitutionally",
+      "sentenceNumber": 1,
+      "text": "The word constitutionally is used in many ways.",
+      "outputFile": "difficulty_12/constitutionally_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "constitutionally",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what constitutionally means.",
+      "outputFile": "difficulty_12/constitutionally_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "constitutionally",
+      "sentenceNumber": 3,
+      "text": "Many people find constitutionally challenging to spell.",
+      "outputFile": "difficulty_12/constitutionally_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "contemporaneously",
+      "sentenceNumber": 1,
+      "text": "The word contemporaneously is used in many ways.",
+      "outputFile": "difficulty_12/contemporaneously_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "contemporaneously",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what contemporaneously means.",
+      "outputFile": "difficulty_12/contemporaneously_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "contemporaneously",
+      "sentenceNumber": 3,
+      "text": "Many people find contemporaneously challenging to spell.",
+      "outputFile": "difficulty_12/contemporaneously_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "conventionally",
+      "sentenceNumber": 1,
+      "text": "The word conventionally is used in many ways.",
+      "outputFile": "difficulty_12/conventionally_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "conventionally",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what conventionally means.",
+      "outputFile": "difficulty_12/conventionally_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "conventionally",
+      "sentenceNumber": 3,
+      "text": "Many people find conventionally challenging to spell.",
+      "outputFile": "difficulty_12/conventionally_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "correspondingly",
+      "sentenceNumber": 1,
+      "text": "The word correspondingly is used in many ways.",
+      "outputFile": "difficulty_12/correspondingly_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "correspondingly",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what correspondingly means.",
+      "outputFile": "difficulty_12/correspondingly_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "correspondingly",
+      "sentenceNumber": 3,
+      "text": "Many people find correspondingly challenging to spell.",
+      "outputFile": "difficulty_12/correspondingly_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "counterproductively",
+      "sentenceNumber": 1,
+      "text": "The word counterproductively is used in many ways.",
+      "outputFile": "difficulty_12/counterproductively_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "counterproductively",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what counterproductively means.",
+      "outputFile": "difficulty_12/counterproductively_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "counterproductively",
+      "sentenceNumber": 3,
+      "text": "Many people find counterproductively challenging to spell.",
+      "outputFile": "difficulty_12/counterproductively_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "crystallographic",
+      "sentenceNumber": 1,
+      "text": "The word crystallographic is used in many ways.",
+      "outputFile": "difficulty_12/crystallographic_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "crystallographic",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what crystallographic means.",
+      "outputFile": "difficulty_12/crystallographic_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "crystallographic",
+      "sentenceNumber": 3,
+      "text": "Many people find crystallographic challenging to spell.",
+      "outputFile": "difficulty_12/crystallographic_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "decentralization",
+      "sentenceNumber": 1,
+      "text": "The word decentralization is used in many ways.",
+      "outputFile": "difficulty_12/decentralization_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "decentralization",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what decentralization means.",
+      "outputFile": "difficulty_12/decentralization_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "decentralization",
+      "sentenceNumber": 3,
+      "text": "Many people find decentralization challenging to spell.",
+      "outputFile": "difficulty_12/decentralization_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "demilitarization",
+      "sentenceNumber": 1,
+      "text": "The word demilitarization is used in many ways.",
+      "outputFile": "difficulty_12/demilitarization_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "demilitarization",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what demilitarization means.",
+      "outputFile": "difficulty_12/demilitarization_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "demilitarization",
+      "sentenceNumber": 3,
+      "text": "Many people find demilitarization challenging to spell.",
+      "outputFile": "difficulty_12/demilitarization_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "democratization",
+      "sentenceNumber": 1,
+      "text": "The word democratization is used in many ways.",
+      "outputFile": "difficulty_12/democratization_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "democratization",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what democratization means.",
+      "outputFile": "difficulty_12/democratization_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "democratization",
+      "sentenceNumber": 3,
+      "text": "Many people find democratization challenging to spell.",
+      "outputFile": "difficulty_12/democratization_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "departmentalization",
+      "sentenceNumber": 1,
+      "text": "The word departmentalization is used in many ways.",
+      "outputFile": "difficulty_12/departmentalization_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "departmentalization",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what departmentalization means.",
+      "outputFile": "difficulty_12/departmentalization_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "departmentalization",
+      "sentenceNumber": 3,
+      "text": "Many people find departmentalization challenging to spell.",
+      "outputFile": "difficulty_12/departmentalization_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "deterministically",
+      "sentenceNumber": 1,
+      "text": "The word deterministically is used in many ways.",
+      "outputFile": "difficulty_12/deterministically_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "deterministically",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what deterministically means.",
+      "outputFile": "difficulty_12/deterministically_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "deterministically",
+      "sentenceNumber": 3,
+      "text": "Many people find deterministically challenging to spell.",
+      "outputFile": "difficulty_12/deterministically_sentence3.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "developmentally",
+      "sentenceNumber": 1,
+      "text": "The word developmentally is used in many ways.",
+      "outputFile": "difficulty_12/developmentally_sentence1.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "developmentally",
+      "sentenceNumber": 2,
+      "text": "The teacher explained what developmentally means.",
+      "outputFile": "difficulty_12/developmentally_sentence2.wav"
+    },
+    {
+      "difficulty": 12,
+      "word": "developmentally",
+      "sentenceNumber": 3,
+      "text": "Many people find developmentally challenging to spell.",
+      "outputFile": "difficulty_12/developmentally_sentence3.wav"
+    }
+  ]
+}
