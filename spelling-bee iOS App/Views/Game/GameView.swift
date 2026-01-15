@@ -250,17 +250,24 @@ struct GameHeader: View {
     }
 }
 
+// MARK: - Spelling State Machine
+enum SpellingState {
+    case waitingForFirstLetter  // Ignore everything except valid letters
+    case spellingMode           // Process everything as spelling
+}
+
 // MARK: - Word Presentation View
 struct WordPresentationView: View {
     @ObservedObject var viewModel: GameViewModel
     @ObservedObject var speechService = SpeechService.shared
     @State private var isRecording = false
     @State private var pulseAnimation = false
-    @State private var showFullWordHint = false
     @State private var useKeyboard = false
     @State private var keyboardInput = ""
     @FocusState private var isKeyboardFocused: Bool
-    @State private var hasStartedSpelling = false  // Track if user has started spelling
+    @State private var spellingState: SpellingState = .waitingForFirstLetter
+    @State private var displayedSpelling = ""  // What we show in UI
+    @State private var textAtTransition = ""  // Text we had when transitioning to spelling mode
 
     var body: some View {
         VStack(spacing: 20) {
@@ -403,13 +410,13 @@ struct WordPresentationView: View {
                     .padding(.horizontal, 20)
                 } else {
                     // Show recognized text (mic mode)
-                    if !speechService.recognizedText.isEmpty {
+                    if !displayedSpelling.isEmpty {
                         VStack(spacing: 8) {
                             Text("Heard:")
                                 .font(.caption)
                                 .foregroundColor(.white.opacity(0.6))
 
-                            Text(parseSpelledLetters(speechService.recognizedText).uppercased())
+                            Text(displayedSpelling.uppercased())
                                 .font(.system(size: 23, weight: .bold, design: .monospaced))
                                 .foregroundColor(.cyan)
                                 .tracking(4)
@@ -417,18 +424,6 @@ struct WordPresentationView: View {
                                 .background(Color.white.opacity(0.15))
                                 .cornerRadius(12)
                         }
-                    }
-
-                    // Full word warning (only show when detected)
-                    if showFullWordHint {
-                        Text("⚠️ Say the letters, not the full word!")
-                            .font(.subheadline)
-                            .foregroundColor(.orange)
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 8)
-                            .background(Color.orange.opacity(0.2))
-                            .cornerRadius(8)
-                            .transition(.scale.combined(with: .opacity))
                     }
                 }
 
@@ -439,6 +434,7 @@ struct WordPresentationView: View {
                             .font(.subheadline)
                             .foregroundColor(.white.opacity(0.8))
 
+                        // Animated letters
                         HStack(spacing: 4) {
                             ForEach(Array(viewModel.currentSpellingLetters.enumerated()), id: \.offset) { index, letter in
                                 Text(letter)
@@ -496,12 +492,13 @@ struct WordPresentationView: View {
                 }
 
                 // Submit button (show based on mode)
-                if (useKeyboard && !keyboardInput.isEmpty) || (!useKeyboard && !speechService.recognizedText.isEmpty && !isRecording) {
+                if (useKeyboard && !keyboardInput.isEmpty) || (!useKeyboard && !displayedSpelling.isEmpty && !isRecording) {
                     Button(action: {
                         print("🔵 ====== SUBMIT BUTTON TAPPED ======")
                         print("🔵 useKeyboard: \(useKeyboard)")
                         print("🔵 keyboardInput: '\(keyboardInput)'")
-                        print("🔵 recognizedText: '\(speechService.recognizedText)'")
+                        print("🔵 displayedSpelling: '\(displayedSpelling)'")
+                        print("🔵 spellingState: \(spellingState)")
                         print("🔵 viewModel.phase: \(viewModel.phase)")
                         print("🔵 Current word: '\(viewModel.currentWord?.text ?? "nil")'")
 
@@ -536,10 +533,11 @@ struct WordPresentationView: View {
         .onAppear {
             speechService.recognizedText = ""
             isRecording = false
-            showFullWordHint = false
             useKeyboard = false
             keyboardInput = ""
-            hasStartedSpelling = false
+            spellingState = .waitingForFirstLetter
+            displayedSpelling = ""
+            textAtTransition = ""
         }
         .onDisappear {
             if isRecording {
@@ -549,15 +547,16 @@ struct WordPresentationView: View {
             isKeyboardFocused = false
         }
         .onChange(of: speechService.recognizedText) { newText in
-            checkForFullWord(newText)
+            processSpeechRecognition(newText)
         }
         .onChange(of: viewModel.currentWord?.text) { _ in
             // Reset state when moving to next word
             speechService.recognizedText = ""
             keyboardInput = ""
             isRecording = false
-            showFullWordHint = false
-            hasStartedSpelling = false
+            spellingState = .waitingForFirstLetter
+            displayedSpelling = ""
+            textAtTransition = ""
             // Don't reset useKeyboard - keep user's preference
         }
     }
@@ -586,7 +585,7 @@ struct WordPresentationView: View {
     private func toggleRecording() {
         if isRecording {
             // User is stopping recording
-            let hadRecognizedText = !speechService.recognizedText.isEmpty
+            let hadRecognizedText = !displayedSpelling.isEmpty
             speechService.stopListening()
             isRecording = false
 
@@ -597,40 +596,146 @@ struct WordPresentationView: View {
         } else {
             // Starting fresh recording
             speechService.recognizedText = ""
-            showFullWordHint = false
-            hasStartedSpelling = false  // Reset for new recording
+            displayedSpelling = ""
+            spellingState = .waitingForFirstLetter  // Reset state machine
+            textAtTransition = ""  // Clear saved transition text
             speechService.startListening()
             isRecording = true
         }
     }
 
-    private func checkForFullWord(_ text: String) {
-        guard let currentWord = viewModel.currentWord else { return }
+    // MARK: - State Machine Logic
 
-        // Only check on first recognition, not after user has started spelling
-        if hasStartedSpelling {
-            return
-        }
+    /// Process speech recognition through state machine
+    private func processSpeechRecognition(_ text: String) {
+        switch spellingState {
+        case .waitingForFirstLetter:
+            // Try to extract letters starting from first valid letter
+            if let spellingPortion = extractSpellingFromText(text) {
+                // Found first letter! Transition to spelling mode
+                spellingState = .spellingMode
 
-        let normalized = text.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
-        let wordLower = currentWord.text.lowercased()
+                // Save the text at transition point (everything BEFORE the first letter)
+                // Find where spelling portion starts in the original text
+                if let range = text.range(of: spellingPortion, options: [.caseInsensitive, .backwards]) {
+                    textAtTransition = String(text[..<range.lowerBound])
+                } else {
+                    textAtTransition = ""
+                }
 
-        // Check if recognized text is exactly the word (not spelled)
-        if normalized == wordLower && !text.contains(" ") {
-            withAnimation {
-                showFullWordHint = true
+                let parsed = parseSpelledLetters(spellingPortion)
+                displayedSpelling = parsed
+                print("✅ First letter detected, switching to spelling mode")
+                print("   Original text: '\(text)'")
+                print("   Text at transition: '\(textAtTransition)'")
+                print("   Spelling portion: '\(spellingPortion)'")
+                print("   Parsed: '\(parsed)'")
+            } else {
+                // Not a valid letter yet, keep waiting silently
+                print("⏳ Waiting for first letter, ignoring: '\(text)'")
             }
 
-            // Auto-hide hint after 3 seconds
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                withAnimation {
-                    showFullWordHint = false
+        case .spellingMode:
+            // We're locked in - only process NEW text added after transition
+            // Remove the prefix that existed when we transitioned
+            var newText = text
+            if !textAtTransition.isEmpty && text.hasPrefix(textAtTransition) {
+                newText = String(text.dropFirst(textAtTransition.count))
+            }
+
+            // Trim any leading whitespace from new text
+            newText = newText.trimmingCharacters(in: .whitespaces)
+
+            if !newText.isEmpty {
+                let parsed = parseSpelledLetters(newText)
+                displayedSpelling = parsed
+                print("📝 Spelling mode:")
+                print("   Full text: '\(text)'")
+                print("   Prefix removed: '\(textAtTransition)'")
+                print("   New text only: '\(newText)'")
+                print("   Parsed: '\(parsed)'")
+            } else {
+                print("📝 Spelling mode: No new text yet")
+            }
+        }
+    }
+
+    /// Extract only the spelling portion from text (starting from first valid letter)
+    /// Returns nil if no valid letters found
+    private func extractSpellingFromText(_ text: String) -> String? {
+        let cleaned = text.uppercased().trimmingCharacters(in: .whitespacesAndNewlines)
+        let words = cleaned.components(separatedBy: .whitespaces)
+
+        // Phonetic mappings - exact matches
+        let phoneticMap: [String: String] = [
+            "AY": "A", "EI": "A",
+            "BE": "B", "BEE": "B",
+            "CE": "C", "SEE": "C", "SEA": "C",
+            "DE": "D", "DEE": "D",
+            "EE": "E",
+            "EF": "F", "EFF": "F",
+            "GE": "G", "GEE": "G", "JEE": "G",
+            "AITCH": "H", "ETCH": "H", "EITCH": "H",
+            "EYE": "I", "AI": "I",
+            "JAY": "J", "JA": "J",
+            "KAY": "K", "KA": "K", "CAY": "K",
+            "EL": "L", "ELL": "L",
+            "EM": "M",
+            "EN": "N",
+            "OH": "O", "OWE": "O",
+            "PE": "P", "PEE": "P",
+            "CUE": "Q", "QUE": "Q", "QUEUE": "Q",
+            "AR": "R", "ARE": "R",
+            "ES": "S", "ESS": "S",
+            "TE": "T", "TEE": "T",
+            "YOU": "U", "YU": "U", "YEW": "U",
+            "VE": "V", "VEE": "V",
+            "DOUBLE": "W", "DOUBLE-U": "W", "DOUBLEU": "W", "DOUBLEYOU": "W",
+            "EX": "X",
+            "WHY": "Y", "WI": "Y", "WYE": "Y",
+            "ZE": "Z", "ZED": "Z", "ZEE": "Z"
+        ]
+
+        // Letter prefixes - words that START with these indicate that letter
+        let letterPrefixes: [String: String] = [
+            "EX": "E",      // "EXTRA", "EXTRAORDIN" → starts with E
+            "EH": "E",      // Alternative pronunciation
+            "AR": "R",      // "ART" might be R+T
+            "ES": "S",      // "EST" might be S+T
+        ]
+
+        // Find the index of the first valid letter
+        for (index, word) in words.enumerated() {
+            let trimmed = word.trimmingCharacters(in: .whitespaces)
+            if trimmed.isEmpty { continue }
+
+            // Check if it's a single letter (highest priority)
+            if trimmed.count == 1, trimmed.first?.isLetter == true {
+                let spellingWords = Array(words[index...])
+                print("   🔍 Found single letter '\(trimmed)' at index \(index)")
+                return spellingWords.joined(separator: " ")
+            }
+
+            // Check if it's an exact phonetic match
+            if phoneticMap[trimmed] != nil {
+                let spellingWords = Array(words[index...])
+                print("   🔍 Found phonetic '\(trimmed)' at index \(index)")
+                return spellingWords.joined(separator: " ")
+            }
+
+            // Check if word STARTS WITH a known letter prefix
+            // Only match if word is SHORT (max 8 chars) to avoid matching full words like "EXTRAORDINARY"
+            for (prefix, _) in letterPrefixes {
+                if trimmed.hasPrefix(prefix) && trimmed.count > prefix.count && trimmed.count <= 8 {
+                    // This word starts with a letter sound and is short enough to be a letter
+                    let spellingWords = Array(words[index...])
+                    print("   🔍 Found prefix '\(prefix)' in '\(trimmed)' (len=\(trimmed.count)) at index \(index)")
+                    return spellingWords.joined(separator: " ")
                 }
             }
-        } else if text.contains(" ") {
-            // User has started spelling letters (detected spaces between letters)
-            hasStartedSpelling = true
         }
+
+        return nil
     }
 
     private func submitSpelling() {
@@ -644,17 +749,15 @@ struct WordPresentationView: View {
         let spelling: String
 
         if useKeyboard {
-            // Keyboard mode - accept input as-is, no full word check needed
+            // Keyboard mode - accept input as-is
             spelling = keyboardInput.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
             print("🟢 Keyboard mode - raw input: '\(keyboardInput)'")
             print("🟢 Keyboard mode - cleaned spelling: '\(spelling)'")
         } else {
-            // Mic mode - parse letters (full word check already done in real-time)
-            let parsed = parseSpelledLetters(speechService.recognizedText)
-            print("🟢 Mic mode - raw text: '\(speechService.recognizedText)'")
-            print("🟢 Mic mode - parsed: '\(parsed)'")
-
-            spelling = parsed
+            // Mic mode - use the displayed spelling (already processed by state machine)
+            spelling = displayedSpelling.lowercased()
+            print("🟢 Mic mode - displayed spelling: '\(displayedSpelling)'")
+            print("🟢 Mic mode - final spelling: '\(spelling)'")
         }
 
         print("🟢 Final spelling to submit: '\(spelling)'")
@@ -671,6 +774,9 @@ struct WordPresentationView: View {
         print("🟢 Clearing inputs...")
         keyboardInput = ""
         speechService.recognizedText = ""
+        displayedSpelling = ""
+        spellingState = .waitingForFirstLetter  // Reset for next word
+        textAtTransition = ""  // Clear saved transition text
         print("🟢 ====== submitSpelling() FUNCTION COMPLETE ======")
     }
 
@@ -679,6 +785,9 @@ struct WordPresentationView: View {
             .uppercased()
             .trimmingCharacters(in: .whitespacesAndNewlines)
 
+        print("   🔍 parseSpelledLetters input: '\(text)'")
+        print("   🔍 cleaned: '\(cleaned)'")
+
         if cleaned.isEmpty {
             return ""
         }
@@ -686,6 +795,7 @@ struct WordPresentationView: View {
         let hasSpaces = cleaned.contains(" ") || cleaned.contains(",") || cleaned.contains(".")
 
         if !hasSpaces {
+            print("   🔍 No spaces detected, returning as-is: '\(cleaned.lowercased())'")
             return cleaned.lowercased()
         }
 
@@ -694,6 +804,15 @@ struct WordPresentationView: View {
             .replacingOccurrences(of: ".", with: " ")
 
         let components = separatorCleaned.components(separatedBy: .whitespaces)
+
+        // Letter prefixes - for when speech recognition outputs partial words
+        let letterPrefixes: [String: String] = [
+            "EX": "E",      // "EXTRA", "EXTRAORDIN" → E
+            "EH": "E",      // Alternative E pronunciation
+            "AR": "R",      // "ART" → R
+            "ES": "S",      // "EST" → S
+        ]
+
         let letters = components.compactMap { component -> String? in
             let trimmed = component.trimmingCharacters(in: .whitespaces)
             if trimmed.isEmpty { return nil }
@@ -702,7 +821,7 @@ struct WordPresentationView: View {
                 return trimmed
             }
 
-            // Phonetic mappings
+            // Phonetic mappings (exact matches)
             switch trimmed {
             case "AY", "EI": return "A"
             case "BE", "BEE": return "B"
@@ -731,15 +850,27 @@ struct WordPresentationView: View {
             case "WHY", "WI", "WYE": return "Y"
             case "ZE", "ZED", "ZEE": return "Z"
             default:
+                // Check if word starts with a letter prefix (max 8 chars)
+                if trimmed.count <= 8 {
+                    for (prefix, letter) in letterPrefixes {
+                        if trimmed.hasPrefix(prefix) && trimmed.count > prefix.count {
+                            print("   🔍 Prefix match in parser: '\(trimmed)' → '\(letter)'")
+                            return letter
+                        }
+                    }
+                }
                 return nil
             }
         }
 
         if letters.isEmpty {
+            print("   🔍 No letters parsed, returning cleaned: '\(cleaned.lowercased())'")
             return cleaned.lowercased()
         }
 
-        return letters.joined().lowercased()
+        let result = letters.joined().lowercased()
+        print("   🔍 Parsed letters: \(letters) → '\(result)'")
+        return result
     }
 }
 
