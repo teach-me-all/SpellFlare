@@ -608,10 +608,12 @@ struct WordPresentationView: View {
 
     /// Process speech recognition through state machine
     private func processSpeechRecognition(_ text: String) {
+        let currentWordText = viewModel.currentWord?.text
+
         switch spellingState {
         case .waitingForFirstLetter:
             // Try to extract letters starting from first valid letter
-            if let spellingPortion = extractSpellingFromText(text) {
+            if let spellingPortion = extractSpellingFromText(text, currentWord: currentWordText) {
                 // Found first letter! Transition to spelling mode
                 spellingState = .spellingMode
 
@@ -623,7 +625,7 @@ struct WordPresentationView: View {
                     textAtTransition = ""
                 }
 
-                let parsed = parseSpelledLetters(spellingPortion)
+                let parsed = parseSpelledLetters(spellingPortion, currentWord: currentWordText)
                 displayedSpelling = parsed
                 print("✅ First letter detected, switching to spelling mode")
                 print("   Original text: '\(text)'")
@@ -647,7 +649,7 @@ struct WordPresentationView: View {
             newText = newText.trimmingCharacters(in: .whitespaces)
 
             if !newText.isEmpty {
-                let parsed = parseSpelledLetters(newText)
+                let parsed = parseSpelledLetters(newText, currentWord: currentWordText)
                 displayedSpelling = parsed
                 print("📝 Spelling mode:")
                 print("   Full text: '\(text)'")
@@ -662,9 +664,11 @@ struct WordPresentationView: View {
 
     /// Extract only the spelling portion from text (starting from first valid letter)
     /// Returns nil if no valid letters found
-    private func extractSpellingFromText(_ text: String) -> String? {
+    /// - Parameter currentWord: The word being spelled (to exclude from phonetic matching)
+    private func extractSpellingFromText(_ text: String, currentWord: String? = nil) -> String? {
         let cleaned = text.uppercased().trimmingCharacters(in: .whitespacesAndNewlines)
         let words = cleaned.components(separatedBy: .whitespaces)
+        let currentWordUpper = currentWord?.uppercased()
 
         // Phonetic mappings - exact matches
         let phoneticMap: [String: String] = [
@@ -708,6 +712,13 @@ struct WordPresentationView: View {
         for (index, word) in words.enumerated() {
             let trimmed = word.trimmingCharacters(in: .whitespaces)
             if trimmed.isEmpty { continue }
+
+            // Skip if this word matches the current word being spelled
+            // This prevents "see" from being interpreted as letter "C" when spelling "see"
+            if let currentUpper = currentWordUpper, trimmed == currentUpper {
+                print("   🔍 Skipping current word: '\(trimmed)'")
+                continue
+            }
 
             // Check if it's a single letter (highest priority)
             if trimmed.count == 1, trimmed.first?.isLetter == true {
@@ -780,10 +791,11 @@ struct WordPresentationView: View {
         print("🟢 ====== submitSpelling() FUNCTION COMPLETE ======")
     }
 
-    private func parseSpelledLetters(_ text: String) -> String {
+    private func parseSpelledLetters(_ text: String, currentWord: String? = nil) -> String {
         let cleaned = text
             .uppercased()
             .trimmingCharacters(in: .whitespacesAndNewlines)
+        let currentWordUpper = currentWord?.uppercased()
 
         print("   🔍 parseSpelledLetters input: '\(text)'")
         print("   🔍 cleaned: '\(cleaned)'")
@@ -816,6 +828,12 @@ struct WordPresentationView: View {
         let letters = components.compactMap { component -> String? in
             let trimmed = component.trimmingCharacters(in: .whitespaces)
             if trimmed.isEmpty { return nil }
+
+            // Skip if this word matches the current word being spelled
+            if let currentUpper = currentWordUpper, trimmed == currentUpper {
+                print("   🔍 Skipping current word in parser: '\(trimmed)'")
+                return nil
+            }
 
             if trimmed.count == 1 && trimmed.first?.isLetter == true {
                 return trimmed
@@ -978,7 +996,7 @@ struct SpellingInputView: View {
 
     // Current input based on mode
     var currentInput: String {
-        useKeyboard ? keyboardInput : parseSpelledLetters(speechService.recognizedText)
+        useKeyboard ? keyboardInput : parseSpelledLetters(speechService.recognizedText, currentWord: viewModel.currentWord?.text)
     }
 
     // MARK: - Keyboard Input View
@@ -1059,7 +1077,7 @@ struct SpellingInputView: View {
                         .font(.caption)
                         .foregroundColor(.white.opacity(0.6))
 
-                    Text(parseSpelledLetters(speechService.recognizedText).uppercased())
+                    Text(parseSpelledLetters(speechService.recognizedText, currentWord: viewModel.currentWord?.text).uppercased())
                         .font(.system(size: 28, weight: .bold, design: .monospaced))
                         .foregroundColor(.cyan)
                         .tracking(4)
@@ -1101,17 +1119,19 @@ struct SpellingInputView: View {
         if useKeyboard {
             viewModel.userSpelling = keyboardInput
         } else {
-            viewModel.userSpelling = parseSpelledLetters(speechService.recognizedText)
+            viewModel.userSpelling = parseSpelledLetters(speechService.recognizedText, currentWord: viewModel.currentWord?.text)
         }
         viewModel.submitSpelling()
     }
 
     /// Parses spoken text into the spelled word
     /// Handles: "P E T", "pet", "P. E. T.", "pee ee tee", etc.
-    private func parseSpelledLetters(_ text: String) -> String {
+    /// - Parameter currentWord: The word being spelled (to exclude from phonetic matching)
+    private func parseSpelledLetters(_ text: String, currentWord: String? = nil) -> String {
         let cleaned = text
             .uppercased()
             .trimmingCharacters(in: .whitespacesAndNewlines)
+        let currentWordUpper = currentWord?.uppercased()
 
         // If it's empty, return empty
         if cleaned.isEmpty {
@@ -1123,6 +1143,10 @@ struct SpellingInputView: View {
         let hasSpaces = cleaned.contains(" ") || cleaned.contains(",") || cleaned.contains(".")
 
         if !hasSpaces {
+            // Check if this is the current word being spelled - if so, ignore it
+            if let currentUpper = currentWordUpper, cleaned == currentUpper {
+                return ""
+            }
             // It's a single word like "PET" - return it directly
             return cleaned.lowercased()
         }
@@ -1136,6 +1160,11 @@ struct SpellingInputView: View {
         let letters = components.compactMap { component -> String? in
             let trimmed = component.trimmingCharacters(in: .whitespaces)
             if trimmed.isEmpty { return nil }
+
+            // Skip if this word matches the current word being spelled
+            if let currentUpper = currentWordUpper, trimmed == currentUpper {
+                return nil
+            }
 
             // Single letter
             if trimmed.count == 1 && trimmed.first?.isLetter == true {
