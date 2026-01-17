@@ -32,10 +32,10 @@ class AdManager: NSObject, ObservableObject {
     private let testAdUnitID = "ca-app-pub-3940256099942544/4411468910"  // Interstitial
     private let testBannerAdUnitID = "ca-app-pub-3940256099942544/2934735716"  // Banner
 
-    // Production ad unit IDs (to be replaced when app is approved)
-    // TODO: Replace with real ad unit IDs from AdMob console after app approval
-    private let productionAdUnitID = "ca-app-pub-3940256099942544/4411468910"  // Using test ID for now
-    private let productionBannerAdUnitID = "ca-app-pub-3940256099942544/2934735716"  // Using test ID for now
+    // Production ad unit IDs from AdMob console
+    // Format: ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
+    private let productionAdUnitID = "ca-app-pub-9359627609474299/7621244143"  // Replace with your interstitial ad unit ID
+    private let productionBannerAdUnitID = "ca-app-pub-9359627609474299/7677084463"  // Replace with your banner ad unit ID
 
     // Current ad unit IDs (switches based on build configuration)
     private var currentAdUnitID: String {
