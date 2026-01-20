@@ -10,8 +10,10 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var appState: AppState
     @ObservedObject var speechService = SpeechService.shared
+    @ObservedObject var updateService = AppUpdateService.shared
     @State private var showGradePicker = false
     @State private var showVoicePicker = false
+    @State private var showUpdateAlert = false
     @State private var selectedLevelGroup = 0
 
     var profile: UserProfile? {
@@ -88,6 +90,24 @@ struct HomeView: View {
         .onAppear {
             // Set initial group based on current level
             selectedLevelGroup = (currentLevel - 1) / 10
+
+            // Check for app updates (non-blocking)
+            Task {
+                await updateService.checkForUpdate()
+                if updateService.updateAvailable {
+                    showUpdateAlert = true
+                }
+            }
+        }
+        .alert("Update Available", isPresented: $showUpdateAlert) {
+            Button("Update") {
+                updateService.openAppStore()
+            }
+            Button("Later", role: .cancel) {
+                updateService.dismissUpdate()
+            }
+        } message: {
+            Text("A newer version of the app is available with improvements and fixes.")
         }
     }
 }
