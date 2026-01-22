@@ -1,5 +1,5 @@
 /* ========================================
-   Spelling Bee Queen - Landing Page Styles
+   SpellFlare - Landing Page Styles
    Color Palette matches the app:
    - Primary: Purple gradient (#4B1A8F to #6B2EB5)
    - Accent: Cyan (#00D4FF)
@@ -337,6 +337,18 @@ section {
     background: var(--primary-dark);
 }
 
+.device-title {
+    font-size: 1.5rem;
+    color: var(--accent-cyan);
+    text-align: center;
+    margin: 40px 0 25px;
+    font-weight: 700;
+}
+
+.device-title:first-of-type {
+    margin-top: 0;
+}
+
 .screenshots-tabs {
     display: flex;
     justify-content: center;
@@ -382,20 +394,23 @@ section {
     text-align: center;
 }
 
-.screenshot-item img {
-    width: 200px;
-    height: 430px;
-    object-fit: cover;
-    border-radius: 25px;
+.screenshot-img {
+    object-fit: contain;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     border: 3px solid var(--card-border);
     background: #1a1a1a;
 }
 
-.screenshot-item.watch img {
+.screenshot-img.iphone {
+    width: 200px;
+    height: 430px;
+    border-radius: 25px;
+}
+
+.screenshot-img.watch {
     width: 140px;
     height: 170px;
-    border-radius: 30px;
+    border-radius: 35px;
 }
 
 /* Placeholder for missing images */
@@ -1052,12 +1067,12 @@ section {
         padding: 15px 20px;
     }
 
-    .screenshot-item img {
+    .screenshot-img.iphone {
         width: 160px;
         height: 345px;
     }
 
-    .screenshot-item.watch img {
+    .screenshot-img.watch {
         width: 120px;
         height: 145px;
     }

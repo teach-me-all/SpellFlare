@@ -1,6 +1,6 @@
-# Spelling Bee Queen - Landing Page
+# SpellFlare - Landing Page
 
-A beautiful, kid-friendly landing page for the Spelling Bee Queen iOS and watchOS app.
+A beautiful, kid-friendly landing page for the SpellFlare iOS and watchOS app (v3.0).
 
 ## Features
 
@@ -9,6 +9,7 @@ A beautiful, kid-friendly landing page for the Spelling Bee Queen iOS and watchO
 - **Kid & Parent Friendly**: Appealing to both audiences
 - **Privacy Policy**: Comprehensive privacy documentation
 - **Contact Section**: Email integration using device's mail system
+- **watchOS Support**: Highlights Apple Watch compatibility
 
 ## File Structure
 
@@ -78,8 +79,8 @@ Add the following screenshots to the `images/` folder:
 
 ### Contact Email
 Update the email address in:
-- `index.html` (line ~340): `mailto:ravitej.sistla@gmail.com`
-- `privacy.html` (contact section): `ravitej.sistla@gmail.com`
+- `index.html` (line ~340): `mailto:teachmath.me@gmail.com`
+- `privacy.html` (contact section): `teachmath.me@gmail.com`
 
 ### App Store Link
 Replace the `#` in the download button href with your actual App Store URL:
@@ -128,4 +129,4 @@ python3 -m http.server 8000
 
 ## License
 
-This landing page is part of the Spelling Bee Queen project.
+This landing page is part of the SpellFlare project.

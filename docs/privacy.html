@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - Spelling Bee Queen</title>
+    <title>Privacy Policy - SpellFlare</title>
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
     <link rel="apple-touch-icon" href="images/favicon.svg">
-    <meta name="description" content="Privacy Policy for Spelling Bee Queen - A kid-safe spelling practice app for iOS and Apple Watch.">
+    <meta name="description" content="Privacy Policy for SpellFlare - A kid-safe spelling practice app for iOS and Apple Watch.">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,7 +112,7 @@
     <nav class="navbar scrolled">
         <div class="logo">
             <span class="bee-icon">🐝</span>
-            <span class="logo-text">Spelling Bee Queen</span>
+            <span class="logo-text">SpellFlare</span>
         </div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
@@ -127,34 +127,35 @@
 
             <div class="privacy-document">
                 <h1>🔒 Privacy Policy</h1>
-                <p class="last-updated">Last Updated: December 26, 2024</p>
+                <p class="last-updated">Last Updated: January 21, 2025</p>
 
                 <div class="highlight-box">
                     <h3>Our Commitment to Your Child's Privacy</h3>
-                    <p>Spelling Bee Queen is designed with children's privacy as our top priority. We follow Apple's strict guidelines for Kids Category apps and collect <strong>absolutely no personal data</strong>.</p>
+                    <p>SpellFlare is designed with children's privacy as our top priority. Available on both iPhone and Apple Watch, we follow Apple's strict guidelines for Kids Category apps and collect <strong>absolutely no personal data</strong>.</p>
                 </div>
 
                 <h2>1. Information We Collect</h2>
                 <p><strong>We do not collect any personal information.</strong></p>
-                <p>Spelling Bee Queen stores only the following data locally on your device:</p>
+                <p>SpellFlare stores only the following data locally on your device:</p>
                 <ul>
                     <li><strong>Child's First Name:</strong> Used only to personalize greetings within the app (e.g., "Hi, Emma!")</li>
                     <li><strong>Grade Level:</strong> Used to provide age-appropriate spelling words</li>
-                    <li><strong>Game Progress:</strong> Completed levels and current progress</li>
-                    <li><strong>Voice Preference:</strong> Selected text-to-speech voice</li>
+                    <li><strong>Game Progress:</strong> Completed levels, current progress, and earned points/score</li>
+                    <li><strong>Voice Preference:</strong> Selected text-to-speech voice (including Lisa AI voice option)</li>
+                    <li><strong>Input Mode:</strong> Preferred spelling input method (voice or keyboard)</li>
                 </ul>
                 <p>This data is stored locally on your device using Apple's secure UserDefaults storage and is <strong>never transmitted to any server</strong>.</p>
 
                 <h2>2. Data Storage & Security</h2>
                 <ul>
-                    <li><strong>Local Storage Only:</strong> All data remains on your device</li>
+                    <li><strong>Local Storage Only:</strong> All user data (name, progress, scores) remains on your device</li>
                     <li><strong>No Cloud Sync:</strong> Data is not synced to iCloud or any cloud service</li>
                     <li><strong>No Analytics:</strong> We do not use any analytics or tracking services</li>
-                    <li><strong>No Third-Party SDKs:</strong> The app contains no third-party data collection SDKs</li>
+                    <li><strong>Apple Watch:</strong> Progress syncs between iPhone and paired Apple Watch via WatchConnectivity (local only)</li>
                 </ul>
 
-                <h2>3. iOS Permissions</h2>
-                <p>The app requests the following iOS permissions to provide its core functionality:</p>
+                <h2>3. Platform Permissions</h2>
+                <p>The app requests the following permissions on iOS and watchOS to provide its core functionality:</p>
 
                 <table class="permission-table">
                     <tr>
@@ -183,6 +184,8 @@
                     <li>All ads are age-appropriate and comply with Apple's Kids Category guidelines</li>
                     <li>No behavioral tracking or personalized advertising is used</li>
                     <li>Parents can remove all ads with a one-time in-app purchase</li>
+                    <li><strong>Ad Networks (iOS only):</strong> We use Google AdMob with AppLovin as a mediation partner to serve non-personalized, age-appropriate ads</li>
+                    <li><strong>watchOS:</strong> The Apple Watch app displays minimal static ads with no third-party ad networks</li>
                 </ul>
 
                 <h2>5. In-App Purchases</h2>
@@ -194,7 +197,7 @@
                 </ul>
 
                 <h2>6. Children's Privacy (COPPA Compliance)</h2>
-                <p>Spelling Bee Queen is designed for the Apple App Store Kids Category and complies with the Children's Online Privacy Protection Act (COPPA):</p>
+                <p>SpellFlare is designed for the Apple App Store Kids Category and complies with the Children's Online Privacy Protection Act (COPPA):</p>
                 <ul>
                     <li>❌ No personal information is collected from children</li>
                     <li>❌ No account creation or login required</li>
@@ -205,13 +208,22 @@
                 </ul>
 
                 <h2>7. Third-Party Services</h2>
-                <p>The app uses only the following Apple-provided services:</p>
+                <p>The app uses the following services:</p>
+
+                <p><strong>Apple Services:</strong></p>
                 <ul>
                     <li><strong>AVSpeechSynthesizer:</strong> Apple's built-in text-to-speech for pronouncing words</li>
                     <li><strong>Speech Framework:</strong> Apple's on-device speech recognition for voice input</li>
                     <li><strong>StoreKit:</strong> Apple's framework for in-app purchases</li>
+                    <li><strong>AVFoundation:</strong> For playing pre-generated Lisa AI voice audio files</li>
                 </ul>
-                <p>No third-party analytics, advertising networks, or data collection services are used.</p>
+
+                <p><strong>Advertising Services (iOS only):</strong></p>
+                <ul>
+                    <li><strong>Google AdMob:</strong> Serves non-personalized, age-appropriate ads. Configured for child-directed treatment (COPPA compliant). No personal data is collected or shared.</li>
+                    <li><strong>AppLovin:</strong> Used as a mediation partner for ad serving. Configured for age-appropriate content only. No behavioral tracking.</li>
+                </ul>
+                <p>No third-party analytics or data collection services are used. Ad networks are configured to serve only non-personalized, contextual ads appropriate for children.</p>
 
                 <h2>8. Data Deletion</h2>
                 <p>All app data can be deleted at any time by:</p>
@@ -226,7 +238,7 @@
                 <h2>10. Contact Us</h2>
                 <div class="contact-box">
                     <p>If you have any questions about this Privacy Policy or our privacy practices, please contact us at:</p>
-                    <p><strong>Email:</strong> <a href="mailto:ravitej.sistla@gmail.com?subject=Response%20for%20Spelling%20bee%20application">ravitej.sistla@gmail.com</a></p>
+                    <p><strong>Email:</strong> <a href="mailto:teachmath.me@gmail.com?subject=Response%20for%20Spelling%20bee%20application">teachmath.me@gmail.com</a></p>
                 </div>
 
                 <div class="highlight-box" style="margin-top: 40px;">
@@ -236,6 +248,7 @@
                     ✅ No tracking, analytics, or data collection<br>
                     ✅ Voice data is processed locally and never stored<br>
                     ✅ Parental gate protects against accidental purchases<br>
+                    ✅ Works on iPhone and Apple Watch<br>
                     ✅ Compliant with Apple Kids Category guidelines</p>
                 </div>
             </div>
@@ -248,7 +261,7 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <span class="bee-icon">🐝</span>
-                    <span class="logo-text">Spelling Bee Queen</span>
+                    <span class="logo-text">SpellFlare</span>
                 </div>
                 <div class="footer-links">
                     <a href="index.html">Home</a>
@@ -258,7 +271,7 @@
                     <a href="index.html#contact">Contact</a>
                 </div>
                 <div class="footer-copyright">
-                    <p>&copy; 2024 Spelling Bee Queen. All rights reserved.</p>
+                    <p>&copy; 2025 SpellFlare. All rights reserved.</p>
                     <p>Made with ❤️ for kids who love to learn</p>
                 </div>
             </div>
