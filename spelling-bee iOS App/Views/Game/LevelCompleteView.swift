@@ -17,7 +17,7 @@ struct LevelCompleteView: View {
     let level: Int
 
     @State private var showConfetti = false
-    @State private var starScale: CGFloat = 0
+    @State private var iconScale: CGFloat = 0
     @State private var textOpacity: Double = 0
     @State private var buttonsOpacity: Double = 0
     @State private var showAd = false
@@ -25,87 +25,133 @@ struct LevelCompleteView: View {
 
     var body: some View {
         ZStack {
-            // Confetti background
-            ConfettiView(isActive: $showConfetti)
+            // Confetti background (only for pass)
+            if viewModel.didPassLevel {
+                ConfettiView(isActive: $showConfetti)
+            }
 
             VStack(spacing: 30) {
                 Spacer()
 
-                // Trophy/Star
+                // Icon - Star for pass, Sad face for fail
                 ZStack {
                     Circle()
                         .fill(
                             RadialGradient(
-                                colors: [.cyan, .white.opacity(0.3)],
+                                colors: viewModel.didPassLevel ? [.cyan, .white.opacity(0.3)] : [.orange, .white.opacity(0.3)],
                                 center: .center,
                                 startRadius: 0,
                                 endRadius: 80
                             )
                         )
                         .frame(width: 160, height: 160)
-                        .scaleEffect(starScale)
+                        .scaleEffect(iconScale)
 
-                    Text("⭐")
+                    Text(viewModel.didPassLevel ? "⭐" : "😢")
                         .font(.system(size: 80))
-                        .scaleEffect(starScale)
+                        .scaleEffect(iconScale)
                 }
 
-                // Celebration text
+                // Result text
                 VStack(spacing: 8) {
                     Text("Level \(level)")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
 
-                    Text("Complete!")
-                        .font(.title)
-                        .foregroundColor(.cyan)
+                    if viewModel.didPassLevel {
+                        Text("Complete!")
+                            .font(.title)
+                            .foregroundColor(.cyan)
 
-                    Text("\(viewModel.correctCount) words spelled correctly!")
-                        .font(.subheadline)
-                        .foregroundColor(.white.opacity(0.8))
-                        .padding(.top, 8)
+                        Text("\(viewModel.correctCount) words spelled correctly!")
+                            .font(.subheadline)
+                            .foregroundColor(.white.opacity(0.8))
+                            .padding(.top, 8)
 
-                    // Coins earned animation
-                    FloatingCoinsEarnedView(amount: viewModel.coinsEarned)
-                        .padding(.top, 12)
+                        // Coins earned animation
+                        FloatingCoinsEarnedView(amount: viewModel.coinsEarned)
+                            .padding(.top, 12)
+                    } else {
+                        Text("Not Passed")
+                            .font(.title)
+                            .foregroundColor(.orange)
+
+                        Text("You gave up on too many words.\nTry again to pass this level!")
+                            .font(.subheadline)
+                            .foregroundColor(.white.opacity(0.8))
+                            .multilineTextAlignment(.center)
+                            .padding(.top, 8)
+                    }
                 }
                 .opacity(textOpacity)
 
                 Spacer()
 
                 // Buttons
-                VStack(spacing: 12) {
-                    if level < 50 {
-                        Button {
-                            handleNavigation {
+                HStack(spacing: 12) {
+                    Button {
+                        handleNavigation {
+                            if viewModel.didPassLevel {
                                 appState.completeLevelWithCoins(level, coinsEarned: viewModel.coinsEarned)
-                                appState.navigateToGame(level: level + 1)
                             }
-                        } label: {
-                            Label("Next Level", systemImage: "arrow.right")
+                            appState.navigateToHome()
+                        }
+                    } label: {
+                        HStack(spacing: 4) {
+                            Image(systemName: "house.fill")
+                                .font(.system(size: 14))
+                            Text("Home")
                                 .font(.headline)
+                        }
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.white.opacity(0.2))
+                        .cornerRadius(12)
+                    }
+
+                    if viewModel.didPassLevel {
+                        // Next level button (only if passed and not last level)
+                        if level < 50 {
+                            Button {
+                                handleNavigation {
+                                    appState.completeLevelWithCoins(level, coinsEarned: viewModel.coinsEarned)
+                                    appState.navigateToGame(level: level + 1)
+                                }
+                            } label: {
+                                HStack(spacing: 4) {
+                                    Text("Next")
+                                        .font(.headline)
+                                    Image(systemName: "arrow.right")
+                                        .font(.system(size: 14))
+                                }
                                 .foregroundColor(.purple)
                                 .frame(maxWidth: .infinity)
                                 .padding()
                                 .background(Color.white)
                                 .cornerRadius(12)
+                            }
                         }
-                    }
-
-                    Button {
-                        handleNavigation {
-                            appState.completeLevelWithCoins(level, coinsEarned: viewModel.coinsEarned)
-                            appState.navigateToHome()
-                        }
-                    } label: {
-                        Text("Back to Levels")
-                            .font(.headline)
-                            .foregroundColor(.white)
+                    } else {
+                        // Try Again button (if failed)
+                        Button {
+                            handleNavigation {
+                                appState.navigateToGame(level: level)
+                            }
+                        } label: {
+                            HStack(spacing: 4) {
+                                Image(systemName: "arrow.clockwise")
+                                    .font(.system(size: 14))
+                                Text("Try Again")
+                                    .font(.headline)
+                            }
+                            .foregroundColor(.purple)
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.white.opacity(0.2))
+                            .background(Color.white)
                             .cornerRadius(12)
+                        }
                     }
                 }
                 .padding(.horizontal, 40)
@@ -114,7 +160,7 @@ struct LevelCompleteView: View {
             }
         }
         .onAppear {
-            animateCelebration()
+            animateResult()
             // Notify ad manager that test was completed
             adManager.onTestCompleted()
         }
@@ -141,10 +187,10 @@ struct LevelCompleteView: View {
         }
     }
 
-    private func animateCelebration() {
-        // Star bounce in
+    private func animateResult() {
+        // Icon bounce in
         withAnimation(.spring(response: 0.6, dampingFraction: 0.5).delay(0.2)) {
-            starScale = 1.0
+            iconScale = 1.0
         }
 
         // Text fade in
@@ -157,9 +203,11 @@ struct LevelCompleteView: View {
             buttonsOpacity = 1.0
         }
 
-        // Confetti
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            showConfetti = true
+        // Confetti (only for pass)
+        if viewModel.didPassLevel {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                showConfetti = true
+            }
         }
     }
 }

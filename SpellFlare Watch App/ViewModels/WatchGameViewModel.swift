@@ -35,7 +35,7 @@ class WatchGameSession {
     private(set) var currentIndex: Int = 0
     private(set) var correctCount: Int = 0
     private(set) var incorrectCount: Int = 0
-    let requiredCorrect = 10
+    let totalWordsInGame = 10
 
     init(level: Int, grade: Int, words: [WatchWord]) {
         self.level = level
@@ -48,12 +48,19 @@ class WatchGameSession {
         return words[currentIndex]
     }
 
-    var isComplete: Bool {
-        correctCount >= requiredCorrect || currentIndex >= words.count
+    /// Total words attempted (correct + incorrect/given up)
+    var totalAttempted: Int {
+        correctCount + incorrectCount
     }
 
+    /// Game is complete after 10 words are attempted
+    var isComplete: Bool {
+        totalAttempted >= totalWordsInGame || currentIndex >= words.count
+    }
+
+    /// Progress based on total words attempted
     var progress: Double {
-        Double(currentIndex) / Double(words.count)
+        Double(totalAttempted) / Double(totalWordsInGame)
     }
 
     func markCorrect() {
@@ -77,6 +84,7 @@ class WatchGameViewModel: ObservableObject {
     @Published var userSpelling = ""
     @Published var retryCount = 0
     @Published var lastAnsweredWord: WatchWord?  // Store word for feedback display
+    @Published var hasGivenUp = false  // Track if user gave up (to show correct spelling and Next button)
 
     // MARK: - Coins Tracking
     @Published var levelWrongAttempts: Int = 0  // Total wrong attempts for coins calculation
@@ -94,6 +102,10 @@ class WatchGameViewModel: ObservableObject {
         session?.correctCount ?? 0
     }
 
+    var totalAttempted: Int {
+        session?.totalAttempted ?? 0
+    }
+
     var progress: Double {
         session?.progress ?? 0
     }
@@ -102,9 +114,18 @@ class WatchGameViewModel: ObservableObject {
         session?.isComplete ?? false
     }
 
-    /// Coins earned for this level based on wrong attempts
+    /// User passes the level if they didn't give up on more than 5 words
+    var didPassLevel: Bool {
+        let incorrectWords = session?.incorrectCount ?? 0
+        return incorrectWords <= 5
+    }
+
+    /// Coins earned for this level based on incorrect words (wrong or given up)
+    /// Returns 0 if user didn't pass the level
     var coinsEarned: Int {
-        CoinsService.shared.calculateCoins(wrongAttempts: levelWrongAttempts)
+        guard didPassLevel else { return 0 }
+        let incorrectWords = session?.incorrectCount ?? 0
+        return CoinsService.shared.calculateCoins(wrongAttempts: incorrectWords)
     }
 
     // MARK: - Game Flow
@@ -201,12 +222,32 @@ class WatchGameViewModel: ObservableObject {
         feedbackType = nil
         userSpelling = ""
         lastAnsweredWord = nil
+        hasGivenUp = false
         phase = .presenting
         presentCurrentWord()
     }
 
     func giveUp() {
+        // Store the word BEFORE marking incorrect (which advances the index)
+        // lastAnsweredWord was already set in handleIncorrectAnswer(), but let's ensure it's set
+        if lastAnsweredWord == nil {
+            lastAnsweredWord = currentWord
+        }
+
+        // Mark as incorrect immediately so word count updates
         session?.markIncorrect()
+
+        // Show the correct spelling - don't advance yet
+        hasGivenUp = true
+        // Play the word so user can hear correct pronunciation
+        if let word = lastAnsweredWord {
+            audioService.playWord(word.text, difficulty: word.difficulty)
+        }
+    }
+
+    /// Called when user taps "Next" after giving up - advances to next word
+    func proceedAfterGiveUp() {
+        hasGivenUp = false
         advanceToNextWord()
     }
 
@@ -214,6 +255,7 @@ class WatchGameViewModel: ObservableObject {
         feedbackType = nil
         userSpelling = ""
         lastAnsweredWord = nil
+        hasGivenUp = false
 
         if isLevelComplete {
             phase = .feedback  // Will trigger level complete screen

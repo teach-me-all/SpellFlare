@@ -180,17 +180,26 @@ class WatchAudioService: ObservableObject {
     }
 
     private func findAudioFile(path: String) -> URL? {
-        // Try .wav first
-        if let url = Bundle.main.url(forResource: path, withExtension: "wav") {
-            return url
-        }
-        // Then try .mp3
-        if let url = Bundle.main.url(forResource: path, withExtension: "mp3") {
-            return url
-        }
-        // Try without extension (in case path already has it)
-        if let url = Bundle.main.url(forResource: path, withExtension: nil) {
-            return url
+        // Split path into subdirectory and filename
+        let components = path.split(separator: "/")
+        let filename = String(components.last ?? "")
+        let subdirectory = components.dropLast().joined(separator: "/")
+
+        // Try .wav first, then .mp3
+        if subdirectory.isEmpty {
+            if let url = Bundle.main.url(forResource: filename, withExtension: "wav") {
+                return url
+            }
+            if let url = Bundle.main.url(forResource: filename, withExtension: "mp3") {
+                return url
+            }
+        } else {
+            if let url = Bundle.main.url(forResource: filename, withExtension: "wav", subdirectory: subdirectory) {
+                return url
+            }
+            if let url = Bundle.main.url(forResource: filename, withExtension: "mp3", subdirectory: subdirectory) {
+                return url
+            }
         }
         return nil
     }

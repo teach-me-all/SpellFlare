@@ -42,6 +42,8 @@ class GameViewModel: ObservableObject {
     @Published var isSpellingOut = false
     @Published var currentSpellingLetters: [String] = []
     @Published var animatedLetterIndex: Int = 0
+    @Published var hasGivenUp = false  // Track if user gave up (to show Next button)
+    @Published var givenUpWord: Word?  // Store the word user gave up on (for display after index advances)
 
     // MARK: - Services
     private let speechService = SpeechService.shared
@@ -60,6 +62,10 @@ class GameViewModel: ObservableObject {
         session?.correctCount ?? 0
     }
 
+    var totalAttempted: Int {
+        session?.totalAttempted ?? 0
+    }
+
     var progress: Double {
         session?.progress ?? 0
     }
@@ -68,13 +74,22 @@ class GameViewModel: ObservableObject {
         session?.isComplete ?? false
     }
 
+    /// User passes the level if they didn't give up on more than 5 words
+    var didPassLevel: Bool {
+        let incorrectWords = session?.incorrectCount ?? 0
+        return incorrectWords <= 5
+    }
+
     var shouldShowKeyboardHint: Bool {
         currentWordRetryCount >= 2 && !hasSeenKeyboardHint
     }
 
-    /// Coins earned for this level based on wrong attempts
+    /// Coins earned for this level based on incorrect words (wrong or given up)
+    /// Returns 0 if user didn't pass the level
     var coinsEarned: Int {
-        CoinsService.shared.calculateCoins(wrongAttempts: levelWrongAttempts)
+        guard didPassLevel else { return 0 }
+        let incorrectWords = session?.incorrectCount ?? 0
+        return CoinsService.shared.calculateCoins(wrongAttempts: incorrectWords)
     }
 
     // MARK: - Game Flow
@@ -232,24 +247,51 @@ class GameViewModel: ObservableObject {
     func giveUp() {
         guard let word = currentWord else { return }
 
+        // Store the word BEFORE marking incorrect (which advances the index)
+        givenUpWord = word
+
+        // Mark as incorrect immediately so word count updates
+        session?.markIncorrect()
+
         showRetryOption = false
         isSpellingOut = true
+        hasGivenUp = false  // Will be set to true after animation completes
 
-        // Prepare letters array
+        // Prepare letters array from the stored word
         let letters = word.text.uppercased().map { String($0) }
         currentSpellingLetters = letters
         animatedLetterIndex = 0
 
-        // First, speak feedback
-        speechService.speakFeedback("The correct spelling is") {
-            Task {
-                try? await Task.sleep(nanoseconds: 300_000_000)  // 0.3s pause
-                await MainActor.run {
-                    // Now spell word letter by letter with individual letter audio
-                    self.spellWordWithLetterAnimation(letters: letters)
-                }
+        // Safety timeout - ensure hasGivenUp gets set even if animation fails
+        // Estimate: feedback (2s) + 0.3s delay + letters (1s each incl delay) + 2s buffer
+        let timeoutDuration = 3.0 + Double(letters.count) * 1.2 + 2.0
+        DispatchQueue.main.asyncAfter(deadline: .now() + timeoutDuration) { [weak self] in
+            guard let self = self else { return }
+            // If still spelling out, force completion
+            if self.isSpellingOut {
+                self.isSpellingOut = false
+                self.hasGivenUp = true
             }
         }
+
+        // First, speak feedback then spell word
+        speechService.speakFeedback("The correct spelling is") { [weak self] in
+            guard let self = self else { return }
+            // Use DispatchQueue for consistent main thread execution
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.spellWordWithLetterAnimation(letters: letters)
+            }
+        }
+    }
+
+    /// Called when user taps "Next" after giving up - advances to next word
+    func proceedAfterGiveUp() {
+        hasGivenUp = false
+        isSpellingOut = false
+        currentSpellingLetters = []
+        animatedLetterIndex = 0
+        givenUpWord = nil
+        advanceToNextWord()
     }
 
     private func spellWordWithLetterAnimation(letters: [String]) {
@@ -258,16 +300,10 @@ class GameViewModel: ObservableObject {
         // Play each letter sequentially with animation
         func playNextLetter(index: Int) {
             guard index < letters.count else {
-                // All letters done
-                Task {
-                    try? await Task.sleep(nanoseconds: 1_000_000_000)  // 1s pause
-                    await MainActor.run {
-                        self.isSpellingOut = false
-                        self.currentSpellingLetters = []
-                        self.animatedLetterIndex = 0
-                        self.session?.markIncorrect()
-                        self.advanceToNextWord()
-                    }
+                // All letters done - show "Next" button
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.isSpellingOut = false
+                    self.hasGivenUp = true
                 }
                 return
             }
@@ -279,11 +315,8 @@ class GameViewModel: ObservableObject {
             let letter = letters[index]
             audioService.playLetter(letter) {
                 // After this letter's audio finishes, play next
-                Task {
-                    try? await Task.sleep(nanoseconds: 200_000_000)  // 0.2s pause between letters
-                    await MainActor.run {
-                        playNextLetter(index: index + 1)
-                    }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    playNextLetter(index: index + 1)
                 }
             }
         }
@@ -329,5 +362,7 @@ class GameViewModel: ObservableObject {
         isSpellingOut = false
         currentSpellingLetters = []
         animatedLetterIndex = 0
+        givenUpWord = nil
+        hasGivenUp = false
     }
 }

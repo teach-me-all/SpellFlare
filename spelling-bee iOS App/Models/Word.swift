@@ -21,7 +21,7 @@ class GameSession {
     private(set) var correctCount: Int = 0
     private(set) var incorrectCount: Int = 0
 
-    let requiredCorrect = 10
+    let totalWordsInGame = 10
 
     init(level: Int, grade: Int, words: [Word]) {
         self.level = level
@@ -34,12 +34,19 @@ class GameSession {
         return words[currentIndex]
     }
 
-    var isComplete: Bool {
-        correctCount >= requiredCorrect
+    /// Total words attempted (correct + incorrect/given up)
+    var totalAttempted: Int {
+        correctCount + incorrectCount
     }
 
+    /// Game is complete after 10 words are attempted
+    var isComplete: Bool {
+        totalAttempted >= totalWordsInGame
+    }
+
+    /// Progress based on total words attempted
     var progress: Double {
-        Double(correctCount) / Double(requiredCorrect)
+        Double(totalAttempted) / Double(totalWordsInGame)
     }
 
     func markCorrect() {

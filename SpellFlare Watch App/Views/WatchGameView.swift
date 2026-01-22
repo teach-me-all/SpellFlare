@@ -19,7 +19,7 @@ struct WatchGameView: View {
             // Header with progress
             GameHeaderView(
                 level: level,
-                correctCount: viewModel.correctCount,
+                totalAttempted: viewModel.totalAttempted,
                 progress: viewModel.progress,
                 onExit: { appState.navigateToHome() }
             )
@@ -42,9 +42,13 @@ struct WatchGameView: View {
                             appState.showLevelComplete(
                                 level: viewModel.completedLevel,
                                 score: viewModel.finalScore,
-                                coinsEarned: viewModel.coinsEarned
+                                coinsEarned: viewModel.coinsEarned,
+                                didPass: viewModel.didPassLevel
                             )
-                            syncHelper.sendLevelCompleted(level)
+                            // Only sync if user passed the level
+                            if viewModel.didPassLevel {
+                                syncHelper.sendLevelCompleted(level)
+                            }
                         }
                 } else {
                     FeedbackResultView(viewModel: viewModel)
@@ -78,7 +82,7 @@ struct WatchGameView: View {
 // MARK: - Game Header
 struct GameHeaderView: View {
     let level: Int
-    let correctCount: Int
+    let totalAttempted: Int
     let progress: Double
     let onExit: () -> Void
 
@@ -101,7 +105,7 @@ struct GameHeaderView: View {
             Spacer()
 
             // Score
-            Text("\(correctCount)/10")
+            Text("\(totalAttempted)/10")
                 .font(.caption)
                 .foregroundColor(.cyan)
         }
@@ -306,41 +310,63 @@ struct FeedbackResultView: View {
                     .foregroundColor(.orange)
             }
 
-            // Word display - use lastAnsweredWord to show the word that was just answered
-            if let word = viewModel.lastAnsweredWord {
-                Text(word.text.uppercased())
-                    .font(.system(size: 18, weight: .bold, design: .monospaced))
-                    .foregroundColor(.white)
+            // Only show correct spelling after giving up
+            if viewModel.hasGivenUp, let word = viewModel.lastAnsweredWord {
+                VStack(spacing: 4) {
+                    Text("Correct spelling:")
+                        .font(.caption2)
+                        .foregroundColor(.white.opacity(0.7))
+                    Text(word.text.uppercased())
+                        .font(.system(size: 18, weight: .bold, design: .monospaced))
+                        .foregroundColor(.cyan)
+                }
             }
 
-            // Action buttons
+            // Action buttons for incorrect answers
             if viewModel.feedbackType == .incorrect {
-                HStack(spacing: 12) {
+                if viewModel.hasGivenUp {
+                    // Show "Next" button after giving up
                     Button {
-                        viewModel.retry()
+                        viewModel.proceedAfterGiveUp()
                     } label: {
-                        Text("Retry")
+                        Text("Next")
                             .font(.caption)
                             .foregroundColor(.black)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 6)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 8)
                             .background(Color.cyan)
                             .cornerRadius(8)
                     }
                     .buttonStyle(.plain)
+                } else {
+                    // Show "Retry" and "Give Up" buttons
+                    HStack(spacing: 12) {
+                        Button {
+                            viewModel.retry()
+                        } label: {
+                            Text("Retry")
+                                .font(.caption)
+                                .foregroundColor(.black)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(Color.cyan)
+                                .cornerRadius(8)
+                        }
+                        .buttonStyle(.plain)
 
-                    Button {
-                        viewModel.giveUp()
-                    } label: {
-                        Text("Skip")
-                            .font(.caption)
-                            .foregroundColor(.orange)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 6)
-                            .background(Color.white.opacity(0.2))
-                            .cornerRadius(8)
+                        Button {
+                            viewModel.giveUp()
+                        } label: {
+                            Text("Give Up")
+                                .font(.caption)
+                                .foregroundColor(.orange)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(Color.white.opacity(0.2))
+                                .cornerRadius(8)
+                        }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
                 }
             }
         }

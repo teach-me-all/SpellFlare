@@ -246,8 +246,8 @@ class SpeechService: NSObject, ObservableObject {
         stopSpeaking()
 
         // Stop any existing listening session
-        if isListening {
-            stopListening()
+        if isListening || audioEngine.isRunning {
+            stopListeningInternal()
         }
 
         // Cancel any ongoing recognition task
@@ -271,6 +271,27 @@ class SpeechService: NSObject, ObservableObject {
         }
     }
 
+    /// Internal cleanup without resetting audio session (for use when starting new session)
+    private func stopListeningInternal() {
+        // Stop audio engine first
+        if audioEngine.isRunning {
+            audioEngine.stop()
+        }
+
+        // Remove any existing tap
+        audioEngine.inputNode.removeTap(onBus: 0)
+
+        // End and clear recognition request
+        recognitionRequest?.endAudio()
+        recognitionRequest = nil
+
+        // Cancel and clear recognition task
+        recognitionTask?.cancel()
+        recognitionTask = nil
+
+        isListening = false
+    }
+
     private func startRecognitionSession() {
         // Audio session should already be configured from startListening()
         // but ensure it's set correctly
@@ -286,7 +307,7 @@ class SpeechService: NSObject, ObservableObject {
         // Configure audio engine first
         let inputNode = audioEngine.inputNode
 
-        // Remove any existing tap
+        // Ensure any existing tap is removed (defensive, safe to call even if no tap exists)
         inputNode.removeTap(onBus: 0)
 
         // Get the native format of the input node
@@ -311,13 +332,13 @@ class SpeechService: NSObject, ObservableObject {
 
         // Small delay to let audio buffer warm up before starting recognition
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
-            guard let self = self else { return }
+            guard let self = self, self.isListening else { return }
 
             // Create recognition request
             self.recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
             guard let recognitionRequest = self.recognitionRequest else {
                 print("Failed to create recognition request")
-                self.stopListening()
+                self.stopListeningInternal()
                 return
             }
 
@@ -328,8 +349,8 @@ class SpeechService: NSObject, ObservableObject {
                 recognitionRequest.requiresOnDeviceRecognition = false
             }
 
-            // Install tap on input node with smaller buffer for more responsive updates
-            inputNode.installTap(onBus: 0, bufferSize: 512, format: recordingFormat) { [weak self] buffer, _ in
+            // Install tap on input node with buffer for responsive updates
+            inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { [weak self] buffer, _ in
                 self?.recognitionRequest?.append(buffer)
             }
 
@@ -369,23 +390,8 @@ class SpeechService: NSObject, ObservableObject {
     func stopListening() {
         guard isListening || audioEngine.isRunning else { return }
 
-        // Stop audio engine first
-        if audioEngine.isRunning {
-            audioEngine.stop()
-        }
-
-        // Remove tap
-        audioEngine.inputNode.removeTap(onBus: 0)
-
-        // End audio on request
-        recognitionRequest?.endAudio()
-        recognitionRequest = nil
-
-        // Cancel task
-        recognitionTask?.cancel()
-        recognitionTask = nil
-
-        isListening = false
+        // Use the internal cleanup method
+        stopListeningInternal()
 
         // Reset audio session for playback
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

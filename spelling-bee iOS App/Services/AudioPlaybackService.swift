@@ -61,16 +61,26 @@ class AudioPlaybackService: NSObject, ObservableObject, AVAudioPlayerDelegate {
     // MARK: - Private Methods
 
     private func playAudioFile(_ resourcePath: String, completion: (() -> Void)?) {
-        // Try to load audio file from bundle (try both WAV and MP3)
-        var url = Bundle.main.url(forResource: resourcePath, withExtension: "wav")
+        // Split path into subdirectory and filename
+        let components = resourcePath.split(separator: "/")
+        let filename = String(components.last ?? "")
+        let subdirectory = components.dropLast().joined(separator: "/")
 
-        if url == nil {
-            // Try MP3 if WAV not found
-            url = Bundle.main.url(forResource: resourcePath, withExtension: "mp3")
+        // Try to load audio file from bundle (try both WAV and MP3)
+        var url: URL?
+        if subdirectory.isEmpty {
+            url = Bundle.main.url(forResource: filename, withExtension: "wav")
+            if url == nil {
+                url = Bundle.main.url(forResource: filename, withExtension: "mp3")
+            }
+        } else {
+            url = Bundle.main.url(forResource: filename, withExtension: "wav", subdirectory: subdirectory)
+            if url == nil {
+                url = Bundle.main.url(forResource: filename, withExtension: "mp3", subdirectory: subdirectory)
+            }
         }
 
         guard let audioURL = url else {
-            print("❌ Audio file not found: \(resourcePath).wav or .mp3")
             completion?()
             return
         }
@@ -92,7 +102,6 @@ class AudioPlaybackService: NSObject, ObservableObject, AVAudioPlayerDelegate {
             audioPlayer?.play()
             isPlaying = true
         } catch {
-            print("❌ Failed to play audio: \(error)")
             completion?()
         }
     }
@@ -128,9 +137,9 @@ class AudioPlaybackService: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
     nonisolated func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         Task { @MainActor in
-            isPlaying = false
-            completionHandler?()
-            completionHandler = nil
+            self.isPlaying = false
+            self.completionHandler?()
+            self.completionHandler = nil
         }
     }
 }

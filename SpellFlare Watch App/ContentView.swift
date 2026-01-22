@@ -27,8 +27,8 @@ struct ContentView: View {
                 WatchGameView(level: level)
                     .id(level)  // Force recreation when level changes
 
-            case .levelComplete(let level, let score, let coinsEarned):
-                WatchLevelCompleteView(level: level, score: score, coinsEarned: coinsEarned)
+            case .levelComplete(let level, let score, let coinsEarned, let didPass):
+                WatchLevelCompleteView(level: level, score: score, coinsEarned: coinsEarned, didPass: didPass)
             }
         }
         .onAppear {

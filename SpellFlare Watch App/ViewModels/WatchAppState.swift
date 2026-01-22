@@ -14,7 +14,7 @@ enum WatchScreen: Equatable {
     case home
     case settings
     case game(level: Int)
-    case levelComplete(level: Int, score: Int, coinsEarned: Int)
+    case levelComplete(level: Int, score: Int, coinsEarned: Int, didPass: Bool)
 }
 
 // MARK: - Watch Mode
@@ -52,8 +52,8 @@ class WatchAppState: ObservableObject {
         currentScreen = .game(level: level)
     }
 
-    func showLevelComplete(level: Int, score: Int, coinsEarned: Int) {
-        currentScreen = .levelComplete(level: level, score: score, coinsEarned: coinsEarned)
+    func showLevelComplete(level: Int, score: Int, coinsEarned: Int, didPass: Bool) {
+        currentScreen = .levelComplete(level: level, score: score, coinsEarned: coinsEarned, didPass: didPass)
     }
 
     func startNextLevel(after level: Int) {

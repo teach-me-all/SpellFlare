@@ -178,7 +178,7 @@ struct GameHeader: View {
 
                 Spacer()
 
-                Text("\(viewModel.correctCount)/10")
+                Text("\(viewModel.totalAttempted)/10")
                     .font(.headline)
                     .foregroundColor(.cyan)
             }
@@ -427,28 +427,40 @@ struct WordPresentationView: View {
                     }
                 }
 
-                // Letter display during give-up animation
-                if viewModel.isSpellingOut {
+                // Letter display during give-up animation OR after animation completes
+                if viewModel.isSpellingOut || viewModel.hasGivenUp {
                     VStack(spacing: 12) {
                         Text("The correct spelling is:")
                             .font(.subheadline)
                             .foregroundColor(.white.opacity(0.8))
 
-                        // Animated letters
-                        HStack(spacing: 4) {
-                            ForEach(Array(viewModel.currentSpellingLetters.enumerated()), id: \.offset) { index, letter in
-                                Text(letter)
-                                    .font(.system(size: 31, weight: .bold, design: .monospaced))
-                                    .foregroundColor(.cyan)
-                                    .scaleEffect(index <= viewModel.animatedLetterIndex ? 1.0 : 0.5)
-                                    .opacity(index <= viewModel.animatedLetterIndex ? 1.0 : 0.3)
-                                    .animation(.spring(response: 0.3, dampingFraction: 0.6), value: viewModel.animatedLetterIndex)
+                        // Show letters - animated during spelling, static after
+                        if viewModel.isSpellingOut {
+                            // Animated letters during spelling
+                            HStack(spacing: 4) {
+                                ForEach(Array(viewModel.currentSpellingLetters.enumerated()), id: \.offset) { index, letter in
+                                    Text(letter)
+                                        .font(.system(size: 31, weight: .bold, design: .monospaced))
+                                        .foregroundColor(.cyan)
+                                        .scaleEffect(index <= viewModel.animatedLetterIndex ? 1.0 : 0.5)
+                                        .opacity(index <= viewModel.animatedLetterIndex ? 1.0 : 0.3)
+                                        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: viewModel.animatedLetterIndex)
+                                }
                             }
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 12)
+                            .background(Color.white.opacity(0.15))
+                            .cornerRadius(12)
+                        } else if let word = viewModel.givenUpWord {
+                            // Static display after animation completes
+                            Text(word.text.uppercased())
+                                .font(.system(size: 31, weight: .bold, design: .monospaced))
+                                .foregroundColor(.cyan)
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 12)
+                                .background(Color.white.opacity(0.15))
+                                .cornerRadius(12)
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 12)
-                        .background(Color.white.opacity(0.15))
-                        .cornerRadius(12)
                     }
                 }
             }
@@ -458,41 +470,55 @@ struct WordPresentationView: View {
                 .frame(maxHeight: 20)  // Limited spacer height to move buttons up
 
             VStack(spacing: 16) {
-                // Two-button layout: Repeat + Give Up
-                HStack(spacing: 16) {
+                // Show "Next" button after giving up, otherwise show Repeat + Give Up
+                if viewModel.hasGivenUp {
                     Button {
-                        viewModel.repeatWord()
+                        viewModel.proceedAfterGiveUp()
                     } label: {
-                        Label("Repeat", systemImage: "speaker.wave.3.fill")
-                            .font(.headline)
-                            .foregroundColor(.purple)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.white.opacity(0.9))
-                            .cornerRadius(12)
-                    }
-                    .disabled(viewModel.isSpellingOut)
-
-                    Button {
-                        if isRecording {
-                            speechService.stopListening()
-                            isRecording = false
-                        }
-                        viewModel.giveUp()
-                    } label: {
-                        Label("Give Up", systemImage: "xmark.circle")
+                        Label("Next", systemImage: "arrow.right")
                             .font(.headline)
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color.orange)
+                            .background(Color.cyan)
                             .cornerRadius(12)
                     }
-                    .disabled(viewModel.isSpellingOut)
+                } else if !viewModel.isSpellingOut {
+                    // Two-button layout: Repeat + Give Up (hide during animation)
+                    HStack(spacing: 16) {
+                        Button {
+                            viewModel.repeatWord()
+                        } label: {
+                            Label("Repeat", systemImage: "speaker.wave.3.fill")
+                                .font(.headline)
+                                .foregroundColor(.purple)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.white.opacity(0.9))
+                                .cornerRadius(12)
+                        }
+
+                        Button {
+                            if isRecording {
+                                speechService.stopListening()
+                                isRecording = false
+                            }
+                            viewModel.giveUp()
+                        } label: {
+                            Label("Give Up", systemImage: "xmark.circle")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.orange)
+                                .cornerRadius(12)
+                        }
+                    }
                 }
 
-                // Submit button (show based on mode)
-                if (useKeyboard && !keyboardInput.isEmpty) || (!useKeyboard && !displayedSpelling.isEmpty && !isRecording) {
+                // Submit button (show based on mode, hide during/after give up)
+                if !viewModel.hasGivenUp && !viewModel.isSpellingOut &&
+                   ((useKeyboard && !keyboardInput.isEmpty) || (!useKeyboard && !displayedSpelling.isEmpty && !isRecording)) {
                     Button(action: {
                         print("🔵 ====== SUBMIT BUTTON TAPPED ======")
                         print("🔵 useKeyboard: \(useKeyboard)")

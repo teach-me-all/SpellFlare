@@ -14,8 +14,7 @@ struct FeedbackView: View {
     @State private var textOpacity: Double = 0
     @State private var showParticles = false
     @State private var sadFaceOffset: CGFloat = 0
-    @State private var spellingOpacity: Double = 0
-    @State private var letterAnimations: [Bool] = []
+    @State private var spellingOpacity: Double = 1.0  // Always visible when shown
 
     var isCorrect: Bool {
         viewModel.feedbackType == .correct
@@ -61,8 +60,8 @@ struct FeedbackView: View {
                     .foregroundColor(.white)
                     .opacity(textOpacity)
 
-                // Show spelling only after giving up (not on retry screen)
-                if !isCorrect && !correctWord.isEmpty && !viewModel.showRetryOption {
+                // Show spelling only after giving up (when hasGivenUp is true or during spelling animation)
+                if !isCorrect && !correctWord.isEmpty && (viewModel.hasGivenUp || viewModel.isSpellingOut) {
                     VStack(spacing: 12) {
                         Text("The correct spelling is:")
                             .font(.subheadline)
@@ -74,14 +73,31 @@ struct FeedbackView: View {
                                 Text(String(letter))
                                     .font(.system(size: 32, weight: .bold, design: .monospaced))
                                     .foregroundColor(.cyan)
-                                    .scaleEffect(index < letterAnimations.count && letterAnimations[index] ? 1.0 : 0.5)
-                                    .opacity(index < letterAnimations.count && letterAnimations[index] ? 1.0 : 0.0)
+                                    .scaleEffect(index <= viewModel.animatedLetterIndex || viewModel.hasGivenUp ? 1.0 : 0.5)
+                                    .opacity(index <= viewModel.animatedLetterIndex || viewModel.hasGivenUp ? 1.0 : 0.0)
                             }
                         }
                         .padding(.horizontal, 20)
                         .padding(.vertical, 12)
                         .background(Color.white.opacity(0.15))
                         .cornerRadius(12)
+
+                        // Show "Next" button after spelling animation completes
+                        if viewModel.hasGivenUp {
+                            Button {
+                                viewModel.proceedAfterGiveUp()
+                            } label: {
+                                Label("Next", systemImage: "arrow.right")
+                                    .font(.headline)
+                                    .foregroundColor(.purple)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color.white)
+                                    .cornerRadius(12)
+                            }
+                            .padding(.horizontal, 40)
+                            .padding(.top, 8)
+                        }
                     }
                     .opacity(spellingOpacity)
                 }
@@ -103,7 +119,7 @@ struct FeedbackView: View {
                             viewModel.retry()
                         } label: {
                             Label(
-                                viewModel.shouldShowKeyboardHint ? "Speak Again" : "Try Again",
+                                viewModel.shouldShowKeyboardHint ? "Speak Again" : "Retry",
                                 systemImage: viewModel.shouldShowKeyboardHint ? "mic.fill" : "arrow.counterclockwise"
                             )
                                 .font(.headline)
@@ -132,7 +148,7 @@ struct FeedbackView: View {
                         Button {
                             viewModel.giveUp()
                         } label: {
-                            Text("Continue")
+                            Text("Give Up")
                                 .font(.headline)
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
@@ -170,29 +186,7 @@ struct FeedbackView: View {
             withAnimation(.easeInOut(duration: 0.3).repeatCount(3, autoreverses: true).delay(0.3)) {
                 sadFaceOffset = -5
             }
-
-            // Only show spelling animation after giving up (when retry option is NOT shown)
-            if !viewModel.showRetryOption {
-                // Animate spelling reveal
-                withAnimation(.easeIn(duration: 0.3).delay(0.5)) {
-                    spellingOpacity = 1.0
-                }
-
-                // Animate letters one by one
-                letterAnimations = Array(repeating: false, count: correctWord.count)
-                for i in 0..<correctWord.count {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7 + Double(i) * 0.15) {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
-                            if i < letterAnimations.count {
-                                letterAnimations[i] = true
-                            }
-                        }
-                        // Speak each letter
-                        let letter = String(Array(correctWord)[i])
-                        SpeechService.shared.speakFeedback(letter.uppercased())
-                    }
-                }
-            }
+            // Letter animation is now handled by GameViewModel via giveUp()
         }
     }
 }
