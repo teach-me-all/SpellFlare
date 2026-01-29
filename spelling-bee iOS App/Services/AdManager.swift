@@ -21,6 +21,19 @@ class AdManager: NSObject, ObservableObject {
     @Published var isShowingAd: Bool = false
     @Published var isInitialized: Bool = false
 
+    // MARK: - Simulator Configuration
+    /// Set to true to hide ads when running in simulator (useful for development)
+    var hideAdsInSimulator: Bool = true
+
+    /// Check if running in iOS Simulator
+    var isRunningInSimulator: Bool {
+        #if targetEnvironment(simulator)
+        return true
+        #else
+        return false
+        #endif
+    }
+
     // MARK: - Private Properties
     private var interstitialAd: GADInterstitialAd?
     private var testsCompletedSinceLastAd: Int = 0
@@ -135,9 +148,13 @@ class AdManager: NSObject, ObservableObject {
 
     /// Load an interstitial ad
     func loadAd() async {
-        // Don't load ads if user purchased "Remove Ads"
+        // Don't load ads if user purchased "Remove Ads" or in simulator
         guard adsEnabled else {
-            print("⏭️ Ads disabled (user purchased Remove Ads)")
+            if hideAdsInSimulator && isRunningInSimulator {
+                print("⏭️ Ads disabled (running in simulator with hideAdsInSimulator=true)")
+            } else {
+                print("⏭️ Ads disabled (user purchased Remove Ads)")
+            }
             return
         }
 
@@ -313,9 +330,19 @@ class AdManager: NSObject, ObservableObject {
         }
     }
 
-    /// Check if ads should be shown (respects purchase state)
+    /// Check if ads should be shown (respects purchase state and simulator setting)
     var adsEnabled: Bool {
-        !storeManager.isAdsRemoved
+        // Hide ads if user purchased "Remove Ads"
+        if storeManager.isAdsRemoved {
+            return false
+        }
+
+        // Hide ads in simulator if configured
+        if hideAdsInSimulator && isRunningInSimulator {
+            return false
+        }
+
+        return true
     }
 }
 
@@ -418,7 +445,7 @@ struct BannerAdView: View {
 
     var body: some View {
         Group {
-            if adManager.adsEnabled && !storeManager.isAdsRemoved {
+            if adManager.adsEnabled {
                 BannerAdViewWrapper()
                     .frame(height: 50)
                     .background(Color.black.opacity(0.1))

@@ -111,7 +111,7 @@ class PhoneSyncHelper: NSObject, ObservableObject {
 
         // Get current profile and update with Watch unlock state
         let isWatchUnlocked = StoreManager.shared.isWatchUnlocked
-        if var local = localCache.loadSyncableProfile() {
+        if let local = localCache.loadSyncableProfile() {
             var updatedProfile = local
             updatedProfile.isWatchUnlocked = isWatchUnlocked
             updatedProfile.lastModified = Date()
