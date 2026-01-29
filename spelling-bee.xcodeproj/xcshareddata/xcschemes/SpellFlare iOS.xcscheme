@@ -15,23 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B490071FEB3008B0CFB9D73D"
-               BuildableName = "SpellFlare Watch App.app"
-               BlueprintName = "SpellFlare Watch App"
-               ReferencedContainer = "container:spelling-bee.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "53B2CB492EFA4E17009167B7"
-               BuildableName = "spelling-bee.app"
-               BlueprintName = "spelling-bee"
+               BlueprintIdentifier = "53B2CC402EFA6030009167B7"
+               BuildableName = "spelling-bee iOS App.app"
+               BlueprintName = "spelling-bee iOS App"
                ReferencedContainer = "container:spelling-bee.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,9 +29,33 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       shouldAutocreateTestPlan = "YES">
+      <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "53B2CE012EFC0001009167B7"
+               BuildableName = "spelling-bee iOS AppTests.xctest"
+               BlueprintName = "spelling-bee iOS AppTests"
+               ReferencedContainer = "container:spelling-bee.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "53B2CE102EFC0010009167B7"
+               BuildableName = "spelling-bee iOS AppUITests.xctest"
+               BlueprintName = "spelling-bee iOS AppUITests"
+               ReferencedContainer = "container:spelling-bee.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+      </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -58,9 +68,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B490071FEB3008B0CFB9D73D"
-            BuildableName = "SpellFlare Watch App.app"
-            BlueprintName = "SpellFlare Watch App"
+            BlueprintIdentifier = "53B2CC402EFA6030009167B7"
+            BuildableName = "spelling-bee iOS App.app"
+            BlueprintName = "spelling-bee iOS App"
             ReferencedContainer = "container:spelling-bee.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,9 +85,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B490071FEB3008B0CFB9D73D"
-            BuildableName = "SpellFlare Watch App.app"
-            BlueprintName = "SpellFlare Watch App"
+            BlueprintIdentifier = "53B2CC402EFA6030009167B7"
+            BuildableName = "spelling-bee iOS App.app"
+            BlueprintName = "spelling-bee iOS App"
             ReferencedContainer = "container:spelling-bee.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -87,6 +97,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "SpellFlare"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
