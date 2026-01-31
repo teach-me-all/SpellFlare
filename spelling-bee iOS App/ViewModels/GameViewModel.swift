@@ -141,6 +141,7 @@ class GameViewModel: ObservableObject {
         hasSeenKeyboardHint = false
 
         phase = .presenting
+        print("🔤 Presenting word: \(word.text) (difficulty: \(word.difficulty))")
         speechService.speakWord(word.text, difficulty: word.difficulty)
     }
 
@@ -247,11 +248,8 @@ class GameViewModel: ObservableObject {
     func giveUp() {
         guard let word = currentWord else { return }
 
-        // Store the word BEFORE marking incorrect (which advances the index)
+        // Store the word to display during spelling animation
         givenUpWord = word
-
-        // Mark as incorrect immediately so word count updates
-        session?.markIncorrect()
 
         showRetryOption = false
         isSpellingOut = true
@@ -284,8 +282,9 @@ class GameViewModel: ObservableObject {
         }
     }
 
-    /// Called when user taps "Next" after giving up - advances to next word
+    /// Called when user taps "Next" after giving up - marks incorrect and advances to next word
     func proceedAfterGiveUp() {
+        session?.markIncorrect()
         hasGivenUp = false
         isSpellingOut = false
         currentSpellingLetters = []
