@@ -13,6 +13,7 @@ enum WatchScreen: Equatable {
     case loading
     case home
     case settings
+    case achievements
     case game(level: Int)
     case levelComplete(level: Int, score: Int, coinsEarned: Int, didPass: Bool)
 }
@@ -62,5 +63,9 @@ class WatchAppState: ObservableObject {
 
     func navigateToSettings() {
         currentScreen = .settings
+    }
+
+    func navigateToAchievements() {
+        currentScreen = .achievements
     }
 }

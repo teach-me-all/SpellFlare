@@ -47,7 +47,14 @@ struct WatchGameView: View {
                             )
                             // Only sync if user passed the level
                             if viewModel.didPassLevel {
-                                syncHelper.sendLevelCompleted(level)
+                                syncHelper.sendLevelCompleted(
+                                    level,
+                                    coinsEarned: viewModel.coinsEarned,
+                                    score: viewModel.finalScore,
+                                    correctCount: viewModel.correctCount,
+                                    totalWords: viewModel.session?.totalWordsInGame ?? 0,
+                                    firstTryCount: viewModel.firstTryCount
+                                )
                             }
                         }
                 } else {

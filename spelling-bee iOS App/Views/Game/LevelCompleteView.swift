@@ -93,7 +93,7 @@ struct LevelCompleteView: View {
                     Button {
                         handleNavigation {
                             if viewModel.didPassLevel {
-                                appState.completeLevelWithCoins(level, coinsEarned: viewModel.coinsEarned)
+                                appState.completeLevelWithCoins(level, coinsEarned: viewModel.coinsEarned, correctCount: viewModel.correctCount, totalWords: viewModel.session?.totalWordsInGame ?? 0, firstTryCount: viewModel.firstTryCount)
                             }
                             appState.navigateToHome()
                         }
@@ -116,7 +116,7 @@ struct LevelCompleteView: View {
                         if level < 50 {
                             Button {
                                 handleNavigation {
-                                    appState.completeLevelWithCoins(level, coinsEarned: viewModel.coinsEarned)
+                                    appState.completeLevelWithCoins(level, coinsEarned: viewModel.coinsEarned, correctCount: viewModel.correctCount, totalWords: viewModel.session?.totalWordsInGame ?? 0, firstTryCount: viewModel.firstTryCount)
                                     appState.navigateToGame(level: level + 1)
                                 }
                             } label: {

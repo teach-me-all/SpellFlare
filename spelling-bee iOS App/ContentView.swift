@@ -11,20 +11,33 @@ struct ContentView: View {
     @EnvironmentObject var appState: AppState
 
     var body: some View {
-        Group {
-            switch appState.currentScreen {
-            case .onboarding:
-                OnboardingView()
-            case .home:
-                HomeView()
-            case .game(let level):
-                GameView(level: level)
-                    .id(level) // Force view recreation when level changes
-            case .settings:
-                SettingsView()
+        ZStack {
+            Group {
+                switch appState.currentScreen {
+                case .onboarding:
+                    OnboardingView()
+                case .home:
+                    HomeView()
+                case .game(let level):
+                    GameView(level: level)
+                        .id(level) // Force view recreation when level changes
+                case .settings:
+                    SettingsView()
+                case .achievements:
+                    AchievementsView()
+                }
+            }
+            .animation(.easeInOut(duration: 0.3), value: appState.currentScreen)
+
+            // Achievement unlock overlay
+            if let achievementID = appState.pendingAchievementUnlock {
+                AchievementUnlockOverlay(achievementID: achievementID) {
+                    appState.dismissAchievementUnlock()
+                }
+                .transition(.opacity)
+                .zIndex(100)
             }
         }
-        .animation(.easeInOut(duration: 0.3), value: appState.currentScreen)
     }
 }
 

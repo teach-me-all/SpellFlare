@@ -22,7 +22,7 @@ struct WatchHomeView: View {
             let buttonPadding: CGFloat = isSmallWatch ? 6 : 10
 
             VStack(spacing: isSmallWatch ? 2 : 4) {
-                // Header with settings and coins
+                // Header with settings, achievements, and coins
                 HStack {
                     // Settings button
                     Button {
@@ -31,6 +31,16 @@ struct WatchHomeView: View {
                         Image(systemName: "gearshape.fill")
                             .font(.system(size: isSmallWatch ? 14 : 16))
                             .foregroundColor(.white.opacity(0.8))
+                    }
+                    .buttonStyle(.plain)
+
+                    // Achievements button
+                    Button {
+                        appState.navigateToAchievements()
+                    } label: {
+                        Image(systemName: "trophy.fill")
+                            .font(.system(size: isSmallWatch ? 13 : 15))
+                            .foregroundColor(.yellow)
                     }
                     .buttonStyle(.plain)
 

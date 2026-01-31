@@ -89,6 +89,9 @@ class WatchGameViewModel: ObservableObject {
     // MARK: - Coins Tracking
     @Published var levelWrongAttempts: Int = 0  // Total wrong attempts for coins calculation
 
+    // MARK: - First-Try Tracking
+    @Published var firstTryCount: Int = 0  // Words correct on first attempt this level
+
     // MARK: - Services
     private let audioService = WatchAudioService.shared
     private let wordBank = WatchWordBankService.shared
@@ -133,8 +136,9 @@ class WatchGameViewModel: ObservableObject {
         let words = wordBank.getWords(grade: grade, level: level, count: 15)
         session = WatchGameSession(level: level, grade: grade, words: words)
 
-        // Reset coins tracking
+        // Reset tracking
         levelWrongAttempts = 0
+        firstTryCount = 0
 
         phase = .presenting
         presentCurrentWord()
@@ -190,6 +194,9 @@ class WatchGameViewModel: ObservableObject {
     }
 
     private func handleCorrectAnswer() {
+        if retryCount == 0 {
+            firstTryCount += 1
+        }
         // Store the word before advancing index
         lastAnsweredWord = currentWord
         session?.markCorrect()

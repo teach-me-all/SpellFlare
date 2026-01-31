@@ -153,6 +153,20 @@ struct TopHeaderView: View {
 
                 Spacer()
 
+                // Achievements Button
+                Button {
+                    appState.navigateToAchievements()
+                } label: {
+                    Image(systemName: "trophy.fill")
+                        .font(.system(size: 18))
+                        .foregroundColor(.yellow)
+                        .frame(width: 40, height: 40)
+                        .background(
+                            Circle()
+                                .fill(Color.white.opacity(0.2))
+                        )
+                }
+
                 // Settings Button
                 Button {
                     appState.navigateToSettings()

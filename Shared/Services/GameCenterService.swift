@@ -56,6 +56,42 @@ class GameCenterService: ObservableObject {
         }
     }
 
+    // MARK: - Achievement Reporting
+
+    /// Report a completed achievement to Game Center (fire-and-forget).
+    func reportAchievement(identifier: String) {
+        guard isAuthenticated else { return }
+
+        Task {
+            do {
+                let achievement = GKAchievement(identifier: identifier)
+                achievement.percentComplete = 100.0
+                achievement.showsCompletionBanner = false
+                try await GKAchievement.report([achievement])
+                print("Game Center achievement reported: \(identifier)")
+            } catch {
+                print("Failed to report GC achievement \(identifier): \(error.localizedDescription)")
+            }
+        }
+    }
+
+    /// Report progressive achievement to Game Center.
+    func reportAchievementProgress(identifier: String, percentComplete: Double) {
+        guard isAuthenticated else { return }
+
+        Task {
+            do {
+                let achievement = GKAchievement(identifier: identifier)
+                achievement.percentComplete = percentComplete
+                achievement.showsCompletionBanner = false
+                try await GKAchievement.report([achievement])
+                print("Game Center achievement progress: \(identifier) = \(percentComplete)%")
+            } catch {
+                print("Failed to report GC progress \(identifier): \(error.localizedDescription)")
+            }
+        }
+    }
+
     // MARK: - Cloud Save
 
     /// Save profile to Game Center cloud

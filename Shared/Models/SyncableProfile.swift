@@ -20,7 +20,7 @@ struct SyncableProfile: Codable, Equatable {
     var schemaVersion: Int
     var isWatchUnlocked: Bool  // Sync premium state to Watch
 
-    static let currentSchemaVersion = 2
+    static let currentSchemaVersion = 3
     static let recordType = "UserProfile"
 
     init(profile: UserProfile, deviceIdentifier: String, isWatchUnlocked: Bool = false) {

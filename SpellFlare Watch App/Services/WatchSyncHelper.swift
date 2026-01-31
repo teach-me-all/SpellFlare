@@ -119,11 +119,21 @@ class WatchSyncHelper: NSObject, ObservableObject {
     // MARK: - Level Completion
 
     /// Called when a level is completed on the Watch
-    func sendLevelCompleted(_ level: Int) {
+    func sendLevelCompleted(_ level: Int, coinsEarned: Int = 0, score: Int = 0, correctCount: Int = 0, totalWords: Int = 0, firstTryCount: Int = 0) {
         guard var currentProfile = self.profile else { return }
 
         // Update local profile
         currentProfile.completeLevel(level)
+
+        // Evaluate achievements
+        let newlyUnlocked = AchievementsService.shared.evaluateAfterLevelComplete(
+            profile: &currentProfile, coinsEarned: coinsEarned, score: score,
+            correctCount: correctCount, totalWords: totalWords, firstTryCount: firstTryCount
+        )
+        for id in newlyUnlocked {
+            AchievementsService.shared.claimCoins(achievementID: id, profile: &currentProfile)
+        }
+
         self.profile = currentProfile
 
         // Save locally

@@ -38,6 +38,9 @@ class GameViewModel: ObservableObject {
     // MARK: - Coins Tracking
     @Published var levelWrongAttempts: Int = 0  // Total wrong attempts for the entire level
 
+    // MARK: - First-Try Tracking
+    @Published var firstTryCount: Int = 0  // Words correct on first attempt this level
+
     // MARK: - Give Up Animation State
     @Published var isSpellingOut = false
     @Published var currentSpellingLetters: [String] = []
@@ -119,8 +122,9 @@ class GameViewModel: ObservableObject {
         let words = wordBank.getWords(grade: pendingGrade, level: pendingLevel, count: 15)
         session = GameSession(level: pendingLevel, grade: pendingGrade, words: words)
 
-        // Reset level wrong attempts for coins tracking
+        // Reset level tracking
         levelWrongAttempts = 0
+        firstTryCount = 0
 
         // Set difficulty for audio playback
         let difficulty = min(pendingGrade + (pendingLevel - 1) / 10, 12)
@@ -181,6 +185,9 @@ class GameViewModel: ObservableObject {
     }
 
     private func handleCorrectAnswer() {
+        if currentWordRetryCount == 0 {
+            firstTryCount += 1
+        }
         session?.markCorrect()
         feedbackType = .correct
         phase = .feedback

@@ -14,6 +14,7 @@ enum AppScreen: Equatable {
     case home
     case game(level: Int)
     case settings
+    case achievements
 }
 
 @MainActor
@@ -27,9 +28,13 @@ class AppState: ObservableObject {
     var uiTestingSimulateLevelComplete: Bool = false
     private let uiTestingMode: Bool
 
+    /// Currently showing achievement unlock overlay
+    @Published var pendingAchievementUnlock: String?
+
     private let persistence = PersistenceService.shared
     private let phoneSyncHelper = PhoneSyncHelper.shared
     private let gameCenterService = GameCenterService.shared
+    private let achievementsService = AchievementsService.shared
     private var cancellables = Set<AnyCancellable>()
 
     /// Standard initializer for production use
@@ -92,6 +97,15 @@ class AppState: ObservableObject {
                 CoinsService.shared.migrateExistingProgress(profile: &savedProfile)
                 persistence.saveProfile(savedProfile)
             }
+            // Run achievements migration for existing users
+            if !savedProfile.achievementsMigrationCompleted {
+                achievementsService.evaluateRetroactive(profile: &savedProfile)
+                persistence.saveProfile(savedProfile)
+            }
+            // Record daily activity and check seasonal reset
+            achievementsService.recordDailyActivity(profile: &savedProfile)
+            achievementsService.checkSeasonalReset(profile: &savedProfile)
+            persistence.saveProfile(savedProfile)
             profile = savedProfile
             currentScreen = .home
         } else {
@@ -141,19 +155,35 @@ class AppState: ObservableObject {
     /// - Parameters:
     ///   - level: The level completed
     ///   - coinsEarned: Coins to award for this level
-    func completeLevelWithCoins(_ level: Int, coinsEarned: Int) {
+    func completeLevelWithCoins(_ level: Int, coinsEarned: Int, score: Int = 0, correctCount: Int = 0, totalWords: Int = 0, firstTryCount: Int = 0) {
         profile?.completeLevel(level)
         if var currentProfile = profile {
             CoinsService.shared.awardCoins(coinsEarned, to: &currentProfile)
+
+            // Evaluate achievements
+            let newlyUnlocked = achievementsService.evaluateAfterLevelComplete(
+                profile: &currentProfile, coinsEarned: coinsEarned, score: score,
+                correctCount: correctCount, totalWords: totalWords, firstTryCount: firstTryCount
+            )
+
+            // Claim coins for newly unlocked achievements
+            for id in newlyUnlocked {
+                achievementsService.claimCoins(achievementID: id, profile: &currentProfile)
+            }
+
             profile = currentProfile
             if !uiTestingMode {
                 persistence.saveProfile(currentProfile)
                 phoneSyncHelper.pushLocalChanges()
 
-                // Backup to Game Center cloud
+                // Report GC achievements and backup to cloud
                 Task {
+                    self.reportUnreportedAchievements()
                     await gameCenterService.backupCurrentProfile()
                 }
+
+                // Show first pending unlock overlay
+                showNextAchievementUnlock()
             }
         }
     }
@@ -170,6 +200,10 @@ class AppState: ObservableObject {
         currentScreen = .settings
     }
 
+    func navigateToAchievements() {
+        currentScreen = .achievements
+    }
+
     func resetApp() {
         if !uiTestingMode {
             SyncCoordinator.shared.deleteAllData()
@@ -183,6 +217,14 @@ class AppState: ObservableObject {
     func onAppBecameActive() {
         guard !uiTestingMode else { return }
         phoneSyncHelper.syncOnAppear()
+
+        // Record daily activity
+        if var currentProfile = profile {
+            achievementsService.recordDailyActivity(profile: &currentProfile)
+            achievementsService.checkSeasonalReset(profile: &currentProfile)
+            profile = currentProfile
+            persistence.saveProfile(currentProfile)
+        }
 
         // Reload profile after sync
         Task {
@@ -202,6 +244,52 @@ class AppState: ObservableObject {
                     }
                 }
             }
+
+            // Retry unreported GC achievements
+            await MainActor.run {
+                self.reportUnreportedAchievements()
+            }
+        }
+    }
+
+    // MARK: - Achievement Helpers
+
+    /// Report any unlocked achievements that haven't been sent to Game Center.
+    private func reportUnreportedAchievements() {
+        guard var currentProfile = profile else { return }
+
+        let unreported = achievementsService.unreportedGameCenterAchievements(profile: currentProfile)
+        for (def, _) in unreported {
+            if let gcID = def.gameCenterID {
+                gameCenterService.reportAchievement(identifier: gcID)
+                achievementsService.markGameCenterReported(achievementID: def.id, profile: &currentProfile)
+            }
+        }
+
+        if !unreported.isEmpty {
+            profile = currentProfile
+            persistence.saveProfile(currentProfile)
+        }
+    }
+
+    /// Show the next pending achievement unlock overlay.
+    func showNextAchievementUnlock() {
+        guard var currentProfile = profile else { return }
+        if let nextID = achievementsService.consumeNextUnlock(profile: &currentProfile) {
+            profile = currentProfile
+            persistence.saveProfile(currentProfile)
+            pendingAchievementUnlock = nextID
+        } else {
+            pendingAchievementUnlock = nil
+        }
+    }
+
+    /// Dismiss current achievement unlock and show next if any.
+    func dismissAchievementUnlock() {
+        pendingAchievementUnlock = nil
+        // Show next after a brief delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.showNextAchievementUnlock()
         }
     }
 }

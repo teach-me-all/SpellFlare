@@ -178,6 +178,16 @@ struct SettingsView: View {
                 } footer: {
                     Text("This will delete all your progress and start fresh.")
                 }
+
+                // App Info
+                Section {
+                    HStack {
+                        Text("Version")
+                        Spacer()
+                        Text(appVersion)
+                            .foregroundColor(.secondary)
+                    }
+                }
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
@@ -238,6 +248,12 @@ struct SettingsView: View {
                 Text(purchaseResultMessage)
             }
         }
+    }
+
+    private var appVersion: String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?"
+        return "\(version) (\(build))"
     }
 }
 

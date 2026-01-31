@@ -18,6 +18,10 @@ struct UserProfile: Codable, Equatable {
     var totalCoins: Int = 0
     var coinsMigrationCompleted: Bool = false
 
+    // Achievements system
+    var achievementState: AchievementState = AchievementState()
+    var achievementsMigrationCompleted: Bool = false
+
     init(name: String, grade: Int) {
         self.name = name
         self.grade = max(1, min(7, grade))
@@ -25,6 +29,8 @@ struct UserProfile: Codable, Equatable {
         self.currentLevelByGrade = [:]
         self.totalCoins = 0
         self.coinsMigrationCompleted = false
+        self.achievementState = AchievementState()
+        self.achievementsMigrationCompleted = false
         // Initialize all grades with level 1
         for g in 1...7 {
             currentLevelByGrade[g] = 1
@@ -114,11 +120,16 @@ struct UserProfile: Codable, Equatable {
         // Migration for coins - use defaults if not present
         totalCoins = (try? container.decode(Int.self, forKey: .totalCoins)) ?? 0
         coinsMigrationCompleted = (try? container.decode(Bool.self, forKey: .coinsMigrationCompleted)) ?? false
+
+        // Migration for achievements - use defaults if not present
+        achievementState = (try? container.decode(AchievementState.self, forKey: .achievementState)) ?? AchievementState()
+        achievementsMigrationCompleted = (try? container.decode(Bool.self, forKey: .achievementsMigrationCompleted)) ?? false
     }
 
     private enum CodingKeys: String, CodingKey {
         case name, grade, completedLevelsByGrade, currentLevelByGrade, completedLevels, currentLevel
         case totalCoins, coinsMigrationCompleted
+        case achievementState, achievementsMigrationCompleted
     }
 
     func encode(to encoder: Encoder) throws {
@@ -129,5 +140,7 @@ struct UserProfile: Codable, Equatable {
         try container.encode(currentLevelByGrade, forKey: .currentLevelByGrade)
         try container.encode(totalCoins, forKey: .totalCoins)
         try container.encode(coinsMigrationCompleted, forKey: .coinsMigrationCompleted)
+        try container.encode(achievementState, forKey: .achievementState)
+        try container.encode(achievementsMigrationCompleted, forKey: .achievementsMigrationCompleted)
     }
 }
