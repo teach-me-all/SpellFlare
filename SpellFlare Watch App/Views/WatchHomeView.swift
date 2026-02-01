@@ -44,6 +44,16 @@ struct WatchHomeView: View {
                     }
                     .buttonStyle(.plain)
 
+                    // Shop button
+                    Button {
+                        appState.navigateToShop()
+                    } label: {
+                        Image(systemName: "cart.fill")
+                            .font(.system(size: isSmallWatch ? 13 : 15))
+                            .foregroundColor(.cyan)
+                    }
+                    .buttonStyle(.plain)
+
                     Spacer()
 
                     // Coins display

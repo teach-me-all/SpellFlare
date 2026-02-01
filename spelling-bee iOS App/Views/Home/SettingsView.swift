@@ -207,7 +207,7 @@ struct SettingsView: View {
                     appState.resetApp()
                 }
             } message: {
-                Text("This will delete all your progress. This action cannot be undone.")
+                Text("This will reset your level progress for all grades. Your coins, achievements, and shop items will be kept.")
             }
             .alert("Restore Purchases", isPresented: $showRestoreAlert) {
                 Button("OK", role: .cancel) {}

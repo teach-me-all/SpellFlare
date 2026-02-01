@@ -25,9 +25,12 @@ struct LevelCompleteView: View {
 
     var body: some View {
         ZStack {
-            // Confetti background (only for pass)
+            // Confetti background (only for pass) - themed by equipped celebration effect
             if viewModel.didPassLevel {
-                ConfettiView(isActive: $showConfetti)
+                ConfettiView(
+                    isActive: $showConfetti,
+                    colors: ThemeService.celebrationColors(for: appState.profile?.shopState.equippedItem(for: .celebrationEffect))
+                )
             }
 
             VStack(spacing: 30) {
@@ -215,6 +218,7 @@ struct LevelCompleteView: View {
 // MARK: - Confetti View
 struct ConfettiView: View {
     @Binding var isActive: Bool
+    var colors: [Color] = [.yellow, .cyan, .green, .blue, .pink, .purple, .red, .white]
     @State private var particles: [ConfettiParticle] = []
 
     var body: some View {
@@ -238,12 +242,12 @@ struct ConfettiView: View {
     }
 
     private func createParticles(in size: CGSize) {
-        let colors: [Color] = [.yellow, .cyan, .green, .blue, .pink, .purple, .red, .white]
+        let particleColors = colors
 
         for i in 0..<40 {
             let particle = ConfettiParticle(
                 id: i,
-                color: colors.randomElement() ?? .yellow,
+                color: particleColors.randomElement() ?? .yellow,
                 size: CGSize(
                     width: CGFloat.random(in: 8...16),
                     height: CGFloat.random(in: 8...16)

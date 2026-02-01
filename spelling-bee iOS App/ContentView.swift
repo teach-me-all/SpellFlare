@@ -25,6 +25,8 @@ struct ContentView: View {
                     SettingsView()
                 case .achievements:
                     AchievementsView()
+                case .shop:
+                    ShopView()
                 }
             }
             .animation(.easeInOut(duration: 0.3), value: appState.currentScreen)

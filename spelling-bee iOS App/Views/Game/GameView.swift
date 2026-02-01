@@ -16,13 +16,9 @@ struct GameView: View {
 
     var body: some View {
         ZStack {
-            // Purple Gradient Background
+            // Background themed by equipped shop item
             LinearGradient(
-                colors: [
-                    Color(red: 0.4, green: 0.2, blue: 0.9),
-                    Color(red: 0.5, green: 0.3, blue: 0.95),
-                    Color(red: 0.45, green: 0.25, blue: 0.85)
-                ],
+                colors: ThemeService.backgroundColors(for: appState.profile?.shopState.equippedItem(for: .backgroundTheme)),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )

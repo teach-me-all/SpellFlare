@@ -26,6 +26,9 @@ struct ContentView: View {
             case .achievements:
                 WatchAchievementsView()
 
+            case .shop:
+                WatchShopView()
+
             case .game(let level):
                 WatchGameView(level: level)
                     .id(level)  // Force recreation when level changes

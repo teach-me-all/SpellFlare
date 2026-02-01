@@ -15,6 +15,7 @@ enum AppScreen: Equatable {
     case game(level: Int)
     case settings
     case achievements
+    case shop
 }
 
 @MainActor
@@ -100,6 +101,11 @@ class AppState: ObservableObject {
             // Run achievements migration for existing users
             if !savedProfile.achievementsMigrationCompleted {
                 achievementsService.evaluateRetroactive(profile: &savedProfile)
+                persistence.saveProfile(savedProfile)
+            }
+            // Run shop migration for existing users
+            if !savedProfile.shopMigrationCompleted {
+                ShopService.shared.migrateExistingProfile(profile: &savedProfile)
                 persistence.saveProfile(savedProfile)
             }
             // Record daily activity and check seasonal reset
@@ -204,12 +210,53 @@ class AppState: ObservableObject {
         currentScreen = .achievements
     }
 
-    func resetApp() {
-        if !uiTestingMode {
-            SyncCoordinator.shared.deleteAllData()
+    func navigateToShop() {
+        currentScreen = .shop
+    }
+
+    // MARK: - Shop Methods
+
+    func purchaseShopItem(_ itemID: String) -> ShopPurchaseResult {
+        guard var currentProfile = profile else { return .itemNotFound }
+        let result = ShopService.shared.purchaseItem(itemID, profile: &currentProfile)
+        if result == .success {
+            profile = currentProfile
+            if !uiTestingMode {
+                persistence.saveProfile(currentProfile)
+                phoneSyncHelper.pushLocalChanges()
+            }
         }
-        profile = nil
-        currentScreen = .onboarding
+        return result
+    }
+
+    func equipShopItem(_ itemID: String) -> Bool {
+        guard var currentProfile = profile else { return false }
+        let result = ShopService.shared.equipItem(itemID, profile: &currentProfile)
+        if result {
+            profile = currentProfile
+            if !uiTestingMode {
+                persistence.saveProfile(currentProfile)
+                phoneSyncHelper.pushLocalChanges()
+            }
+        }
+        return result
+    }
+
+    func resetApp() {
+        guard var currentProfile = profile else { return }
+
+        // Reset only level progress, preserve everything else
+        for g in 1...7 {
+            currentProfile.completedLevelsByGrade[g] = []
+            currentProfile.currentLevelByGrade[g] = 1
+        }
+
+        profile = currentProfile
+        if !uiTestingMode {
+            persistence.saveProfile(currentProfile)
+            phoneSyncHelper.pushLocalChanges()
+        }
+        currentScreen = .home
     }
 
     // MARK: - Sync Triggers

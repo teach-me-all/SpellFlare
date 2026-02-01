@@ -22,6 +22,10 @@ struct UserProfile: Codable, Equatable {
     var achievementState: AchievementState = AchievementState()
     var achievementsMigrationCompleted: Bool = false
 
+    // Shop system
+    var shopState: ShopState = ShopState()
+    var shopMigrationCompleted: Bool = false
+
     init(name: String, grade: Int) {
         self.name = name
         self.grade = grade
@@ -31,6 +35,8 @@ struct UserProfile: Codable, Equatable {
         self.coinsMigrationCompleted = false
         self.achievementState = AchievementState()
         self.achievementsMigrationCompleted = false
+        self.shopState = ShopState()
+        self.shopMigrationCompleted = false
         // Initialize all grades with level 1
         for g in 1...7 {
             currentLevelByGrade[g] = 1
@@ -118,12 +124,17 @@ struct UserProfile: Codable, Equatable {
         // Migration for achievements - use defaults if not present
         achievementState = (try? container.decode(AchievementState.self, forKey: .achievementState)) ?? AchievementState()
         achievementsMigrationCompleted = (try? container.decode(Bool.self, forKey: .achievementsMigrationCompleted)) ?? false
+
+        // Migration for shop - use defaults if not present
+        shopState = (try? container.decode(ShopState.self, forKey: .shopState)) ?? ShopState()
+        shopMigrationCompleted = (try? container.decode(Bool.self, forKey: .shopMigrationCompleted)) ?? false
     }
 
     private enum CodingKeys: String, CodingKey {
         case name, grade, completedLevelsByGrade, currentLevelByGrade
         case totalCoins, coinsMigrationCompleted
         case achievementState, achievementsMigrationCompleted
+        case shopState, shopMigrationCompleted
     }
 
     func encode(to encoder: Encoder) throws {
@@ -136,5 +147,7 @@ struct UserProfile: Codable, Equatable {
         try container.encode(coinsMigrationCompleted, forKey: .coinsMigrationCompleted)
         try container.encode(achievementState, forKey: .achievementState)
         try container.encode(achievementsMigrationCompleted, forKey: .achievementsMigrationCompleted)
+        try container.encode(shopState, forKey: .shopState)
+        try container.encode(shopMigrationCompleted, forKey: .shopMigrationCompleted)
     }
 }

@@ -26,13 +26,9 @@ struct HomeView: View {
 
     var body: some View {
         ZStack {
-            // Vibrant Purple Gradient Background (like Image #4)
+            // Background themed by equipped shop item
             LinearGradient(
-                colors: [
-                    Color(red: 0.4, green: 0.2, blue: 0.9),
-                    Color(red: 0.5, green: 0.3, blue: 0.95),
-                    Color(red: 0.45, green: 0.25, blue: 0.85)
-                ],
+                colors: ThemeService.backgroundColors(for: profile?.shopState.equippedItem(for: .backgroundTheme)),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -63,7 +59,7 @@ struct HomeView: View {
 
                             Spacer()
 
-                            Text("🐝")
+                            Text(ThemeService.beeSkinEmoji(for: profile?.shopState.equippedItem(for: .beeSkin)))
                                 .font(.title2)
                         }
                         .padding(.horizontal, 20)
@@ -160,6 +156,20 @@ struct TopHeaderView: View {
                     Image(systemName: "trophy.fill")
                         .font(.system(size: 18))
                         .foregroundColor(.yellow)
+                        .frame(width: 40, height: 40)
+                        .background(
+                            Circle()
+                                .fill(Color.white.opacity(0.2))
+                        )
+                }
+
+                // Shop Button
+                Button {
+                    appState.navigateToShop()
+                } label: {
+                    Image(systemName: "cart.fill")
+                        .font(.system(size: 18))
+                        .foregroundColor(.cyan)
                         .frame(width: 40, height: 40)
                         .background(
                             Circle()

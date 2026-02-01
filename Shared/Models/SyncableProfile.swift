@@ -20,7 +20,7 @@ struct SyncableProfile: Codable, Equatable {
     var schemaVersion: Int
     var isWatchUnlocked: Bool  // Sync premium state to Watch
 
-    static let currentSchemaVersion = 3
+    static let currentSchemaVersion = 4
     static let recordType = "UserProfile"
 
     init(profile: UserProfile, deviceIdentifier: String, isWatchUnlocked: Bool = false) {
@@ -82,6 +82,10 @@ struct SyncableProfile: Codable, Equatable {
             record["currentLevelByGrade"] = currentData as CKRecordValue
         }
 
+        if let shopData = try? JSONEncoder().encode(profile.shopState) {
+            record["shopState"] = shopData as CKRecordValue
+        }
+
         return record
     }
 
@@ -109,11 +113,18 @@ struct SyncableProfile: Codable, Equatable {
         let isWatchUnlocked = record["isWatchUnlocked"] as? Bool ?? false
         let totalCoins = record["totalCoins"] as? Int ?? 0
 
+        // Decode shop state
+        var shopState = ShopState()
+        if let shopData = record["shopState"] as? Data {
+            shopState = (try? JSONDecoder().decode(ShopState.self, from: shopData)) ?? ShopState()
+        }
+
         // Reconstruct UserProfile
         var profile = UserProfile(name: name, grade: grade)
         profile.completedLevelsByGrade = completedLevelsByGrade
         profile.currentLevelByGrade = currentLevelByGrade
         profile.totalCoins = totalCoins
+        profile.shopState = shopState
 
         // Ensure all grades are initialized
         for g in 1...7 {
