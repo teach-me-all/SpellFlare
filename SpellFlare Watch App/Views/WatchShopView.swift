@@ -82,6 +82,10 @@ struct WatchShopView: View {
                         .font(.system(size: 12, weight: .semibold))
                         .foregroundColor(.white)
                         .lineLimit(1)
+                    Text(item.description)
+                        .font(.system(size: 9))
+                        .foregroundColor(.white.opacity(0.5))
+                        .lineLimit(1)
                 }
 
                 Spacer()

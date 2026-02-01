@@ -40,6 +40,13 @@ struct ShopItemCard: View {
                     .foregroundColor(.white)
                     .lineLimit(1)
 
+                // Description
+                Text(item.description)
+                    .font(.system(size: 11))
+                    .foregroundColor(.white.opacity(0.6))
+                    .lineLimit(2)
+                    .multilineTextAlignment(.center)
+
                 // Status badge
                 statusBadge
             }
