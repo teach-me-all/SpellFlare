@@ -22,8 +22,12 @@ struct WatchHomeView: View {
             let buttonPadding: CGFloat = isSmallWatch ? 6 : 10
 
             VStack(spacing: isSmallWatch ? 2 : 4) {
-                // Header with settings, achievements, and coins
+                // Header with profile indicator, settings, achievements, and coins
                 HStack {
+                    // Active profile avatar
+                    Text(syncHelper.profile?.avatarIcon ?? "🐝")
+                        .font(.system(size: isSmallWatch ? 14 : 16))
+
                     // Settings button
                     Button {
                         appState.navigateToSettings()

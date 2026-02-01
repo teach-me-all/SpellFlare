@@ -11,6 +11,8 @@ import Combine
 
 enum AppScreen: Equatable {
     case onboarding
+    case profilePicker
+    case createProfile
     case home
     case game(level: Int)
     case settings
@@ -36,6 +38,7 @@ class AppState: ObservableObject {
     private let phoneSyncHelper = PhoneSyncHelper.shared
     private let gameCenterService = GameCenterService.shared
     private let achievementsService = AchievementsService.shared
+    let profileManager = ProfileManager.shared
     private var cancellables = Set<AnyCancellable>()
 
     /// Standard initializer for production use
@@ -92,47 +95,58 @@ class AppState: ObservableObject {
             return
         }
 
-        if var savedProfile = persistence.loadProfile() {
-            // Run coins migration for existing users
-            if !savedProfile.coinsMigrationCompleted {
-                CoinsService.shared.migrateExistingProgress(profile: &savedProfile)
-                persistence.saveProfile(savedProfile)
-            }
-            // Run achievements migration for existing users
-            if !savedProfile.achievementsMigrationCompleted {
-                achievementsService.evaluateRetroactive(profile: &savedProfile)
-                persistence.saveProfile(savedProfile)
-            }
-            // Run shop migration for existing users
-            if !savedProfile.shopMigrationCompleted {
-                ShopService.shared.migrateExistingProfile(profile: &savedProfile)
-                persistence.saveProfile(savedProfile)
-            }
-            // Record daily activity and check seasonal reset
-            achievementsService.recordDailyActivity(profile: &savedProfile)
-            achievementsService.checkSeasonalReset(profile: &savedProfile)
-            persistence.saveProfile(savedProfile)
+        // Run multi-profile migration if needed
+        profileManager.migrateFromSingleProfileIfNeeded()
+
+        // Try loading active profile from ProfileManager
+        if var savedProfile = profileManager.loadActiveProfile() {
+            runMigrations(&savedProfile)
             profile = savedProfile
             currentScreen = .home
+        } else if profileManager.allProfiles.count > 0 {
+            // Profiles exist but none active - show picker
+            currentScreen = .profilePicker
         } else {
             currentScreen = .onboarding
         }
     }
 
-    func createProfile(name: String, grade: Int) {
-        let newProfile = UserProfile(name: name, grade: grade)
-        profile = newProfile
-        if !uiTestingMode {
-            persistence.saveProfile(newProfile)
-            phoneSyncHelper.pushLocalChanges()
+    private func runMigrations(_ savedProfile: inout UserProfile) {
+        // Run coins migration for existing users
+        if !savedProfile.coinsMigrationCompleted {
+            CoinsService.shared.migrateExistingProgress(profile: &savedProfile)
         }
+        // Run achievements migration for existing users
+        if !savedProfile.achievementsMigrationCompleted {
+            achievementsService.evaluateRetroactive(profile: &savedProfile)
+        }
+        // Run shop migration for existing users
+        if !savedProfile.shopMigrationCompleted {
+            ShopService.shared.migrateExistingProfile(profile: &savedProfile)
+        }
+        // Record daily activity and check seasonal reset
+        achievementsService.recordDailyActivity(profile: &savedProfile)
+        achievementsService.checkSeasonalReset(profile: &savedProfile)
+        profileManager.saveProfile(savedProfile)
+    }
+
+    func createProfile(name: String, grade: Int, avatarIcon: String = "🐝") {
+        if uiTestingMode {
+            let newProfile = UserProfile(name: name, grade: grade, avatarIcon: avatarIcon)
+            profile = newProfile
+            currentScreen = .home
+            return
+        }
+        let newProfile = profileManager.createProfile(name: name, avatarIcon: avatarIcon, grade: grade)
+        profile = newProfile
+        phoneSyncHelper.pushLocalChanges()
         currentScreen = .home
     }
 
     func updateGrade(_ grade: Int) {
         profile?.grade = grade
         if let profile = profile, !uiTestingMode {
-            persistence.saveProfile(profile)
+            profileManager.saveProfile(profile)
             phoneSyncHelper.pushLocalChanges()
         }
     }
@@ -140,7 +154,7 @@ class AppState: ObservableObject {
     func completeLevel(_ level: Int) {
         profile?.completeLevel(level)
         if let profile = profile, !uiTestingMode {
-            persistence.saveProfile(profile)
+            profileManager.saveProfile(profile)
             phoneSyncHelper.pushLocalChanges()
         }
     }
@@ -152,7 +166,7 @@ class AppState: ObservableObject {
         CoinsService.shared.awardCoins(amount, to: &currentProfile)
         profile = currentProfile
         if !uiTestingMode {
-            persistence.saveProfile(currentProfile)
+            profileManager.saveProfile(currentProfile)
             phoneSyncHelper.pushLocalChanges()
         }
     }
@@ -179,7 +193,7 @@ class AppState: ObservableObject {
 
             profile = currentProfile
             if !uiTestingMode {
-                persistence.saveProfile(currentProfile)
+                profileManager.saveProfile(currentProfile)
                 phoneSyncHelper.pushLocalChanges()
 
                 // Report GC achievements and backup to cloud
@@ -193,6 +207,62 @@ class AppState: ObservableObject {
             }
         }
     }
+
+    // MARK: - Profile Management
+
+    func switchProfile(to id: UUID) {
+        guard !uiTestingMode else { return }
+        // Save current first
+        if let current = profile {
+            profileManager.saveProfile(current)
+        }
+        if var newProfile = profileManager.switchToProfile(id: id) {
+            runMigrations(&newProfile)
+            profile = newProfile
+            phoneSyncHelper.pushLocalChanges()
+            currentScreen = .home
+        }
+    }
+
+    func createNewProfile(name: String, avatarIcon: String, grade: Int) {
+        let newProfile = profileManager.createProfile(name: name, avatarIcon: avatarIcon, grade: grade)
+        profile = newProfile
+        if !uiTestingMode {
+            phoneSyncHelper.pushLocalChanges()
+        }
+        currentScreen = .home
+    }
+
+    func deleteProfile(id: UUID) {
+        guard !uiTestingMode else { return }
+
+        // Delete cloud backup
+        Task {
+            await gameCenterService.deleteProfileBackup(id: id)
+        }
+
+        _ = profileManager.deleteProfile(id: id)
+
+        if profileManager.allProfiles.isEmpty {
+            profile = nil
+            currentScreen = .onboarding
+        } else if profileManager.activeProfileID != nil {
+            profile = profileManager.activeProfile
+            currentScreen = .home
+        } else {
+            currentScreen = .profilePicker
+        }
+    }
+
+    func showProfilePicker() {
+        currentScreen = .profilePicker
+    }
+
+    func showCreateProfile() {
+        currentScreen = .createProfile
+    }
+
+    // MARK: - Navigation
 
     func navigateToHome() {
         currentScreen = .home
@@ -222,7 +292,7 @@ class AppState: ObservableObject {
         if result == .success {
             profile = currentProfile
             if !uiTestingMode {
-                persistence.saveProfile(currentProfile)
+                profileManager.saveProfile(currentProfile)
                 phoneSyncHelper.pushLocalChanges()
             }
         }
@@ -235,7 +305,7 @@ class AppState: ObservableObject {
         if result {
             profile = currentProfile
             if !uiTestingMode {
-                persistence.saveProfile(currentProfile)
+                profileManager.saveProfile(currentProfile)
                 phoneSyncHelper.pushLocalChanges()
             }
         }
@@ -253,7 +323,7 @@ class AppState: ObservableObject {
 
         profile = currentProfile
         if !uiTestingMode {
-            persistence.saveProfile(currentProfile)
+            profileManager.saveProfile(currentProfile)
             phoneSyncHelper.pushLocalChanges()
         }
         currentScreen = .home
@@ -270,14 +340,14 @@ class AppState: ObservableObject {
             achievementsService.recordDailyActivity(profile: &currentProfile)
             achievementsService.checkSeasonalReset(profile: &currentProfile)
             profile = currentProfile
-            persistence.saveProfile(currentProfile)
+            profileManager.saveProfile(currentProfile)
         }
 
         // Reload profile after sync
         Task {
             try? await Task.sleep(nanoseconds: 500_000_000) // Wait 0.5s for sync
             await MainActor.run {
-                if let syncedProfile = persistence.loadProfile() {
+                if let syncedProfile = self.profileManager.loadActiveProfile() {
                     self.profile = syncedProfile
                 }
             }
@@ -285,7 +355,7 @@ class AppState: ObservableObject {
             // Try to restore from Game Center if better data available
             if await gameCenterService.restoreAndApplyIfBetter() {
                 await MainActor.run {
-                    if let restoredProfile = persistence.loadProfile() {
+                    if let restoredProfile = self.profileManager.loadActiveProfile() {
                         self.profile = restoredProfile
                         print("Applied Game Center cloud profile")
                     }
@@ -315,7 +385,7 @@ class AppState: ObservableObject {
 
         if !unreported.isEmpty {
             profile = currentProfile
-            persistence.saveProfile(currentProfile)
+            profileManager.saveProfile(currentProfile)
         }
     }
 
@@ -324,7 +394,7 @@ class AppState: ObservableObject {
         guard var currentProfile = profile else { return }
         if let nextID = achievementsService.consumeNextUnlock(profile: &currentProfile) {
             profile = currentProfile
-            persistence.saveProfile(currentProfile)
+            profileManager.saveProfile(currentProfile)
             pendingAchievementUnlock = nextID
         } else {
             pendingAchievementUnlock = nil

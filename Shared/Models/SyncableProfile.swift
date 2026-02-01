@@ -20,7 +20,7 @@ struct SyncableProfile: Codable, Equatable {
     var schemaVersion: Int
     var isWatchUnlocked: Bool  // Sync premium state to Watch
 
-    static let currentSchemaVersion = 4
+    static let currentSchemaVersion = 5
     static let recordType = "UserProfile"
 
     init(profile: UserProfile, deviceIdentifier: String, isWatchUnlocked: Bool = false) {
@@ -65,7 +65,9 @@ struct SyncableProfile: Codable, Equatable {
         let id = recordID ?? CKRecord.ID(recordName: UUID().uuidString)
         let record = CKRecord(recordType: Self.recordType, recordID: id)
 
+        record["profileID"] = profile.id.uuidString as CKRecordValue
         record["name"] = profile.name as CKRecordValue
+        record["avatarIcon"] = profile.avatarIcon as CKRecordValue
         record["grade"] = profile.grade as CKRecordValue
         record["lastModified"] = lastModified as CKRecordValue
         record["deviceIdentifier"] = deviceIdentifier as CKRecordValue
@@ -120,7 +122,15 @@ struct SyncableProfile: Codable, Equatable {
         }
 
         // Reconstruct UserProfile
-        var profile = UserProfile(name: name, grade: grade)
+        let profileUUID: UUID
+        if let idString = record["profileID"] as? String, let parsed = UUID(uuidString: idString) {
+            profileUUID = parsed
+        } else {
+            profileUUID = UUID()
+        }
+        let avatarIcon = record["avatarIcon"] as? String ?? "🐝"
+
+        var profile = UserProfile(name: name, grade: grade, id: profileUUID, avatarIcon: avatarIcon)
         profile.completedLevelsByGrade = completedLevelsByGrade
         profile.currentLevelByGrade = currentLevelByGrade
         profile.totalCoins = totalCoins

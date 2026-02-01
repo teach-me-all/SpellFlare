@@ -87,6 +87,15 @@
 		SHOP008A2EFD5008009167B7 /* WatchShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = SHOP008B2EFD5008009167B7 /* WatchShopView.swift */; };
 		WATCH001A2EFD3001009167B7 /* SpellFlare Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = ACF6BE9604A3218453139B52 /* SpellFlare Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		WATCHSET01A2EFD1007009167B7 /* WatchSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = WATCHSET01B2EFD1007009167B7 /* WatchSettingsView.swift */; };
+		5772F5D88BEEF15F4CCA4BB9 /* ProfileMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B75DB0608C4971055B9309E /* ProfileMetadata.swift */; };
+		591DCC68CEB20729C40E1694 /* ProfileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901FCE5D735D513CE6891AF2 /* ProfileStore.swift */; };
+		2A10053B6C65A8F51FAEA4CD /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED89629AF08C3EC51374075D /* ProfileManager.swift */; };
+		782C25CA11DAF0E00F949E63 /* ProfilePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06912AD09B1874456ABCDD34 /* ProfilePickerView.swift */; };
+		A0D340A0E195C5CA58A1EC2D /* CreateProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5EB0820166860D7E51DCA /* CreateProfileView.swift */; };
+		3539B950E22C6CAFFED676DF /* ProfileSwitcherSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6AEB1382358E97278029F6 /* ProfileSwitcherSheet.swift */; };
+		B1902EA5F373D9F45F130164 /* ProfileMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B75DB0608C4971055B9309E /* ProfileMetadata.swift */; };
+		3320B0CE24DF58FE6DF3AFD8 /* ProfileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901FCE5D735D513CE6891AF2 /* ProfileStore.swift */; };
+		861DA7D4B8258DCB8A98E86D /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED89629AF08C3EC51374075D /* ProfileManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -223,6 +232,12 @@
 		SHOP007B2EFD5007009167B7 /* ShopPurchaseConfirmSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPurchaseConfirmSheet.swift; sourceTree = "<group>"; };
 		SHOP008B2EFD5008009167B7 /* WatchShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchShopView.swift; sourceTree = "<group>"; };
 		WATCHSET01B2EFD1007009167B7 /* WatchSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSettingsView.swift; sourceTree = "<group>"; };
+		9B75DB0608C4971055B9309E /* ProfileMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMetadata.swift; sourceTree = "<group>"; };
+		901FCE5D735D513CE6891AF2 /* ProfileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStore.swift; sourceTree = "<group>"; };
+		ED89629AF08C3EC51374075D /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
+		06912AD09B1874456ABCDD34 /* ProfilePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePickerView.swift; sourceTree = "<group>"; };
+		A7D5EB0820166860D7E51DCA /* CreateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileView.swift; sourceTree = "<group>"; };
+		2F6AEB1382358E97278029F6 /* ProfileSwitcherSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSwitcherSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +266,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+				4E574843BAB40CD3E85E4CE3 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				06912AD09B1874456ABCDD34 /* ProfilePickerView.swift */,
+				A7D5EB0820166860D7E51DCA /* CreateProfileView.swift */,
+				2F6AEB1382358E97278029F6 /* ProfileSwitcherSheet.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		2ECF12E8F77B3FB484492D5C /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,6 +386,7 @@
 				53B2CD082EFB0005009167B7 /* Common */,
 				ACH008B2EFD4008009167B7 /* Achievements */,
 				SHOP009B2EFD5009009167B7 /* Shop */,
+				4E574843BAB40CD3E85E4CE3 /* Profile */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -433,6 +459,7 @@
 			isa = PBXGroup;
 			children = (
 				53B2CF012EFD0001009167B7 /* SyncableProfile.swift */,
+				9B75DB0608C4971055B9309E /* ProfileMetadata.swift */,
 				ACH001B2EFD4001009167B7 /* Achievement.swift */,
 				SHOP001B2EFD5001009167B7 /* ShopItem.swift */,
 			);
@@ -443,6 +470,8 @@
 			isa = PBXGroup;
 			children = (
 				53B2CF032EFD0003009167B7 /* LocalCacheService.swift */,
+				901FCE5D735D513CE6891AF2 /* ProfileStore.swift */,
+				ED89629AF08C3EC51374075D /* ProfileManager.swift */,
 				53B2CF052EFD0005009167B7 /* SyncCoordinator.swift */,
 				COINS001B2EFD1001009167B7 /* CoinsService.swift */,
 				COINS002B2EFD1002009167B7 /* GameCenterService.swift */,
@@ -836,6 +865,12 @@
 				SHOP005A2EFD5005009167B7 /* ShopView.swift in Sources */,
 				SHOP006A2EFD5006009167B7 /* ShopItemCard.swift in Sources */,
 				SHOP007A2EFD5007009167B7 /* ShopPurchaseConfirmSheet.swift in Sources */,
+				5772F5D88BEEF15F4CCA4BB9 /* ProfileMetadata.swift in Sources */,
+				591DCC68CEB20729C40E1694 /* ProfileStore.swift in Sources */,
+				2A10053B6C65A8F51FAEA4CD /* ProfileManager.swift in Sources */,
+				782C25CA11DAF0E00F949E63 /* ProfilePickerView.swift in Sources */,
+				A0D340A0E195C5CA58A1EC2D /* CreateProfileView.swift in Sources */,
+				3539B950E22C6CAFFED676DF /* ProfileSwitcherSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -887,6 +922,9 @@
 				SHOP003C2EFD5003009167B7 /* ShopService.swift in Sources */,
 				SHOP004C2EFD5004009167B7 /* ThemeService.swift in Sources */,
 				SHOP008A2EFD5008009167B7 /* WatchShopView.swift in Sources */,
+				B1902EA5F373D9F45F130164 /* ProfileMetadata.swift in Sources */,
+				3320B0CE24DF58FE6DF3AFD8 /* ProfileStore.swift in Sources */,
+				861DA7D4B8258DCB8A98E86D /* ProfileManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

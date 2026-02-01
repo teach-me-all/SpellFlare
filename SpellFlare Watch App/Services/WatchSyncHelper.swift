@@ -18,6 +18,7 @@ class WatchSyncHelper: NSObject, ObservableObject {
     @Published var lastSyncDate: Date?
     @Published var hasPendingChanges = false
     @Published var isWatchUnlocked: Bool = false  // Premium state synced from iPhone
+    @Published var activeProfileID: UUID?  // Active profile ID from iPhone
 
     // MARK: - Private Properties
     private var session: WCSession?
@@ -68,9 +69,14 @@ class WatchSyncHelper: NSObject, ObservableObject {
         do {
             let syncable = try JSONDecoder().decode(SyncableProfile.self, from: data)
             self.profile = syncable.profile
-            self.isWatchUnlocked = syncable.isWatchUnlocked  // Extract premium state
+            self.isWatchUnlocked = syncable.isWatchUnlocked
             LocalCacheService.shared.saveSyncableProfile(syncable)
-            savePremiumState(syncable.isWatchUnlocked)  // Persist locally
+            savePremiumState(syncable.isWatchUnlocked)
+            // Extract active profile ID if present
+            if let idString = response["activeProfileID"] as? String, let id = UUID(uuidString: idString) {
+                self.activeProfileID = id
+                saveActiveProfileID(id)
+            }
             self.lastSyncDate = Date()
             print("Profile synced from iPhone: \(syncable.profile.name), premium: \(syncable.isWatchUnlocked)")
         } catch {
@@ -93,13 +99,15 @@ class WatchSyncHelper: NSObject, ObservableObject {
             LocalCacheService.shared.saveSyncableProfile(syncable)
             print("Created default profile")
         }
-        // Also load persisted premium state
+        // Also load persisted premium state and active profile ID
         loadPremiumState()
+        loadActiveProfileID()
     }
 
     // MARK: - Premium State Persistence
 
     private let premiumKey = "watch_isWatchUnlocked"
+    private let activeProfileIDKey = "watch_activeProfileID"
 
     /// Save premium state to UserDefaults for persistence
     private func savePremiumState(_ isWatchUnlocked: Bool) {
@@ -113,6 +121,19 @@ class WatchSyncHelper: NSObject, ObservableObject {
         if savedPremium {
             self.isWatchUnlocked = savedPremium
             print("Loaded persisted premium state: \(savedPremium)")
+        }
+    }
+
+    /// Save active profile ID to UserDefaults
+    private func saveActiveProfileID(_ id: UUID) {
+        UserDefaults.standard.set(id.uuidString, forKey: activeProfileIDKey)
+    }
+
+    /// Load active profile ID from UserDefaults
+    private func loadActiveProfileID() {
+        if let str = UserDefaults.standard.string(forKey: activeProfileIDKey),
+           let id = UUID(uuidString: str) {
+            self.activeProfileID = id
         }
     }
 
@@ -251,9 +272,13 @@ extension WatchSyncHelper: WCSessionDelegate {
             if let data = message["profile"] as? Data,
                let syncable = try? JSONDecoder().decode(SyncableProfile.self, from: data) {
                 self.profile = syncable.profile
-                self.isWatchUnlocked = syncable.isWatchUnlocked  // Extract premium state
+                self.isWatchUnlocked = syncable.isWatchUnlocked
                 LocalCacheService.shared.saveSyncableProfile(syncable)
-                savePremiumState(syncable.isWatchUnlocked)  // Persist locally
+                savePremiumState(syncable.isWatchUnlocked)
+                if let idString = message["activeProfileID"] as? String, let id = UUID(uuidString: idString) {
+                    self.activeProfileID = id
+                    saveActiveProfileID(id)
+                }
                 self.lastSyncDate = Date()
                 print("Profile updated from iPhone, premium: \(syncable.isWatchUnlocked)")
             }
@@ -262,9 +287,13 @@ extension WatchSyncHelper: WCSessionDelegate {
             if let data = message["profile"] as? Data,
                let syncable = try? JSONDecoder().decode(SyncableProfile.self, from: data) {
                 self.profile = syncable.profile
-                self.isWatchUnlocked = syncable.isWatchUnlocked  // Extract premium state
+                self.isWatchUnlocked = syncable.isWatchUnlocked
                 LocalCacheService.shared.saveSyncableProfile(syncable)
-                savePremiumState(syncable.isWatchUnlocked)  // Persist locally
+                savePremiumState(syncable.isWatchUnlocked)
+                if let idString = message["activeProfileID"] as? String, let id = UUID(uuidString: idString) {
+                    self.activeProfileID = id
+                    saveActiveProfileID(id)
+                }
                 print("Grade changed from iPhone: \(syncable.profile.grade), premium: \(syncable.isWatchUnlocked)")
             }
 

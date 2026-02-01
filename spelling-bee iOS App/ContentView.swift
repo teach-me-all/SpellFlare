@@ -16,6 +16,10 @@ struct ContentView: View {
                 switch appState.currentScreen {
                 case .onboarding:
                     OnboardingView()
+                case .profilePicker:
+                    ProfilePickerView()
+                case .createProfile:
+                    CreateProfileView()
                 case .home:
                     HomeView()
                 case .game(let level):

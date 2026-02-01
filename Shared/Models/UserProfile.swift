@@ -7,8 +7,10 @@
 
 import Foundation
 
-struct UserProfile: Codable, Equatable {
+struct UserProfile: Codable, Equatable, Identifiable {
+    var id: UUID
     var name: String
+    var avatarIcon: String
     var grade: Int // 1-7
     // Track completed levels per grade: [grade: Set<level>]
     var completedLevelsByGrade: [Int: Set<Int>]
@@ -26,8 +28,10 @@ struct UserProfile: Codable, Equatable {
     var shopState: ShopState = ShopState()
     var shopMigrationCompleted: Bool = false
 
-    init(name: String, grade: Int) {
+    init(name: String, grade: Int, id: UUID = UUID(), avatarIcon: String = "🐝") {
+        self.id = id
         self.name = name
+        self.avatarIcon = avatarIcon
         self.grade = max(1, min(7, grade))
         self.completedLevelsByGrade = [:]
         self.currentLevelByGrade = [:]
@@ -85,7 +89,9 @@ struct UserProfile: Codable, Equatable {
     // Migration from old format - supports both iOS and watchOS legacy keys
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = (try? container.decode(UUID.self, forKey: .id)) ?? UUID()
         name = try container.decode(String.self, forKey: .name)
+        avatarIcon = (try? container.decode(String.self, forKey: .avatarIcon)) ?? "🐝"
         grade = try container.decode(Int.self, forKey: .grade)
 
         // Try to decode new format first
@@ -137,7 +143,7 @@ struct UserProfile: Codable, Equatable {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case name, grade, completedLevelsByGrade, currentLevelByGrade, completedLevels, currentLevel
+        case id, name, avatarIcon, grade, completedLevelsByGrade, currentLevelByGrade, completedLevels, currentLevel
         case totalCoins, coinsMigrationCompleted
         case achievementState, achievementsMigrationCompleted
         case shopState, shopMigrationCompleted
@@ -145,7 +151,9 @@ struct UserProfile: Codable, Equatable {
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
+        try container.encode(avatarIcon, forKey: .avatarIcon)
         try container.encode(grade, forKey: .grade)
         try container.encode(completedLevelsByGrade, forKey: .completedLevelsByGrade)
         try container.encode(currentLevelByGrade, forKey: .currentLevelByGrade)

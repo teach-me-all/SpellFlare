@@ -93,8 +93,13 @@ class PhoneSyncHelper: NSObject, ObservableObject {
 
         guard let data = try? JSONEncoder().encode(profile) else { return }
 
+        var message: [String: Any] = ["action": "profileUpdated", "profile": data]
+        if let activeID = ProfileManager.shared.activeProfileID {
+            message["activeProfileID"] = activeID.uuidString
+        }
+
         session.sendMessage(
-            ["action": "profileUpdated", "profile": data],
+            message,
             replyHandler: nil,
             errorHandler: { error in
                 print("Failed to send profile to Watch: \(error)")
@@ -209,7 +214,11 @@ extension PhoneSyncHelper: WCSessionDelegate {
             // Watch is requesting our profile
             if let local = localCache.loadSyncableProfile(),
                let data = try? JSONEncoder().encode(local) {
-                replyHandler?(["profile": data])
+                var reply: [String: Any] = ["profile": data]
+                if let activeID = ProfileManager.shared.activeProfileID {
+                    reply["activeProfileID"] = activeID.uuidString
+                }
+                replyHandler?(reply)
                 print("Sent profile to Watch: \(local.profile.name)")
             } else {
                 replyHandler?(["noProfile": true])

@@ -19,7 +19,11 @@ class GameCenterService: ObservableObject {
     @Published private(set) var isRestoring = false
 
     // MARK: - Private Properties
-    private let savedGameName = "SpellingBeeProfile"
+    private let savedGameNameLegacy = "SpellingBeeProfile"
+
+    private func savedGameName(for profileID: UUID) -> String {
+        "SpellingBeeProfile_\(profileID.uuidString)"
+    }
 
     private init() {}
 
@@ -109,8 +113,9 @@ class GameCenterService: ObservableObject {
             // Encode profile to JSON data
             let data = try JSONEncoder().encode(profile)
 
-            // Save to Game Center
-            try await GKLocalPlayer.local.saveGameData(data, withName: savedGameName)
+            // Save to Game Center using per-profile name
+            let gameName = savedGameName(for: profile.profile.id)
+            try await GKLocalPlayer.local.saveGameData(data, withName: gameName)
 
             print("Profile saved to Game Center cloud")
             print("  - Name: \(profile.profile.name)")
@@ -123,9 +128,9 @@ class GameCenterService: ObservableObject {
 
     // MARK: - Cloud Restore
 
-    /// Restore profile from Game Center cloud
-    /// - Returns: The restored profile, or nil if none found or error
-    func restoreFromCloud() async -> SyncableProfile? {
+    /// Restore profile from Game Center cloud for a specific profile ID
+    /// Falls back to legacy save name if per-profile save not found
+    func restoreFromCloud(profileID: UUID? = nil) async -> SyncableProfile? {
         guard isAuthenticated else {
             print("Cannot restore from cloud: not authenticated")
             return nil
@@ -135,19 +140,26 @@ class GameCenterService: ObservableObject {
         defer { isRestoring = false }
 
         do {
-            // Fetch saved games
             let savedGames = try await GKLocalPlayer.local.fetchSavedGames()
 
-            // Find our save
-            guard let savedGame = savedGames.first(where: { $0.name == savedGameName }) else {
+            // Try per-profile save first
+            var savedGame: GKSavedGame?
+            if let id = profileID {
+                let name = savedGameName(for: id)
+                savedGame = savedGames.first(where: { $0.name == name })
+            }
+
+            // Fall back to legacy save
+            if savedGame == nil {
+                savedGame = savedGames.first(where: { $0.name == savedGameNameLegacy })
+            }
+
+            guard let game = savedGame else {
                 print("No saved game found in Game Center")
                 return nil
             }
 
-            // Load the data
-            let data = try await savedGame.loadData()
-
-            // Decode profile
+            let data = try await game.loadData()
             let profile = try JSONDecoder().decode(SyncableProfile.self, from: data)
 
             print("Profile restored from Game Center cloud")
@@ -162,6 +174,32 @@ class GameCenterService: ObservableObject {
         }
     }
 
+    /// Restore all profiles from Game Center cloud
+    func restoreAllProfiles() async -> [SyncableProfile] {
+        guard isAuthenticated else { return [] }
+
+        do {
+            let savedGames = try await GKLocalPlayer.local.fetchSavedGames()
+            var profiles: [SyncableProfile] = []
+
+            for game in savedGames where game.name?.hasPrefix("SpellingBeeProfile") == true {
+                do {
+                    let data = try await game.loadData()
+                    let profile = try JSONDecoder().decode(SyncableProfile.self, from: data)
+                    profiles.append(profile)
+                } catch {
+                    print("Failed to decode saved game \(game.name ?? "unknown"): \(error)")
+                }
+            }
+
+            print("Restored \(profiles.count) profiles from Game Center")
+            return profiles
+        } catch {
+            print("Failed to fetch saved games: \(error)")
+            return []
+        }
+    }
+
     // MARK: - Delete Cloud Save
 
     /// Delete saved game from Game Center cloud
@@ -170,12 +208,27 @@ class GameCenterService: ObservableObject {
 
         do {
             let savedGames = try await GKLocalPlayer.local.fetchSavedGames()
-            for savedGame in savedGames where savedGame.name == savedGameName {
-                try await GKLocalPlayer.local.deleteSavedGames(withName: savedGameName)
-                print("Deleted Game Center cloud save")
+            for savedGame in savedGames where savedGame.name?.hasPrefix("SpellingBeeProfile") == true {
+                if let name = savedGame.name {
+                    try await GKLocalPlayer.local.deleteSavedGames(withName: name)
+                    print("Deleted Game Center cloud save: \(name)")
+                }
             }
         } catch {
             print("Failed to delete cloud save: \(error.localizedDescription)")
+        }
+    }
+
+    /// Delete cloud save for a specific profile
+    func deleteProfileBackup(id: UUID) async {
+        guard isAuthenticated else { return }
+
+        let name = savedGameName(for: id)
+        do {
+            try await GKLocalPlayer.local.deleteSavedGames(withName: name)
+            print("Deleted Game Center cloud save for profile \(id)")
+        } catch {
+            print("Failed to delete cloud save for profile \(id): \(error)")
         }
     }
 
@@ -231,7 +284,8 @@ extension GameCenterService {
     /// Convenience method to restore and apply cloud profile if better
     /// - Returns: True if cloud profile was applied
     func restoreAndApplyIfBetter() async -> Bool {
-        guard let cloudProfile = await restoreFromCloud() else {
+        let profileID = ProfileManager.shared.activeProfileID
+        guard let cloudProfile = await restoreFromCloud(profileID: profileID) else {
             return false
         }
 

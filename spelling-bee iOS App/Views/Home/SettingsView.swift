@@ -19,6 +19,7 @@ struct SettingsView: View {
     @State private var restoreMessage = ""
     @State private var showPurchaseResult = false
     @State private var purchaseResultMessage = ""
+    @State private var showProfileSwitcher = false
 
     var body: some View {
         NavigationStack {
@@ -26,7 +27,7 @@ struct SettingsView: View {
                 // Profile Section
                 Section {
                     HStack(spacing: 16) {
-                        Text("🐝")
+                        Text(appState.profile?.avatarIcon ?? "🐝")
                             .font(.system(size: 50))
 
                         VStack(alignment: .leading, spacing: 4) {
@@ -40,6 +41,12 @@ struct SettingsView: View {
                         }
                     }
                     .padding(.vertical, 8)
+
+                    Button {
+                        showProfileSwitcher = true
+                    } label: {
+                        Label("Switch Player", systemImage: "person.2.fill")
+                    }
                 }
 
                 // Grade Section
@@ -246,6 +253,9 @@ struct SettingsView: View {
                 Button("OK", role: .cancel) {}
             } message: {
                 Text(purchaseResultMessage)
+            }
+            .sheet(isPresented: $showProfileSwitcher) {
+                ProfileSwitcherSheet()
             }
         }
     }

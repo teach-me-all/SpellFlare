@@ -113,6 +113,26 @@ class LocalCacheService {
         return loadSyncableProfile()?.profile
     }
 
+    // MARK: - Multi-Profile Support
+
+    func saveProfileData(_ syncable: SyncableProfile, for id: UUID) {
+        let key = "profile_\(id.uuidString)"
+        if let data = try? JSONEncoder().encode(syncable) {
+            defaults.set(data, forKey: key)
+        }
+    }
+
+    func loadProfileData(for id: UUID) -> SyncableProfile? {
+        let key = "profile_\(id.uuidString)"
+        guard let data = defaults.data(forKey: key) else { return nil }
+        return try? JSONDecoder().decode(SyncableProfile.self, from: data)
+    }
+
+    func deleteProfileData(for id: UUID) {
+        let key = "profile_\(id.uuidString)"
+        defaults.removeObject(forKey: key)
+    }
+
     // MARK: - Reset
 
     func clearAll() {

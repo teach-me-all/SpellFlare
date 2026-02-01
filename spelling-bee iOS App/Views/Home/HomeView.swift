@@ -15,6 +15,7 @@ struct HomeView: View {
     @State private var showVoicePicker = false
     @State private var showUpdateAlert = false
     @State private var selectedLevelGroup = 0
+    @State private var showProfileSwitcher = false
 
     var profile: UserProfile? {
         appState.profile
@@ -39,7 +40,8 @@ struct HomeView: View {
                 TopHeaderView(
                     profile: profile,
                     showGradePicker: $showGradePicker,
-                    showVoicePicker: $showVoicePicker
+                    showVoicePicker: $showVoicePicker,
+                    showProfileSwitcher: $showProfileSwitcher
                 )
 
                 // Level Group Selector (like date picker)
@@ -83,6 +85,9 @@ struct HomeView: View {
         .sheet(isPresented: $showVoicePicker) {
             VoicePickerSheet()
         }
+        .sheet(isPresented: $showProfileSwitcher) {
+            ProfileSwitcherSheet()
+        }
         .onAppear {
             // Set initial group based on current level
             selectedLevelGroup = (currentLevel - 1) / 10
@@ -114,6 +119,7 @@ struct TopHeaderView: View {
     let profile: UserProfile?
     @Binding var showGradePicker: Bool
     @Binding var showVoicePicker: Bool
+    @Binding var showProfileSwitcher: Bool
 
     var completionPercent: Int {
         let completed = profile?.completedLevels.count ?? 0
@@ -123,6 +129,27 @@ struct TopHeaderView: View {
     var body: some View {
         VStack(spacing: 16) {
             HStack {
+                // Profile Avatar Button
+                Button {
+                    showProfileSwitcher = true
+                } label: {
+                    HStack(spacing: 6) {
+                        Text(profile?.avatarIcon ?? "🐝")
+                            .font(.system(size: 20))
+                        if appState.profileManager.hasMultipleProfiles() {
+                            Image(systemName: "chevron.down")
+                                .font(.system(size: 10, weight: .semibold))
+                                .foregroundColor(.white.opacity(0.6))
+                        }
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 8)
+                    .background(
+                        Capsule()
+                            .fill(Color.white.opacity(0.2))
+                    )
+                }
+
                 // Grade Button
                 Button {
                     showGradePicker = true
@@ -148,20 +175,6 @@ struct TopHeaderView: View {
                 CompactProgressRing(percent: completionPercent)
 
                 Spacer()
-
-                // Achievements Button
-                Button {
-                    appState.navigateToAchievements()
-                } label: {
-                    Image(systemName: "trophy.fill")
-                        .font(.system(size: 18))
-                        .foregroundColor(.yellow)
-                        .frame(width: 40, height: 40)
-                        .background(
-                            Circle()
-                                .fill(Color.white.opacity(0.2))
-                        )
-                }
 
                 // Shop Button
                 Button {
@@ -196,7 +209,7 @@ struct TopHeaderView: View {
             // Welcome text
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Hi, \(profile?.name ?? "Speller")!")
+                    Text("Hi, \(profile?.name ?? "Speller")! \(profile?.avatarIcon ?? "")")
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
@@ -207,6 +220,29 @@ struct TopHeaderView: View {
                 }
 
                 Spacer()
+
+                // Achievements button (matches coins capsule style)
+                Button {
+                    appState.navigateToAchievements()
+                } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: "trophy.fill")
+                            .font(.system(size: 20))
+                            .foregroundStyle(
+                                LinearGradient(
+                                    colors: [.yellow, .orange],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(
+                        Capsule()
+                            .fill(Color.white.opacity(0.2))
+                    )
+                }
 
                 // Coins display
                 CoinsDisplayView(coins: profile?.totalCoins ?? 0)

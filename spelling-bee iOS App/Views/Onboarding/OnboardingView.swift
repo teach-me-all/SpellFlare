@@ -11,6 +11,7 @@ struct OnboardingView: View {
     @EnvironmentObject var appState: AppState
     @State private var currentStep = 0
     @State private var name = ""
+    @State private var selectedAvatar = "🐝"
     @State private var selectedGrade = 1
 
     var body: some View {
@@ -36,6 +37,8 @@ struct OnboardingView: View {
                 case 1:
                     NameStep(name: $name, onContinue: { currentStep = 2 })
                 case 2:
+                    AvatarStep(selectedAvatar: $selectedAvatar, onContinue: { currentStep = 3 })
+                case 3:
                     GradeStep(selectedGrade: $selectedGrade, onComplete: completeOnboarding)
                 default:
                     EmptyView()
@@ -45,7 +48,7 @@ struct OnboardingView: View {
 
                 // Progress dots
                 HStack(spacing: 12) {
-                    ForEach(0..<3) { index in
+                    ForEach(0..<4) { index in
                         Circle()
                             .fill(index == currentStep ? Color.cyan : Color.white.opacity(0.3))
                             .frame(width: 10, height: 10)
@@ -58,7 +61,7 @@ struct OnboardingView: View {
     }
 
     private func completeOnboarding() {
-        appState.createProfile(name: name.isEmpty ? "Speller" : name, grade: selectedGrade)
+        appState.createProfile(name: name.isEmpty ? "Speller" : name, grade: selectedGrade, avatarIcon: selectedAvatar)
     }
 }
 
@@ -116,6 +119,56 @@ struct NameStep: View {
                 .background(Color.white.opacity(0.8))
                 .cornerRadius(12)
                 .padding(.horizontal, 40)
+
+            Button(action: onContinue) {
+                Text("Continue")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.cyan)
+                    .cornerRadius(16)
+            }
+            .padding(.horizontal, 40)
+        }
+    }
+}
+
+// MARK: - Avatar Step
+struct AvatarStep: View {
+    @Binding var selectedAvatar: String
+    let onContinue: () -> Void
+
+    private let avatars = ProfileManager.avatarOptions
+
+    var body: some View {
+        VStack(spacing: 24) {
+            Text(selectedAvatar)
+                .font(.system(size: 80))
+
+            Text("Pick your avatar!")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 16) {
+                ForEach(avatars, id: \.self) { avatar in
+                    Button {
+                        selectedAvatar = avatar
+                    } label: {
+                        Text(avatar)
+                            .font(.system(size: 36))
+                            .frame(width: 60, height: 60)
+                            .background(
+                                selectedAvatar == avatar
+                                    ? Color.white.opacity(0.4)
+                                    : Color.white.opacity(0.15)
+                            )
+                            .cornerRadius(14)
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
 
             Button(action: onContinue) {
                 Text("Continue")
