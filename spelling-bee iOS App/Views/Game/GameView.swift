@@ -49,9 +49,9 @@ struct GameView: View {
                             .foregroundColor(.white.opacity(0.7))
                     }
                 case .presenting:
-                    WordPresentationView(viewModel: viewModel)
+                    WordPresentationView(viewModel: viewModel, themeID: appState.profile?.shopState.equippedItem(for: .backgroundTheme))
                 case .spelling:
-                    SpellingInputView(viewModel: viewModel)
+                    SpellingInputView(viewModel: viewModel, themeID: appState.profile?.shopState.equippedItem(for: .backgroundTheme))
                 case .feedback:
                     FeedbackView(viewModel: viewModel)
                 case .levelComplete:
@@ -260,10 +260,11 @@ struct WordPresentationView: View {
     @State private var pulseAnimation = false
     @State private var useKeyboard = false
     @State private var keyboardInput = ""
-    @FocusState private var isKeyboardFocused: Bool
+    @State private var isKeyboardActive: Bool = false
     @State private var spellingState: SpellingState = .waitingForFirstLetter
     @State private var displayedSpelling = ""  // What we show in UI
     @State private var textAtTransition = ""  // Text we had when transitioning to spelling mode
+    var themeID: String?
 
     var body: some View {
         VStack(spacing: 20) {
@@ -361,7 +362,7 @@ struct WordPresentationView: View {
                         Button {
                             useKeyboard = true
                             viewModel.hasSeenKeyboardHint = true
-                            isKeyboardFocused = true
+                            isKeyboardActive = true
                         } label: {
                             Label("Use Keyboard Instead", systemImage: "keyboard")
                                 .font(.headline)
@@ -385,16 +386,17 @@ struct WordPresentationView: View {
                             .font(.subheadline)
                             .foregroundColor(.white.opacity(0.8))
 
-                        TextField("Type here...", text: $keyboardInput)
-                            .textFieldStyle(.plain)
-                            .font(.system(size: 24, weight: .medium))
-                            .multilineTextAlignment(.center)
-                            .padding()
-                            .background(Color.white.opacity(0.9))
-                            .cornerRadius(12)
-                            .autocapitalization(.none)
-                            .disableAutocorrection(true)
-                            .focused($isKeyboardFocused)
+                        SpellingKeyboardTextField(
+                            text: $keyboardInput,
+                            isFirstResponder: isKeyboardActive,
+                            onDone: { submitSpelling() },
+                            themeID: themeID
+                        )
+                        .frame(height: 44)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(Color.white.opacity(0.9))
+                        .cornerRadius(12)
 
                         if !keyboardInput.isEmpty {
                             Text(keyboardInput.uppercased())
@@ -566,7 +568,7 @@ struct WordPresentationView: View {
                 speechService.stopListening()
                 isRecording = false
             }
-            isKeyboardFocused = false
+            isKeyboardActive = false
         }
         .onChange(of: speechService.recognizedText) { newText in
             processSpeechRecognition(newText)
@@ -596,10 +598,10 @@ struct WordPresentationView: View {
             speechService.recognizedText = ""
             // Set focus after a small delay
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                isKeyboardFocused = true
+                isKeyboardActive = true
             }
         } else {
-            isKeyboardFocused = false
+            isKeyboardActive = false
             keyboardInput = ""
         }
     }
@@ -922,8 +924,9 @@ struct SpellingInputView: View {
     @State private var pulseAnimation = false
     @State private var useKeyboard = false
     @State private var keyboardInput = ""
-    @FocusState private var isKeyboardFocused: Bool
+    @State private var isKeyboardActive: Bool = false
     @State private var hasRecordedInThisAttempt = false
+    var themeID: String?
 
     var body: some View {
         VStack(spacing: 16) {
@@ -1028,17 +1031,18 @@ struct SpellingInputView: View {
                 .font(.title2)
                 .foregroundColor(.white.opacity(0.8))
 
-            TextField("Type here...", text: $keyboardInput)
-                .font(.system(size: 28, weight: .medium, design: .monospaced))
-                .multilineTextAlignment(.center)
-                .textInputAutocapitalization(.never)
-                .autocorrectionDisabled()
-                .padding()
-                .background(Color.white.opacity(0.15))
-                .foregroundColor(.white)
-                .cornerRadius(12)
-                .focused($isKeyboardFocused)
-                .padding(.horizontal, 30)
+            SpellingKeyboardTextField(
+                text: $keyboardInput,
+                isFirstResponder: isKeyboardActive,
+                onDone: { submitSpelling() },
+                themeID: themeID
+            )
+            .frame(height: 44)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(Color.white.opacity(0.15))
+            .cornerRadius(12)
+            .padding(.horizontal, 30)
 
             if !keyboardInput.isEmpty {
                 Text(keyboardInput.uppercased())
@@ -1048,7 +1052,7 @@ struct SpellingInputView: View {
             }
         }
         .onAppear {
-            isKeyboardFocused = true
+            isKeyboardActive = true
         }
     }
 

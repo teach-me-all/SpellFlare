@@ -17,16 +17,42 @@ struct WatchAchievementsView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
+                // Header with back button
+                HStack {
+                    Button {
+                        appState.currentScreen = .home
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .font(.headline)
+                            .foregroundColor(.cyan)
+                    }
+                    .buttonStyle(.plain)
+
+                    Spacer()
+
+                    Text("Achievements")
+                        .font(.headline)
+                        .foregroundColor(.white)
+
+                    Spacer()
+
+                    // Balance spacer
+                    Image(systemName: "chevron.left")
+                        .font(.headline)
+                        .foregroundColor(.clear)
+                }
+                .padding(.horizontal, 8)
+
                 // Rarity legend (compact for watch)
-                HStack(spacing: 8) {
+                HStack(spacing: 10) {
                     ForEach(AchievementRarity.allCases, id: \.self) { rarity in
-                        HStack(spacing: 2) {
+                        HStack(spacing: 3) {
                             Circle()
                                 .fill(watchRarityColor(rarity))
-                                .frame(width: 6, height: 6)
+                                .frame(width: 8, height: 8)
                             Text(watchRarityLabel(rarity))
-                                .font(.system(size: 8))
-                                .foregroundColor(.white.opacity(0.6))
+                                .font(.system(size: 11, weight: .medium))
+                                .foregroundColor(.white.opacity(0.7))
                         }
                     }
                 }
@@ -62,7 +88,7 @@ struct WatchAchievementsView: View {
             )
             .ignoresSafeArea()
         )
-        .navigationTitle("Achievements")
+        .toolbar(.hidden, for: .navigationBar)
     }
 
     @ViewBuilder
@@ -77,15 +103,15 @@ struct WatchAchievementsView: View {
                 Circle()
                     .stroke(
                         isUnlocked ? watchRarityColor(def.rarity) : Color.white.opacity(0.15),
-                        lineWidth: isUnlocked ? 2 : 1
+                        lineWidth: isUnlocked ? 2.5 : 1
                     )
-                    .frame(width: 30, height: 30)
+                    .frame(width: 36, height: 36)
 
                 Image(systemName: def.iconName)
-                    .font(.system(size: 14))
+                    .font(.system(size: 17))
                     .foregroundColor(isUnlocked ? watchRarityColor(def.rarity) : .white.opacity(0.3))
             }
-            .frame(width: 30)
+            .frame(width: 36)
 
             VStack(alignment: .leading, spacing: 4) {
                 // Title row

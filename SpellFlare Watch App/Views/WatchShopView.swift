@@ -17,6 +17,32 @@ struct WatchShopView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
+                // Header with back button
+                HStack {
+                    Button {
+                        appState.currentScreen = .home
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .font(.headline)
+                            .foregroundColor(.cyan)
+                    }
+                    .buttonStyle(.plain)
+
+                    Spacer()
+
+                    Text("Shop")
+                        .font(.headline)
+                        .foregroundColor(.white)
+
+                    Spacer()
+
+                    // Balance spacer
+                    Image(systemName: "chevron.left")
+                        .font(.headline)
+                        .foregroundColor(.clear)
+                }
+                .padding(.horizontal, 8)
+
                 // Coins display
                 HStack {
                     Spacer()
@@ -51,7 +77,7 @@ struct WatchShopView: View {
             )
             .ignoresSafeArea()
         )
-        .navigationTitle("Shop")
+        .toolbar(.hidden, for: .navigationBar)
         .alert("Not Enough Coins", isPresented: $showInsufficientAlert) {
             Button("OK", role: .cancel) {}
         } message: {

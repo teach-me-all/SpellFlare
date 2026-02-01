@@ -93,6 +93,8 @@
 		782C25CA11DAF0E00F949E63 /* ProfilePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06912AD09B1874456ABCDD34 /* ProfilePickerView.swift */; };
 		A0D340A0E195C5CA58A1EC2D /* CreateProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5EB0820166860D7E51DCA /* CreateProfileView.swift */; };
 		3539B950E22C6CAFFED676DF /* ProfileSwitcherSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6AEB1382358E97278029F6 /* ProfileSwitcherSheet.swift */; };
+		KBRD001A2EFD6001009167B7 /* SpellingKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = KBRD001B2EFD6001009167B7 /* SpellingKeyboardView.swift */; };
+		KBRD002A2EFD6002009167B7 /* SpellingKeyboardTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = KBRD002B2EFD6002009167B7 /* SpellingKeyboardTextField.swift */; };
 		B1902EA5F373D9F45F130164 /* ProfileMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B75DB0608C4971055B9309E /* ProfileMetadata.swift */; };
 		3320B0CE24DF58FE6DF3AFD8 /* ProfileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901FCE5D735D513CE6891AF2 /* ProfileStore.swift */; };
 		861DA7D4B8258DCB8A98E86D /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED89629AF08C3EC51374075D /* ProfileManager.swift */; };
@@ -238,6 +240,8 @@
 		06912AD09B1874456ABCDD34 /* ProfilePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePickerView.swift; sourceTree = "<group>"; };
 		A7D5EB0820166860D7E51DCA /* CreateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileView.swift; sourceTree = "<group>"; };
 		2F6AEB1382358E97278029F6 /* ProfileSwitcherSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSwitcherSheet.swift; sourceTree = "<group>"; };
+		KBRD001B2EFD6001009167B7 /* SpellingKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellingKeyboardView.swift; sourceTree = "<group>"; };
+		KBRD002B2EFD6002009167B7 /* SpellingKeyboardTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellingKeyboardTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -424,6 +428,8 @@
 				53B2CD042EFB0003009167B7 /* ParentGateView.swift */,
 				COINS003B2EFD1003009167B7 /* CoinsDisplayView.swift */,
 				COINS004B2EFD1004009167B7 /* CoinsEarnedView.swift */,
+				KBRD001B2EFD6001009167B7 /* SpellingKeyboardView.swift */,
+				KBRD002B2EFD6002009167B7 /* SpellingKeyboardTextField.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -871,6 +877,8 @@
 				782C25CA11DAF0E00F949E63 /* ProfilePickerView.swift in Sources */,
 				A0D340A0E195C5CA58A1EC2D /* CreateProfileView.swift in Sources */,
 				3539B950E22C6CAFFED676DF /* ProfileSwitcherSheet.swift in Sources */,
+				KBRD001A2EFD6001009167B7 /* SpellingKeyboardView.swift in Sources */,
+				KBRD002A2EFD6002009167B7 /* SpellingKeyboardTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
