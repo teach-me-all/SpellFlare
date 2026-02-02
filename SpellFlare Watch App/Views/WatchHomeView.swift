@@ -22,29 +22,19 @@ struct WatchHomeView: View {
             let buttonPadding: CGFloat = isSmallWatch ? 6 : 10
 
             VStack(spacing: isSmallWatch ? 2 : 4) {
-                // Header with profile indicator, settings, achievements, and coins
+                // Header with profile indicator, settings, shop, achievements, and coins
                 HStack {
                     // Active profile avatar
                     Text(syncHelper.profile?.avatarIcon ?? "🐝")
-                        .font(.system(size: isSmallWatch ? 14 : 16))
+                        .font(.system(size: isSmallWatch ? 16 : 18))
 
                     // Settings button
                     Button {
                         appState.navigateToSettings()
                     } label: {
                         Image(systemName: "gearshape.fill")
-                            .font(.system(size: isSmallWatch ? 14 : 16))
+                            .font(.system(size: isSmallWatch ? 16 : 18))
                             .foregroundColor(.white.opacity(0.8))
-                    }
-                    .buttonStyle(.plain)
-
-                    // Achievements button
-                    Button {
-                        appState.navigateToAchievements()
-                    } label: {
-                        Image(systemName: "trophy.fill")
-                            .font(.system(size: isSmallWatch ? 13 : 15))
-                            .foregroundColor(.yellow)
                     }
                     .buttonStyle(.plain)
 
@@ -53,18 +43,40 @@ struct WatchHomeView: View {
                         appState.navigateToShop()
                     } label: {
                         Image(systemName: "cart.fill")
-                            .font(.system(size: isSmallWatch ? 13 : 15))
+                            .font(.system(size: isSmallWatch ? 15 : 17))
                             .foregroundColor(.cyan)
                     }
                     .buttonStyle(.plain)
 
                     Spacer()
 
+                    // Achievements button
+                    Button {
+                        appState.navigateToAchievements()
+                    } label: {
+                        Image(systemName: "trophy.fill")
+                            .font(.system(size: isSmallWatch ? 15 : 17))
+                            .foregroundColor(.yellow)
+                    }
+                    .buttonStyle(.plain)
+
                     // Coins display
                     WatchCoinsDisplayView(coins: syncHelper.profile?.totalCoins ?? 0, compact: isSmallWatch)
                 }
                 .padding(.horizontal, 8)
                 .padding(.top, isSmallWatch ? 2 : 4)
+
+                // Weekly check-in dots
+                if let profile = syncHelper.profile {
+                    let status = DailyCheckInService.shared.weeklyStatus(profile: profile)
+                    HStack(spacing: 4) {
+                        ForEach(0..<7, id: \.self) { index in
+                            Circle()
+                                .fill(status[index] ? Color.cyan : Color.white.opacity(0.2))
+                                .frame(width: isSmallWatch ? 5 : 6, height: isSmallWatch ? 5 : 6)
+                        }
+                    }
+                }
 
                 Spacer(minLength: 0)
 

@@ -43,21 +43,48 @@ struct WatchAchievementsView: View {
                 }
                 .padding(.horizontal, 8)
 
-                // Rarity legend (compact for watch)
-                HStack(spacing: 10) {
-                    ForEach(AchievementRarity.allCases, id: \.self) { rarity in
+                // Daily Check-In dots
+                if let profile = syncHelper.profile {
+                    let status = DailyCheckInService.shared.weeklyStatus(profile: profile)
+                    let count = DailyCheckInService.shared.weeklyCheckInCount(profile: profile)
+                    VStack(spacing: 6) {
                         HStack(spacing: 3) {
-                            Circle()
-                                .fill(watchRarityColor(rarity))
-                                .frame(width: 8, height: 8)
-                            Text(watchRarityLabel(rarity))
-                                .font(.system(size: 11, weight: .medium))
-                                .foregroundColor(.white.opacity(0.7))
+                            Image(systemName: "calendar")
+                                .font(.system(size: 11))
+                                .foregroundColor(.cyan)
+                            Text("Check-In")
+                                .font(.system(size: 12, weight: .semibold))
+                                .foregroundColor(.white)
+                            Spacer()
+                            Text("\(count)/5")
+                                .font(.system(size: 11, weight: .bold))
+                                .foregroundColor(.cyan)
+                        }
+
+                        HStack(spacing: 6) {
+                            ForEach(0..<7, id: \.self) { index in
+                                Circle()
+                                    .fill(status[index] ? Color.cyan : Color.white.opacity(0.15))
+                                    .frame(width: 14, height: 14)
+                                    .overlay(
+                                        status[index] ?
+                                            Image(systemName: "checkmark")
+                                                .font(.system(size: 8, weight: .bold))
+                                                .foregroundColor(.white)
+                                            : nil
+                                    )
+                            }
+                        }
+
+                        if profile.weeklyBonusAwarded {
+                            Text("Bonus earned!")
+                                .font(.system(size: 10))
+                                .foregroundColor(.yellow)
                         }
                     }
+                    .padding(.horizontal, 8)
+                    .padding(.bottom, 4)
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 8)
 
                 // Sections
                 ForEach(AchievementSection.allCases, id: \.self) { section in

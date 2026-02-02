@@ -70,6 +70,11 @@ struct AchievementsView: View {
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
+                        // Daily Check-In
+                        if let profile = appState.profile {
+                            DailyCheckInCardView(profile: profile)
+                        }
+
                         // Rarity legend
                         rarityLegend
 

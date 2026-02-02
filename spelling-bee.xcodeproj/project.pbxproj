@@ -95,6 +95,10 @@
 		3539B950E22C6CAFFED676DF /* ProfileSwitcherSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F6AEB1382358E97278029F6 /* ProfileSwitcherSheet.swift */; };
 		KBRD001A2EFD6001009167B7 /* SpellingKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = KBRD001B2EFD6001009167B7 /* SpellingKeyboardView.swift */; };
 		KBRD002A2EFD6002009167B7 /* SpellingKeyboardTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = KBRD002B2EFD6002009167B7 /* SpellingKeyboardTextField.swift */; };
+		AVTR001A2EFD7001009167B7 /* AvatarPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AVTR001B2EFD7001009167B7 /* AvatarPickerView.swift */; };
+		DCHK001A2EFD7002009167B7 /* DailyCheckInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCHK001B2EFD7002009167B7 /* DailyCheckInService.swift */; };
+		DCHK001C2EFD7002009167B7 /* DailyCheckInService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCHK001B2EFD7002009167B7 /* DailyCheckInService.swift */; };
+		DCHK002A2EFD7003009167B7 /* DailyCheckInCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCHK002B2EFD7003009167B7 /* DailyCheckInCardView.swift */; };
 		B1902EA5F373D9F45F130164 /* ProfileMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B75DB0608C4971055B9309E /* ProfileMetadata.swift */; };
 		3320B0CE24DF58FE6DF3AFD8 /* ProfileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901FCE5D735D513CE6891AF2 /* ProfileStore.swift */; };
 		861DA7D4B8258DCB8A98E86D /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED89629AF08C3EC51374075D /* ProfileManager.swift */; };
@@ -242,6 +246,9 @@
 		2F6AEB1382358E97278029F6 /* ProfileSwitcherSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSwitcherSheet.swift; sourceTree = "<group>"; };
 		KBRD001B2EFD6001009167B7 /* SpellingKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellingKeyboardView.swift; sourceTree = "<group>"; };
 		KBRD002B2EFD6002009167B7 /* SpellingKeyboardTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellingKeyboardTextField.swift; sourceTree = "<group>"; };
+		AVTR001B2EFD7001009167B7 /* AvatarPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarPickerView.swift; sourceTree = "<group>"; };
+		DCHK001B2EFD7002009167B7 /* DailyCheckInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheckInService.swift; sourceTree = "<group>"; };
+		DCHK002B2EFD7003009167B7 /* DailyCheckInCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheckInCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -408,6 +415,7 @@
 			children = (
 				53B2CC1A2EFA600A009167B7 /* HomeView.swift */,
 				53B2CC1B2EFA600B009167B7 /* SettingsView.swift */,
+				DCHK002B2EFD7003009167B7 /* DailyCheckInCardView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -430,6 +438,7 @@
 				COINS004B2EFD1004009167B7 /* CoinsEarnedView.swift */,
 				KBRD001B2EFD6001009167B7 /* SpellingKeyboardView.swift */,
 				KBRD002B2EFD6002009167B7 /* SpellingKeyboardTextField.swift */,
+				AVTR001B2EFD7001009167B7 /* AvatarPickerView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -486,6 +495,7 @@
 				SHOP002B2EFD5002009167B7 /* ShopItemDefinitions.swift */,
 				SHOP003B2EFD5003009167B7 /* ShopService.swift */,
 				SHOP004B2EFD5004009167B7 /* ThemeService.swift */,
+				DCHK001B2EFD7002009167B7 /* DailyCheckInService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -879,6 +889,9 @@
 				3539B950E22C6CAFFED676DF /* ProfileSwitcherSheet.swift in Sources */,
 				KBRD001A2EFD6001009167B7 /* SpellingKeyboardView.swift in Sources */,
 				KBRD002A2EFD6002009167B7 /* SpellingKeyboardTextField.swift in Sources */,
+				AVTR001A2EFD7001009167B7 /* AvatarPickerView.swift in Sources */,
+				DCHK001A2EFD7002009167B7 /* DailyCheckInService.swift in Sources */,
+				DCHK002A2EFD7003009167B7 /* DailyCheckInCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -933,6 +946,7 @@
 				B1902EA5F373D9F45F130164 /* ProfileMetadata.swift in Sources */,
 				3320B0CE24DF58FE6DF3AFD8 /* ProfileStore.swift in Sources */,
 				861DA7D4B8258DCB8A98E86D /* ProfileManager.swift in Sources */,
+				DCHK001C2EFD7002009167B7 /* DailyCheckInService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

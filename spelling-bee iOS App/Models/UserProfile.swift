@@ -28,6 +28,11 @@ struct UserProfile: Codable, Equatable, Identifiable {
     var shopState: ShopState = ShopState()
     var shopMigrationCompleted: Bool = false
 
+    // Daily check-in system
+    var lastCheckInDate: Date? = nil
+    var weeklyCheckInDates: [Date] = []
+    var weeklyBonusAwarded: Bool = false
+
     init(name: String, grade: Int, id: UUID = UUID(), avatarIcon: String = "🐝") {
         self.id = id
         self.name = name
@@ -41,6 +46,9 @@ struct UserProfile: Codable, Equatable, Identifiable {
         self.achievementsMigrationCompleted = false
         self.shopState = ShopState()
         self.shopMigrationCompleted = false
+        self.lastCheckInDate = nil
+        self.weeklyCheckInDates = []
+        self.weeklyBonusAwarded = false
         // Initialize all grades with level 1
         for g in 1...7 {
             currentLevelByGrade[g] = 1
@@ -134,6 +142,11 @@ struct UserProfile: Codable, Equatable, Identifiable {
         // Migration for shop - use defaults if not present
         shopState = (try? container.decode(ShopState.self, forKey: .shopState)) ?? ShopState()
         shopMigrationCompleted = (try? container.decode(Bool.self, forKey: .shopMigrationCompleted)) ?? false
+
+        // Migration for daily check-in - use defaults if not present
+        lastCheckInDate = try? container.decode(Date.self, forKey: .lastCheckInDate)
+        weeklyCheckInDates = (try? container.decode([Date].self, forKey: .weeklyCheckInDates)) ?? []
+        weeklyBonusAwarded = (try? container.decode(Bool.self, forKey: .weeklyBonusAwarded)) ?? false
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -141,6 +154,7 @@ struct UserProfile: Codable, Equatable, Identifiable {
         case totalCoins, coinsMigrationCompleted
         case achievementState, achievementsMigrationCompleted
         case shopState, shopMigrationCompleted
+        case lastCheckInDate, weeklyCheckInDates, weeklyBonusAwarded
     }
 
     func encode(to encoder: Encoder) throws {
@@ -157,5 +171,8 @@ struct UserProfile: Codable, Equatable, Identifiable {
         try container.encode(achievementsMigrationCompleted, forKey: .achievementsMigrationCompleted)
         try container.encode(shopState, forKey: .shopState)
         try container.encode(shopMigrationCompleted, forKey: .shopMigrationCompleted)
+        try container.encodeIfPresent(lastCheckInDate, forKey: .lastCheckInDate)
+        try container.encode(weeklyCheckInDates, forKey: .weeklyCheckInDates)
+        try container.encode(weeklyBonusAwarded, forKey: .weeklyBonusAwarded)
     }
 }

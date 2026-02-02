@@ -88,6 +88,15 @@ struct SyncableProfile: Codable, Equatable {
             record["shopState"] = shopData as CKRecordValue
         }
 
+        // Check-in fields
+        if let lastCheckIn = profile.lastCheckInDate {
+            record["lastCheckInDate"] = lastCheckIn as CKRecordValue
+        }
+        if let checkInDatesData = try? JSONEncoder().encode(profile.weeklyCheckInDates) {
+            record["weeklyCheckInDates"] = checkInDatesData as CKRecordValue
+        }
+        record["weeklyBonusAwarded"] = profile.weeklyBonusAwarded as CKRecordValue
+
         return record
     }
 
@@ -135,6 +144,13 @@ struct SyncableProfile: Codable, Equatable {
         profile.currentLevelByGrade = currentLevelByGrade
         profile.totalCoins = totalCoins
         profile.shopState = shopState
+
+        // Decode check-in fields
+        profile.lastCheckInDate = record["lastCheckInDate"] as? Date
+        if let checkInDatesData = record["weeklyCheckInDates"] as? Data {
+            profile.weeklyCheckInDates = (try? JSONDecoder().decode([Date].self, from: checkInDatesData)) ?? []
+        }
+        profile.weeklyBonusAwarded = record["weeklyBonusAwarded"] as? Bool ?? false
 
         // Ensure all grades are initialized
         for g in 1...7 {

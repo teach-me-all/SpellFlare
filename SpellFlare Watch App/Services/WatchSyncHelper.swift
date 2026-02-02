@@ -88,9 +88,19 @@ class WatchSyncHelper: NSObject, ObservableObject {
     /// Load profile from local storage
     private func loadLocalProfile() {
         if let syncable = LocalCacheService.shared.loadSyncableProfile() {
-            self.profile = syncable.profile
+            var loadedProfile = syncable.profile
             self.isWatchUnlocked = syncable.isWatchUnlocked
-            print("Loaded local profile: \(syncable.profile.name), premium: \(syncable.isWatchUnlocked)")
+
+            // Daily check-in on app launch
+            let checkInReward = DailyCheckInService.shared.performCheckIn(profile: &loadedProfile)
+            if checkInReward.baseCoins > 0 {
+                loadedProfile.totalCoins += checkInReward.baseCoins + checkInReward.bonusCoins
+                let updated = SyncableProfile(profile: loadedProfile, deviceIdentifier: DeviceIdentifier.current, isWatchUnlocked: syncable.isWatchUnlocked)
+                LocalCacheService.shared.saveSyncableProfile(updated)
+            }
+
+            self.profile = loadedProfile
+            print("Loaded local profile: \(loadedProfile.name), premium: \(syncable.isWatchUnlocked)")
         } else {
             // Create default profile for standalone mode
             let defaultProfile = UserProfile(name: "Player", grade: 1)

@@ -34,6 +34,9 @@ class AppState: ObservableObject {
     /// Currently showing achievement unlock overlay
     @Published var pendingAchievementUnlock: String?
 
+    /// Pending daily check-in reward to show animation
+    @Published var pendingCheckInReward: (baseCoins: Int, bonusCoins: Int)?
+
     private let persistence = PersistenceService.shared
     private let phoneSyncHelper = PhoneSyncHelper.shared
     private let gameCenterService = GameCenterService.shared
@@ -101,6 +104,15 @@ class AppState: ObservableObject {
         // Try loading active profile from ProfileManager
         if var savedProfile = profileManager.loadActiveProfile() {
             runMigrations(&savedProfile)
+
+            // Daily check-in on app launch
+            let checkInReward = DailyCheckInService.shared.performCheckIn(profile: &savedProfile)
+            if checkInReward.baseCoins > 0 {
+                CoinsService.shared.awardCoins(checkInReward.baseCoins + checkInReward.bonusCoins, to: &savedProfile)
+                profileManager.saveProfile(savedProfile)
+                pendingCheckInReward = checkInReward
+            }
+
             profile = savedProfile
             currentScreen = .home
         } else if profileManager.allProfiles.count > 0 {

@@ -20,6 +20,8 @@ struct SettingsView: View {
     @State private var showPurchaseResult = false
     @State private var purchaseResultMessage = ""
     @State private var showProfileSwitcher = false
+    @State private var showAvatarPicker = false
+    @State private var selectedAvatar = "🐝"
 
     var body: some View {
         NavigationStack {
@@ -47,6 +49,12 @@ struct SettingsView: View {
                     } label: {
                         Label("Switch Player", systemImage: "person.2.fill")
                     }
+
+                    Button {
+                        showAvatarPicker = true
+                    } label: {
+                        Label("Change Avatar", systemImage: "face.smiling")
+                    }
                 }
 
                 // Grade Section
@@ -64,30 +72,6 @@ struct SettingsView: View {
                     Text("Words will match your grade level")
                         .font(.caption)
                         .foregroundColor(.secondary)
-                }
-
-                // Voice Section
-                Section("Voice") {
-                    Picker("Voice", selection: $speechService.selectedVoice) {
-                        ForEach(speechService.availableVoices) { voice in
-                            Text(voice.name).tag(voice)
-                        }
-                    }
-                    .pickerStyle(.menu)
-
-                    Button {
-                        speechService.previewVoice(speechService.selectedVoice)
-                    } label: {
-                        HStack {
-                            Label("Preview Voice", systemImage: "speaker.wave.2.fill")
-                            Spacer()
-                            if speechService.isSpeaking {
-                                ProgressView()
-                                    .scaleEffect(0.8)
-                            }
-                        }
-                    }
-                    .disabled(speechService.isSpeaking)
                 }
 
                 // Speech Recognition Section
@@ -207,6 +191,7 @@ struct SettingsView: View {
             }
             .onAppear {
                 selectedGrade = appState.profile?.grade ?? 1
+                selectedAvatar = appState.profile?.avatarIcon ?? "🐝"
             }
             .alert("Reset Progress?", isPresented: $showResetConfirm) {
                 Button("Cancel", role: .cancel) {}
@@ -256,6 +241,27 @@ struct SettingsView: View {
             }
             .sheet(isPresented: $showProfileSwitcher) {
                 ProfileSwitcherSheet()
+            }
+            .sheet(isPresented: $showAvatarPicker) {
+                NavigationStack {
+                    AvatarPickerView(selectedAvatar: $selectedAvatar)
+                        .navigationTitle("Choose Avatar")
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                Button("Done") {
+                                    // Save avatar to profile
+                                    if var currentProfile = appState.profile {
+                                        currentProfile.avatarIcon = selectedAvatar
+                                        appState.profile = currentProfile
+                                        appState.profileManager.saveProfile(currentProfile)
+                                    }
+                                    showAvatarPicker = false
+                                }
+                            }
+                        }
+                }
+                .presentationDetents([.medium])
             }
         }
     }

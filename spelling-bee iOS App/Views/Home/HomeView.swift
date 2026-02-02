@@ -35,6 +35,44 @@ struct HomeView: View {
             )
             .ignoresSafeArea()
 
+            // Check-in reward overlay
+            if let reward = appState.pendingCheckInReward {
+                VStack(spacing: 8) {
+                    Spacer()
+                    VStack(spacing: 12) {
+                        Image(systemName: "calendar.badge.checkmark")
+                            .font(.system(size: 40))
+                            .foregroundColor(.cyan)
+                        Text("Daily Check-In!")
+                            .font(.title2.bold())
+                            .foregroundColor(.white)
+                        Text("+\(reward.baseCoins) coins")
+                            .font(.title3)
+                            .foregroundColor(.yellow)
+                        if reward.bonusCoins > 0 {
+                            Text("+\(reward.bonusCoins) weekly bonus!")
+                                .font(.headline)
+                                .foregroundColor(.orange)
+                        }
+                    }
+                    .padding(32)
+                    .background(Color.black.opacity(0.85))
+                    .cornerRadius(20)
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.black.opacity(0.4))
+                .onTapGesture {
+                    appState.pendingCheckInReward = nil
+                }
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                        appState.pendingCheckInReward = nil
+                    }
+                }
+                .zIndex(100)
+            }
+
             VStack(spacing: 0) {
                 // Top Header
                 TopHeaderView(
