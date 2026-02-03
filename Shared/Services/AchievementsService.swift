@@ -289,6 +289,16 @@ class AchievementsService {
             return profile.completedLevelsByGrade[1]?.count ?? 0
         case "grade_2_complete":
             return profile.completedLevelsByGrade[2]?.count ?? 0
+        case "grade_3_complete":
+            return profile.completedLevelsByGrade[3]?.count ?? 0
+        case "grade_4_complete":
+            return profile.completedLevelsByGrade[4]?.count ?? 0
+        case "grade_5_complete":
+            return profile.completedLevelsByGrade[5]?.count ?? 0
+        case "grade_6_complete":
+            return profile.completedLevelsByGrade[6]?.count ?? 0
+        case "grade_7_complete":
+            return profile.completedLevelsByGrade[7]?.count ?? 0
         case "grade_master":
             // Best grade completion count (any grade with all 50)
             return bestGradeCompletionCount(profile: profile)

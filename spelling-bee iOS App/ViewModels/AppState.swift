@@ -230,6 +230,15 @@ class AppState: ObservableObject {
         }
         if var newProfile = profileManager.switchToProfile(id: id) {
             runMigrations(&newProfile)
+
+            // Daily check-in for switched profile
+            let checkInReward = DailyCheckInService.shared.performCheckIn(profile: &newProfile)
+            if checkInReward.baseCoins > 0 {
+                CoinsService.shared.awardCoins(checkInReward.baseCoins + checkInReward.bonusCoins, to: &newProfile)
+                profileManager.saveProfile(newProfile)
+                pendingCheckInReward = checkInReward
+            }
+
             profile = newProfile
             phoneSyncHelper.pushLocalChanges()
             currentScreen = .home

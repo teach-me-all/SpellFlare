@@ -213,6 +213,76 @@ enum AchievementDefinitions {
         section: .grade
     )
 
+    static let grade3Complete = AchievementDefinition(
+        id: "grade_3_complete",
+        title: "Grade 3 Star",
+        description: "Complete all 50 levels in Grade 3",
+        iconName: "star.square.fill",
+        coinReward: 400,
+        isSeasonal: false,
+        gameCenterID: nil,
+        targetValue: 50,
+        category: .grade,
+        rarity: .rare,
+        section: .grade
+    )
+
+    static let grade4Complete = AchievementDefinition(
+        id: "grade_4_complete",
+        title: "Grade 4 Star",
+        description: "Complete all 50 levels in Grade 4",
+        iconName: "star.square",
+        coinReward: 500,
+        isSeasonal: false,
+        gameCenterID: nil,
+        targetValue: 50,
+        category: .grade,
+        rarity: .epic,
+        section: .grade
+    )
+
+    static let grade5Complete = AchievementDefinition(
+        id: "grade_5_complete",
+        title: "Grade 5 Star",
+        description: "Complete all 50 levels in Grade 5",
+        iconName: "star.circle",
+        coinReward: 600,
+        isSeasonal: false,
+        gameCenterID: nil,
+        targetValue: 50,
+        category: .grade,
+        rarity: .epic,
+        section: .grade
+    )
+
+    static let grade6Complete = AchievementDefinition(
+        id: "grade_6_complete",
+        title: "Grade 6 Star",
+        description: "Complete all 50 levels in Grade 6",
+        iconName: "seal.fill",
+        coinReward: 700,
+        isSeasonal: false,
+        gameCenterID: nil,
+        targetValue: 50,
+        category: .grade,
+        rarity: .legendary,
+        section: .grade
+    )
+
+    static let grade7Complete = AchievementDefinition(
+        id: "grade_7_complete",
+        title: "Grade 7 Star",
+        description: "Complete all 50 levels in Grade 7",
+        iconName: "crown.fill",
+        coinReward: 800,
+        isSeasonal: false,
+        gameCenterID: nil,
+        targetValue: 50,
+        category: .grade,
+        rarity: .legendary,
+        section: .grade
+    )
+
     static let gradeHonorRoll = AchievementDefinition(
         id: "grade_honor_roll",
         title: "Honor Roll Hero",
@@ -381,7 +451,7 @@ enum AchievementDefinitions {
         // Coins & Progress
         coins1000, coins20000, levels25, levels100,
         // Grade
-        grade1Complete, grade2Complete, gradeHonorRoll, gradeMaster,
+        grade1Complete, grade2Complete, grade3Complete, grade4Complete, grade5Complete, grade6Complete, grade7Complete, gradeHonorRoll, gradeMaster,
         // Lifetime (Game Center)
         gcLevels25, gcLevels100, gcCoins5000, gcStreak30, gcGrade1Complete,
         // Monthly
