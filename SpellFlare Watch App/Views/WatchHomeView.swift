@@ -24,16 +24,18 @@ struct WatchHomeView: View {
             VStack(spacing: isSmallWatch ? 2 : 4) {
                 // Header with profile indicator, settings, shop, achievements, and coins
                 HStack {
-                    // Active profile avatar
-                    Text(syncHelper.profile?.avatarIcon ?? "🐝")
-                        .font(.system(size: isSmallWatch ? 16 : 18))
+                    // Active profile avatar - hide on small watches to save space for coins
+                    if !isSmallWatch {
+                        Text(syncHelper.profile?.avatarIcon ?? "🐝")
+                            .font(.system(size: 18))
+                    }
 
                     // Settings button
                     Button {
                         appState.navigateToSettings()
                     } label: {
                         Image(systemName: "gearshape.fill")
-                            .font(.system(size: isSmallWatch ? 16 : 18))
+                            .font(.system(size: isSmallWatch ? 14 : 18))
                             .foregroundColor(.white.opacity(0.8))
                     }
                     .buttonStyle(.plain)
@@ -43,7 +45,7 @@ struct WatchHomeView: View {
                         appState.navigateToShop()
                     } label: {
                         Image(systemName: "cart.fill")
-                            .font(.system(size: isSmallWatch ? 15 : 17))
+                            .font(.system(size: isSmallWatch ? 13 : 17))
                             .foregroundColor(.cyan)
                     }
                     .buttonStyle(.plain)
@@ -55,7 +57,7 @@ struct WatchHomeView: View {
                         appState.navigateToAchievements()
                     } label: {
                         Image(systemName: "trophy.fill")
-                            .font(.system(size: isSmallWatch ? 15 : 17))
+                            .font(.system(size: isSmallWatch ? 13 : 17))
                             .foregroundColor(.yellow)
                     }
                     .buttonStyle(.plain)
@@ -63,7 +65,7 @@ struct WatchHomeView: View {
                     // Coins display
                     WatchCoinsDisplayView(coins: syncHelper.profile?.totalCoins ?? 0, compact: isSmallWatch)
                 }
-                .padding(.horizontal, 8)
+                .padding(.horizontal, isSmallWatch ? 4 : 8)
                 .padding(.top, isSmallWatch ? 2 : 4)
 
                 // Weekly check-in dots
