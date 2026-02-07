@@ -111,9 +111,15 @@ struct WatchHomeView: View {
                                 .font(.system(size: isSmallWatch ? 9 : 11))
                                 .foregroundColor(.white.opacity(0.7))
 
-                            Text("\(currentLevel)")
-                                .font(.system(size: levelFontSize, weight: .bold))
-                                .foregroundColor(.white)
+                            // Current level with /50 indicator
+                            HStack(alignment: .firstTextBaseline, spacing: 1) {
+                                Text("\(currentLevel)")
+                                    .font(.system(size: levelFontSize, weight: .bold))
+                                    .foregroundColor(.white)
+                                Text("/50")
+                                    .font(.system(size: isSmallWatch ? 10 : 12, weight: .medium))
+                                    .foregroundColor(.white.opacity(0.5))
+                            }
 
                             // Lock indicator for gated levels
                             if currentLevel > 5 && !syncHelper.isWatchUnlocked {
@@ -153,20 +159,6 @@ struct WatchHomeView: View {
                 .buttonStyle(.plain)
                 .padding(.horizontal, 8)
 
-                // Completed levels count
-                HStack(spacing: 4) {
-                    Text("\(completedLevelsCount)/50")
-                        .font(.system(size: isSmallWatch ? 9 : 11))
-                        .foregroundColor(.white.opacity(0.6))
-
-                    if !syncHelper.isWatchUnlocked && currentLevel > 5 {
-                        Image(systemName: "lock.fill")
-                            .font(.system(size: isSmallWatch ? 7 : 9))
-                            .foregroundColor(.yellow)
-                    }
-                }
-                .padding(.top, 1)
-                .padding(.bottom, isSmallWatch ? 2 : 4)
             }
         }
         .background(
