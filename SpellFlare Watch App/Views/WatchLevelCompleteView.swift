@@ -19,124 +19,133 @@ struct WatchLevelCompleteView: View {
     @State private var showConfetti = false
 
     var body: some View {
-        VStack(spacing: 12) {
-            // Celebration icon (only show for pass)
-            if didPass {
-                ZStack {
-                    // Stars animation
-                    ForEach(0..<5, id: \.self) { index in
-                        Image(systemName: "star.fill")
-                            .font(.caption)
+        GeometryReader { geometry in
+            let isSmallWatch = geometry.size.height < 180
+            let isLargeWatch = geometry.size.height > 220
+            let trophySize: CGFloat = isSmallWatch ? 30 : (isLargeWatch ? 50 : 40)
+            let titleFont: CGFloat = isSmallWatch ? 13 : (isLargeWatch ? 18 : 15)
+            let subtitleFont: CGFloat = isSmallWatch ? 14 : (isLargeWatch ? 20 : 17)
+            let buttonFont: CGFloat = isSmallWatch ? 10 : (isLargeWatch ? 14 : 12)
+            let buttonIconSize: CGFloat = isSmallWatch ? 8 : (isLargeWatch ? 12 : 10)
+            let buttonPadding: CGFloat = isSmallWatch ? 8 : (isLargeWatch ? 12 : 10)
+
+            VStack(spacing: isSmallWatch ? 8 : 12) {
+                // Celebration icon (only show for pass)
+                if didPass {
+                    ZStack {
+                        // Stars animation
+                        ForEach(0..<5, id: \.self) { index in
+                            Image(systemName: "star.fill")
+                                .font(.system(size: isSmallWatch ? 8 : 12))
+                                .foregroundColor(.yellow)
+                                .offset(
+                                    x: showConfetti ? CGFloat.random(in: isSmallWatch ? -30...30 : -40...40) : 0,
+                                    y: showConfetti ? CGFloat.random(in: isSmallWatch ? -20...20 : -30...30) : 0
+                                )
+                                .opacity(showConfetti ? 1 : 0)
+                                .animation(
+                                    .easeOut(duration: 0.8).delay(Double(index) * 0.1),
+                                    value: showConfetti
+                                )
+                        }
+
+                        Image(systemName: "trophy.fill")
+                            .font(.system(size: trophySize))
                             .foregroundColor(.yellow)
-                            .offset(
-                                x: showConfetti ? CGFloat.random(in: -40...40) : 0,
-                                y: showConfetti ? CGFloat.random(in: -30...30) : 0
-                            )
-                            .opacity(showConfetti ? 1 : 0)
-                            .animation(
-                                .easeOut(duration: 0.8).delay(Double(index) * 0.1),
-                                value: showConfetti
-                            )
                     }
-
-                    Image(systemName: "trophy.fill")
-                        .font(.system(size: 40))
-                        .foregroundColor(.yellow)
+                } else {
+                    // Sad face for fail
+                    Text("😢")
+                        .font(.system(size: trophySize))
                 }
-            } else {
-                // Sad face for fail
-                Text("😢")
-                    .font(.system(size: 40))
-            }
 
-            // Title
-            Text("Level \(level)")
-                .font(.headline)
-                .foregroundColor(didPass ? .cyan : .orange)
-
-            if didPass {
-                Text("Complete!")
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-
-                // Coins earned
-                WatchCoinsEarnedView(amount: coinsEarned)
-            } else {
-                Text("Not Passed")
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundColor(.orange)
-
-                Text("Too many give ups.\nTry again!")
-                    .font(.caption2)
-                    .foregroundColor(.white.opacity(0.7))
-                    .multilineTextAlignment(.center)
-            }
-
-            Spacer()
-                .frame(height: 8)
-
-            // Action buttons - side by side
-            HStack(spacing: 8) {
-                // Home button
-                Button {
-                    appState.navigateToHome()
-                } label: {
-                    HStack(spacing: 2) {
-                        Image(systemName: "house.fill")
-                            .font(.system(size: 10))
-                        Text("Home")
-                            .font(.system(size: 12, weight: .medium))
-                    }
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
-                    .background(Color.white.opacity(0.2))
-                    .cornerRadius(10)
-                }
-                .buttonStyle(.plain)
+                // Title
+                Text("Level \(level)")
+                    .font(.system(size: titleFont, weight: .semibold))
+                    .foregroundColor(didPass ? .cyan : .orange)
 
                 if didPass {
-                    // Next Level button (only if passed)
-                    Button {
-                        appState.startNextLevel(after: level)
-                    } label: {
-                        HStack(spacing: 2) {
-                            Text("Next")
-                                .font(.system(size: 12, weight: .medium))
-                            Image(systemName: "arrow.right")
-                                .font(.system(size: 10))
-                        }
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
-                        .background(Color.cyan)
-                        .cornerRadius(10)
-                    }
-                    .buttonStyle(.plain)
+                    Text("Complete!")
+                        .font(.system(size: subtitleFont, weight: .bold))
+                        .foregroundColor(.white)
+
+                    // Coins earned
+                    WatchCoinsEarnedView(amount: coinsEarned)
                 } else {
-                    // Try Again button (if failed)
+                    Text("Not Passed")
+                        .font(.system(size: subtitleFont, weight: .bold))
+                        .foregroundColor(.orange)
+
+                    Text("Too many give ups.\nTry again!")
+                        .font(.system(size: isSmallWatch ? 9 : (isLargeWatch ? 12 : 10)))
+                        .foregroundColor(.white.opacity(0.7))
+                        .multilineTextAlignment(.center)
+                }
+
+                Spacer()
+                    .frame(height: isSmallWatch ? 4 : 8)
+
+                // Action buttons - side by side
+                HStack(spacing: isSmallWatch ? 6 : 8) {
+                    // Home button
                     Button {
-                        appState.startGame(level: level)
+                        appState.navigateToHome()
                     } label: {
                         HStack(spacing: 2) {
-                            Image(systemName: "arrow.clockwise")
-                                .font(.system(size: 10))
-                            Text("Try Again")
-                                .font(.system(size: 12, weight: .medium))
+                            Image(systemName: "house.fill")
+                                .font(.system(size: buttonIconSize))
+                            Text("Home")
+                                .font(.system(size: buttonFont, weight: .medium))
                         }
-                        .foregroundColor(.black)
+                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
-                        .background(Color.cyan)
-                        .cornerRadius(10)
+                        .padding(.vertical, buttonPadding)
+                        .background(Color.white.opacity(0.2))
+                        .cornerRadius(isSmallWatch ? 8 : 10)
                     }
                     .buttonStyle(.plain)
+
+                    if didPass {
+                        // Next Level button (only if passed)
+                        Button {
+                            appState.startNextLevel(after: level)
+                        } label: {
+                            HStack(spacing: 2) {
+                                Text("Next")
+                                    .font(.system(size: buttonFont, weight: .medium))
+                                Image(systemName: "arrow.right")
+                                    .font(.system(size: buttonIconSize))
+                            }
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, buttonPadding)
+                            .background(Color.cyan)
+                            .cornerRadius(isSmallWatch ? 8 : 10)
+                        }
+                        .buttonStyle(.plain)
+                    } else {
+                        // Try Again button (if failed)
+                        Button {
+                            appState.startGame(level: level)
+                        } label: {
+                            HStack(spacing: 2) {
+                                Image(systemName: "arrow.clockwise")
+                                    .font(.system(size: buttonIconSize))
+                                Text("Retry")
+                                    .font(.system(size: buttonFont, weight: .medium))
+                            }
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, buttonPadding)
+                            .background(Color.cyan)
+                            .cornerRadius(isSmallWatch ? 8 : 10)
+                        }
+                        .buttonStyle(.plain)
+                    }
                 }
             }
+            .padding(isSmallWatch ? 8 : 12)
         }
-        .padding()
         .background(
             LinearGradient(
                 colors: [

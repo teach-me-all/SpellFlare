@@ -15,94 +15,102 @@ struct WatchAchievementsView: View {
     @EnvironmentObject var syncHelper: WatchSyncHelper
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 12) {
-                // Header with back button
-                HStack {
-                    Button {
-                        appState.currentScreen = .home
-                    } label: {
-                        Image(systemName: "chevron.left")
-                            .font(.headline)
-                            .foregroundColor(.cyan)
-                    }
-                    .buttonStyle(.plain)
+        GeometryReader { geometry in
+            let isSmallWatch = geometry.size.height < 180
+            let isLargeWatch = geometry.size.height > 220
+            let headerFont: CGFloat = isSmallWatch ? 13 : (isLargeWatch ? 18 : 15)
+            let checkInDotSize: CGFloat = isSmallWatch ? 12 : (isLargeWatch ? 18 : 14)
+            let sectionFont: CGFloat = isSmallWatch ? 12 : (isLargeWatch ? 16 : 13)
 
-                    Spacer()
-
-                    Text("Achievements")
-                        .font(.headline)
-                        .foregroundColor(.white)
-
-                    Spacer()
-
-                    // Balance spacer
-                    Image(systemName: "chevron.left")
-                        .font(.headline)
-                        .foregroundColor(.clear)
-                }
-                .padding(.horizontal, 8)
-
-                // Daily Check-In dots
-                if let profile = syncHelper.profile {
-                    let status = DailyCheckInService.shared.weeklyStatus(profile: profile)
-                    let count = DailyCheckInService.shared.weeklyCheckInCount(profile: profile)
-                    VStack(spacing: 6) {
-                        HStack(spacing: 3) {
-                            Image(systemName: "calendar")
-                                .font(.system(size: 11))
-                                .foregroundColor(.cyan)
-                            Text("Check-In")
-                                .font(.system(size: 12, weight: .semibold))
-                                .foregroundColor(.white)
-                            Spacer()
-                            Text("\(count)/5")
-                                .font(.system(size: 11, weight: .bold))
+            ScrollView {
+                VStack(alignment: .leading, spacing: isSmallWatch ? 8 : 12) {
+                    // Header with back button
+                    HStack {
+                        Button {
+                            appState.currentScreen = .home
+                        } label: {
+                            Image(systemName: "chevron.left")
+                                .font(.system(size: headerFont, weight: .semibold))
                                 .foregroundColor(.cyan)
                         }
+                        .buttonStyle(.plain)
 
-                        HStack(spacing: 6) {
-                            ForEach(0..<7, id: \.self) { index in
-                                Circle()
-                                    .fill(status[index] ? Color.cyan : Color.white.opacity(0.15))
-                                    .frame(width: 14, height: 14)
-                                    .overlay(
-                                        status[index] ?
-                                            Image(systemName: "checkmark")
-                                                .font(.system(size: 8, weight: .bold))
-                                                .foregroundColor(.white)
-                                            : nil
-                                    )
+                        Spacer()
+
+                        Text("Achievements")
+                            .font(.system(size: headerFont, weight: .semibold))
+                            .foregroundColor(.white)
+
+                        Spacer()
+
+                        // Balance spacer
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: headerFont, weight: .semibold))
+                            .foregroundColor(.clear)
+                    }
+                    .padding(.horizontal, isSmallWatch ? 6 : 8)
+
+                    // Daily Check-In dots
+                    if let profile = syncHelper.profile {
+                        let status = DailyCheckInService.shared.weeklyStatus(profile: profile)
+                        let count = DailyCheckInService.shared.weeklyCheckInCount(profile: profile)
+                        VStack(spacing: isSmallWatch ? 4 : 6) {
+                            HStack(spacing: 3) {
+                                Image(systemName: "calendar")
+                                    .font(.system(size: isSmallWatch ? 10 : (isLargeWatch ? 14 : 11)))
+                                    .foregroundColor(.cyan)
+                                Text("Check-In")
+                                    .font(.system(size: isSmallWatch ? 11 : (isLargeWatch ? 14 : 12), weight: .semibold))
+                                    .foregroundColor(.white)
+                                Spacer()
+                                Text("\(count)/5")
+                                    .font(.system(size: isSmallWatch ? 10 : (isLargeWatch ? 13 : 11), weight: .bold))
+                                    .foregroundColor(.cyan)
+                            }
+
+                            HStack(spacing: isSmallWatch ? 4 : (isLargeWatch ? 8 : 6)) {
+                                ForEach(0..<7, id: \.self) { index in
+                                    Circle()
+                                        .fill(status[index] ? Color.cyan : Color.white.opacity(0.15))
+                                        .frame(width: checkInDotSize, height: checkInDotSize)
+                                        .overlay(
+                                            status[index] ?
+                                                Image(systemName: "checkmark")
+                                                    .font(.system(size: isSmallWatch ? 6 : (isLargeWatch ? 10 : 8), weight: .bold))
+                                                    .foregroundColor(.white)
+                                                : nil
+                                        )
+                                }
+                            }
+
+                            if profile.weeklyBonusAwarded {
+                                Text("Bonus earned!")
+                                    .font(.system(size: isSmallWatch ? 9 : (isLargeWatch ? 12 : 10)))
+                                    .foregroundColor(.yellow)
                             }
                         }
-
-                        if profile.weeklyBonusAwarded {
-                            Text("Bonus earned!")
-                                .font(.system(size: 10))
-                                .foregroundColor(.yellow)
-                        }
+                        .padding(.horizontal, isSmallWatch ? 6 : 8)
+                        .padding(.bottom, isSmallWatch ? 2 : 4)
                     }
-                    .padding(.horizontal, 8)
-                    .padding(.bottom, 4)
-                }
 
-                // Sections
-                ForEach(AchievementSection.allCases, id: \.self) { section in
-                    let defs = AchievementDefinitions.definitions(for: section)
-                    if !defs.isEmpty {
-                        Text(section.rawValue)
-                            .font(.system(size: 13, weight: .bold))
-                            .foregroundColor(watchSectionColor(section))
-                            .padding(.horizontal, 8)
-                            .padding(.top, section == .skill ? 0 : 8)
+                    // Sections
+                    ForEach(AchievementSection.allCases, id: \.self) { section in
+                        let defs = AchievementDefinitions.definitions(for: section)
+                        if !defs.isEmpty {
+                            Text(section.rawValue)
+                                .font(.system(size: sectionFont, weight: .bold))
+                                .foregroundColor(watchSectionColor(section))
+                                .padding(.horizontal, isSmallWatch ? 6 : 8)
+                                .padding(.top, section == .skill ? 0 : (isSmallWatch ? 4 : 8))
 
-                        ForEach(defs) { def in
-                            achievementRow(def)
+                            ForEach(defs) { def in
+                                achievementRow(def, isSmallWatch: isSmallWatch, isLargeWatch: isLargeWatch)
+                            }
                         }
                     }
                 }
+                .padding(.vertical, isSmallWatch ? 4 : 8)
             }
-            .padding(.vertical, 8)
         }
         .background(
             LinearGradient(
@@ -119,44 +127,52 @@ struct WatchAchievementsView: View {
     }
 
     @ViewBuilder
-    private func achievementRow(_ def: AchievementDefinition) -> some View {
+    private func achievementRow(_ def: AchievementDefinition, isSmallWatch: Bool, isLargeWatch: Bool) -> some View {
         let progress = syncHelper.profile?.achievementState.progress[def.id]
         let isUnlocked = progress?.isUnlocked ?? false
         let fraction = progressFraction(for: def)
 
-        HStack(spacing: 10) {
+        let iconSize: CGFloat = isSmallWatch ? 30 : (isLargeWatch ? 44 : 36)
+        let iconFontSize: CGFloat = isSmallWatch ? 14 : (isLargeWatch ? 22 : 17)
+        let titleFontSize: CGFloat = isSmallWatch ? 11 : (isLargeWatch ? 16 : 13)
+        let rarityDotSize: CGFloat = isSmallWatch ? 4 : (isLargeWatch ? 7 : 5)
+        let checkmarkSize: CGFloat = isSmallWatch ? 10 : (isLargeWatch ? 16 : 12)
+        let strokeWidth: CGFloat = isSmallWatch ? 2 : (isLargeWatch ? 3 : 2.5)
+
+        HStack(spacing: isSmallWatch ? 6 : (isLargeWatch ? 12 : 10)) {
             // Icon with rarity-colored ring
             ZStack {
                 Circle()
                     .stroke(
                         isUnlocked ? watchRarityColor(def.rarity) : Color.white.opacity(0.15),
-                        lineWidth: isUnlocked ? 2.5 : 1
+                        lineWidth: isUnlocked ? strokeWidth : 1
                     )
-                    .frame(width: 36, height: 36)
+                    .frame(width: iconSize, height: iconSize)
 
                 Image(systemName: def.iconName)
-                    .font(.system(size: 17))
+                    .font(.system(size: iconFontSize))
                     .foregroundColor(isUnlocked ? watchRarityColor(def.rarity) : .white.opacity(0.3))
             }
-            .frame(width: 36)
+            .frame(width: iconSize)
 
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: isSmallWatch ? 2 : (isLargeWatch ? 6 : 4)) {
                 // Title row
                 HStack {
                     Text(def.title)
-                        .font(.system(size: 13, weight: .medium))
+                        .font(.system(size: titleFontSize, weight: .medium))
                         .foregroundColor(isUnlocked ? .white : .white.opacity(0.5))
+                        .lineLimit(1)
 
                     // Rarity dot
                     Circle()
                         .fill(watchRarityColor(def.rarity))
-                        .frame(width: 5, height: 5)
+                        .frame(width: rarityDotSize, height: rarityDotSize)
 
                     Spacer()
 
                     if isUnlocked {
                         Image(systemName: "checkmark.circle.fill")
-                            .font(.system(size: 12))
+                            .font(.system(size: checkmarkSize))
                             .foregroundColor(.green)
                     }
                 }
@@ -164,11 +180,11 @@ struct WatchAchievementsView: View {
                 // Progress bar with rarity tint
                 ProgressView(value: fraction)
                     .tint(isUnlocked ? watchRarityColor(def.rarity) : watchRarityColor(def.rarity).opacity(0.5))
-                    .scaleEffect(y: 0.8)
+                    .scaleEffect(y: isLargeWatch ? 1.0 : 0.8)
             }
         }
-        .padding(.horizontal, 8)
-        .padding(.vertical, 4)
+        .padding(.horizontal, isSmallWatch ? 6 : 8)
+        .padding(.vertical, isSmallWatch ? 3 : (isLargeWatch ? 6 : 4))
         .opacity(isUnlocked ? 1.0 : 0.7)
     }
 

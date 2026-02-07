@@ -151,71 +151,81 @@ struct WordPresentingView: View {
     @State private var showSentencePicker = false
 
     var body: some View {
-        VStack(spacing: 8) {
-            // Speaker icon with repeat button on the left
-            HStack(spacing: 12) {
-                // Repeat button (small, on left)
-                Button {
-                    viewModel.repeatWord()
-                } label: {
-                    Image(systemName: "arrow.clockwise")
-                        .font(.system(size: 14))
+        GeometryReader { geometry in
+            let isSmallWatch = geometry.size.height < 180
+            let isLargeWatch = geometry.size.height > 220
+            let speakerSize: CGFloat = isSmallWatch ? 24 : (isLargeWatch ? 40 : 32)
+            let repeatButtonSize: CGFloat = isSmallWatch ? 22 : (isLargeWatch ? 34 : 28)
+            let buttonFont: CGFloat = isSmallWatch ? 9 : (isLargeWatch ? 13 : 11)
+            let buttonPadding: CGFloat = isSmallWatch ? 8 : (isLargeWatch ? 12 : 10)
+
+            VStack(spacing: isSmallWatch ? 4 : 8) {
+                // Speaker icon with repeat button on the left
+                HStack(spacing: isSmallWatch ? 8 : 12) {
+                    // Repeat button (small, on left)
+                    Button {
+                        viewModel.repeatWord()
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                            .font(.system(size: isSmallWatch ? 11 : 14))
+                            .foregroundColor(.white)
+                            .frame(width: repeatButtonSize, height: repeatButtonSize)
+                            .background(Color.white.opacity(0.2))
+                            .cornerRadius(repeatButtonSize / 2)
+                    }
+                    .buttonStyle(.plain)
+
+                    // Speaker animation
+                    Image(systemName: audioService.isPlaying ? "speaker.wave.3.fill" : "speaker.fill")
+                        .font(.system(size: speakerSize))
+                        .foregroundColor(.cyan)
+                }
+
+                Text("Listen...")
+                    .font(.system(size: isSmallWatch ? 10 : 12))
+                    .foregroundColor(.white.opacity(0.7))
+
+                // Action buttons: Sentence and Spell side by side
+                HStack(spacing: isSmallWatch ? 4 : 6) {
+                    // Sentence button
+                    Button {
+                        showSentencePicker = true
+                    } label: {
+                        HStack(spacing: 2) {
+                            Image(systemName: "text.bubble")
+                                .font(.system(size: buttonFont))
+                            Text("Sentence")
+                                .font(.system(size: buttonFont, weight: .medium))
+                        }
                         .foregroundColor(.white)
-                        .frame(width: 28, height: 28)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, buttonPadding)
                         .background(Color.white.opacity(0.2))
-                        .cornerRadius(14)
-                }
-                .buttonStyle(.plain)
-
-                // Speaker animation
-                Image(systemName: audioService.isPlaying ? "speaker.wave.3.fill" : "speaker.fill")
-                    .font(.system(size: 32))
-                    .foregroundColor(.cyan)
-            }
-
-            Text("Listen...")
-                .font(.caption)
-                .foregroundColor(.white.opacity(0.7))
-
-            // Action buttons: Sentence and Spell side by side
-            HStack(spacing: 6) {
-                // Sentence button
-                Button {
-                    showSentencePicker = true
-                } label: {
-                    HStack(spacing: 3) {
-                        Image(systemName: "text.bubble")
-                            .font(.system(size: 11))
-                        Text("Sentence")
-                            .font(.system(size: 11, weight: .medium))
+                        .cornerRadius(isSmallWatch ? 8 : 10)
                     }
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
-                    .background(Color.white.opacity(0.2))
-                    .cornerRadius(10)
-                }
-                .buttonStyle(.plain)
+                    .buttonStyle(.plain)
 
-                // Spell button
-                Button {
-                    viewModel.startSpelling()
-                } label: {
-                    HStack(spacing: 3) {
-                        Image(systemName: "keyboard")
-                            .font(.system(size: 11))
-                        Text("Spell")
-                            .font(.system(size: 11, weight: .medium))
+                    // Spell button
+                    Button {
+                        viewModel.startSpelling()
+                    } label: {
+                        HStack(spacing: 2) {
+                            Image(systemName: "keyboard")
+                                .font(.system(size: buttonFont))
+                            Text("Spell")
+                                .font(.system(size: buttonFont, weight: .medium))
+                        }
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, buttonPadding)
+                        .background(Color.cyan)
+                        .cornerRadius(isSmallWatch ? 8 : 10)
                     }
-                    .foregroundColor(.black)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
-                    .background(Color.cyan)
-                    .cornerRadius(10)
+                    .buttonStyle(.plain)
                 }
-                .buttonStyle(.plain)
+                .padding(.horizontal, isSmallWatch ? 4 : 8)
             }
-            .padding(.horizontal, 8)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .sheet(isPresented: $showSentencePicker) {
             if let word = viewModel.currentWord {
@@ -233,34 +243,44 @@ struct SpellingInputView: View {
     @State private var keyboardText = ""
 
     var body: some View {
-        VStack(spacing: 12) {
-            // On watchOS, keyboard is the primary input method
-            // Speech framework is not available on watchOS
+        GeometryReader { geometry in
+            let isSmallWatch = geometry.size.height < 180
+            let isLargeWatch = geometry.size.height > 220
+            let buttonFont: CGFloat = isSmallWatch ? 13 : (isLargeWatch ? 18 : 15)
+            let labelFont: CGFloat = isSmallWatch ? 10 : (isLargeWatch ? 14 : 12)
+            let hintFont: CGFloat = isSmallWatch ? 8 : (isLargeWatch ? 11 : 9)
+            let buttonPadding: CGFloat = isSmallWatch ? 10 : (isLargeWatch ? 14 : 12)
 
-            Text("Spell the word")
-                .font(.caption)
-                .foregroundColor(.white.opacity(0.7))
+            VStack(spacing: isSmallWatch ? 8 : 12) {
+                // On watchOS, keyboard is the primary input method
+                // Speech framework is not available on watchOS
 
-            // Primary action - Type spelling
-            Button {
-                showKeyboardInput = true
-            } label: {
-                HStack {
-                    Image(systemName: "keyboard")
-                    Text("Type Spelling")
+                Text("Spell the word")
+                    .font(.system(size: labelFont))
+                    .foregroundColor(.white.opacity(0.7))
+
+                // Primary action - Type spelling
+                Button {
+                    showKeyboardInput = true
+                } label: {
+                    HStack {
+                        Image(systemName: "keyboard")
+                        Text("Type Spelling")
+                    }
+                    .font(.system(size: buttonFont, weight: .semibold))
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, buttonPadding)
+                    .background(Color.cyan)
+                    .cornerRadius(isSmallWatch ? 10 : 12)
                 }
-                .font(.headline)
-                .foregroundColor(.black)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 12)
-                .background(Color.cyan)
-                .cornerRadius(12)
-            }
-            .buttonStyle(.plain)
+                .buttonStyle(.plain)
 
-            Text("Use keyboard to spell")
-                .font(.caption2)
-                .foregroundColor(.white.opacity(0.5))
+                Text("Use keyboard to spell")
+                    .font(.system(size: hintFont))
+                    .foregroundColor(.white.opacity(0.5))
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .sheet(isPresented: $showKeyboardInput) {
             KeyboardInputSheet(
@@ -305,77 +325,89 @@ struct FeedbackResultView: View {
     @ObservedObject var viewModel: WatchGameViewModel
 
     var body: some View {
-        VStack(spacing: 12) {
-            // Result icon
-            if viewModel.feedbackType == .correct {
-                Image(systemName: "checkmark.circle.fill")
-                    .font(.system(size: 50))
-                    .foregroundColor(.green)
-            } else {
-                Image(systemName: "xmark.circle.fill")
-                    .font(.system(size: 50))
-                    .foregroundColor(.orange)
-            }
+        GeometryReader { geometry in
+            let isSmallWatch = geometry.size.height < 180
+            let isLargeWatch = geometry.size.height > 220
+            let iconSize: CGFloat = isSmallWatch ? 38 : (isLargeWatch ? 60 : 50)
+            let wordFont: CGFloat = isSmallWatch ? 14 : (isLargeWatch ? 22 : 18)
+            let labelFont: CGFloat = isSmallWatch ? 9 : (isLargeWatch ? 12 : 10)
+            let buttonFont: CGFloat = isSmallWatch ? 10 : (isLargeWatch ? 14 : 12)
+            let buttonPaddingH: CGFloat = isSmallWatch ? 10 : (isLargeWatch ? 16 : 12)
+            let buttonPaddingV: CGFloat = isSmallWatch ? 5 : (isLargeWatch ? 8 : 6)
 
-            // Only show correct spelling after giving up
-            if viewModel.hasGivenUp, let word = viewModel.lastAnsweredWord {
-                VStack(spacing: 4) {
-                    Text("Correct spelling:")
-                        .font(.caption2)
-                        .foregroundColor(.white.opacity(0.7))
-                    Text(word.text.uppercased())
-                        .font(.system(size: 18, weight: .bold, design: .monospaced))
-                        .foregroundColor(.cyan)
-                }
-            }
-
-            // Action buttons for incorrect answers
-            if viewModel.feedbackType == .incorrect {
-                if viewModel.hasGivenUp {
-                    // Show "Next" button after giving up
-                    Button {
-                        viewModel.proceedAfterGiveUp()
-                    } label: {
-                        Text("Next")
-                            .font(.caption)
-                            .foregroundColor(.black)
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 8)
-                            .background(Color.cyan)
-                            .cornerRadius(8)
-                    }
-                    .buttonStyle(.plain)
+            VStack(spacing: isSmallWatch ? 8 : 12) {
+                // Result icon
+                if viewModel.feedbackType == .correct {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.system(size: iconSize))
+                        .foregroundColor(.green)
                 } else {
-                    // Show "Retry" and "Give Up" buttons
-                    HStack(spacing: 12) {
-                        Button {
-                            viewModel.retry()
-                        } label: {
-                            Text("Retry")
-                                .font(.caption)
-                                .foregroundColor(.black)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 6)
-                                .background(Color.cyan)
-                                .cornerRadius(8)
-                        }
-                        .buttonStyle(.plain)
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.system(size: iconSize))
+                        .foregroundColor(.orange)
+                }
 
+                // Only show correct spelling after giving up
+                if viewModel.hasGivenUp, let word = viewModel.lastAnsweredWord {
+                    VStack(spacing: isSmallWatch ? 2 : 4) {
+                        Text("Correct spelling:")
+                            .font(.system(size: labelFont))
+                            .foregroundColor(.white.opacity(0.7))
+                        Text(word.text.uppercased())
+                            .font(.system(size: wordFont, weight: .bold, design: .monospaced))
+                            .foregroundColor(.cyan)
+                    }
+                }
+
+                // Action buttons for incorrect answers
+                if viewModel.feedbackType == .incorrect {
+                    if viewModel.hasGivenUp {
+                        // Show "Next" button after giving up
                         Button {
-                            viewModel.giveUp()
+                            viewModel.proceedAfterGiveUp()
                         } label: {
-                            Text("Give Up")
-                                .font(.caption)
-                                .foregroundColor(.orange)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 6)
-                                .background(Color.white.opacity(0.2))
-                                .cornerRadius(8)
+                            Text("Next")
+                                .font(.system(size: buttonFont))
+                                .foregroundColor(.black)
+                                .padding(.horizontal, isSmallWatch ? 16 : 20)
+                                .padding(.vertical, buttonPaddingV + 2)
+                                .background(Color.cyan)
+                                .cornerRadius(isSmallWatch ? 6 : 8)
                         }
                         .buttonStyle(.plain)
+                    } else {
+                        // Show "Retry" and "Give Up" buttons
+                        HStack(spacing: isSmallWatch ? 8 : 12) {
+                            Button {
+                                viewModel.retry()
+                            } label: {
+                                Text("Retry")
+                                    .font(.system(size: buttonFont))
+                                    .foregroundColor(.black)
+                                    .padding(.horizontal, buttonPaddingH)
+                                    .padding(.vertical, buttonPaddingV)
+                                    .background(Color.cyan)
+                                    .cornerRadius(isSmallWatch ? 6 : 8)
+                            }
+                            .buttonStyle(.plain)
+
+                            Button {
+                                viewModel.giveUp()
+                            } label: {
+                                Text("Give Up")
+                                    .font(.system(size: buttonFont))
+                                    .foregroundColor(.orange)
+                                    .padding(.horizontal, buttonPaddingH)
+                                    .padding(.vertical, buttonPaddingV)
+                                    .background(Color.white.opacity(0.2))
+                                    .cornerRadius(isSmallWatch ? 6 : 8)
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }
@@ -392,61 +424,71 @@ struct WatchSentencePickerSheet: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 12) {
-                Text("Use in Sentence")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding(.top, 8)
+        GeometryReader { geometry in
+            let isSmallWatch = geometry.size.height < 180
+            let isLargeWatch = geometry.size.height > 220
+            let headerFont: CGFloat = isSmallWatch ? 13 : (isLargeWatch ? 18 : 15)
+            let labelFont: CGFloat = isSmallWatch ? 12 : (isLargeWatch ? 16 : 14)
+            let hintFont: CGFloat = isSmallWatch ? 9 : (isLargeWatch ? 13 : 11)
+            let iconSize: CGFloat = isSmallWatch ? 16 : (isLargeWatch ? 24 : 20)
+            let buttonFont: CGFloat = isSmallWatch ? 12 : (isLargeWatch ? 16 : 14)
 
-                ForEach(sentences) { sentence in
-                    Button {
-                        playSentence(sentence)
-                    } label: {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text(sentence.displayLabel)
-                                    .font(.system(size: 14, weight: .medium))
-                                    .foregroundColor(.white)
-                                Text("Tap to hear")
-                                    .font(.system(size: 11))
-                                    .foregroundColor(.white.opacity(0.6))
+            ScrollView {
+                VStack(spacing: isSmallWatch ? 8 : 12) {
+                    Text("Use in Sentence")
+                        .font(.system(size: headerFont, weight: .semibold))
+                        .foregroundColor(.white)
+                        .padding(.top, isSmallWatch ? 4 : 8)
+
+                    ForEach(sentences) { sentence in
+                        Button {
+                            playSentence(sentence)
+                        } label: {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(sentence.displayLabel)
+                                        .font(.system(size: labelFont, weight: .medium))
+                                        .foregroundColor(.white)
+                                    Text("Tap to hear")
+                                        .font(.system(size: hintFont))
+                                        .foregroundColor(.white.opacity(0.6))
+                                }
+                                Spacer()
+                                // Only show speaker icon on the sentence that's playing
+                                if audioService.isPlaying && playingSentenceNumber == sentence.sentenceNumber {
+                                    Image(systemName: "speaker.wave.2.fill")
+                                        .font(.system(size: iconSize))
+                                        .foregroundColor(.cyan)
+                                } else {
+                                    Image(systemName: "play.circle.fill")
+                                        .font(.system(size: iconSize))
+                                        .foregroundColor(.cyan)
+                                }
                             }
-                            Spacer()
-                            // Only show speaker icon on the sentence that's playing
-                            if audioService.isPlaying && playingSentenceNumber == sentence.sentenceNumber {
-                                Image(systemName: "speaker.wave.2.fill")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.cyan)
-                            } else {
-                                Image(systemName: "play.circle.fill")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.cyan)
-                            }
+                            .padding(.horizontal, isSmallWatch ? 8 : 12)
+                            .padding(.vertical, isSmallWatch ? 8 : 10)
+                            .background(Color.white.opacity(0.15))
+                            .cornerRadius(isSmallWatch ? 8 : 10)
                         }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 10)
-                        .background(Color.white.opacity(0.15))
-                        .cornerRadius(10)
+                        .buttonStyle(.plain)
+                    }
+
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Done")
+                            .font(.system(size: buttonFont, weight: .medium))
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, isSmallWatch ? 8 : 10)
+                            .background(Color.cyan)
+                            .cornerRadius(isSmallWatch ? 8 : 10)
                     }
                     .buttonStyle(.plain)
+                    .padding(.top, isSmallWatch ? 4 : 8)
                 }
-
-                Button {
-                    dismiss()
-                } label: {
-                    Text("Done")
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
-                        .background(Color.cyan)
-                        .cornerRadius(10)
-                }
-                .buttonStyle(.plain)
-                .padding(.top, 8)
+                .padding(.horizontal, isSmallWatch ? 8 : 12)
             }
-            .padding(.horizontal, 12)
         }
         .background(
             LinearGradient(

@@ -15,56 +15,63 @@ struct WatchShopView: View {
     @State private var insufficientItemName = ""
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 12) {
-                // Header with back button
-                HStack {
-                    Button {
-                        appState.currentScreen = .home
-                    } label: {
+        GeometryReader { geometry in
+            let isSmallWatch = geometry.size.height < 180
+            let isLargeWatch = geometry.size.height > 220
+            let headerFont: CGFloat = isSmallWatch ? 13 : (isLargeWatch ? 18 : 15)
+            let sectionFont: CGFloat = isSmallWatch ? 11 : (isLargeWatch ? 15 : 13)
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: isSmallWatch ? 8 : 12) {
+                    // Header with back button
+                    HStack {
+                        Button {
+                            appState.currentScreen = .home
+                        } label: {
+                            Image(systemName: "chevron.left")
+                                .font(.system(size: headerFont, weight: .semibold))
+                                .foregroundColor(.cyan)
+                        }
+                        .buttonStyle(.plain)
+
+                        Spacer()
+
+                        Text("Shop")
+                            .font(.system(size: headerFont, weight: .semibold))
+                            .foregroundColor(.white)
+
+                        Spacer()
+
+                        // Balance spacer
                         Image(systemName: "chevron.left")
-                            .font(.headline)
+                            .font(.system(size: headerFont, weight: .semibold))
+                            .foregroundColor(.clear)
+                    }
+                    .padding(.horizontal, isSmallWatch ? 6 : 8)
+
+                    // Coins display
+                    HStack {
+                        Spacer()
+                        WatchCoinsDisplayView(coins: syncHelper.profile?.totalCoins ?? 0, compact: isSmallWatch)
+                        Spacer()
+                    }
+                    .padding(.bottom, isSmallWatch ? 2 : 4)
+
+                    // Sections
+                    ForEach(ShopCategory.allCases, id: \.self) { category in
+                        Text(category.rawValue)
+                            .font(.system(size: sectionFont, weight: .bold))
                             .foregroundColor(.cyan)
-                    }
-                    .buttonStyle(.plain)
+                            .padding(.horizontal, isSmallWatch ? 6 : 8)
+                            .padding(.top, category == .beeSkin ? 0 : (isSmallWatch ? 4 : 8))
 
-                    Spacer()
-
-                    Text("Shop")
-                        .font(.headline)
-                        .foregroundColor(.white)
-
-                    Spacer()
-
-                    // Balance spacer
-                    Image(systemName: "chevron.left")
-                        .font(.headline)
-                        .foregroundColor(.clear)
-                }
-                .padding(.horizontal, 8)
-
-                // Coins display
-                HStack {
-                    Spacer()
-                    WatchCoinsDisplayView(coins: syncHelper.profile?.totalCoins ?? 0, compact: false)
-                    Spacer()
-                }
-                .padding(.bottom, 4)
-
-                // Sections
-                ForEach(ShopCategory.allCases, id: \.self) { category in
-                    Text(category.rawValue)
-                        .font(.system(size: 13, weight: .bold))
-                        .foregroundColor(.cyan)
-                        .padding(.horizontal, 8)
-                        .padding(.top, category == .beeSkin ? 0 : 8)
-
-                    ForEach(ShopItemDefinitions.definitions(for: category)) { item in
-                        shopItemRow(item)
+                        ForEach(ShopItemDefinitions.definitions(for: category)) { item in
+                            shopItemRow(item, isSmallWatch: isSmallWatch, isLargeWatch: isLargeWatch)
+                        }
                     }
                 }
+                .padding(.vertical, isSmallWatch ? 4 : 8)
             }
-            .padding(.vertical, 8)
         }
         .background(
             LinearGradient(
@@ -86,30 +93,36 @@ struct WatchShopView: View {
     }
 
     @ViewBuilder
-    private func shopItemRow(_ item: ShopItemDefinition) -> some View {
+    private func shopItemRow(_ item: ShopItemDefinition, isSmallWatch: Bool, isLargeWatch: Bool) -> some View {
         let shopState = syncHelper.profile?.shopState ?? ShopState()
         let isOwned = shopState.isOwned(item.id)
         let isEquipped = shopState.equippedItem(for: item.category) == item.id
         let canAfford = (syncHelper.profile?.totalCoins ?? 0) >= item.price
 
+        let iconSize: CGFloat = isSmallWatch ? 12 : (isLargeWatch ? 18 : 14)
+        let iconFrameSize: CGFloat = isSmallWatch ? 20 : (isLargeWatch ? 30 : 24)
+        let titleFont: CGFloat = isSmallWatch ? 10 : (isLargeWatch ? 14 : 12)
+        let descFont: CGFloat = isSmallWatch ? 8 : (isLargeWatch ? 11 : 9)
+        let statusFont: CGFloat = isSmallWatch ? 9 : (isLargeWatch ? 12 : 10)
+
         Button {
             handleTap(item, isOwned: isOwned, canAfford: canAfford)
         } label: {
-            HStack(spacing: 8) {
+            HStack(spacing: isSmallWatch ? 6 : 8) {
                 // Icon
                 Image(systemName: ThemeService.shopIcon(for: item.id))
-                    .font(.system(size: 14))
+                    .font(.system(size: iconSize))
                     .foregroundColor(isEquipped ? .cyan : (isOwned ? .white : .yellow))
-                    .frame(width: 24, height: 24)
+                    .frame(width: iconFrameSize, height: iconFrameSize)
 
                 // Title
                 VStack(alignment: .leading, spacing: 1) {
                     Text(item.title)
-                        .font(.system(size: 12, weight: .semibold))
+                        .font(.system(size: titleFont, weight: .semibold))
                         .foregroundColor(.white)
                         .lineLimit(1)
                     Text(item.description)
-                        .font(.system(size: 9))
+                        .font(.system(size: descFont))
                         .foregroundColor(.white.opacity(0.5))
                         .lineLimit(1)
                 }
@@ -119,40 +132,40 @@ struct WatchShopView: View {
                 // Status
                 if isEquipped {
                     Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 14))
+                        .font(.system(size: iconSize))
                         .foregroundColor(.cyan)
                 } else if isOwned {
                     Text("Equip")
-                        .font(.system(size: 10, weight: .semibold))
+                        .font(.system(size: statusFont, weight: .semibold))
                         .foregroundColor(.white.opacity(0.7))
                 } else if item.price == 0 {
                     Text("Free")
-                        .font(.system(size: 10, weight: .semibold))
+                        .font(.system(size: statusFont, weight: .semibold))
                         .foregroundColor(.green)
                 } else {
                     HStack(spacing: 2) {
                         Image(systemName: "bitcoinsign.circle.fill")
-                            .font(.system(size: 10))
+                            .font(.system(size: isSmallWatch ? 9 : (isLargeWatch ? 12 : 10)))
                             .foregroundColor(.yellow)
                         Text("\(item.price)")
-                            .font(.system(size: 11, weight: .bold))
+                            .font(.system(size: isSmallWatch ? 10 : (isLargeWatch ? 13 : 11), weight: .bold))
                             .foregroundColor(canAfford ? .yellow : .white.opacity(0.4))
                     }
                 }
             }
-            .padding(.horizontal, 8)
-            .padding(.vertical, 6)
+            .padding(.horizontal, isSmallWatch ? 6 : 8)
+            .padding(.vertical, isSmallWatch ? 4 : 6)
             .background(
-                RoundedRectangle(cornerRadius: 8)
+                RoundedRectangle(cornerRadius: isSmallWatch ? 6 : 8)
                     .fill(isEquipped ? Color.white.opacity(0.15) : Color.white.opacity(0.08))
             )
             .overlay(
-                RoundedRectangle(cornerRadius: 8)
+                RoundedRectangle(cornerRadius: isSmallWatch ? 6 : 8)
                     .stroke(isEquipped ? Color.cyan.opacity(0.5) : Color.clear, lineWidth: 1)
             )
         }
         .buttonStyle(.plain)
-        .padding(.horizontal, 8)
+        .padding(.horizontal, isSmallWatch ? 6 : 8)
         .opacity((!isOwned && !canAfford && item.price > 0) ? 0.5 : 1.0)
     }
 

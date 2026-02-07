@@ -11,72 +11,85 @@ struct WatchPaywallView: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 16) {
-                // Lock icon
-                Image(systemName: "lock.fill")
-                    .font(.system(size: 40))
-                    .foregroundColor(.yellow)
+        GeometryReader { geometry in
+            let isSmallWatch = geometry.size.height < 180
+            let isLargeWatch = geometry.size.height > 220
+            let lockSize: CGFloat = isSmallWatch ? 30 : (isLargeWatch ? 50 : 40)
+            let titleFont: CGFloat = isSmallWatch ? 13 : (isLargeWatch ? 18 : 15)
+            let messageFont: CGFloat = isSmallWatch ? 10 : (isLargeWatch ? 13 : 12)
+            let stepFont: CGFloat = isSmallWatch ? 9 : (isLargeWatch ? 12 : 10)
+            let buttonFont: CGFloat = isSmallWatch ? 13 : (isLargeWatch ? 17 : 15)
 
-                // Title
-                Text("Unlock All Levels")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
+            ScrollView {
+                VStack(spacing: isSmallWatch ? 10 : 16) {
+                    // Lock icon
+                    Image(systemName: "lock.fill")
+                        .font(.system(size: lockSize))
+                        .foregroundColor(.yellow)
 
-                // Message
-                Text("Purchase \"Unlock Watch\" on iPhone to access levels 6-50")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
+                    // Title
+                    Text("Unlock All Levels")
+                        .font(.system(size: titleFont, weight: .semibold))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
 
-                Spacer()
-                    .frame(height: 8)
+                    // Message
+                    Text("Purchase \"Unlock Watch\" on iPhone to access levels 6-50")
+                        .font(.system(size: messageFont))
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, isSmallWatch ? 4 : 8)
 
-                // Instructions
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "1.circle.fill")
-                            .foregroundColor(.cyan)
-                        Text("Open SpellFlare on iPhone")
-                            .font(.caption2)
+                    Spacer()
+                        .frame(height: isSmallWatch ? 4 : 8)
+
+                    // Instructions
+                    VStack(alignment: .leading, spacing: isSmallWatch ? 4 : 8) {
+                        HStack(spacing: isSmallWatch ? 4 : 8) {
+                            Image(systemName: "1.circle.fill")
+                                .font(.system(size: isSmallWatch ? 12 : 14))
+                                .foregroundColor(.cyan)
+                            Text("Open SpellFlare on iPhone")
+                                .font(.system(size: stepFont))
+                        }
+
+                        HStack(spacing: isSmallWatch ? 4 : 8) {
+                            Image(systemName: "2.circle.fill")
+                                .font(.system(size: isSmallWatch ? 12 : 14))
+                                .foregroundColor(.cyan)
+                            Text("Go to Settings")
+                                .font(.system(size: stepFont))
+                        }
+
+                        HStack(spacing: isSmallWatch ? 4 : 8) {
+                            Image(systemName: "3.circle.fill")
+                                .font(.system(size: isSmallWatch ? 12 : 14))
+                                .foregroundColor(.cyan)
+                            Text("Tap \"Unlock Watch Levels\"")
+                                .font(.system(size: stepFont))
+                        }
                     }
+                    .foregroundColor(.white.opacity(0.8))
 
-                    HStack(spacing: 8) {
-                        Image(systemName: "2.circle.fill")
-                            .foregroundColor(.cyan)
-                        Text("Go to Settings")
-                            .font(.caption2)
-                    }
+                    Spacer()
+                        .frame(height: isSmallWatch ? 6 : 12)
 
-                    HStack(spacing: 8) {
-                        Image(systemName: "3.circle.fill")
-                            .foregroundColor(.cyan)
-                        Text("Tap \"Unlock Watch Levels\"")
-                            .font(.caption2)
+                    // OK button
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("OK")
+                            .font(.system(size: buttonFont, weight: .semibold))
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, isSmallWatch ? 8 : 10)
+                            .background(Color.cyan)
+                            .cornerRadius(isSmallWatch ? 8 : 10)
                     }
+                    .buttonStyle(.plain)
                 }
-                .foregroundColor(.white.opacity(0.8))
-
-                Spacer()
-                    .frame(height: 12)
-
-                // OK button
-                Button {
-                    dismiss()
-                } label: {
-                    Text("OK")
-                        .font(.headline)
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 10)
-                        .background(Color.cyan)
-                        .cornerRadius(10)
-                }
-                .buttonStyle(.plain)
+                .padding(isSmallWatch ? 8 : 12)
             }
-            .padding()
         }
         .background(
             LinearGradient(

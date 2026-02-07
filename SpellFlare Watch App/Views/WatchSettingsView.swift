@@ -17,167 +17,176 @@ struct WatchSettingsView: View {
     @State private var showAvatarPicker = false
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 16) {
-                // Header with back button
-                HStack {
-                    Button {
-                        appState.navigateToHome()
-                    } label: {
-                        Image(systemName: "chevron.left")
-                            .font(.headline)
-                            .foregroundColor(.cyan)
-                    }
-                    .buttonStyle(.plain)
+        GeometryReader { geometry in
+            let isSmallWatch = geometry.size.height < 180
+            let avatarSize: CGFloat = isSmallWatch ? 28 : 36
+            let pickerHeight: CGFloat = isSmallWatch ? 60 : 80
+            let sectionPadding: CGFloat = isSmallWatch ? 8 : 12
 
-                    Spacer()
-
-                    Text("Settings")
-                        .font(.headline)
-                        .foregroundColor(.white)
-
-                    Spacer()
-
-                    // Spacer for balance
-                    Image(systemName: "chevron.left")
-                        .font(.headline)
-                        .opacity(0)
-                }
-                .padding(.horizontal)
-
-                // Profile Section
-                VStack(spacing: 8) {
-                    Button {
-                        showAvatarPicker = true
-                    } label: {
-                        Text(syncHelper.profile?.avatarIcon ?? "🐝")
-                            .font(.system(size: 36))
-                    }
-                    .buttonStyle(.plain)
-
-                    Text(syncHelper.profile?.name ?? "Player")
-                        .font(.headline)
-                        .foregroundColor(.white)
-
-                    HStack(spacing: 16) {
+            ScrollView {
+                VStack(spacing: isSmallWatch ? 10 : 16) {
+                    // Header with back button
+                    HStack {
                         Button {
-                            newName = syncHelper.profile?.name ?? ""
-                            showNameInput = true
+                            appState.navigateToHome()
                         } label: {
-                            Text("Name")
-                                .font(.caption)
+                            Image(systemName: "chevron.left")
+                                .font(.system(size: isSmallWatch ? 14 : 17, weight: .semibold))
                                 .foregroundColor(.cyan)
                         }
                         .buttonStyle(.plain)
 
+                        Spacer()
+
+                        Text("Settings")
+                            .font(.system(size: isSmallWatch ? 14 : 17, weight: .semibold))
+                            .foregroundColor(.white)
+
+                        Spacer()
+
+                        // Spacer for balance
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: isSmallWatch ? 14 : 17, weight: .semibold))
+                            .opacity(0)
+                    }
+                    .padding(.horizontal, isSmallWatch ? 6 : 8)
+
+                    // Profile Section
+                    VStack(spacing: isSmallWatch ? 4 : 8) {
                         Button {
                             showAvatarPicker = true
                         } label: {
-                            Text("Avatar")
-                                .font(.caption)
-                                .foregroundColor(.cyan)
+                            Text(syncHelper.profile?.avatarIcon ?? "🐝")
+                                .font(.system(size: avatarSize))
                         }
                         .buttonStyle(.plain)
+
+                        Text(syncHelper.profile?.name ?? "Player")
+                            .font(.system(size: isSmallWatch ? 14 : 17, weight: .semibold))
+                            .foregroundColor(.white)
+
+                        HStack(spacing: isSmallWatch ? 12 : 16) {
+                            Button {
+                                newName = syncHelper.profile?.name ?? ""
+                                showNameInput = true
+                            } label: {
+                                Text("Name")
+                                    .font(.system(size: isSmallWatch ? 11 : 12))
+                                    .foregroundColor(.cyan)
+                            }
+                            .buttonStyle(.plain)
+
+                            Button {
+                                showAvatarPicker = true
+                            } label: {
+                                Text("Avatar")
+                                    .font(.system(size: isSmallWatch ? 11 : 12))
+                                    .foregroundColor(.cyan)
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
+                    .padding(.vertical, isSmallWatch ? 4 : 8)
+
+                    Divider()
+                        .background(Color.gray.opacity(0.3))
+
+                    // Grade Section
+                    VStack(alignment: .leading, spacing: isSmallWatch ? 4 : 8) {
+                        Text("Grade Level")
+                            .font(.system(size: isSmallWatch ? 10 : 12))
+                            .foregroundColor(.secondary)
+
+                        Picker("Grade", selection: $selectedGrade) {
+                            ForEach(1...7, id: \.self) { grade in
+                                Text("Grade \(grade)").tag(grade)
+                            }
+                        }
+                        .pickerStyle(.wheel)
+                        .frame(height: pickerHeight)
+                        .onChange(of: selectedGrade) { oldValue, newValue in
+                            syncHelper.updateGradeLocally(newValue)
+                        }
+                    }
+                    .padding(.horizontal, isSmallWatch ? 6 : 8)
+
+                    Divider()
+                        .background(Color.gray.opacity(0.3))
+
+                    // Purchases Section
+                    VStack(spacing: isSmallWatch ? 6 : 12) {
+                        Text("Purchases")
+                            .font(.system(size: isSmallWatch ? 10 : 12))
+                            .foregroundColor(.secondary)
+
+                        if syncHelper.isWatchUnlocked {
+                            HStack {
+                                Image(systemName: "checkmark.seal.fill")
+                                    .font(.system(size: isSmallWatch ? 12 : 14))
+                                    .foregroundColor(.green)
+                                Text("All Levels Unlocked")
+                                    .font(.system(size: isSmallWatch ? 10 : 12))
+                                    .foregroundColor(.green)
+                            }
+                        } else {
+                            VStack(spacing: isSmallWatch ? 3 : 6) {
+                                Image(systemName: "lock.fill")
+                                    .font(.system(size: isSmallWatch ? 14 : 18))
+                                    .foregroundColor(.yellow)
+                                Text("Levels 6+ Locked")
+                                    .font(.system(size: isSmallWatch ? 10 : 12))
+                                    .foregroundColor(.yellow)
+                                Text("Purchase on iPhone to unlock")
+                                    .font(.system(size: isSmallWatch ? 8 : 10))
+                                    .foregroundColor(.secondary)
+                                    .multilineTextAlignment(.center)
+                            }
+                        }
+                    }
+                    .padding(sectionPadding)
+                    .background(Color.gray.opacity(0.15))
+                    .cornerRadius(isSmallWatch ? 8 : 12)
+                    .padding(.horizontal, isSmallWatch ? 6 : 8)
+
+                    // Stats Section
+                    VStack(spacing: isSmallWatch ? 4 : 8) {
+                        Text("Progress")
+                            .font(.system(size: isSmallWatch ? 10 : 12))
+                            .foregroundColor(.secondary)
+
+                        HStack(spacing: isSmallWatch ? 12 : 16) {
+                            VStack {
+                                Text("\(syncHelper.profile?.completedLevels.count ?? 0)")
+                                    .font(.system(size: isSmallWatch ? 14 : 17, weight: .semibold))
+                                    .foregroundColor(.cyan)
+                                Text("Levels")
+                                    .font(.system(size: isSmallWatch ? 8 : 10))
+                                    .foregroundColor(.secondary)
+                            }
+
+                            VStack {
+                                Text("\(syncHelper.profile?.totalCoins ?? 0)")
+                                    .font(.system(size: isSmallWatch ? 14 : 17, weight: .semibold))
+                                    .foregroundColor(.yellow)
+                                Text("Coins")
+                                    .font(.system(size: isSmallWatch ? 8 : 10))
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                    }
+                    .padding(sectionPadding)
+                    .background(Color.gray.opacity(0.15))
+                    .cornerRadius(isSmallWatch ? 8 : 12)
+                    .padding(.horizontal, isSmallWatch ? 6 : 8)
+
+                    // App Version
+                    Text(watchAppVersion)
+                        .font(.system(size: isSmallWatch ? 8 : 10))
+                        .foregroundColor(.white.opacity(0.4))
+                        .padding(.top, isSmallWatch ? 4 : 8)
+
+                    Spacer(minLength: isSmallWatch ? 10 : 20)
                 }
-                .padding(.vertical, 8)
-
-                Divider()
-                    .background(Color.gray.opacity(0.3))
-
-                // Grade Section
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Grade Level")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-
-                    Picker("Grade", selection: $selectedGrade) {
-                        ForEach(1...7, id: \.self) { grade in
-                            Text("Grade \(grade)").tag(grade)
-                        }
-                    }
-                    .pickerStyle(.wheel)
-                    .frame(height: 80)
-                    .onChange(of: selectedGrade) { oldValue, newValue in
-                        syncHelper.updateGradeLocally(newValue)
-                    }
-                }
-                .padding(.horizontal)
-
-                Divider()
-                    .background(Color.gray.opacity(0.3))
-
-                // Purchases Section
-                VStack(spacing: 12) {
-                    Text("Purchases")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-
-                    if syncHelper.isWatchUnlocked {
-                        HStack {
-                            Image(systemName: "checkmark.seal.fill")
-                                .foregroundColor(.green)
-                            Text("All Levels Unlocked")
-                                .font(.caption)
-                                .foregroundColor(.green)
-                        }
-                    } else {
-                        VStack(spacing: 6) {
-                            Image(systemName: "lock.fill")
-                                .foregroundColor(.yellow)
-                            Text("Levels 6+ Locked")
-                                .font(.caption)
-                                .foregroundColor(.yellow)
-                            Text("Purchase on iPhone to unlock")
-                                .font(.caption2)
-                                .foregroundColor(.secondary)
-                                .multilineTextAlignment(.center)
-                        }
-                    }
-                }
-                .padding()
-                .background(Color.gray.opacity(0.15))
-                .cornerRadius(12)
-                .padding(.horizontal)
-
-                // Stats Section
-                VStack(spacing: 8) {
-                    Text("Progress")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-
-                    HStack(spacing: 16) {
-                        VStack {
-                            Text("\(syncHelper.profile?.completedLevels.count ?? 0)")
-                                .font(.headline)
-                                .foregroundColor(.cyan)
-                            Text("Levels")
-                                .font(.caption2)
-                                .foregroundColor(.secondary)
-                        }
-
-                        VStack {
-                            Text("\(syncHelper.profile?.totalCoins ?? 0)")
-                                .font(.headline)
-                                .foregroundColor(.yellow)
-                            Text("Coins")
-                                .font(.caption2)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                }
-                .padding()
-                .background(Color.gray.opacity(0.15))
-                .cornerRadius(12)
-                .padding(.horizontal)
-
-                // App Version
-                Text(watchAppVersion)
-                    .font(.caption2)
-                    .foregroundColor(.white.opacity(0.4))
-                    .padding(.top, 8)
-
-                Spacer(minLength: 20)
             }
         }
         .background(
@@ -212,9 +221,7 @@ struct WatchSettingsView: View {
     }
 
     private var watchAppVersion: String {
-        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
-        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?"
-        return "Version \(version) (\(build))"
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
     }
 
     private func updateName(_ name: String) {
