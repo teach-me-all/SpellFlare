@@ -261,6 +261,30 @@ class WatchSyncHelper: NSObject, ObservableObject {
         })
     }
 
+    // MARK: - Purchase State Sync
+
+    /// Called by WatchStoreManager when a purchase is made on Watch
+    func updatePurchaseState(isWatchUnlocked: Bool) {
+        self.isWatchUnlocked = isWatchUnlocked
+        savePremiumState(isWatchUnlocked)
+
+        // Notify iPhone of purchase
+        guard let session = session, session.isReachable else {
+            print("iPhone not reachable, purchase state saved locally")
+            return
+        }
+
+        session.sendMessage(
+            ["type": "watchPurchaseCompleted", "isWatchUnlocked": isWatchUnlocked],
+            replyHandler: { _ in
+                print("Watch purchase synced to iPhone")
+            },
+            errorHandler: { error in
+                print("Failed to sync Watch purchase to iPhone: \(error)")
+            }
+        )
+    }
+
     // MARK: - Grade Update (Watch → iPhone not supported, view only)
 
     /// Update grade locally (standalone mode only)
@@ -369,6 +393,15 @@ extension WatchSyncHelper: WCSessionDelegate {
                     saveActiveProfileID(id)
                 }
                 print("Grade changed from iPhone: \(syncable.profile.grade), premium: \(syncable.isWatchUnlocked)")
+            }
+
+        case "purchaseStateUpdated":
+            // iPhone purchased and is notifying Watch
+            if let unlocked = message["isWatchUnlocked"] as? Bool, unlocked {
+                self.isWatchUnlocked = true
+                savePremiumState(true)
+                WatchStoreManager.shared.setUnlockedFromiPhone()
+                print("Purchase state updated from iPhone: unlocked")
             }
 
         default:

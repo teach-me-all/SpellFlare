@@ -26,14 +26,14 @@ struct WatchHomeView: View {
                 HStack {
                     // Active profile avatar
                     Text(syncHelper.profile?.avatarIcon ?? "🐝")
-                        .font(.system(size: isSmallWatch ? 14 : 18))
+                        .font(.system(size: isSmallWatch ? 19 : 23))
 
                     // Settings button
                     Button {
                         appState.navigateToSettings()
                     } label: {
                         Image(systemName: "gearshape.fill")
-                            .font(.system(size: isSmallWatch ? 14 : 18))
+                            .font(.system(size: isSmallWatch ? 19 : 23))
                             .foregroundColor(.white.opacity(0.8))
                     }
                     .buttonStyle(.plain)
@@ -43,7 +43,7 @@ struct WatchHomeView: View {
                         appState.navigateToShop()
                     } label: {
                         Image(systemName: "cart.fill")
-                            .font(.system(size: isSmallWatch ? 13 : 17))
+                            .font(.system(size: isSmallWatch ? 18 : 22))
                             .foregroundColor(.cyan)
                     }
                     .buttonStyle(.plain)

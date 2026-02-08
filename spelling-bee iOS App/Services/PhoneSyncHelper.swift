@@ -126,13 +126,24 @@ class PhoneSyncHelper: NSObject, ObservableObject {
 
             guard let data = try? JSONEncoder().encode(updatedProfile) else { return }
 
+            // Send profile update
             session.sendMessage(
                 ["action": "profileUpdated", "profile": data],
                 replyHandler: nil,
                 errorHandler: { error in
-                    print("Failed to sync Watch unlock state: \(error)")
+                    print("Failed to sync Watch unlock state via profile: \(error)")
                 }
             )
+
+            // Also send direct purchase state update for WatchStoreManager
+            session.sendMessage(
+                ["type": "purchaseStateUpdated", "isWatchUnlocked": isWatchUnlocked],
+                replyHandler: nil,
+                errorHandler: { error in
+                    print("Failed to sync purchase state to Watch: \(error)")
+                }
+            )
+
             print("Watch unlock state synced: \(isWatchUnlocked)")
         }
     }
@@ -298,6 +309,16 @@ extension PhoneSyncHelper: WCSessionDelegate {
                     )
                 } else {
                     localCache.saveSyncableProfile(remoteProfile)
+                }
+            }
+
+        case "watchPurchaseCompleted":
+            // Watch made a purchase - verify and update local state
+            if let isUnlocked = message["isWatchUnlocked"] as? Bool, isUnlocked {
+                print("Watch reported purchase completed, verifying entitlements...")
+                Task {
+                    await StoreManager.shared.checkEntitlements()
+                    print("Entitlements verified after Watch purchase notification")
                 }
             }
 

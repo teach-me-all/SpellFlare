@@ -75,6 +75,11 @@ struct AchievementsView: View {
                             DailyCheckInCardView(profile: profile)
                         }
 
+                        // Daily Practice Challenge
+                        if let profile = appState.profile {
+                            DailyPracticeChallengeView(profile: profile)
+                        }
+
                         // Rarity legend
                         rarityLegend
 

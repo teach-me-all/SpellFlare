@@ -91,10 +91,10 @@ struct HomeView: View {
                 // Levels List
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
-                        // Daily Practice Challenge Card
+                        // Daily Practice (compact card)
                         if let profile = profile {
                             DailyPracticeChallengeView(profile: profile)
-                                .padding(.top, 12)
+                                .padding(.top, 8)
                         }
 
                         HStack {

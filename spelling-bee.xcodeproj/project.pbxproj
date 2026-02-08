@@ -57,6 +57,7 @@
 		ACH006A2EFD4006009167B7 /* AchievementUnlockOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACH006B2EFD4006009167B7 /* AchievementUnlockOverlay.swift */; };
 		ACH007A2EFD4007009167B7 /* WatchAchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACH007B2EFD4007009167B7 /* WatchAchievementsView.swift */; };
 		AE98083BDD798CDB67DD227B /* WatchSyncHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A48959F168D4811792C017D /* WatchSyncHelper.swift */; };
+		WSTORE001A2EFD0001009167B7 /* WatchStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = WSTORE001B2EFD0001009167B7 /* WatchStoreManager.swift */; };
 		APPUPD001A2EFD2001009167B7 /* AppUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = APPUPD001B2EFD2001009167B7 /* AppUpdateService.swift */; };
 		B66F95FC3EAC45E1BFA1E7E4 /* Audio in Resources */ = {isa = PBXBuildFile; fileRef = CF32531B97AF4BADAD29C8A7 /* Audio */; };
 		B837E42A87BCC93824D7142E /* LocalCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B2CF032EFD0003009167B7 /* LocalCacheService.swift */; };
@@ -182,6 +183,7 @@
 		30D04AC668556D4186EA9F87 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		31E61ADECD5FF68699C3AC49 /* Pods-spelling-bee iOS App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-spelling-bee iOS App.debug.xcconfig"; path = "Target Support Files/Pods-spelling-bee iOS App/Pods-spelling-bee iOS App.debug.xcconfig"; sourceTree = "<group>"; };
 		3A48959F168D4811792C017D /* WatchSyncHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WatchSyncHelper.swift; sourceTree = "<group>"; };
+		WSTORE001B2EFD0001009167B7 /* WatchStoreManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WatchStoreManager.swift; sourceTree = "<group>"; };
 		3AB71FBE2F1CB265002D6986 /* spelling-bee iOS App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "spelling-bee iOS App.entitlements"; sourceTree = "<group>"; };
 		45DF2A1DF38A45780AF203D1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS11.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		53B2CB4A2EFA4E17009167B7 /* spelling-bee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "spelling-bee.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -326,6 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				0A4FB345F0C6EC1CA233AE06 /* WatchAudioService.swift */,
+				WSTORE001B2EFD0001009167B7 /* WatchStoreManager.swift */,
 				3A48959F168D4811792C017D /* WatchSyncHelper.swift */,
 				2E1AAD1AED6AD2DAD296A88B /* WatchWordBankService.swift */,
 			);
@@ -966,6 +969,7 @@
 				EC8324B6305A824D393668EB /* ContentView.swift in Sources */,
 				4E9076E94B986757FBAC52AE /* WatchAudioService.swift in Sources */,
 				AE98083BDD798CDB67DD227B /* WatchSyncHelper.swift in Sources */,
+				WSTORE001A2EFD0001009167B7 /* WatchStoreManager.swift in Sources */,
 				53BA2AFB3990417344B3D735 /* WatchWordBankService.swift in Sources */,
 				3BBC6EFA5D0985CB070F9C4D /* WatchAppState.swift in Sources */,
 				D46598A37DF16AC815B4F68B /* WatchGameViewModel.swift in Sources */,

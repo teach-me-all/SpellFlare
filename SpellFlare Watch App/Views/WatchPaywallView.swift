@@ -3,12 +3,17 @@
 //  SpellFlare Watch App
 //
 //  Paywall shown when trying to access premium levels (6+) without purchase.
+//  Supports direct purchase on Watch via StoreKit 2.
 //
 
 import SwiftUI
 
 struct WatchPaywallView: View {
     @Environment(\.dismiss) var dismiss
+    @ObservedObject var storeManager = WatchStoreManager.shared
+    @EnvironmentObject var syncHelper: WatchSyncHelper
+
+    @State private var showingSuccess = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -17,76 +22,30 @@ struct WatchPaywallView: View {
             let lockSize: CGFloat = isSmallWatch ? 30 : (isLargeWatch ? 50 : 40)
             let titleFont: CGFloat = isSmallWatch ? 13 : (isLargeWatch ? 18 : 15)
             let messageFont: CGFloat = isSmallWatch ? 10 : (isLargeWatch ? 13 : 12)
-            let stepFont: CGFloat = isSmallWatch ? 9 : (isLargeWatch ? 12 : 10)
             let buttonFont: CGFloat = isSmallWatch ? 13 : (isLargeWatch ? 17 : 15)
 
             ScrollView {
                 VStack(spacing: isSmallWatch ? 10 : 16) {
-                    // Lock icon
-                    Image(systemName: "lock.fill")
-                        .font(.system(size: lockSize))
-                        .foregroundColor(.yellow)
-
-                    // Title
-                    Text("Unlock All Levels")
-                        .font(.system(size: titleFont, weight: .semibold))
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-
-                    // Message
-                    Text("Purchase \"Unlock Watch\" on iPhone to access levels 6-50")
-                        .font(.system(size: messageFont))
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, isSmallWatch ? 4 : 8)
-
-                    Spacer()
-                        .frame(height: isSmallWatch ? 4 : 8)
-
-                    // Instructions
-                    VStack(alignment: .leading, spacing: isSmallWatch ? 4 : 8) {
-                        HStack(spacing: isSmallWatch ? 4 : 8) {
-                            Image(systemName: "1.circle.fill")
-                                .font(.system(size: isSmallWatch ? 12 : 14))
-                                .foregroundColor(.cyan)
-                            Text("Open SpellFlare on iPhone")
-                                .font(.system(size: stepFont))
-                        }
-
-                        HStack(spacing: isSmallWatch ? 4 : 8) {
-                            Image(systemName: "2.circle.fill")
-                                .font(.system(size: isSmallWatch ? 12 : 14))
-                                .foregroundColor(.cyan)
-                            Text("Go to Settings")
-                                .font(.system(size: stepFont))
-                        }
-
-                        HStack(spacing: isSmallWatch ? 4 : 8) {
-                            Image(systemName: "3.circle.fill")
-                                .font(.system(size: isSmallWatch ? 12 : 14))
-                                .foregroundColor(.cyan)
-                            Text("Tap \"Unlock Watch Levels\"")
-                                .font(.system(size: stepFont))
-                        }
+                    // Already unlocked state
+                    if syncHelper.isWatchUnlocked || storeManager.isWatchUnlocked {
+                        unlockedContent(
+                            isSmallWatch: isSmallWatch,
+                            lockSize: lockSize,
+                            titleFont: titleFont,
+                            messageFont: messageFont,
+                            buttonFont: buttonFont
+                        )
+                    } else {
+                        // Locked state - show purchase UI
+                        lockedContent(
+                            isSmallWatch: isSmallWatch,
+                            isLargeWatch: isLargeWatch,
+                            lockSize: lockSize,
+                            titleFont: titleFont,
+                            messageFont: messageFont,
+                            buttonFont: buttonFont
+                        )
                     }
-                    .foregroundColor(.white.opacity(0.8))
-
-                    Spacer()
-                        .frame(height: isSmallWatch ? 6 : 12)
-
-                    // OK button
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("OK")
-                            .font(.system(size: buttonFont, weight: .semibold))
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, isSmallWatch ? 8 : 10)
-                            .background(Color.cyan)
-                            .cornerRadius(isSmallWatch ? 8 : 10)
-                    }
-                    .buttonStyle(.plain)
                 }
                 .padding(isSmallWatch ? 8 : 12)
             }
@@ -104,8 +63,151 @@ struct WatchPaywallView: View {
         )
         .toolbar(.hidden, for: .navigationBar)
     }
+
+    // MARK: - Unlocked Content
+
+    @ViewBuilder
+    private func unlockedContent(
+        isSmallWatch: Bool,
+        lockSize: CGFloat,
+        titleFont: CGFloat,
+        messageFont: CGFloat,
+        buttonFont: CGFloat
+    ) -> some View {
+        Image(systemName: "checkmark.seal.fill")
+            .font(.system(size: lockSize))
+            .foregroundColor(.green)
+
+        Text("All Levels Unlocked!")
+            .font(.system(size: titleFont, weight: .semibold))
+            .foregroundColor(.white)
+            .multilineTextAlignment(.center)
+
+        Text("Enjoy all 50 levels")
+            .font(.system(size: messageFont))
+            .foregroundColor(.secondary)
+            .multilineTextAlignment(.center)
+
+        Spacer()
+            .frame(height: isSmallWatch ? 8 : 16)
+
+        Button {
+            dismiss()
+        } label: {
+            Text("Continue")
+                .font(.system(size: buttonFont, weight: .semibold))
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, isSmallWatch ? 8 : 10)
+                .background(Color.green)
+                .cornerRadius(isSmallWatch ? 8 : 10)
+        }
+        .buttonStyle(.plain)
+    }
+
+    // MARK: - Locked Content
+
+    @ViewBuilder
+    private func lockedContent(
+        isSmallWatch: Bool,
+        isLargeWatch: Bool,
+        lockSize: CGFloat,
+        titleFont: CGFloat,
+        messageFont: CGFloat,
+        buttonFont: CGFloat
+    ) -> some View {
+        // Lock icon
+        Image(systemName: "lock.fill")
+            .font(.system(size: lockSize))
+            .foregroundColor(.yellow)
+
+        // Title
+        Text("Unlock All Levels")
+            .font(.system(size: titleFont, weight: .semibold))
+            .foregroundColor(.white)
+            .multilineTextAlignment(.center)
+
+        // Message with price
+        Text("Access levels 6-50 for just \(storeManager.formattedPrice)")
+            .font(.system(size: messageFont))
+            .foregroundColor(.secondary)
+            .multilineTextAlignment(.center)
+            .padding(.horizontal, isSmallWatch ? 4 : 8)
+
+        // Error message
+        if let error = storeManager.purchaseError {
+            Text(error)
+                .font(.system(size: isSmallWatch ? 9 : 10))
+                .foregroundColor(.red)
+                .multilineTextAlignment(.center)
+        }
+
+        Spacer()
+            .frame(height: isSmallWatch ? 6 : 12)
+
+        // Buy Now button
+        Button {
+            Task {
+                let success = await storeManager.purchaseUnlockWatch()
+                if success {
+                    dismiss()
+                }
+            }
+        } label: {
+            HStack(spacing: 6) {
+                if storeManager.purchaseInProgress {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                        .scaleEffect(isSmallWatch ? 0.6 : 0.8)
+                } else {
+                    Text("Buy Now")
+                }
+                if !storeManager.purchaseInProgress {
+                    Text(storeManager.formattedPrice)
+                        .opacity(0.8)
+                }
+            }
+            .font(.system(size: buttonFont, weight: .semibold))
+            .foregroundColor(.black)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, isSmallWatch ? 8 : 10)
+            .background(Color.cyan)
+            .cornerRadius(isSmallWatch ? 8 : 10)
+        }
+        .buttonStyle(.plain)
+        .disabled(storeManager.purchaseInProgress || storeManager.isLoading)
+
+        // Restore button
+        Button {
+            Task {
+                let success = await storeManager.restorePurchases()
+                if success {
+                    dismiss()
+                }
+            }
+        } label: {
+            Text("Restore Purchase")
+                .font(.system(size: isSmallWatch ? 11 : 13))
+                .foregroundColor(.cyan)
+        }
+        .buttonStyle(.plain)
+        .disabled(storeManager.purchaseInProgress || storeManager.isLoading)
+        .padding(.top, isSmallWatch ? 4 : 8)
+
+        // Dismiss button
+        Button {
+            dismiss()
+        } label: {
+            Text("Not Now")
+                .font(.system(size: isSmallWatch ? 10 : 12))
+                .foregroundColor(.white.opacity(0.6))
+        }
+        .buttonStyle(.plain)
+        .padding(.top, isSmallWatch ? 2 : 4)
+    }
 }
 
 #Preview {
     WatchPaywallView()
+        .environmentObject(WatchSyncHelper.shared)
 }

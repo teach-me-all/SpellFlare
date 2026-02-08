@@ -91,6 +91,9 @@ struct WatchAchievementsView: View {
                         }
                         .padding(.horizontal, isSmallWatch ? 6 : 8)
                         .padding(.bottom, isSmallWatch ? 2 : 4)
+
+                        // Daily Practice Section
+                        dailyPracticeSection(profile: profile, isSmallWatch: isSmallWatch, isLargeWatch: isLargeWatch)
                     }
 
                     // Sections
@@ -191,6 +194,89 @@ struct WatchAchievementsView: View {
     private func progressFraction(for def: AchievementDefinition) -> Double {
         guard let profile = syncHelper.profile else { return 0 }
         return AchievementsService.shared.progressFraction(for: def.id, profile: profile)
+    }
+
+    // MARK: - Daily Practice Section
+
+    @ViewBuilder
+    private func dailyPracticeSection(profile: UserProfile, isSmallWatch: Bool, isLargeWatch: Bool) -> some View {
+        let hasPracticeWords = MistakePracticeService.shared.isDailyChallengeAvailable(profile: profile)
+        let hasPracticedToday = MistakePracticeService.shared.hasDailyPracticeToday(profile: profile)
+        let challengeWordCount = MistakePracticeService.shared.generateDailyChallenge(profile: profile).count
+        let weeklyProgress = MistakePracticeService.shared.weeklyPracticeStatus(profile: profile)
+        let weeklyCount = MistakePracticeService.shared.weeklyPracticeCount(profile: profile)
+
+        VStack(spacing: isSmallWatch ? 6 : 10) {
+            // Header
+            HStack(spacing: 3) {
+                Image(systemName: "target")
+                    .font(.system(size: isSmallWatch ? 10 : (isLargeWatch ? 14 : 11)))
+                    .foregroundColor(.orange)
+                Text("Daily Practice")
+                    .font(.system(size: isSmallWatch ? 11 : (isLargeWatch ? 14 : 12), weight: .semibold))
+                    .foregroundColor(.white)
+                Spacer()
+
+                // Status
+                if hasPracticedToday {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.system(size: isSmallWatch ? 12 : (isLargeWatch ? 16 : 14)))
+                        .foregroundColor(.green)
+                } else if hasPracticeWords {
+                    Text("\(challengeWordCount)")
+                        .font(.system(size: isSmallWatch ? 10 : (isLargeWatch ? 13 : 11), weight: .bold))
+                        .foregroundColor(.orange)
+                }
+            }
+
+            // Weekly progress dots
+            HStack(spacing: isSmallWatch ? 4 : (isLargeWatch ? 8 : 6)) {
+                ForEach(0..<7, id: \.self) { index in
+                    let isCompleted = index < weeklyProgress.count && weeklyProgress[index]
+                    Circle()
+                        .fill(isCompleted ? Color.orange : Color.white.opacity(0.15))
+                        .frame(
+                            width: isSmallWatch ? 10 : (isLargeWatch ? 16 : 12),
+                            height: isSmallWatch ? 10 : (isLargeWatch ? 16 : 12)
+                        )
+                        .overlay(
+                            isCompleted ?
+                                Image(systemName: "checkmark")
+                                    .font(.system(size: isSmallWatch ? 5 : (isLargeWatch ? 9 : 7), weight: .bold))
+                                    .foregroundColor(.white)
+                                : nil
+                        )
+                }
+            }
+
+            // Status text
+            if hasPracticedToday {
+                Text("Done for today!")
+                    .font(.system(size: isSmallWatch ? 9 : (isLargeWatch ? 12 : 10)))
+                    .foregroundColor(.green)
+            } else if hasPracticeWords {
+                HStack(spacing: 4) {
+                    Text("\(challengeWordCount) words")
+                        .font(.system(size: isSmallWatch ? 9 : (isLargeWatch ? 12 : 10)))
+                        .foregroundColor(.white.opacity(0.7))
+                    if weeklyCount >= 4 {
+                        Text("+ Bonus!")
+                            .font(.system(size: isSmallWatch ? 8 : (isLargeWatch ? 11 : 9)))
+                            .foregroundColor(.yellow)
+                    }
+                }
+            } else {
+                Text("No words to practice")
+                    .font(.system(size: isSmallWatch ? 9 : (isLargeWatch ? 12 : 10)))
+                    .foregroundColor(.white.opacity(0.5))
+            }
+        }
+        .padding(.horizontal, isSmallWatch ? 6 : 8)
+        .padding(.vertical, isSmallWatch ? 6 : 10)
+        .background(Color.white.opacity(0.08))
+        .cornerRadius(isSmallWatch ? 8 : 12)
+        .padding(.horizontal, isSmallWatch ? 6 : 8)
+        .padding(.top, isSmallWatch ? 4 : 8)
     }
 
     // MARK: - Watch Rarity Helpers

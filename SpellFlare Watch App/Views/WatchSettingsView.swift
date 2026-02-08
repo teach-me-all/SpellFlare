@@ -10,11 +10,13 @@ import SwiftUI
 struct WatchSettingsView: View {
     @EnvironmentObject var appState: WatchAppState
     @EnvironmentObject var syncHelper: WatchSyncHelper
+    @ObservedObject var storeManager = WatchStoreManager.shared
 
     @State private var selectedGrade: Int = 1
     @State private var showNameInput = false
     @State private var newName = ""
     @State private var showAvatarPicker = false
+    @State private var isRestoring = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -119,7 +121,7 @@ struct WatchSettingsView: View {
                             .font(.system(size: isSmallWatch ? 10 : 12))
                             .foregroundColor(.secondary)
 
-                        if syncHelper.isWatchUnlocked {
+                        if syncHelper.isWatchUnlocked || storeManager.isWatchUnlocked {
                             HStack {
                                 Image(systemName: "checkmark.seal.fill")
                                     .font(.system(size: isSmallWatch ? 12 : 14))
@@ -136,10 +138,29 @@ struct WatchSettingsView: View {
                                 Text("Levels 6+ Locked")
                                     .font(.system(size: isSmallWatch ? 10 : 12))
                                     .foregroundColor(.yellow)
-                                Text("Purchase on iPhone to unlock")
-                                    .font(.system(size: isSmallWatch ? 8 : 10))
-                                    .foregroundColor(.secondary)
-                                    .multilineTextAlignment(.center)
+
+                                // Restore Purchase button
+                                Button {
+                                    Task {
+                                        isRestoring = true
+                                        _ = await storeManager.restorePurchases()
+                                        isRestoring = false
+                                    }
+                                } label: {
+                                    HStack(spacing: 4) {
+                                        if isRestoring {
+                                            ProgressView()
+                                                .progressViewStyle(CircularProgressViewStyle(tint: .cyan))
+                                                .scaleEffect(isSmallWatch ? 0.5 : 0.6)
+                                        }
+                                        Text("Restore Purchase")
+                                            .font(.system(size: isSmallWatch ? 9 : 11))
+                                            .foregroundColor(.cyan)
+                                    }
+                                }
+                                .buttonStyle(.plain)
+                                .disabled(isRestoring)
+                                .padding(.top, isSmallWatch ? 2 : 4)
                             }
                         }
                     }

@@ -2,7 +2,7 @@
 //  DailyPracticeChallengeView.swift
 //  spelling-bee iOS App
 //
-//  Entry point for the daily practice challenge feature.
+//  Compact daily practice challenge card for home screen.
 //
 
 import SwiftUI
@@ -32,158 +32,119 @@ struct DailyPracticeChallengeView: View {
     }
 
     var body: some View {
-        VStack(spacing: 16) {
-            // Card header
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
+        Button {
+            if hasPracticeWords && !hasPracticedToday {
+                appState.navigateToDailyChallenge()
+            }
+        } label: {
+            HStack(spacing: 12) {
+                // Icon
+                ZStack {
+                    Circle()
+                        .fill(iconBackground)
+                        .frame(width: 40, height: 40)
+
+                    Image(systemName: iconName)
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(iconColor)
+                }
+
+                // Title and status
+                VStack(alignment: .leading, spacing: 2) {
                     Text("Daily Practice")
-                        .font(.headline)
+                        .font(.system(size: 15, weight: .semibold))
                         .foregroundColor(.white)
 
-                    if hasPracticedToday {
-                        Text("Completed today!")
-                            .font(.caption)
-                            .foregroundColor(.green)
-                    } else if hasPracticeWords {
-                        Text("\(challengeWordCount) words to practice")
-                            .font(.caption)
-                            .foregroundColor(.white.opacity(0.7))
-                    } else {
-                        Text("No words to practice")
-                            .font(.caption)
-                            .foregroundColor(.white.opacity(0.7))
-                    }
+                    Text(statusText)
+                        .font(.system(size: 12))
+                        .foregroundColor(statusColor)
                 }
 
                 Spacer()
 
-                // Status icon
+                // Weekly dots (compact)
+                HStack(spacing: 4) {
+                    ForEach(0..<7, id: \.self) { index in
+                        Circle()
+                            .fill(weeklyProgress.indices.contains(index) && weeklyProgress[index]
+                                  ? Color.orange : Color.white.opacity(0.2))
+                            .frame(width: 8, height: 8)
+                    }
+                }
+
+                // Action indicator
                 if hasPracticedToday {
                     Image(systemName: "checkmark.circle.fill")
-                        .font(.title2)
+                        .font(.system(size: 24))
                         .foregroundColor(.green)
                 } else if hasPracticeWords {
-                    Image(systemName: "target")
-                        .font(.title2)
+                    Image(systemName: "play.circle.fill")
+                        .font(.system(size: 24))
                         .foregroundColor(.cyan)
-                } else {
-                    Image(systemName: "star.fill")
-                        .font(.title2)
-                        .foregroundColor(.yellow)
                 }
             }
-
-            // Weekly progress indicator
-            WeeklyProgressIndicator(progress: weeklyProgress)
-
-            // Reward preview
-            if hasPracticeWords && !hasPracticedToday {
-                HStack(spacing: 8) {
-                    Image(systemName: "star.circle.fill")
-                        .foregroundColor(.yellow)
-                    Text("+\(CoinsService.dailyPracticeBaseReward) coins")
-                        .font(.caption.bold())
-                        .foregroundColor(.yellow)
-
-                    if weeklyCount >= 4 {
-                        Text("+ Weekly Bonus!")
-                            .font(.caption)
-                            .foregroundColor(.orange)
-                    }
-                }
-            }
-
-            // Action button
-            Button {
-                if hasPracticeWords && !hasPracticedToday {
-                    appState.navigateToDailyChallenge()
-                }
-            } label: {
-                HStack {
-                    if hasPracticedToday {
-                        Image(systemName: "checkmark")
-                            .font(.system(size: 14))
-                        Text("Done for today")
-                    } else if hasPracticeWords {
-                        Image(systemName: "play.fill")
-                            .font(.system(size: 14))
-                        Text("Start Practice")
-                    } else {
-                        Image(systemName: "star.fill")
-                            .font(.system(size: 14))
-                        Text("Great job!")
-                    }
-                }
-                .font(.subheadline.bold())
-                .foregroundColor(buttonForegroundColor)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 10)
-                .background(buttonBackgroundColor)
-                .cornerRadius(10)
-            }
-            .disabled(hasPracticedToday || !hasPracticeWords)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(Color.white.opacity(0.12))
+            )
         }
-        .padding(16)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.white.opacity(0.15))
-        )
+        .buttonStyle(.plain)
+        .disabled(hasPracticedToday || !hasPracticeWords)
         .padding(.horizontal, 20)
     }
 
-    private var buttonBackgroundColor: Color {
+    private var iconName: String {
         if hasPracticedToday {
-            return Color.green.opacity(0.3)
+            return "checkmark"
         } else if hasPracticeWords {
-            return Color.cyan
+            return "target"
         } else {
-            return Color.yellow.opacity(0.3)
+            return "star.fill"
         }
     }
 
-    private var buttonForegroundColor: Color {
-        if hasPracticedToday || !hasPracticeWords {
-            return .white.opacity(0.6)
+    private var iconBackground: Color {
+        if hasPracticedToday {
+            return Color.green.opacity(0.2)
+        } else if hasPracticeWords {
+            return Color.orange.opacity(0.2)
+        } else {
+            return Color.yellow.opacity(0.2)
         }
-        return .white
-    }
-}
-
-// MARK: - Weekly Progress Indicator
-struct WeeklyProgressIndicator: View {
-    let progress: [Bool]
-
-    private let dayLabels = ["M", "T", "W", "T", "F", "S", "S"]
-
-    private func isCompleted(at index: Int) -> Bool {
-        guard index < progress.count else { return false }
-        return progress[index]
     }
 
-    var body: some View {
-        HStack(spacing: 8) {
-            ForEach(0..<7, id: \.self) { index in
-                VStack(spacing: 4) {
-                    Circle()
-                        .fill(isCompleted(at: index) ? Color.cyan : Color.white.opacity(0.2))
-                        .frame(width: 24, height: 24)
-                        .overlay(
-                            isCompleted(at: index) ?
-                                Image(systemName: "checkmark")
-                                    .font(.system(size: 12, weight: .bold))
-                                    .foregroundColor(.white)
-                                : nil
-                        )
+    private var iconColor: Color {
+        if hasPracticedToday {
+            return .green
+        } else if hasPracticeWords {
+            return .orange
+        } else {
+            return .yellow
+        }
+    }
 
-                    Text(dayLabels[index])
-                        .font(.system(size: 10))
-                        .foregroundColor(.white.opacity(0.6))
-                }
-            }
+    private var statusText: String {
+        if hasPracticedToday {
+            return "Done for today!"
+        } else if hasPracticeWords {
+            return "\(challengeWordCount) words · +\(CoinsService.dailyPracticeBaseReward) coins"
+        } else {
+            return "No mistakes to practice"
+        }
+    }
+
+    private var statusColor: Color {
+        if hasPracticedToday {
+            return .green
+        } else if hasPracticeWords {
+            return .white.opacity(0.7)
+        } else {
+            return .white.opacity(0.5)
         }
     }
 }
-
 
 struct DailyPracticeChallengeView_Previews: PreviewProvider {
     static var previews: some View {
@@ -198,8 +159,10 @@ struct DailyPracticeChallengeView_Previews: PreviewProvider {
             )
             .ignoresSafeArea()
 
-            DailyPracticeChallengeView(profile: UserProfile(name: "Test", grade: 3))
-                .environmentObject(AppState())
+            VStack {
+                DailyPracticeChallengeView(profile: UserProfile(name: "Test", grade: 3))
+                    .environmentObject(AppState())
+            }
         }
     }
 }
