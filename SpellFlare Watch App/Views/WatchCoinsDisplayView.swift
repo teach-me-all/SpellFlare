@@ -11,6 +11,7 @@ struct WatchCoinsDisplayView: View {
     let coins: Int
     var compact: Bool = false
     var large: Bool = false
+    var onTap: (() -> Void)? = nil
 
     private var iconSize: CGFloat {
         if compact { return 11 }
@@ -37,28 +38,33 @@ struct WatchCoinsDisplayView: View {
     }
 
     var body: some View {
-        HStack(spacing: compact ? 2 : (large ? 5 : 4)) {
-            Image(systemName: "bitcoinsign.circle.fill")
-                .font(.system(size: iconSize))
-                .foregroundStyle(
-                    LinearGradient(
-                        colors: [.yellow, .orange],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
+        Button {
+            onTap?()
+        } label: {
+            HStack(spacing: compact ? 2 : (large ? 5 : 4)) {
+                Image(systemName: "trophy.fill")
+                    .font(.system(size: iconSize))
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [.yellow, .orange],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
                     )
-                )
 
-            Text("\(coins)")
-                .font(.system(size: textSize, weight: .bold))
-                .foregroundColor(.yellow)
-                .monospacedDigit()
+                Text("\(coins)")
+                    .font(.system(size: textSize, weight: .bold))
+                    .foregroundColor(.yellow)
+                    .monospacedDigit()
+            }
+            .padding(.horizontal, hPadding)
+            .padding(.vertical, vPadding)
+            .background(
+                Capsule()
+                    .fill(Color.black.opacity(0.3))
+            )
         }
-        .padding(.horizontal, hPadding)
-        .padding(.vertical, vPadding)
-        .background(
-            Capsule()
-                .fill(Color.black.opacity(0.3))
-        )
+        .buttonStyle(.plain)
     }
 }
 

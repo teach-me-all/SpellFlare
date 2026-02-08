@@ -52,18 +52,10 @@ struct WatchHomeView: View {
 
                     Spacer()
 
-                    // Achievements button
-                    Button {
+                    // Coins display with trophy - taps navigate to achievements
+                    WatchCoinsDisplayView(coins: syncHelper.profile?.totalCoins ?? 0, compact: isSmallWatch) {
                         appState.navigateToAchievements()
-                    } label: {
-                        Image(systemName: "trophy.fill")
-                            .font(.system(size: isSmallWatch ? 13 : 17))
-                            .foregroundColor(.yellow)
                     }
-                    .buttonStyle(.plain)
-
-                    // Coins display
-                    WatchCoinsDisplayView(coins: syncHelper.profile?.totalCoins ?? 0, compact: isSmallWatch)
                 }
                 .padding(.horizontal, isSmallWatch ? 4 : 8)
                 .padding(.top, isSmallWatch ? 2 : 4)
