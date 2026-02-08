@@ -56,6 +56,10 @@ class GameViewModel: ObservableObject {
     private var pendingLevel: Int = 1
     private var pendingGrade: Int = 1
 
+    // MARK: - Practice Mode
+    @Published var isPracticeMode: Bool = false
+    private var practiceWords: [Word]?
+
     // MARK: - Computed Properties
     var currentWord: Word? {
         session?.currentWord
@@ -119,7 +123,14 @@ class GameViewModel: ObservableObject {
 
     /// Actually starts the test with words
     private func beginActualTest() {
-        let words = wordBank.getWords(grade: pendingGrade, level: pendingLevel, count: 15)
+        let words: [Word]
+        if let practice = practiceWords {
+            // Use practice words if set
+            words = practice
+        } else {
+            // Normal level - get words from word bank
+            words = wordBank.getWords(grade: pendingGrade, level: pendingLevel, count: 15)
+        }
         session = GameSession(level: pendingLevel, grade: pendingGrade, words: words)
 
         // Reset level tracking
@@ -132,6 +143,28 @@ class GameViewModel: ObservableObject {
 
         phase = .presenting
         presentCurrentWord()
+    }
+
+    /// Start a practice session with specific words
+    func startPracticeSession(words: [Word], level: Int, grade: Int) {
+        isPracticeMode = true
+        practiceWords = words
+        pendingLevel = level
+        pendingGrade = grade
+
+        // Skip ads for practice mode
+        beginActualTest()
+    }
+
+    /// Start a daily challenge session
+    func startDailyChallenge(words: [Word], grade: Int) {
+        isPracticeMode = true
+        practiceWords = words
+        pendingLevel = 0  // Use 0 to indicate daily challenge
+        pendingGrade = grade
+
+        // Skip ads for daily challenge
+        beginActualTest()
     }
 
     func presentCurrentWord() {
@@ -370,5 +403,14 @@ class GameViewModel: ObservableObject {
         animatedLetterIndex = 0
         givenUpWord = nil
         hasGivenUp = false
+
+        // Reset practice mode
+        isPracticeMode = false
+        practiceWords = nil
+    }
+
+    /// Get incorrect words from the session for mistake tracking
+    var incorrectWords: [Word] {
+        session?.incorrectWords ?? []
     }
 }

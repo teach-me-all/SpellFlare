@@ -197,6 +197,70 @@ class WatchSyncHelper: NSObject, ObservableObject {
         })
     }
 
+    // MARK: - Share Request
+
+    /// Send a share request to iPhone to present share sheet
+    /// - Parameters:
+    ///   - type: Share type ("level" or "achievement")
+    ///   - level: The level number (for level shares)
+    ///   - grade: The current grade
+    ///   - coinsEarned: Coins earned (for level shares)
+    func sendShareRequest(type: String, level: Int, grade: Int, coinsEarned: Int) {
+        guard let session = session, session.isReachable else {
+            print("iPhone not reachable for share request")
+            return
+        }
+
+        let message: [String: Any] = [
+            "type": "shareRequest",
+            "shareType": type,
+            "level": level,
+            "grade": grade,
+            "coinsEarned": coinsEarned
+        ]
+
+        session.sendMessage(message, replyHandler: nil) { error in
+            print("Failed to send share request: \(error)")
+        }
+    }
+
+    // MARK: - Practice Completion
+
+    /// Called when a practice session (level practice or daily) is completed on Watch
+    func sendPracticeCompleted(isDailyChallenge: Bool = false) {
+        guard let currentProfile = self.profile else { return }
+
+        // Save locally
+        let syncable = SyncableProfile(profile: currentProfile, deviceIdentifier: DeviceIdentifier.current)
+        LocalCacheService.shared.saveSyncableProfile(syncable)
+
+        // Send to iPhone if reachable
+        guard let session = session, session.isReachable else {
+            hasPendingChanges = true
+            print("iPhone not reachable, saved practice locally")
+            return
+        }
+
+        guard let data = try? JSONEncoder().encode(syncable) else { return }
+
+        let messageType = isDailyChallenge ? "dailyPracticeCompleted" : "practiceLevelCompleted"
+        session.sendMessage([
+            "type": messageType,
+            "profile": data
+        ], replyHandler: { [weak self] _ in
+            Task { @MainActor in
+                self?.hasPendingChanges = false
+                self?.lastSyncDate = Date()
+                print("Practice completion synced to iPhone")
+            }
+        }, errorHandler: { [weak self] error in
+            print("Failed to sync practice completion: \(error)")
+            Task { @MainActor in
+                self?.hasPendingChanges = true
+            }
+        })
+    }
+
     // MARK: - Grade Update (Watch → iPhone not supported, view only)
 
     /// Update grade locally (standalone mode only)

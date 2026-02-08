@@ -10,6 +10,7 @@ import WatchKit
 
 struct WatchLevelCompleteView: View {
     @EnvironmentObject var appState: WatchAppState
+    @ObservedObject var syncHelper = WatchSyncHelper.shared
 
     let level: Int
     let score: Int
@@ -17,6 +18,7 @@ struct WatchLevelCompleteView: View {
     let didPass: Bool
 
     @State private var showConfetti = false
+    @State private var showShareAlert = false
 
     var body: some View {
         GeometryReader { geometry in
@@ -105,6 +107,30 @@ struct WatchLevelCompleteView: View {
                     }
                     .buttonStyle(.plain)
 
+                    // Share button (only if passed)
+                    if didPass {
+                        Button {
+                            if syncHelper.isPhoneReachable {
+                                syncHelper.sendShareRequest(
+                                    type: "level",
+                                    level: level,
+                                    grade: syncHelper.profile?.grade ?? 1,
+                                    coinsEarned: coinsEarned
+                                )
+                            } else {
+                                showShareAlert = true
+                            }
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.system(size: buttonIconSize + 2, weight: .semibold))
+                                .foregroundColor(.white)
+                                .frame(width: isSmallWatch ? 32 : 38, height: isSmallWatch ? 32 : 38)
+                                .background(Color.white.opacity(0.2))
+                                .cornerRadius(isSmallWatch ? 8 : 10)
+                        }
+                        .buttonStyle(.plain)
+                    }
+
                     if didPass {
                         // Next Level button (only if passed)
                         Button {
@@ -158,6 +184,11 @@ struct WatchLevelCompleteView: View {
             .ignoresSafeArea()
         )
         .toolbar(.hidden, for: .navigationBar)
+        .alert("Share on iPhone", isPresented: $showShareAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text("Open SpellFlare on your iPhone to share!")
+        }
         .onAppear {
             if didPass {
                 // Play success haptic

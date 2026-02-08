@@ -33,6 +33,12 @@ struct UserProfile: Codable, Equatable, Identifiable {
     var weeklyCheckInDates: [Date] = []
     var weeklyBonusAwarded: Bool = false
 
+    // Mistake practice system
+    var mistakeRecords: [MistakeRecord] = []
+    var levelMistakesByGrade: [Int: [Int: LevelMistakeState]] = [:]  // [grade: [level: state]]
+    var dailyPracticeState: DailyPracticeState = DailyPracticeState()
+    var mistakeMigrationCompleted: Bool = false
+
     init(name: String, grade: Int, id: UUID = UUID(), avatarIcon: String = "🐝") {
         self.id = id
         self.name = name
@@ -49,6 +55,10 @@ struct UserProfile: Codable, Equatable, Identifiable {
         self.lastCheckInDate = nil
         self.weeklyCheckInDates = []
         self.weeklyBonusAwarded = false
+        self.mistakeRecords = []
+        self.levelMistakesByGrade = [:]
+        self.dailyPracticeState = DailyPracticeState()
+        self.mistakeMigrationCompleted = false
         // Initialize all grades with level 1
         for g in 1...7 {
             currentLevelByGrade[g] = 1
@@ -147,6 +157,12 @@ struct UserProfile: Codable, Equatable, Identifiable {
         lastCheckInDate = try? container.decode(Date.self, forKey: .lastCheckInDate)
         weeklyCheckInDates = (try? container.decode([Date].self, forKey: .weeklyCheckInDates)) ?? []
         weeklyBonusAwarded = (try? container.decode(Bool.self, forKey: .weeklyBonusAwarded)) ?? false
+
+        // Migration for mistake practice - use defaults if not present
+        mistakeRecords = (try? container.decode([MistakeRecord].self, forKey: .mistakeRecords)) ?? []
+        levelMistakesByGrade = (try? container.decode([Int: [Int: LevelMistakeState]].self, forKey: .levelMistakesByGrade)) ?? [:]
+        dailyPracticeState = (try? container.decode(DailyPracticeState.self, forKey: .dailyPracticeState)) ?? DailyPracticeState()
+        mistakeMigrationCompleted = (try? container.decode(Bool.self, forKey: .mistakeMigrationCompleted)) ?? false
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -155,6 +171,7 @@ struct UserProfile: Codable, Equatable, Identifiable {
         case achievementState, achievementsMigrationCompleted
         case shopState, shopMigrationCompleted
         case lastCheckInDate, weeklyCheckInDates, weeklyBonusAwarded
+        case mistakeRecords, levelMistakesByGrade, dailyPracticeState, mistakeMigrationCompleted
     }
 
     func encode(to encoder: Encoder) throws {
@@ -174,5 +191,9 @@ struct UserProfile: Codable, Equatable, Identifiable {
         try container.encodeIfPresent(lastCheckInDate, forKey: .lastCheckInDate)
         try container.encode(weeklyCheckInDates, forKey: .weeklyCheckInDates)
         try container.encode(weeklyBonusAwarded, forKey: .weeklyBonusAwarded)
+        try container.encode(mistakeRecords, forKey: .mistakeRecords)
+        try container.encode(levelMistakesByGrade, forKey: .levelMistakesByGrade)
+        try container.encode(dailyPracticeState, forKey: .dailyPracticeState)
+        try container.encode(mistakeMigrationCompleted, forKey: .mistakeMigrationCompleted)
     }
 }

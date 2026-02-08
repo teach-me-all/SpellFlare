@@ -10,6 +10,12 @@ import Foundation
 class CoinsService {
     static let shared = CoinsService()
 
+    // MARK: - Mistake Practice Rewards
+    static let practiceWordCoinReward = 5       // Per correct practice word
+    static let dailyPracticeBaseReward = 25     // Completing daily practice
+    static let weeklyPracticeBonusReward = 50   // 5 days of practice in a week
+    static let masteryBonusReward = 10          // When a word is mastered (3 correct)
+
     private init() {}
 
     // MARK: - Coins Calculation

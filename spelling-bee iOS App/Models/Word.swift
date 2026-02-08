@@ -20,6 +20,7 @@ class GameSession {
     private(set) var currentIndex: Int = 0
     private(set) var correctCount: Int = 0
     private(set) var incorrectCount: Int = 0
+    private(set) var incorrectWords: [Word] = []  // Track words user got wrong
 
     let totalWordsInGame = 10
 
@@ -55,6 +56,9 @@ class GameSession {
     }
 
     func markIncorrect() {
+        if let word = currentWord {
+            incorrectWords.append(word)
+        }
         incorrectCount += 1
         currentIndex += 1
     }

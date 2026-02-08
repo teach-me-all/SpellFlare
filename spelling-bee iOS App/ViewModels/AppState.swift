@@ -15,9 +15,32 @@ enum AppScreen: Equatable {
     case createProfile
     case home
     case game(level: Int)
+    case practiceMode(level: Int, words: [Word])
+    case dailyChallenge(words: [Word])
     case settings
     case achievements
     case shop
+
+    static func == (lhs: AppScreen, rhs: AppScreen) -> Bool {
+        switch (lhs, rhs) {
+        case (.onboarding, .onboarding),
+             (.profilePicker, .profilePicker),
+             (.createProfile, .createProfile),
+             (.home, .home),
+             (.settings, .settings),
+             (.achievements, .achievements),
+             (.shop, .shop):
+            return true
+        case let (.game(l1), .game(l2)):
+            return l1 == l2
+        case let (.practiceMode(l1, w1), .practiceMode(l2, w2)):
+            return l1 == l2 && w1.map(\.text) == w2.map(\.text)
+        case let (.dailyChallenge(w1), .dailyChallenge(w2)):
+            return w1.map(\.text) == w2.map(\.text)
+        default:
+            return false
+        }
+    }
 }
 
 @MainActor
@@ -36,6 +59,9 @@ class AppState: ObservableObject {
 
     /// Pending daily check-in reward to show animation
     @Published var pendingCheckInReward: (baseCoins: Int, bonusCoins: Int)?
+
+    /// Share sheet data for presenting share sheets (from Watch requests)
+    @Published var shareSheetData: ShareSheetData?
 
     private let persistence = PersistenceService.shared
     private let phoneSyncHelper = PhoneSyncHelper.shared
@@ -90,6 +116,41 @@ class AppState: ObservableObject {
                 self?.syncStatus = status
             }
             .store(in: &cancellables)
+
+        // Listen for share requests from Watch
+        NotificationCenter.default.publisher(for: .presentShareSheet)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] notification in
+                self?.handleShareRequest(notification.userInfo)
+            }
+            .store(in: &cancellables)
+    }
+
+    private func handleShareRequest(_ userInfo: [AnyHashable: Any]?) {
+        guard let userInfo = userInfo,
+              let shareType = userInfo["shareType"] as? String else { return }
+
+        var items: [Any] = []
+
+        if shareType == "level" {
+            let level = userInfo["level"] as? Int ?? 1
+            let coinsEarned = userInfo["coinsEarned"] as? Int ?? 0
+
+            let message = ShareService.shared.generateLevelMessage(level: level, coinsEarned: coinsEarned)
+            items.append(message)
+
+            if let image = ShareService.shared.generateLevelImage(level: level, didPass: true) {
+                items.insert(image, at: 0)
+            }
+        }
+
+        if let url = URL(string: ShareService.appStoreURL) {
+            items.append(url)
+        }
+
+        if !items.isEmpty {
+            shareSheetData = ShareSheetData(activityItems: items)
+        }
     }
 
     func loadProfile() {
@@ -303,6 +364,53 @@ class AppState: ObservableObject {
 
     func navigateToShop() {
         currentScreen = .shop
+    }
+
+    func navigateToPracticeMode(level: Int, words: [Word]) {
+        currentScreen = .practiceMode(level: level, words: words)
+    }
+
+    func navigateToDailyChallenge() {
+        guard let profile = profile else { return }
+        let challengeWords = MistakePracticeService.shared.generateDailyChallenge(profile: profile)
+        guard !challengeWords.isEmpty else { return }
+
+        let words = challengeWords.map { Word(text: $0.text, difficulty: $0.difficulty) }
+        currentScreen = .dailyChallenge(words: words)
+    }
+
+    /// Complete a level with mistakes tracking
+    func completeLevelWithMistakes(_ level: Int, coinsEarned: Int, incorrectWords: [Word], score: Int = 0, correctCount: Int = 0, totalWords: Int = 0, firstTryCount: Int = 0) {
+        // Record mistakes first
+        if !incorrectWords.isEmpty, var currentProfile = profile {
+            let grade = currentProfile.grade
+            let incorrectWordData = incorrectWords.map { (text: $0.text, difficulty: $0.difficulty) }
+            MistakePracticeService.shared.recordLevelCompletion(
+                level: level,
+                grade: grade,
+                incorrectWords: incorrectWordData,
+                profile: &currentProfile
+            )
+            profile = currentProfile
+        }
+
+        // Then complete level with coins
+        completeLevelWithCoins(level, coinsEarned: coinsEarned, score: score, correctCount: correctCount, totalWords: totalWords, firstTryCount: firstTryCount)
+    }
+
+    /// Complete daily practice and award coins
+    func completeDailyPractice() {
+        guard var currentProfile = profile else { return }
+
+        let (baseCoins, bonusCoins) = MistakePracticeService.shared.completeDailyPractice(profile: &currentProfile)
+        let totalCoins = baseCoins + bonusCoins
+        CoinsService.shared.awardCoins(totalCoins, to: &currentProfile)
+
+        profile = currentProfile
+        if !uiTestingMode {
+            profileManager.saveProfile(currentProfile)
+            phoneSyncHelper.pushLocalChanges()
+        }
     }
 
     // MARK: - Shop Methods

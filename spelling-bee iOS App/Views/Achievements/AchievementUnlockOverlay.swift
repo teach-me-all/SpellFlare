@@ -18,6 +18,7 @@ struct AchievementUnlockOverlay: View {
     @State private var glowOpacity: Double = 0
     @State private var glowScale: CGFloat = 1.0
     @State private var sparkleRotation: Double = 0
+    @State private var showShareSheet = false
 
     private var definition: AchievementDefinition? {
         AchievementDefinitions.definition(for: achievementID)
@@ -134,6 +135,25 @@ struct AchievementUnlockOverlay: View {
                     // Coin reward
                     FloatingCoinsEarnedView(amount: def.coinReward)
                         .opacity(coinOpacity)
+
+                    // Brag button
+                    Button {
+                        showShareSheet = true
+                    } label: {
+                        HStack(spacing: 6) {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.system(size: 14, weight: .semibold))
+                            Text("Brag to My Friends!")
+                                .font(.system(size: 15, weight: .semibold))
+                        }
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(RarityColors.borderColor(for: rarity))
+                        .cornerRadius(25)
+                    }
+                    .opacity(coinOpacity)
+                    .padding(.top, 8)
                 }
 
                 Spacer()
@@ -152,6 +172,22 @@ struct AchievementUnlockOverlay: View {
                 onDismiss()
             }
         }
+        .sheet(isPresented: $showShareSheet) {
+            ShareSheetView(activityItems: shareItems) {
+                showShareSheet = false
+            }
+        }
+    }
+
+    private var shareItems: [Any] {
+        guard let def = definition else { return [] }
+        let message = ShareService.shared.generateAchievementMessage(title: def.title, rarity: rarity)
+        let url = URL(string: ShareService.appStoreURL)!
+        var items: [Any] = [message, url]
+        if let image = ShareService.shared.generateShareImage(symbolName: def.iconName, rarity: rarity) {
+            items.insert(image, at: 0)
+        }
+        return items
     }
 
     private func animateIn() {

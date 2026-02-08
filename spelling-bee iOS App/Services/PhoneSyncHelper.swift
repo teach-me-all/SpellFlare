@@ -273,6 +273,34 @@ extension PhoneSyncHelper: WCSessionDelegate {
             // Nothing to do here as this is an outgoing message type
             break
 
+        case "shareRequest":
+            // Watch wants to share - post notification for AppState to handle
+            NotificationCenter.default.post(
+                name: .presentShareSheet,
+                object: nil,
+                userInfo: message
+            )
+
+        case "practiceLevelCompleted", "dailyPracticeCompleted":
+            // Watch completed a practice session - update local profile
+            if let profileData = message["profile"] as? Data,
+               let remoteProfile = try? JSONDecoder().decode(SyncableProfile.self, from: profileData) {
+
+                if let local = localCache.loadSyncableProfile() {
+                    let merged = SyncableProfile.merge(local: local, remote: remoteProfile)
+                    localCache.saveSyncableProfile(merged)
+                    print("Practice completion from Watch: \(merged.profile.name)")
+
+                    NotificationCenter.default.post(
+                        name: .profileUpdatedFromWatch,
+                        object: nil,
+                        userInfo: ["profile": merged.profile]
+                    )
+                } else {
+                    localCache.saveSyncableProfile(remoteProfile)
+                }
+            }
+
         default:
             print("Unhandled message type: \(type)")
         }
@@ -282,4 +310,5 @@ extension PhoneSyncHelper: WCSessionDelegate {
 // MARK: - Notification Names
 extension Notification.Name {
     static let profileUpdatedFromWatch = Notification.Name("profileUpdatedFromWatch")
+    static let presentShareSheet = Notification.Name("presentShareSheet")
 }

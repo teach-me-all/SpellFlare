@@ -97,6 +97,17 @@ struct SyncableProfile: Codable, Equatable {
         }
         record["weeklyBonusAwarded"] = profile.weeklyBonusAwarded as CKRecordValue
 
+        // Mistake practice fields (limit size by only syncing essential data)
+        if let mistakeData = try? JSONEncoder().encode(profile.mistakeRecords) {
+            record["mistakeRecords"] = mistakeData as CKRecordValue
+        }
+        if let levelMistakesData = try? JSONEncoder().encode(profile.levelMistakesByGrade) {
+            record["levelMistakesByGrade"] = levelMistakesData as CKRecordValue
+        }
+        if let dailyPracticeData = try? JSONEncoder().encode(profile.dailyPracticeState) {
+            record["dailyPracticeState"] = dailyPracticeData as CKRecordValue
+        }
+
         return record
     }
 
@@ -151,6 +162,17 @@ struct SyncableProfile: Codable, Equatable {
             profile.weeklyCheckInDates = (try? JSONDecoder().decode([Date].self, from: checkInDatesData)) ?? []
         }
         profile.weeklyBonusAwarded = record["weeklyBonusAwarded"] as? Bool ?? false
+
+        // Decode mistake practice fields
+        if let mistakeData = record["mistakeRecords"] as? Data {
+            profile.mistakeRecords = (try? JSONDecoder().decode([MistakeRecord].self, from: mistakeData)) ?? []
+        }
+        if let levelMistakesData = record["levelMistakesByGrade"] as? Data {
+            profile.levelMistakesByGrade = (try? JSONDecoder().decode([Int: [Int: LevelMistakeState]].self, from: levelMistakesData)) ?? [:]
+        }
+        if let dailyPracticeData = record["dailyPracticeState"] as? Data {
+            profile.dailyPracticeState = (try? JSONDecoder().decode(DailyPracticeState.self, from: dailyPracticeData)) ?? DailyPracticeState()
+        }
 
         // Ensure all grades are initialized
         for g in 1...7 {

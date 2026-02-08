@@ -102,6 +102,17 @@
 		B1902EA5F373D9F45F130164 /* ProfileMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B75DB0608C4971055B9309E /* ProfileMetadata.swift */; };
 		3320B0CE24DF58FE6DF3AFD8 /* ProfileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901FCE5D735D513CE6891AF2 /* ProfileStore.swift */; };
 		861DA7D4B8258DCB8A98E86D /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED89629AF08C3EC51374075D /* ProfileManager.swift */; };
+		SHARE001A2EFD8001009167B7 /* ShareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = SHARE001B2EFD8001009167B7 /* ShareService.swift */; };
+		SHARE002A2EFD8002009167B7 /* ShareSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = SHARE002B2EFD8002009167B7 /* ShareSheetView.swift */; };
+		MIST001A2EFD9001009167B7 /* MistakeRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = MIST001B2EFD9001009167B7 /* MistakeRecord.swift */; };
+		MIST001C2EFD9001009167B7 /* MistakeRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = MIST001B2EFD9001009167B7 /* MistakeRecord.swift */; };
+		MIST002A2EFD9002009167B7 /* MistakePracticeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = MIST002B2EFD9002009167B7 /* MistakePracticeService.swift */; };
+		MIST002C2EFD9002009167B7 /* MistakePracticeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = MIST002B2EFD9002009167B7 /* MistakePracticeService.swift */; };
+		MIST003A2EFD9003009167B7 /* LevelMistakeOptionsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = MIST003B2EFD9003009167B7 /* LevelMistakeOptionsSheet.swift */; };
+		MIST004A2EFD9004009167B7 /* CompletedLevelOptionsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = MIST004B2EFD9004009167B7 /* CompletedLevelOptionsSheet.swift */; };
+		MIST005A2EFD9005009167B7 /* DailyPracticeChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = MIST005B2EFD9005009167B7 /* DailyPracticeChallengeView.swift */; };
+		MIST006A2EFD9006009167B7 /* DailyChallengeGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = MIST006B2EFD9006009167B7 /* DailyChallengeGameView.swift */; };
+		MIST007A2EFD9007009167B7 /* PracticeModeGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = MIST007B2EFD9007009167B7 /* PracticeModeGameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -249,6 +260,15 @@
 		AVTR001B2EFD7001009167B7 /* AvatarPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarPickerView.swift; sourceTree = "<group>"; };
 		DCHK001B2EFD7002009167B7 /* DailyCheckInService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheckInService.swift; sourceTree = "<group>"; };
 		DCHK002B2EFD7003009167B7 /* DailyCheckInCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyCheckInCardView.swift; sourceTree = "<group>"; };
+		SHARE001B2EFD8001009167B7 /* ShareService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareService.swift; sourceTree = "<group>"; };
+		SHARE002B2EFD8002009167B7 /* ShareSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheetView.swift; sourceTree = "<group>"; };
+		MIST001B2EFD9001009167B7 /* MistakeRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakeRecord.swift; sourceTree = "<group>"; };
+		MIST002B2EFD9002009167B7 /* MistakePracticeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MistakePracticeService.swift; sourceTree = "<group>"; };
+		MIST003B2EFD9003009167B7 /* LevelMistakeOptionsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelMistakeOptionsSheet.swift; sourceTree = "<group>"; };
+		MIST004B2EFD9004009167B7 /* CompletedLevelOptionsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedLevelOptionsSheet.swift; sourceTree = "<group>"; };
+		MIST005B2EFD9005009167B7 /* DailyPracticeChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPracticeChallengeView.swift; sourceTree = "<group>"; };
+		MIST006B2EFD9006009167B7 /* DailyChallengeGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChallengeGameView.swift; sourceTree = "<group>"; };
+		MIST007B2EFD9007009167B7 /* PracticeModeGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModeGameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,6 +380,7 @@
 				53B2CC122EFA6002009167B7 /* UserProfile.swift */,
 				53B2CC132EFA6003009167B7 /* Word.swift */,
 				53B2CC132EFA6003009167B8 /* WordSentence.swift */,
+				MIST001B2EFD9001009167B7 /* MistakeRecord.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -375,6 +396,7 @@
 				53B2CD022EFB0002009167B7 /* AdManager.swift */,
 				53B2CF072EFD0007009167B7 /* PhoneSyncHelper.swift */,
 				APPUPD001B2EFD2001009167B7 /* AppUpdateService.swift */,
+				MIST002B2EFD9002009167B7 /* MistakePracticeService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -398,6 +420,7 @@
 				ACH008B2EFD4008009167B7 /* Achievements */,
 				SHOP009B2EFD5009009167B7 /* Shop */,
 				4E574843BAB40CD3E85E4CE3 /* Profile */,
+				MIST010B2EFD9010009167B7 /* DailyChallenge */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -410,12 +433,22 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		MIST010B2EFD9010009167B7 /* DailyChallenge */ = {
+			isa = PBXGroup;
+			children = (
+				MIST005B2EFD9005009167B7 /* DailyPracticeChallengeView.swift */,
+				MIST006B2EFD9006009167B7 /* DailyChallengeGameView.swift */,
+			);
+			path = DailyChallenge;
+			sourceTree = "<group>";
+		};
 		53B2CC262EFA6016009167B7 /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				53B2CC1A2EFA600A009167B7 /* HomeView.swift */,
 				53B2CC1B2EFA600B009167B7 /* SettingsView.swift */,
 				DCHK002B2EFD7003009167B7 /* DailyCheckInCardView.swift */,
+				MIST004B2EFD9004009167B7 /* CompletedLevelOptionsSheet.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -426,6 +459,8 @@
 				53B2CC1C2EFA600C009167B7 /* GameView.swift */,
 				53B2CC1D2EFA600D009167B7 /* FeedbackView.swift */,
 				53B2CC1E2EFA600E009167B7 /* LevelCompleteView.swift */,
+				MIST003B2EFD9003009167B7 /* LevelMistakeOptionsSheet.swift */,
+				MIST007B2EFD9007009167B7 /* PracticeModeGameView.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -439,6 +474,7 @@
 				KBRD001B2EFD6001009167B7 /* SpellingKeyboardView.swift */,
 				KBRD002B2EFD6002009167B7 /* SpellingKeyboardTextField.swift */,
 				AVTR001B2EFD7001009167B7 /* AvatarPickerView.swift */,
+				SHARE002B2EFD8002009167B7 /* ShareSheetView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -496,6 +532,7 @@
 				SHOP003B2EFD5003009167B7 /* ShopService.swift */,
 				SHOP004B2EFD5004009167B7 /* ThemeService.swift */,
 				DCHK001B2EFD7002009167B7 /* DailyCheckInService.swift */,
+				SHARE001B2EFD8001009167B7 /* ShareService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -892,6 +929,15 @@
 				AVTR001A2EFD7001009167B7 /* AvatarPickerView.swift in Sources */,
 				DCHK001A2EFD7002009167B7 /* DailyCheckInService.swift in Sources */,
 				DCHK002A2EFD7003009167B7 /* DailyCheckInCardView.swift in Sources */,
+				SHARE001A2EFD8001009167B7 /* ShareService.swift in Sources */,
+				SHARE002A2EFD8002009167B7 /* ShareSheetView.swift in Sources */,
+				MIST001A2EFD9001009167B7 /* MistakeRecord.swift in Sources */,
+				MIST002A2EFD9002009167B7 /* MistakePracticeService.swift in Sources */,
+				MIST003A2EFD9003009167B7 /* LevelMistakeOptionsSheet.swift in Sources */,
+				MIST004A2EFD9004009167B7 /* CompletedLevelOptionsSheet.swift in Sources */,
+				MIST005A2EFD9005009167B7 /* DailyPracticeChallengeView.swift in Sources */,
+				MIST006A2EFD9006009167B7 /* DailyChallengeGameView.swift in Sources */,
+				MIST007A2EFD9007009167B7 /* PracticeModeGameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -947,6 +993,8 @@
 				3320B0CE24DF58FE6DF3AFD8 /* ProfileStore.swift in Sources */,
 				861DA7D4B8258DCB8A98E86D /* ProfileManager.swift in Sources */,
 				DCHK001C2EFD7002009167B7 /* DailyCheckInService.swift in Sources */,
+				MIST001C2EFD9001009167B7 /* MistakeRecord.swift in Sources */,
+				MIST002C2EFD9002009167B7 /* MistakePracticeService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,6 +25,12 @@ struct ContentView: View {
                 case .game(let level):
                     GameView(level: level)
                         .id(level) // Force view recreation when level changes
+                case .practiceMode(let level, let words):
+                    PracticeModeGameView(level: level, words: words)
+                        .id("practice-\(level)-\(words.count)")
+                case .dailyChallenge(let words):
+                    DailyChallengeGameView(words: words)
+                        .id("daily-\(words.count)")
                 case .settings:
                     SettingsView()
                 case .achievements:
@@ -42,6 +48,11 @@ struct ContentView: View {
                 }
                 .transition(.opacity)
                 .zIndex(100)
+            }
+        }
+        .sheet(item: $appState.shareSheetData) { data in
+            ShareSheetView(activityItems: data.activityItems) {
+                appState.shareSheetData = nil
             }
         }
     }

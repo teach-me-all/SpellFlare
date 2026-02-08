@@ -22,6 +22,12 @@ struct LevelCompleteView: View {
     @State private var buttonsOpacity: Double = 0
     @State private var showAd = false
     @State private var pendingAction: (() -> Void)?
+    @State private var showShareSheet = false
+    @State private var showMistakeOptionsSheet = false
+
+    private var hasMistakes: Bool {
+        !viewModel.incorrectWords.isEmpty && viewModel.didPassLevel && !viewModel.isPracticeMode
+    }
 
     var body: some View {
         ZStack {
@@ -114,6 +120,20 @@ struct LevelCompleteView: View {
                         .cornerRadius(12)
                     }
 
+                    // Share button (only if passed)
+                    if viewModel.didPassLevel {
+                        Button {
+                            showShareSheet = true
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.white)
+                                .frame(width: 50, height: 50)
+                                .background(Color.white.opacity(0.2))
+                                .cornerRadius(12)
+                        }
+                    }
+
                     if viewModel.didPassLevel {
                         // Next level button (only if passed and not last level)
                         if level < 50 {
@@ -166,6 +186,13 @@ struct LevelCompleteView: View {
             animateResult()
             // Notify ad manager that test was completed
             adManager.onTestCompleted()
+
+            // Show mistake options sheet after a delay if there are mistakes
+            if hasMistakes {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    showMistakeOptionsSheet = true
+                }
+            }
         }
         .fullScreenCover(isPresented: $showAd) {
             PostTestAdView(onDismiss: {
@@ -177,6 +204,64 @@ struct LevelCompleteView: View {
                 }
             })
         }
+        .sheet(isPresented: $showShareSheet) {
+            ShareSheetView(activityItems: shareItems) {
+                showShareSheet = false
+            }
+        }
+        .sheet(isPresented: $showMistakeOptionsSheet) {
+            LevelMistakeOptionsSheet(
+                level: level,
+                incorrectWords: viewModel.incorrectWords,
+                onRedoFullLevel: {
+                    handleNavigation {
+                        // Record mistakes before redo
+                        recordMistakesIfNeeded()
+                        appState.navigateToGame(level: level)
+                    }
+                },
+                onPracticeTrickyWords: {
+                    handleNavigation {
+                        // Record mistakes and start practice mode
+                        recordMistakesIfNeeded()
+                        appState.navigateToPracticeMode(level: level, words: viewModel.incorrectWords)
+                    }
+                },
+                onContinue: {
+                    handleNavigation {
+                        // Record mistakes and continue
+                        recordMistakesIfNeeded()
+                        appState.completeLevelWithCoins(level, coinsEarned: viewModel.coinsEarned, correctCount: viewModel.correctCount, totalWords: viewModel.session?.totalWordsInGame ?? 0, firstTryCount: viewModel.firstTryCount)
+                        appState.navigateToHome()
+                    }
+                }
+            )
+            .presentationDetents([.medium])
+        }
+    }
+
+    private func recordMistakesIfNeeded() {
+        guard !viewModel.incorrectWords.isEmpty, var profile = appState.profile else { return }
+        let grade = profile.grade
+        let incorrectWordData = viewModel.incorrectWords.map { (text: $0.text, difficulty: $0.difficulty) }
+        MistakePracticeService.shared.recordLevelCompletion(
+            level: level,
+            grade: grade,
+            incorrectWords: incorrectWordData,
+            profile: &profile
+        )
+        appState.profile = profile
+        appState.profileManager.saveProfile(profile)
+    }
+
+    private var shareItems: [Any] {
+        let message = ShareService.shared.generateLevelMessage(level: level, coinsEarned: viewModel.coinsEarned)
+        let url = URL(string: ShareService.appStoreURL)!
+        var items: [Any] = [message, url]
+        if let image = ShareService.shared.generateLevelImage(level: level, didPass: viewModel.didPassLevel) {
+            items.insert(image, at: 0)
+        }
+        return items
     }
 
     private func handleNavigation(action: @escaping () -> Void) {

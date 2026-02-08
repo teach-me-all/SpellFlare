@@ -9,35 +9,41 @@ import SwiftUI
 
 struct CoinsDisplayView: View {
     let coins: Int
+    var onTap: (() -> Void)? = nil
     @State private var displayedCoins: Int = 0
     @State private var isAnimating = false
 
     var body: some View {
-        HStack(spacing: 6) {
-            // Coin icon with subtle bounce on change
-            Image(systemName: "bitcoinsign.circle.fill")
-                .font(.system(size: 20))
-                .foregroundStyle(
-                    LinearGradient(
-                        colors: [.yellow, .orange],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
+        Button {
+            onTap?()
+        } label: {
+            HStack(spacing: 6) {
+                // Trophy icon with subtle bounce on change
+                Image(systemName: "trophy.fill")
+                    .font(.system(size: 20))
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [.yellow, .orange],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
                     )
-                )
-                .scaleEffect(isAnimating ? 1.15 : 1.0)
+                    .scaleEffect(isAnimating ? 1.15 : 1.0)
 
-            // Coin count with count-up animation
-            Text("\(displayedCoins)")
-                .font(.system(size: 16, weight: .bold))
-                .foregroundColor(.white)
-                .monospacedDigit()
+                // Coin count with count-up animation
+                Text("\(displayedCoins)")
+                    .font(.system(size: 16, weight: .bold))
+                    .foregroundColor(.white)
+                    .monospacedDigit()
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(
+                Capsule()
+                    .fill(Color.white.opacity(0.2))
+            )
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(
-            Capsule()
-                .fill(Color.white.opacity(0.2))
-        )
+        .buttonStyle(.plain)
         .onAppear {
             displayedCoins = coins
         }

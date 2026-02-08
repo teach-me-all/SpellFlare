@@ -174,6 +174,7 @@ struct AchievementDetailSheet: View {
     let progress: AchievementProgress?
     let profile: UserProfile?
     @Environment(\.dismiss) var dismiss
+    @State private var showShareSheet = false
 
     var body: some View {
         VStack(spacing: 20) {
@@ -268,10 +269,45 @@ struct AchievementDetailSheet: View {
 
             Spacer()
 
+            // Challenge Friends button (only for unlocked achievements)
+            if isUnlocked {
+                Button {
+                    showShareSheet = true
+                } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: "square.and.arrow.up")
+                            .font(.system(size: 14, weight: .semibold))
+                        Text("Challenge Friends")
+                            .font(.system(size: 15, weight: .semibold))
+                    }
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+                    .background(RarityColors.borderColor(for: definition.rarity))
+                    .cornerRadius(10)
+                }
+                .padding(.horizontal, 40)
+            }
+
             Button("Done") { dismiss() }
                 .buttonStyle(.bordered)
                 .padding(.bottom, 20)
         }
+        .sheet(isPresented: $showShareSheet) {
+            ShareSheetView(activityItems: shareItems) {
+                showShareSheet = false
+            }
+        }
+    }
+
+    private var shareItems: [Any] {
+        let message = ShareService.shared.generateAchievementMessage(title: definition.title, rarity: definition.rarity)
+        let url = URL(string: ShareService.appStoreURL)!
+        var items: [Any] = [message, url]
+        if let image = ShareService.shared.generateShareImage(symbolName: definition.iconName, rarity: definition.rarity) {
+            items.insert(image, at: 0)
+        }
+        return items
     }
 
     private var isUnlocked: Bool {

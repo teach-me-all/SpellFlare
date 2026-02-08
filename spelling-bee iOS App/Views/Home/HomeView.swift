@@ -91,6 +91,12 @@ struct HomeView: View {
                 // Levels List
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
+                        // Daily Practice Challenge Card
+                        if let profile = profile {
+                            DailyPracticeChallengeView(profile: profile)
+                                .padding(.top, 12)
+                        }
+
                         HStack {
                             Text("Levels")
                                 .font(.title2)
@@ -259,31 +265,10 @@ struct TopHeaderView: View {
 
                 Spacer()
 
-                // Achievements button (matches coins capsule style)
-                Button {
+                // Coins display with trophy icon - taps navigate to achievements
+                CoinsDisplayView(coins: profile?.totalCoins ?? 0) {
                     appState.navigateToAchievements()
-                } label: {
-                    HStack(spacing: 6) {
-                        Image(systemName: "trophy.fill")
-                            .font(.system(size: 20))
-                            .foregroundStyle(
-                                LinearGradient(
-                                    colors: [.yellow, .orange],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 8)
-                    .background(
-                        Capsule()
-                            .fill(Color.white.opacity(0.2))
-                    )
                 }
-
-                // Coins display
-                CoinsDisplayView(coins: profile?.totalCoins ?? 0)
             }
             .padding(.horizontal, 20)
         }
@@ -509,6 +494,8 @@ struct LevelRow: View {
     let level: Int
     let currentLevel: Int
 
+    @State private var showOptionsSheet = false
+
     var isCompleted: Bool {
         appState.profile?.isLevelCompleted(level) ?? false
     }
@@ -523,6 +510,15 @@ struct LevelRow: View {
 
     var isLastInGroup: Bool {
         level % 10 == 0
+    }
+
+    var mistakeCount: Int {
+        guard let profile = appState.profile else { return 0 }
+        return MistakePracticeService.shared.mistakeCountForLevel(level: level, grade: profile.grade, profile: profile)
+    }
+
+    var hasMistakes: Bool {
+        mistakeCount > 0
     }
 
     var body: some View {
@@ -557,14 +553,28 @@ struct LevelRow: View {
             // Level Card
             Button {
                 if isUnlocked {
-                    appState.navigateToGame(level: level)
+                    if isCompleted && hasMistakes {
+                        // Show options sheet for completed levels with mistakes
+                        showOptionsSheet = true
+                    } else {
+                        appState.navigateToGame(level: level)
+                    }
                 }
             } label: {
                 HStack {
                     VStack(alignment: .leading, spacing: 6) {
-                        Text(levelTitle)
-                            .font(.headline)
-                            .foregroundColor(cardTextColor)
+                        HStack(spacing: 6) {
+                            Text(levelTitle)
+                                .font(.headline)
+                                .foregroundColor(cardTextColor)
+
+                            // Mistake indicator dot
+                            if isCompleted && hasMistakes {
+                                Circle()
+                                    .fill(Color.orange)
+                                    .frame(width: 8, height: 8)
+                            }
+                        }
 
                         Text(levelSubtitle)
                             .font(.caption)
@@ -579,6 +589,17 @@ struct LevelRow: View {
                                     .font(.system(size: 11))
                             }
                             .foregroundColor(cardTextColor.opacity(0.7))
+
+                            // Mistake count indicator
+                            if isCompleted && hasMistakes {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "target")
+                                        .font(.system(size: 10))
+                                    Text("\(mistakeCount) to practice")
+                                        .font(.system(size: 11))
+                                }
+                                .foregroundColor(.orange)
+                            }
                         }
                     }
 
@@ -607,6 +628,22 @@ struct LevelRow: View {
             .disabled(!isUnlocked)
         }
         .padding(.horizontal, 20)
+        .sheet(isPresented: $showOptionsSheet) {
+            CompletedLevelOptionsSheet(
+                level: level,
+                mistakeCount: mistakeCount,
+                onPlayFullLevel: {
+                    appState.navigateToGame(level: level)
+                },
+                onPracticeMistakes: {
+                    guard let profile = appState.profile else { return }
+                    let words = MistakePracticeService.shared.getMistakeWordsForLevel(level: level, grade: profile.grade, profile: profile)
+                    let wordObjects = words.map { Word(text: $0.text, difficulty: $0.difficulty) }
+                    appState.navigateToPracticeMode(level: level, words: wordObjects)
+                }
+            )
+            .presentationDetents([.medium])
+        }
     }
 
     var levelTitle: String {
