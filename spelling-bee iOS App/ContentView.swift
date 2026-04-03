@@ -37,6 +37,14 @@ struct ContentView: View {
                     AchievementsView()
                 case .shop:
                     ShopView()
+                case .friends:
+                    FriendsView()
+                case .competitions:
+                    CompetitionListView()
+                case .competitionLeaderboard(let id):
+                    CompetitionLeaderboardView(competitionId: id)
+                case .createCompetition:
+                    CreateCompetitionView()
                 }
             }
             .animation(.easeInOut(duration: 0.3), value: appState.currentScreen)

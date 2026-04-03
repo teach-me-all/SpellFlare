@@ -271,6 +271,15 @@ struct TopHeaderView: View {
                 }
             }
             .padding(.horizontal, 20)
+
+            // Active competition banner (shown when user is in a competition)
+            if CompetitionService.shared.isInCompetition {
+                ActiveCompetitionBanner()
+                    .padding(.horizontal, 20)
+                    .onTapGesture {
+                        appState.navigateToCompetitions()
+                    }
+            }
         }
         .padding(.vertical, 16)
     }

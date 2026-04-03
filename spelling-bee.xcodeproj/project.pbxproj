@@ -114,6 +114,23 @@
 		MIST005A2EFD9005009167B7 /* DailyPracticeChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = MIST005B2EFD9005009167B7 /* DailyPracticeChallengeView.swift */; };
 		MIST006A2EFD9006009167B7 /* DailyChallengeGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = MIST006B2EFD9006009167B7 /* DailyChallengeGameView.swift */; };
 		MIST007A2EFD9007009167B7 /* PracticeModeGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = MIST007B2EFD9007009167B7 /* PracticeModeGameView.swift */; };
+		FBCFG001A2EFD0001009167B7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBCFG001B2EFD0001009167B7 /* GoogleService-Info.plist */; };
+		FBSOC001A2EFD0001009167B7 /* SocialModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC001B2EFD0001009167B7 /* SocialModels.swift */; };
+		FBANLYA2EFD0016009167B7 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBANLYTB2EFD0016009167B7 /* AnalyticsManager.swift */; };
+		FBSOC002A2EFD0002009167B7 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC002B2EFD0002009167B7 /* FirebaseManager.swift */; };
+		FBSOC003A2EFD0003009167B7 /* CompetitionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC003B2EFD0003009167B7 /* CompetitionService.swift */; };
+		FBSOC004A2EFD0004009167B7 /* LeaderboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC004B2EFD0004009167B7 /* LeaderboardService.swift */; };
+		FBSOC005A2EFD0005009167B7 /* FriendsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC005B2EFD0005009167B7 /* FriendsService.swift */; };
+		FBSOC006A2EFD0006009167B7 /* CompetitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC006B2EFD0006009167B7 /* CompetitionViewModel.swift */; };
+		FBSOC007A2EFD0007009167B7 /* LeaderboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC007B2EFD0007009167B7 /* LeaderboardViewModel.swift */; };
+		FBSOC008A2EFD0008009167B7 /* FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC008B2EFD0008009167B7 /* FriendsViewModel.swift */; };
+		FBSOC009A2EFD0009009167B7 /* SocialOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC009B2EFD0009009167B7 /* SocialOnboardingView.swift */; };
+		FBSOC010A2EFD0010009167B7 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC010B2EFD0010009167B7 /* FriendsView.swift */; };
+		FBSOC011A2EFD0011009167B7 /* CompetitionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC011B2EFD0011009167B7 /* CompetitionListView.swift */; };
+		FBSOC012A2EFD0012009167B7 /* CreateCompetitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC012B2EFD0012009167B7 /* CreateCompetitionView.swift */; };
+		FBSOC013A2EFD0013009167B7 /* CompetitionLeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC013B2EFD0013009167B7 /* CompetitionLeaderboardView.swift */; };
+		FBSOC014A2EFD0014009167B7 /* ActiveCompetitionBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC014B2EFD0014009167B7 /* ActiveCompetitionBanner.swift */; };
+		FBSOC015A2EFD0015009167B7 /* RewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC015B2EFD0015009167B7 /* RewardsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -271,6 +288,23 @@
 		MIST005B2EFD9005009167B7 /* DailyPracticeChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyPracticeChallengeView.swift; sourceTree = "<group>"; };
 		MIST006B2EFD9006009167B7 /* DailyChallengeGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChallengeGameView.swift; sourceTree = "<group>"; };
 		MIST007B2EFD9007009167B7 /* PracticeModeGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeModeGameView.swift; sourceTree = "<group>"; };
+		FBCFG001B2EFD0001009167B7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FBSOC001B2EFD0001009167B7 /* SocialModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialModels.swift; sourceTree = "<group>"; };
+		FBANLYTB2EFD0016009167B7 /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
+		FBSOC002B2EFD0002009167B7 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		FBSOC003B2EFD0003009167B7 /* CompetitionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitionService.swift; sourceTree = "<group>"; };
+		FBSOC004B2EFD0004009167B7 /* LeaderboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardService.swift; sourceTree = "<group>"; };
+		FBSOC005B2EFD0005009167B7 /* FriendsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsService.swift; sourceTree = "<group>"; };
+		FBSOC006B2EFD0006009167B7 /* CompetitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitionViewModel.swift; sourceTree = "<group>"; };
+		FBSOC007B2EFD0007009167B7 /* LeaderboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewModel.swift; sourceTree = "<group>"; };
+		FBSOC008B2EFD0008009167B7 /* FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewModel.swift; sourceTree = "<group>"; };
+		FBSOC009B2EFD0009009167B7 /* SocialOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialOnboardingView.swift; sourceTree = "<group>"; };
+		FBSOC010B2EFD0010009167B7 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
+		FBSOC011B2EFD0011009167B7 /* CompetitionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitionListView.swift; sourceTree = "<group>"; };
+		FBSOC012B2EFD0012009167B7 /* CreateCompetitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCompetitionView.swift; sourceTree = "<group>"; };
+		FBSOC013B2EFD0013009167B7 /* CompetitionLeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitionLeaderboardView.swift; sourceTree = "<group>"; };
+		FBSOC014B2EFD0014009167B7 /* ActiveCompetitionBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCompetitionBanner.swift; sourceTree = "<group>"; };
+		FBSOC015B2EFD0015009167B7 /* RewardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,7 +399,8 @@
 			isa = PBXGroup;
 			children = (
 				3AB71FBE2F1CB265002D6986 /* spelling-bee iOS App.entitlements */,
-				53B2CC102EFA6000009167B7 /* spelling_bee_iOS_App.swift */,
+				FBCFG001B2EFD0001009167B7 /* GoogleService-Info.plist */,
+			53B2CC102EFA6000009167B7 /* spelling_bee_iOS_App.swift */,
 				53B2CC112EFA6001009167B7 /* ContentView.swift */,
 				53B2CC212EFA6011009167B7 /* Models */,
 				53B2CC222EFA6012009167B7 /* Services */,
@@ -384,6 +419,7 @@
 				53B2CC132EFA6003009167B7 /* Word.swift */,
 				53B2CC132EFA6003009167B8 /* WordSentence.swift */,
 				MIST001B2EFD9001009167B7 /* MistakeRecord.swift */,
+				FBSOC001B2EFD0001009167B7 /* SocialModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -400,6 +436,11 @@
 				53B2CF072EFD0007009167B7 /* PhoneSyncHelper.swift */,
 				APPUPD001B2EFD2001009167B7 /* AppUpdateService.swift */,
 				MIST002B2EFD9002009167B7 /* MistakePracticeService.swift */,
+				FBSOC002B2EFD0002009167B7 /* FirebaseManager.swift */,
+				FBSOC003B2EFD0003009167B7 /* CompetitionService.swift */,
+				FBSOC004B2EFD0004009167B7 /* LeaderboardService.swift */,
+				FBSOC005B2EFD0005009167B7 /* FriendsService.swift */,
+				FBANLYTB2EFD0016009167B7 /* AnalyticsManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -409,6 +450,9 @@
 			children = (
 				53B2CC172EFA6007009167B7 /* AppState.swift */,
 				53B2CC182EFA6008009167B7 /* GameViewModel.swift */,
+				FBSOC006B2EFD0006009167B7 /* CompetitionViewModel.swift */,
+				FBSOC007B2EFD0007009167B7 /* LeaderboardViewModel.swift */,
+				FBSOC008B2EFD0008009167B7 /* FriendsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -424,6 +468,7 @@
 				SHOP009B2EFD5009009167B7 /* Shop */,
 				4E574843BAB40CD3E85E4CE3 /* Profile */,
 				MIST010B2EFD9010009167B7 /* DailyChallenge */,
+				FBSOC016B2EFD0016009167B7 /* Social */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -627,6 +672,20 @@
 			path = Shop;
 			sourceTree = "<group>";
 		};
+		FBSOC016B2EFD0016009167B7 /* Social */ = {
+			isa = PBXGroup;
+			children = (
+				FBSOC009B2EFD0009009167B7 /* SocialOnboardingView.swift */,
+				FBSOC010B2EFD0010009167B7 /* FriendsView.swift */,
+				FBSOC011B2EFD0011009167B7 /* CompetitionListView.swift */,
+				FBSOC012B2EFD0012009167B7 /* CreateCompetitionView.swift */,
+				FBSOC013B2EFD0013009167B7 /* CompetitionLeaderboardView.swift */,
+				FBSOC014B2EFD0014009167B7 /* ActiveCompetitionBanner.swift */,
+				FBSOC015B2EFD0015009167B7 /* RewardsView.swift */,
+			);
+			path = Social;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -784,6 +843,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBCFG001A2EFD0001009167B7 /* GoogleService-Info.plist in Resources */,
 				53B2CC602EFA7000009167B7 /* Assets.xcassets in Resources */,
 				B66F95FC3EAC45E1BFA1E7E4 /* Audio in Resources */,
 			);
@@ -941,6 +1001,22 @@
 				MIST005A2EFD9005009167B7 /* DailyPracticeChallengeView.swift in Sources */,
 				MIST006A2EFD9006009167B7 /* DailyChallengeGameView.swift in Sources */,
 				MIST007A2EFD9007009167B7 /* PracticeModeGameView.swift in Sources */,
+					FBSOC001A2EFD0001009167B7 /* SocialModels.swift in Sources */,
+					FBSOC002A2EFD0002009167B7 /* FirebaseManager.swift in Sources */,
+					FBSOC003A2EFD0003009167B7 /* CompetitionService.swift in Sources */,
+					FBSOC004A2EFD0004009167B7 /* LeaderboardService.swift in Sources */,
+					FBSOC005A2EFD0005009167B7 /* FriendsService.swift in Sources */,
+					FBSOC006A2EFD0006009167B7 /* CompetitionViewModel.swift in Sources */,
+					FBSOC007A2EFD0007009167B7 /* LeaderboardViewModel.swift in Sources */,
+					FBSOC008A2EFD0008009167B7 /* FriendsViewModel.swift in Sources */,
+					FBSOC009A2EFD0009009167B7 /* SocialOnboardingView.swift in Sources */,
+					FBSOC010A2EFD0010009167B7 /* FriendsView.swift in Sources */,
+					FBSOC011A2EFD0011009167B7 /* CompetitionListView.swift in Sources */,
+					FBSOC012A2EFD0012009167B7 /* CreateCompetitionView.swift in Sources */,
+					FBSOC013A2EFD0013009167B7 /* CompetitionLeaderboardView.swift in Sources */,
+					FBSOC014A2EFD0014009167B7 /* ActiveCompetitionBanner.swift in Sources */,
+					FBSOC015A2EFD0015009167B7 /* RewardsView.swift in Sources */,
+					FBANLYA2EFD0016009167B7 /* AnalyticsManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1154,7 +1230,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F5D5362ZUD;
 				INFOPLIST_KEY_CFBundleDisplayName = SpellFlare;
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.raves.spelling-bee";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1169,7 +1245,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F5D5362ZUD;
 				INFOPLIST_KEY_CFBundleDisplayName = SpellFlare;
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.raves.spelling-bee";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1204,7 +1280,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.raves.spelling-bee-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1241,7 +1317,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.raves.spelling-bee-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1262,7 +1338,7 @@
 				DEVELOPMENT_TEAM = F5D5362ZUD;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.raves.spelling-bee-iOS-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1282,7 +1358,7 @@
 				DEVELOPMENT_TEAM = F5D5362ZUD;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.raves.spelling-bee-iOS-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1301,7 +1377,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.raves.spelling-bee-iOS-AppUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1319,7 +1395,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.raves.spelling-bee-iOS-AppUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1350,7 +1426,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.raves.spelling-bee-ios.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1382,7 +1458,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.raves.spelling-bee-ios.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;

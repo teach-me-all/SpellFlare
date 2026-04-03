@@ -96,6 +96,13 @@ class WatchGameViewModel: ObservableObject {
     private let audioService = WatchAudioService.shared
     private let wordBank = WatchWordBankService.shared
 
+    // MARK: - Analytics
+    private var sessionStartDate: Date?
+
+    var sessionDurationSeconds: Int {
+        sessionStartDate.map { Int(Date().timeIntervalSince($0)) } ?? 0
+    }
+
     // MARK: - Computed Properties
     var currentWord: WatchWord? {
         session?.currentWord
@@ -139,6 +146,7 @@ class WatchGameViewModel: ObservableObject {
         // Reset tracking
         levelWrongAttempts = 0
         firstTryCount = 0
+        sessionStartDate = Date()
 
         phase = .presenting
         presentCurrentWord()

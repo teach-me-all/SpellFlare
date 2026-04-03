@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GoogleMobileAds
+import FirebaseCore
 
 // MARK: - UI Testing Configuration
 struct UITestingConfig {
@@ -59,6 +60,9 @@ struct spelling_bee_iOS_App: App {
             _appState = StateObject(wrappedValue: AppState())
         }
 
+        // Configure Firebase (must be before any Firebase usage)
+        FirebaseApp.configure()
+
         // CRITICAL: Initialize Google Mobile Ads SDK at app launch
         // This must happen before any ad requests
         Task { @MainActor in
@@ -80,7 +84,20 @@ struct spelling_bee_iOS_App: App {
                 .onChange(of: scenePhase) { newPhase in
                     if newPhase == .active {
                         appState.onAppBecameActive()
+                    } else if newPhase == .background {
+                        // Flush any buffered competition coins before backgrounding
+                        Task { await CompetitionService.shared.flushPendingCoins() }
                     }
+                }
+                .onOpenURL { url in
+                    // Handle spellflare://join?code=XXXXXX deep links for competition invites
+                    guard url.scheme == "spellflare",
+                          url.host == "join",
+                          let code = URLComponents(url: url, resolvingAgainstBaseURL: false)?
+                              .queryItems?.first(where: { $0.name == "code" })?.value
+                    else { return }
+                    appState.pendingInviteCode = code
+                    appState.navigateToCompetitions()
                 }
         }
     }

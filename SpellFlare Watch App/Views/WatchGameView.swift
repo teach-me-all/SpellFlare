@@ -53,7 +53,8 @@ struct WatchGameView: View {
                                     score: viewModel.finalScore,
                                     correctCount: viewModel.correctCount,
                                     totalWords: viewModel.session?.totalWordsInGame ?? 0,
-                                    firstTryCount: viewModel.firstTryCount
+                                    firstTryCount: viewModel.firstTryCount,
+                                    durationSeconds: viewModel.sessionDurationSeconds
                                 )
                             }
                         }
@@ -79,6 +80,7 @@ struct WatchGameView: View {
         .onAppear {
             let grade = syncHelper.profile?.grade ?? 1
             viewModel.startLevel(level: level, grade: grade)
+            syncHelper.sendGameStarted()
         }
         .onDisappear {
             viewModel.cleanup()

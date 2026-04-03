@@ -322,6 +322,35 @@ extension PhoneSyncHelper: WCSessionDelegate {
                 }
             }
 
+        case "competitionCoins":
+            // Watch completed a level - proxy coins earned to active competition
+            if let amount = message["amount"] as? Int, amount > 0 {
+                Task { CompetitionService.shared.recordCoinsEarned(amount) }
+            }
+
+        case "analyticsEvent":
+            // Watch proxies analytics events through iPhone (Watch has no Firebase SDK)
+            guard let eventName = message["event"] as? String else { break }
+            switch eventName {
+            case "coins_earned":
+                if let amount = message["amount"] as? Int, let source = message["source"] as? String {
+                    AnalyticsManager.shared.logCoinsEarned(amount: amount, source: source)
+                }
+            case "game_started":
+                AnalyticsManager.shared.logGameStarted()
+            case "game_completed":
+                let coins = message["coins_earned"] as? Int ?? 0
+                let duration = message["duration_seconds"] as? Int ?? 0
+                AnalyticsManager.shared.logGameCompleted(coinsEarned: coins, durationSeconds: duration)
+            case "competition_joined":
+                if let competitionId = message["competition_id"] as? String,
+                   let type = message["type"] as? String {
+                    AnalyticsManager.shared.logCompetitionJoined(competitionId: competitionId, type: type)
+                }
+            default:
+                break
+            }
+
         default:
             print("Unhandled message type: \(type)")
         }

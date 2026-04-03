@@ -56,6 +56,9 @@ class GameViewModel: ObservableObject {
     private var pendingLevel: Int = 1
     private var pendingGrade: Int = 1
 
+    // MARK: - Analytics
+    private var sessionStartDate: Date?
+
     // MARK: - Practice Mode
     @Published var isPracticeMode: Bool = false
     private var practiceWords: [Word]?
@@ -136,6 +139,10 @@ class GameViewModel: ObservableObject {
         // Reset level tracking
         levelWrongAttempts = 0
         firstTryCount = 0
+
+        // Analytics
+        sessionStartDate = Date()
+        AnalyticsManager.shared.logGameStarted()
 
         // Set difficulty for audio playback
         let difficulty = min(pendingGrade + (pendingLevel - 1) / 10, 12)
@@ -375,6 +382,8 @@ class GameViewModel: ObservableObject {
         if isLevelComplete {
             phase = .levelComplete
             speechService.speakFeedback("Congratulations! You completed the level!")
+            let duration = sessionStartDate.map { Int(Date().timeIntervalSince($0)) } ?? 0
+            AnalyticsManager.shared.logGameCompleted(coinsEarned: coinsEarned, durationSeconds: duration)
         } else if currentWord != nil {
             phase = .presenting
             presentCurrentWord()

@@ -20,6 +20,10 @@ enum AppScreen: Equatable {
     case settings
     case achievements
     case shop
+    case friends
+    case competitions
+    case competitionLeaderboard(competitionId: String)
+    case createCompetition
 
     static func == (lhs: AppScreen, rhs: AppScreen) -> Bool {
         switch (lhs, rhs) {
@@ -29,7 +33,10 @@ enum AppScreen: Equatable {
              (.home, .home),
              (.settings, .settings),
              (.achievements, .achievements),
-             (.shop, .shop):
+             (.shop, .shop),
+             (.friends, .friends),
+             (.competitions, .competitions),
+             (.createCompetition, .createCompetition):
             return true
         case let (.game(l1), .game(l2)):
             return l1 == l2
@@ -37,6 +44,8 @@ enum AppScreen: Equatable {
             return l1 == l2 && w1.map(\.text) == w2.map(\.text)
         case let (.dailyChallenge(w1), .dailyChallenge(w2)):
             return w1.map(\.text) == w2.map(\.text)
+        case let (.competitionLeaderboard(id1), .competitionLeaderboard(id2)):
+            return id1 == id2
         default:
             return false
         }
@@ -59,6 +68,9 @@ class AppState: ObservableObject {
 
     /// Pending daily check-in reward to show animation
     @Published var pendingCheckInReward: (baseCoins: Int, bonusCoins: Int)?
+
+    /// Pending competition invite code from a deep link - consumed by CompetitionListView
+    @Published var pendingInviteCode: String?
 
     /// Share sheet data for presenting share sheets (from Watch requests)
     @Published var shareSheetData: ShareSheetData?
@@ -253,6 +265,12 @@ class AppState: ObservableObject {
         if var currentProfile = profile {
             CoinsService.shared.awardCoins(coinsEarned, to: &currentProfile)
 
+            // Submit coins to active competition (batched, non-blocking)
+            if coinsEarned > 0 {
+                Task { CompetitionService.shared.recordCoinsEarned(coinsEarned) }
+                AnalyticsManager.shared.logCoinsEarned(amount: coinsEarned, source: "game")
+            }
+
             // Evaluate achievements
             let newlyUnlocked = achievementsService.evaluateAfterLevelComplete(
                 profile: &currentProfile, coinsEarned: coinsEarned, score: score,
@@ -364,6 +382,22 @@ class AppState: ObservableObject {
 
     func navigateToShop() {
         currentScreen = .shop
+    }
+
+    func navigateToFriends() {
+        currentScreen = .friends
+    }
+
+    func navigateToCompetitions() {
+        currentScreen = .competitions
+    }
+
+    func navigateToLeaderboard(competitionId: String) {
+        currentScreen = .competitionLeaderboard(competitionId: competitionId)
+    }
+
+    func navigateToCreateCompetition() {
+        currentScreen = .createCompetition
     }
 
     func navigateToPracticeMode(level: Int, words: [Word]) {

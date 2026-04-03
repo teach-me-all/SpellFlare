@@ -16,6 +16,13 @@ target 'spelling-bee iOS App' do
   # NOTE: Do NOT initialize AppLovin manually - AdMob handles this automatically
   pod 'GoogleMobileAdsMediationAppLovin'
 
+  # Firebase
+  pod 'FirebaseAuth'
+  pod 'FirebaseFirestore'
+  pod 'FirebaseFunctions'
+  pod 'FirebaseMessaging'
+  pod 'FirebaseAnalytics'
+
   # Post-install hook to fix compatibility issues
   post_install do |installer|
     installer.pods_project.targets.each do |target|

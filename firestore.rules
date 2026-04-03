@@ -1,0 +1,51 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Users: anyone authenticated can read (for search/leaderboard display)
+    // Only owner can write own user doc
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Friends: owner reads their own list; both parties can update status
+    match /friends/{userId}/list/{friendId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null
+                    && request.auth.uid == userId
+                    && request.resource.data.status == "pending_sent";
+      allow update: if request.auth != null
+                    && (request.auth.uid == userId || request.auth.uid == friendId)
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']);
+      allow delete: if request.auth != null
+                    && (request.auth.uid == userId || request.auth.uid == friendId);
+    }
+
+    // Competitions: anyone authenticated can read
+    // Only creator can create; updates/deletes only via Cloud Functions (Admin SDK)
+    match /competitions/{competitionId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null
+                    && request.resource.data.createdBy == request.auth.uid
+                    && request.resource.data.type in ['private', 'public'];
+      allow update: if false; // Cloud Functions only
+      allow delete: if false;
+
+      // Participants: anyone authenticated can read (leaderboard)
+      // Users can create their own entry; updates only via Cloud Functions (anti-cheat)
+      match /participants/{userId} {
+        allow read: if request.auth != null;
+        allow create: if request.auth != null && request.auth.uid == userId;
+        allow update: if false; // Cloud Functions only (submitCompetitionCoins)
+        allow delete: if false;
+      }
+    }
+
+    // Rewards: only owner can read; only Cloud Functions can write
+    match /rewards/{userId}/earned/{rewardId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if false; // Cloud Functions only
+    }
+  }
+}

@@ -150,7 +150,7 @@ class WatchSyncHelper: NSObject, ObservableObject {
     // MARK: - Level Completion
 
     /// Called when a level is completed on the Watch
-    func sendLevelCompleted(_ level: Int, coinsEarned: Int = 0, score: Int = 0, correctCount: Int = 0, totalWords: Int = 0, firstTryCount: Int = 0) {
+    func sendLevelCompleted(_ level: Int, coinsEarned: Int = 0, score: Int = 0, correctCount: Int = 0, totalWords: Int = 0, firstTryCount: Int = 0, durationSeconds: Int = 0) {
         guard var currentProfile = self.profile else { return }
 
         // Update local profile
@@ -195,6 +195,38 @@ class WatchSyncHelper: NSObject, ObservableObject {
                 self?.hasPendingChanges = true
             }
         })
+
+        // Proxy competition coins to iPhone for Firebase submission
+        if coinsEarned > 0 {
+            session.sendMessage(
+                ["type": "competitionCoins", "amount": coinsEarned],
+                replyHandler: nil,
+                errorHandler: nil
+            )
+        }
+
+        // Proxy analytics events to iPhone (Watch has no Firebase SDK)
+        if coinsEarned > 0 {
+            session.sendMessage(
+                ["type": "analyticsEvent", "event": "coins_earned",
+                 "amount": coinsEarned, "source": "game"],
+                replyHandler: nil, errorHandler: nil
+            )
+        }
+        session.sendMessage(
+            ["type": "analyticsEvent", "event": "game_completed",
+             "coins_earned": coinsEarned, "duration_seconds": durationSeconds],
+            replyHandler: nil, errorHandler: nil
+        )
+    }
+
+    /// Proxy game_started analytics event to iPhone.
+    func sendGameStarted() {
+        guard let session = session, session.isReachable else { return }
+        session.sendMessage(
+            ["type": "analyticsEvent", "event": "game_started"],
+            replyHandler: nil, errorHandler: nil
+        )
     }
 
     // MARK: - Share Request
