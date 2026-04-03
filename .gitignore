@@ -22,3 +22,7 @@ Pods/
 # Temporary files
 *.tmp
 *.temp
+
+# Cloud Functions
+functions/node_modules/
+functions/lib/
