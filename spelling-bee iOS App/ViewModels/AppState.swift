@@ -24,6 +24,27 @@ enum AppScreen: Equatable {
     case competitions
     case competitionLeaderboard(competitionId: String)
     case createCompetition
+    case userProfile(userId: String, username: String)
+
+    var analyticsName: String {
+        switch self {
+        case .onboarding:                   return "onboarding"
+        case .profilePicker:                return "profile_picker"
+        case .createProfile:                return "create_profile"
+        case .home:                         return "home"
+        case .game:                         return "game"
+        case .practiceMode:                 return "practice_mode"
+        case .dailyChallenge:               return "daily_challenge"
+        case .settings:                     return "settings"
+        case .achievements:                 return "achievements"
+        case .shop:                         return "shop"
+        case .friends:                      return "friends"
+        case .competitions:                 return "competitions"
+        case .competitionLeaderboard:       return "competition_leaderboard"
+        case .createCompetition:            return "create_competition"
+        case .userProfile:                  return "user_profile"
+        }
+    }
 
     static func == (lhs: AppScreen, rhs: AppScreen) -> Bool {
         switch (lhs, rhs) {
@@ -46,6 +67,8 @@ enum AppScreen: Equatable {
             return w1.map(\.text) == w2.map(\.text)
         case let (.competitionLeaderboard(id1), .competitionLeaderboard(id2)):
             return id1 == id2
+        case let (.userProfile(u1, _), .userProfile(u2, _)):
+            return u1 == u2
         default:
             return false
         }
@@ -54,7 +77,17 @@ enum AppScreen: Equatable {
 
 @MainActor
 class AppState: ObservableObject {
-    @Published var currentScreen: AppScreen = .onboarding
+    @Published var currentScreen: AppScreen = .onboarding {
+        didSet {
+            let elapsed = Int(Date().timeIntervalSince(screenEnteredAt))
+            AnalyticsManager.shared.logScreenEngagement(screen: oldValue.analyticsName, durationSeconds: elapsed)
+            AnalyticsManager.shared.logScreenView(screen: currentScreen.analyticsName)
+            screenEnteredAt = Date()
+        }
+    }
+    private var screenEnteredAt = Date()
+    /// The screen to return to when navigateBack() is called (e.g. from UserProfileView)
+    private(set) var previousScreen: AppScreen?
     @Published var profile: UserProfile?
     @Published private(set) var syncStatus: SyncStatus = .idle
 
@@ -134,6 +167,19 @@ class AppState: ObservableObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] notification in
                 self?.handleShareRequest(notification.userInfo)
+            }
+            .store(in: &cancellables)
+
+        // Listen for push notification taps → deep-link into competition
+        NotificationCenter.default.publisher(for: .navigateFromPushNotification)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] notification in
+                let userInfo = notification.userInfo
+                if let competitionId = userInfo?["competitionId"] as? String {
+                    self?.navigateToLeaderboard(competitionId: competitionId)
+                } else {
+                    self?.navigateToCompetitions()
+                }
             }
             .store(in: &cancellables)
     }
@@ -321,6 +367,9 @@ class AppState: ObservableObject {
             profile = newProfile
             phoneSyncHelper.pushLocalChanges()
             currentScreen = .home
+
+            // Re-authenticate with Firebase for the new profile
+            Task { try? await FirebaseManager.shared.signIn(for: newProfile.id) }
         }
     }
 
@@ -398,6 +447,20 @@ class AppState: ObservableObject {
 
     func navigateToCreateCompetition() {
         currentScreen = .createCompetition
+    }
+
+    func navigateToUserProfile(userId: String, username: String) {
+        previousScreen = currentScreen
+        currentScreen = .userProfile(userId: userId, username: username)
+    }
+
+    func navigateBack() {
+        if let prev = previousScreen {
+            currentScreen = prev
+            previousScreen = nil
+        } else {
+            currentScreen = .competitions
+        }
     }
 
     func navigateToPracticeMode(level: Int, words: [Word]) {

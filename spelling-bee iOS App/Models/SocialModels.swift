@@ -44,21 +44,21 @@ struct Competition: Codable, Identifiable, Equatable {
     var isWaiting: Bool { status == .waiting }
     var isCompleted: Bool { status == .completed }
 
-    /// Returns "Day X of 7" or "Starts in Xh" or "Ended"
+    /// Returns a human-readable status string with exact local times.
     var statusLabel: String {
+        let formatter = DateFormatter()
         switch status {
         case .waiting:
-            let hoursUntilStart = max(0, startTime.timeIntervalSinceNow / 3600)
-            if hoursUntilStart < 1 {
-                return "Starting soon"
+            formatter.dateFormat = "MMM d 'at' h:mm a"
+            let timeStr = formatter.string(from: startTime)
+            if startTime.timeIntervalSinceNow <= 0 {
+                return "Starting \(timeStr) · Waiting for players"
             }
-            return "Starts in \(Int(hoursUntilStart))h"
+            return "Starts \(timeStr)"
         case .active:
-            let totalDuration: TimeInterval = endTime.timeIntervalSince(startTime)
-            let elapsed = Date().timeIntervalSince(startTime)
-            let dayNumber = Int(elapsed / 86400) + 1
-            let totalDays = Int(ceil(totalDuration / 86400))
-            return "Day \(dayNumber) of \(totalDays)"
+            formatter.dateFormat = "MMM d 'at' h:mm a"
+            let endStr = formatter.string(from: endTime)
+            return "Ends \(endStr)"
         case .completed:
             return "Ended"
         }
@@ -108,6 +108,18 @@ struct CompetitionReward: Codable, Identifiable, Equatable {
     var rewardType: String
     var coinsAmount: Int
     var claimed: Bool
+}
+
+// MARK: - Competition History
+
+struct CompetitionHistoryEntry: Identifiable {
+    let id: String              // competition ID
+    let name: String
+    let type: CompetitionType
+    let endTime: Date
+    let totalParticipants: Int
+    let myCoinsEarned: Int
+    let myFinalRank: Int?       // nil until backend stores it on competition end
 }
 
 // MARK: - Watch Competition Status (lightweight, for WatchConnectivity)

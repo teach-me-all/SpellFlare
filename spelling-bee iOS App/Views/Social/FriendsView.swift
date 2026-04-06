@@ -112,6 +112,8 @@ struct FriendsView: View {
                             ForEach(viewModel.friends.filter { $0.status == .accepted }) { friend in
                                 FriendRow(friend: friend) {
                                     Task { await viewModel.removeFriend(friend) }
+                                } onTap: {
+                                    appState.navigateToUserProfile(userId: friend.id, username: friend.username)
                                 }
                             }
                         }
@@ -147,7 +149,7 @@ struct FriendsView: View {
         }
         .task {
             // Sign in + load if not already
-            if let profile = appState.profile {
+            if appState.profile != nil {
                 if !FirebaseManager.shared.isSignedIn {
                     showOnboarding = true
                 } else {
@@ -257,6 +259,7 @@ private struct FriendRequestRow: View {
 private struct FriendRow: View {
     let friend: Friend
     let onRemove: () -> Void
+    let onTap: () -> Void
     @State private var showRemoveConfirm = false
 
     var body: some View {
@@ -266,14 +269,21 @@ private struct FriendRow: View {
                 .frame(width: 44, height: 44)
                 .background(Circle().fill(Color.white.opacity(0.15)))
 
-            Text(friend.username)
-                .font(.system(size: 15, weight: .medium))
-                .foregroundColor(.white)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(friend.username)
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundColor(.white)
+                Text("View profile →")
+                    .font(.system(size: 11))
+                    .foregroundColor(.white.opacity(0.45))
+            }
 
             Spacer()
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
+        .contentShape(Rectangle())
+        .onTapGesture { onTap() }
         .swipeActions(edge: .trailing) {
             Button("Remove", role: .destructive, action: onRemove)
         }

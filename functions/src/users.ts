@@ -24,12 +24,21 @@ export const setUsername = functions.https.onCall(
     }
 
     // Check uniqueness
-    const existing = await admin
-      .firestore()
-      .collection("users")
-      .where("username", "==", username)
-      .limit(1)
-      .get();
+    let existing;
+    try {
+      existing = await admin
+        .firestore()
+        .collection("users")
+        .where("username", "==", username)
+        .limit(1)
+        .get();
+    } catch (err) {
+      functions.logger.error("Firestore username check failed", { err });
+      throw new functions.https.HttpsError(
+        "internal",
+        "Failed to check username availability: " + String(err)
+      );
+    }
 
     if (!existing.empty && existing.docs[0].id !== userId) {
       throw new functions.https.HttpsError(
@@ -40,7 +49,7 @@ export const setUsername = functions.https.onCall(
 
     const update: Record<string, unknown> = {
       username,
-      lastActiveAt: admin.firestore.Timestamp.now(),
+      lastActiveAt: admin.firestore.FieldValue.serverTimestamp(),
     };
 
     if (avatarIcon) {
@@ -48,13 +57,21 @@ export const setUsername = functions.https.onCall(
     }
 
     // Ensure user doc exists with required fields on first set
-    await admin.firestore().collection("users").doc(userId).set(
-      {
-        ...update,
-        createdAt: admin.firestore.FieldValue.serverTimestamp(),
-      },
-      { merge: true }
-    );
+    try {
+      await admin.firestore().collection("users").doc(userId).set(
+        {
+          ...update,
+          createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        },
+        { merge: true }
+      );
+    } catch (err) {
+      functions.logger.error("Firestore user doc write failed", { err });
+      throw new functions.https.HttpsError(
+        "internal",
+        "Failed to save username: " + String(err)
+      );
+    }
 
     return { success: true };
   }

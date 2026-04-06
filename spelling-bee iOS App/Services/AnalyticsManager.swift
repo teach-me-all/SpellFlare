@@ -19,6 +19,7 @@ enum SpellFlareEvent {
     // Competition
     static let competitionCreated = "competition_created"
     static let competitionJoined = "competition_joined"
+    static let competitionLeft = "competition_left"
     static let competitionCompleted = "competition_completed"
 
     // Leaderboard
@@ -36,6 +37,9 @@ enum SpellFlareEvent {
     // Rank behavior
     static let rankImproved = "rank_improved"
     static let rankDropped = "rank_dropped"
+
+    // Screen tracking
+    static let screenEngagement = "screen_engagement"
 }
 
 // MARK: - Manager
@@ -73,6 +77,14 @@ final class AnalyticsManager {
         logEvent(SpellFlareEvent.competitionJoined, params: [
             "competition_id": competitionId,
             "type": type
+        ])
+    }
+
+    func logCompetitionLeft(competitionId: String, type: String, coinsEarned: Int) {
+        logEvent(SpellFlareEvent.competitionLeft, params: [
+            "competition_id": competitionId,
+            "type": type,
+            "coins_earned": coinsEarned
         ])
     }
 
@@ -128,5 +140,24 @@ final class AnalyticsManager {
 
     func logRankDropped() {
         logEvent(SpellFlareEvent.rankDropped)
+    }
+
+    // MARK: - Screen tracking
+
+    /// Fires Firebase's canonical screen_view event.
+    func logScreenView(screen: String) {
+        Analytics.logEvent(AnalyticsEventScreenView, parameters: [
+            AnalyticsParameterScreenName: screen
+        ])
+    }
+
+    /// Fires a custom event recording how long the user spent on a screen.
+    /// Only logged when duration >= 1 second to filter out instant transitions.
+    func logScreenEngagement(screen: String, durationSeconds: Int) {
+        guard durationSeconds >= 1 else { return }
+        logEvent(SpellFlareEvent.screenEngagement, params: [
+            "screen_name": screen,
+            "duration_seconds": durationSeconds
+        ])
     }
 }

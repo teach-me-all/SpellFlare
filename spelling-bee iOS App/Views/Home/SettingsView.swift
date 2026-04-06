@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct SettingsView: View {
     @EnvironmentObject var appState: AppState
     @ObservedObject var speechService = SpeechService.shared
     @ObservedObject var storeManager = StoreManager.shared
     @State private var selectedGrade: Int = 1
+    @State private var notificationsEnabled: Bool = false
     @State private var showResetConfirm = false
     @State private var showParentGateForAds = false
     @State private var showParentGateForWatch = false
@@ -81,6 +83,26 @@ struct SettingsView: View {
                         Spacer()
                         Text(speechService.speechAuthorizationStatus == .authorized ? "Enabled" : "Disabled")
                             .foregroundColor(.secondary)
+                    }
+                }
+
+                // Notifications Section
+                Section("Notifications") {
+                    HStack {
+                        Label("Push Notifications", systemImage: "bell.fill")
+                        Spacer()
+                        Text(notificationsEnabled ? "Enabled" : "Disabled")
+                            .foregroundColor(.secondary)
+                    }
+                    if !notificationsEnabled {
+                        Button {
+                            if let url = URL(string: UIApplication.openSettingsURLString) {
+                                UIApplication.shared.open(url)
+                            }
+                        } label: {
+                            Label("Enable in Settings", systemImage: "gear")
+                                .foregroundColor(.accentColor)
+                        }
                     }
                 }
 
@@ -192,6 +214,10 @@ struct SettingsView: View {
             .onAppear {
                 selectedGrade = appState.profile?.grade ?? 1
                 selectedAvatar = appState.profile?.avatarIcon ?? "🐝"
+                Task {
+                    let settings = await UNUserNotificationCenter.current().notificationSettings()
+                    notificationsEnabled = settings.authorizationStatus == .authorized
+                }
             }
             .alert("Reset Progress?", isPresented: $showResetConfirm) {
                 Button("Cancel", role: .cancel) {}

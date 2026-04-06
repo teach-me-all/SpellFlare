@@ -8,6 +8,8 @@
 import SwiftUI
 import GoogleMobileAds
 import FirebaseCore
+import FirebaseMessaging
+import UserNotifications
 
 // MARK: - UI Testing Configuration
 struct UITestingConfig {
@@ -63,6 +65,10 @@ struct spelling_bee_iOS_App: App {
         // Configure Firebase (must be before any Firebase usage)
         FirebaseApp.configure()
 
+        // Set up notification delegates early so tap callbacks work at cold launch
+        UNUserNotificationCenter.current().delegate = NotificationService.shared
+        Messaging.messaging().delegate = NotificationService.shared
+
         // CRITICAL: Initialize Google Mobile Ads SDK at app launch
         // This must happen before any ad requests
         Task { @MainActor in
@@ -80,10 +86,27 @@ struct spelling_bee_iOS_App: App {
                     if UITestingConfig.simulateLevelComplete {
                         appState.uiTestingSimulateLevelComplete = true
                     }
+
+                    // Sign into Firebase anonymously on launch, then restore competition state.
+                    if let profileId = appState.profile?.id {
+                        Task {
+                            try? await FirebaseManager.shared.signIn(for: profileId)
+                            if let uid = FirebaseManager.shared.currentUID {
+                                await CompetitionService.shared.loadActiveCompetition(uid: uid)
+                            }
+                            await NotificationService.shared.requestPermissionAndRegister()
+                        }
+                    }
                 }
                 .onChange(of: scenePhase) { newPhase in
                     if newPhase == .active {
                         appState.onAppBecameActive()
+                        // Refresh competition memberships when app becomes active
+                        Task {
+                            if let uid = FirebaseManager.shared.currentUID {
+                                await CompetitionService.shared.loadActiveCompetition(uid: uid)
+                            }
+                        }
                     } else if newPhase == .background {
                         // Flush any buffered competition coins before backgrounding
                         Task { await CompetitionService.shared.flushPendingCoins() }

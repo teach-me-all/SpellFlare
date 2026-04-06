@@ -16,6 +16,7 @@ struct SocialOnboardingView: View {
     @State private var isCheckingAvailability = false
     @State private var isUsernameTaken = false
     @State private var isSubmitting = false
+    @State private var isSigningIn = true   // start true — sign in before allowing queries
     @State private var error: String?
 
     private var isUsernameValid: Bool {
@@ -62,6 +63,7 @@ struct SocialOnboardingView: View {
                                 .autocorrectionDisabled()
                                 .foregroundColor(.white)
                                 .font(.system(size: 16, weight: .medium))
+                                .disabled(isSigningIn)
                                 .onChange(of: username) { _ in
                                     checkAvailability()
                                 }
@@ -133,6 +135,13 @@ struct SocialOnboardingView: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
                         .foregroundColor(.white)
+                }
+            }
+            .onAppear {
+                guard let profile = appState.profile else { return }
+                Task {
+                    try? await FirebaseManager.shared.signIn(for: profile.id)
+                    await MainActor.run { isSigningIn = false }
                 }
             }
         }

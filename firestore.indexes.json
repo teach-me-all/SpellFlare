@@ -29,6 +29,14 @@
       "collectionGroup": "competitions",
       "queryScope": "COLLECTION",
       "fields": [
+        { "fieldPath": "status", "order": "ASCENDING" },
+        { "fieldPath": "startTime", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "competitions",
+      "queryScope": "COLLECTION",
+      "fields": [
         { "fieldPath": "type", "order": "ASCENDING" },
         { "fieldPath": "status", "order": "ASCENDING" },
         { "fieldPath": "participantCount", "order": "DESCENDING" }
@@ -36,6 +44,14 @@
     }
   ],
   "fieldOverrides": [
+    {
+      "collectionGroup": "participants",
+      "fieldPath": "userId",
+      "indexes": [
+        { "order": "ASCENDING", "queryScope": "COLLECTION" },
+        { "order": "ASCENDING", "queryScope": "COLLECTION_GROUP" }
+      ]
+    },
     {
       "collectionGroup": "competitions",
       "fieldPath": "inviteCode",

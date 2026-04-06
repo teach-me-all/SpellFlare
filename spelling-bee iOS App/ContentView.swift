@@ -45,6 +45,8 @@ struct ContentView: View {
                     CompetitionLeaderboardView(competitionId: id)
                 case .createCompetition:
                     CreateCompetitionView()
+                case .userProfile(let userId, let username):
+                    UserProfileView(userId: userId, username: username)
                 }
             }
             .animation(.easeInOut(duration: 0.3), value: appState.currentScreen)

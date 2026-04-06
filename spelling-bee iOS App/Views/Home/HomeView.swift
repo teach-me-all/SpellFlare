@@ -97,6 +97,10 @@ struct HomeView: View {
                                 .padding(.top, 8)
                         }
 
+                        // Competition highlight card
+                        CompetitionHighlightCard()
+                            .padding(.horizontal, 20)
+
                         HStack {
                             Text("Levels")
                                 .font(.title2)
@@ -272,16 +276,94 @@ struct TopHeaderView: View {
             }
             .padding(.horizontal, 20)
 
-            // Active competition banner (shown when user is in a competition)
-            if CompetitionService.shared.isInCompetition {
-                ActiveCompetitionBanner()
-                    .padding(.horizontal, 20)
-                    .onTapGesture {
-                        appState.navigateToCompetitions()
-                    }
-            }
         }
         .padding(.vertical, 16)
+    }
+}
+
+// MARK: - Competition Highlight Card
+
+struct CompetitionHighlightCard: View {
+    @EnvironmentObject var appState: AppState
+    @ObservedObject private var competitionService = CompetitionService.shared
+
+    var body: some View {
+        Button {
+            appState.navigateToCompetitions()
+        } label: {
+            ZStack {
+                // Background gradient
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(
+                        LinearGradient(
+                            colors: [Color(red: 0.6, green: 0.2, blue: 1.0), Color(red: 0.3, green: 0.0, blue: 0.8)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+
+                // Decorative glow circles
+                Circle()
+                    .fill(Color.yellow.opacity(0.15))
+                    .frame(width: 120, height: 120)
+                    .offset(x: 100, y: -30)
+
+                Circle()
+                    .fill(Color.pink.opacity(0.1))
+                    .frame(width: 80, height: 80)
+                    .offset(x: -90, y: 30)
+
+                HStack(spacing: 16) {
+                    // Trophy icon
+                    ZStack {
+                        Circle()
+                            .fill(Color.yellow.opacity(0.25))
+                            .frame(width: 56, height: 56)
+                        Text("🏆")
+                            .font(.system(size: 28))
+                    }
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        if competitionService.isInCompetition {
+                            let count = competitionService.allCompetitions.count
+                            let comp = competitionService.allCompetitions.first!
+                            Text("You're competing!")
+                                .font(.system(size: 13, weight: .semibold))
+                                .foregroundColor(.yellow)
+                            Text(count == 1 ? comp.name : "\(count) active competitions")
+                                .font(.system(size: 17, weight: .bold))
+                                .foregroundColor(.white)
+                            Text(count == 1 ? comp.statusLabel : "Tap to view all")
+                                .font(.system(size: 13))
+                                .foregroundColor(.white.opacity(0.8))
+                        } else {
+                            Text("NEW")
+                                .font(.system(size: 11, weight: .bold))
+                                .foregroundColor(.black)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 3)
+                                .background(Color.yellow)
+                                .cornerRadius(6)
+                            Text("Weekly Competitions")
+                                .font(.system(size: 17, weight: .bold))
+                                .foregroundColor(.white)
+                            Text("Compete with friends & win coins!")
+                                .font(.system(size: 13))
+                                .foregroundColor(.white.opacity(0.8))
+                        }
+                    }
+
+                    Spacer()
+
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(.white.opacity(0.7))
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 18)
+            }
+        }
+        .buttonStyle(.plain)
     }
 }
 

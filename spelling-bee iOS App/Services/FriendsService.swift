@@ -21,6 +21,7 @@ class FriendsService {
     /// Search for a user by exact username match
     func searchUser(username: String) async throws -> UserSearchResult? {
         guard !username.isEmpty else { return nil }
+        guard await FirebaseManager.shared.isSignedIn else { return nil }
 
         let snap = try await db
             .collection("users")
@@ -169,6 +170,7 @@ class FriendsService {
     /// Check if a username is already taken (for real-time availability display)
     func isUsernameTaken(_ username: String, excludingUID: String) async throws -> Bool {
         guard username.count >= 3 else { return false }
+        guard await FirebaseManager.shared.isSignedIn else { return false }
 
         let snap = try await db
             .collection("users")

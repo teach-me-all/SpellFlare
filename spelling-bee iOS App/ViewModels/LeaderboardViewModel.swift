@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 @MainActor
 class LeaderboardViewModel: ObservableObject {
@@ -21,6 +22,19 @@ class LeaderboardViewModel: ObservableObject {
     private var refreshTimer: Timer?
     private var competitionId: String?
     private var lastKnownRank: Int?
+
+    /// The last coins value fetched from Firestore for the current user.
+    /// Used so localPendingCoins can be added on top without double-counting.
+    private var serverCoinsForCurrentUser: Int = 0
+    private var cancellables = Set<AnyCancellable>()
+
+    init() {
+        // Instantly reflect any new pending coins earned during a session.
+        CompetitionService.shared.$localPendingCoins
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in self?.applyLocalCoinOffset() }
+            .store(in: &cancellables)
+    }
 
     // MARK: - Fetch
 
@@ -53,6 +67,10 @@ class LeaderboardViewModel: ObservableObject {
                 userEntry = fetched.first(where: { $0.isCurrentUser })
                 pinnedUserEntry = nil
             }
+
+            // Record server-authoritative coins and apply local pending offset on top
+            serverCoinsForCurrentUser = userEntry?.coinsEarned ?? serverCoinsForCurrentUser
+            applyLocalCoinOffset()
 
             // Track rank changes on refresh (not on first load)
             if !isFirstLoad, let newRank = userEntry?.rank, let oldRank = lastKnownRank {
@@ -94,6 +112,21 @@ class LeaderboardViewModel: ObservableObject {
         }
 
         isLoadingMore = false
+    }
+
+    // MARK: - Optimistic local offset
+
+    /// Adds locally-pending (not-yet-flushed) coins on top of the last server value
+    /// so the current user's leaderboard position updates instantly after earning coins.
+    private func applyLocalCoinOffset() {
+        let displayCoins = serverCoinsForCurrentUser + CompetitionService.shared.localPendingCoins
+
+        if let idx = entries.firstIndex(where: { $0.isCurrentUser }) {
+            entries[idx].coinsEarned = displayCoins
+        }
+        if pinnedUserEntry?.isCurrentUser == true {
+            pinnedUserEntry?.coinsEarned = displayCoins
+        }
     }
 
     // MARK: - Auto-Refresh

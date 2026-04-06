@@ -1,6 +1,7 @@
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
 import { RewardDoc } from "./types";
+import { notifyRewardWon } from "./notifications";
 
 function coinsForRank(rank: number): number {
   if (rank === 1) return 500;
@@ -42,30 +43,37 @@ export async function distributeRewards(competitionId: string): Promise<void> {
   const top10PercentCount = Math.max(1, Math.ceil(total * 0.1));
   const batch = admin.firestore().batch();
 
-  participantsSnap.docs.slice(0, top10PercentCount).forEach((doc, index) => {
+  participantsSnap.docs.forEach((doc, index) => {
     const rank = index + 1;
     const userId = doc.id;
 
-    // Deterministic reward doc ID → idempotent on double-invoke
-    const rewardRef = admin
-      .firestore()
-      .collection("rewards")
-      .doc(userId)
-      .collection("earned")
-      .doc(`${competitionId}_reward`);
+    // Store final rank on every participant doc (used for history view)
+    const participantRef = competitionRef.collection("participants").doc(userId);
+    batch.update(participantRef, { finalRank: rank, totalParticipants: total });
 
-    const reward: RewardDoc = {
-      competitionId,
-      competitionName: comp.name as string,
-      rank,
-      totalParticipants: total,
-      rewardType: "coins",
-      coinsAmount: coinsForRank(rank),
-      claimed: false,
-      createdAt: admin.firestore.Timestamp.now(),
-    };
+    // Distribute coins reward to top 10%
+    if (rank <= top10PercentCount) {
+      // Deterministic reward doc ID → idempotent on double-invoke
+      const rewardRef = admin
+        .firestore()
+        .collection("rewards")
+        .doc(userId)
+        .collection("earned")
+        .doc(`${competitionId}_reward`);
 
-    batch.set(rewardRef, reward, { merge: false });
+      const reward: RewardDoc = {
+        competitionId,
+        competitionName: comp.name as string,
+        rank,
+        totalParticipants: total,
+        rewardType: "coins",
+        coinsAmount: coinsForRank(rank),
+        claimed: false,
+        createdAt: admin.firestore.Timestamp.now(),
+      };
+
+      batch.set(rewardRef, reward, { merge: false });
+    }
   });
 
   // Mark competition rewards as distributed atomically with reward writes
@@ -76,4 +84,33 @@ export async function distributeRewards(competitionId: string): Promise<void> {
   functions.logger.info(
     `Distributed rewards for competition ${competitionId}: ${top10PercentCount} winners out of ${total}`
   );
+
+  // Notify top-10% winners (fire-and-forget — never block reward distribution)
+  const winnerIds = participantsSnap.docs
+    .slice(0, top10PercentCount)
+    .filter(d => !d.data().isBot)
+    .map(d => d.id);
+
+  if (winnerIds.length > 0) {
+    notifyRewardWon(competitionId, comp.name as string, winnerIds).catch(err =>
+      functions.logger.warn("notifyRewardWon failed", { error: String(err) })
+    );
+  }
+
+  // Return bots to the pool so they can join future competitions
+  const botParticipants = participantsSnap.docs.filter(d => d.data().isBot === true);
+  if (botParticipants.length > 0) {
+    const returnBatch = admin.firestore().batch();
+    for (const p of botParticipants) {
+      const botRef = admin.firestore().collection("bots").doc(p.id);
+      returnBatch.update(botRef, {
+        isAvailable: true,
+        currentCompetitionId: admin.firestore.FieldValue.delete(),
+      });
+    }
+    await returnBatch.commit();
+    functions.logger.info(
+      `Returned ${botParticipants.length} bots to pool from competition ${competitionId}`
+    );
+  }
 }

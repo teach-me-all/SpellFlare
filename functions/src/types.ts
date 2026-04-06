@@ -6,6 +6,7 @@ export interface UserDoc {
   fcmToken?: string;
   createdAt: FirebaseFirestore.Timestamp;
   lastActiveAt: FirebaseFirestore.Timestamp;
+  lastNotificationAt?: FirebaseFirestore.Timestamp;
 }
 
 export interface FriendEntry {
@@ -29,12 +30,23 @@ export interface CompetitionDoc {
 }
 
 export interface ParticipantDoc {
+  userId: string;
   username: string;
   avatarIcon: string;
   coinsEarned: number;
   lastUpdatedAt: FirebaseFirestore.Timestamp;
   joinedAt: FirebaseFirestore.Timestamp;
   prevRank?: number;
+  isBot?: boolean;
+}
+
+export interface BotDoc {
+  userId: string;
+  username: string;
+  avatarIcon: string;
+  isAvailable: boolean;
+  currentCompetitionId?: string;
+  createdAt: FirebaseFirestore.Timestamp;
 }
 
 export interface RewardDoc {

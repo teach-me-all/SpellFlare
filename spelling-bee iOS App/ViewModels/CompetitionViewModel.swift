@@ -95,12 +95,12 @@ class CompetitionViewModel: ObservableObject {
         isLoading = false
     }
 
-    func leaveCompetition() async {
+    func leaveCompetition(id: String) async {
         isLoading = true
         error = nil
 
         do {
-            try await service.leaveCompetition()
+            try await service.leaveCompetition(id: id)
         } catch {
             self.error = error.localizedDescription
         }
@@ -110,11 +110,14 @@ class CompetitionViewModel: ObservableObject {
 
     // MARK: - Helpers
 
-    var activeCompetition: Competition? { service.activeCompetition }
+    var allCompetitions: [Competition] { service.allCompetitions }
     var isInCompetition: Bool { service.isInCompetition }
+    var canJoinPublic: Bool { service.canJoinPublic }
+    var canJoinPrivate: Bool { service.canJoinPrivate }
 
-    /// Call when viewing a completed competition's leaderboard.
-    /// Fires competition_completed analytics with the user's final rank.
+    /// The most recently joined competition (used to navigate to leaderboard after joining).
+    var activeCompetition: Competition? { service.allCompetitions.last }
+
     func reportCompetitionCompleted(rank: Int, totalPlayers: Int, coinsEarned: Int) {
         AnalyticsManager.shared.logCompetitionCompleted(
             rank: rank,

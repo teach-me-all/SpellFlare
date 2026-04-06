@@ -10,6 +10,8 @@ export {
   autoStartWaitingCompetitions,
   joinPublicMatchmaking,
   joinByInviteCode,
+  fillSoloCompetitionsWithBots,
+  addDailyBotCoins,
 } from "./competitions";
 export { setUsername, registerFCMToken } from "./users";
-export { checkRankChanges, notifyFinal24Hours } from "./notifications";
+export { checkRankChanges, notifyFinal24Hours, checkInactiveUsers } from "./notifications";

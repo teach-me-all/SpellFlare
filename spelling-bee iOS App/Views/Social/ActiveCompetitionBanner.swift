@@ -2,13 +2,16 @@
 //  ActiveCompetitionBanner.swift
 //  spelling-bee iOS App
 //
-//  A compact inline banner shown in HomeView when the user is in an active competition.
+//  A compact inline banner shown in HomeView when the user is in one or more competitions.
 //
 
 import SwiftUI
 
 struct ActiveCompetitionBanner: View {
     @ObservedObject private var service = CompetitionService.shared
+
+    private var firstComp: Competition? { service.allCompetitions.first }
+    private var count: Int { service.allCompetitions.count }
 
     var body: some View {
         HStack(spacing: 10) {
@@ -22,13 +25,19 @@ struct ActiveCompetitionBanner: View {
                     )
                 )
 
-            if let comp = service.activeCompetition {
+            if let comp = firstComp {
                 VStack(alignment: .leading, spacing: 1) {
-                    Text(comp.name)
-                        .font(.system(size: 12, weight: .semibold))
-                        .foregroundColor(.white)
-                        .lineLimit(1)
-
+                    HStack(spacing: 4) {
+                        Text(comp.name)
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundColor(.white)
+                            .lineLimit(1)
+                        if count > 1 {
+                            Text("+\(count - 1) more")
+                                .font(.system(size: 11))
+                                .foregroundColor(.white.opacity(0.6))
+                        }
+                    }
                     Text(comp.statusLabel)
                         .font(.system(size: 11))
                         .foregroundColor(.white.opacity(0.75))
@@ -36,12 +45,6 @@ struct ActiveCompetitionBanner: View {
             }
 
             Spacer()
-
-            if let rank = service.myRankInActiveCompetition {
-                Text("#\(rank)")
-                    .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(.yellow)
-            }
 
             Image(systemName: "chevron.right")
                 .font(.system(size: 11, weight: .semibold))

@@ -3,6 +3,7 @@
 //  spelling-bee iOS App
 //
 //  Manages competition CRUD and coin batching.
+//  Supports 1 public + up to 4 private competitions simultaneously.
 //  Coins are accumulated locally and flushed to Firebase in batches
 //  (on level completion timer expiry or app backgrounding) to minimize Firestore writes.
 //
@@ -16,18 +17,35 @@ class CompetitionService: ObservableObject {
     static let shared = CompetitionService()
 
     // MARK: - Published State
-    @Published private(set) var activeCompetition: Competition?
-    @Published private(set) var myRankInActiveCompetition: Int?
-    @Published private(set) var myCoinsInActiveCompetition: Int = 0
 
-    var isInCompetition: Bool { activeCompetition != nil }
+    /// All competitions the user is currently enrolled in (active or waiting).
+    @Published private(set) var allCompetitions: [Competition] = []
+
+    // MARK: - Slot Limits
+
+    static let maxPublic = 1
+    static let maxPrivate = 4
+
+    var publicCompetitions: [Competition] { allCompetitions.filter { $0.type == .public } }
+    var privateCompetitions: [Competition] { allCompetitions.filter { $0.type == .private } }
+
+    /// Convenience: first public competition (there can only be one).
+    var activeCompetition: Competition? { publicCompetitions.first ?? privateCompetitions.first }
+
+    var isInCompetition: Bool { !allCompetitions.isEmpty }
+    var canJoinPublic: Bool { publicCompetitions.count < Self.maxPublic }
+    var canJoinPrivate: Bool { privateCompetitions.count < Self.maxPrivate }
 
     // MARK: - Coin Batching
-    private var pendingCoins: Int = 0
+
+    /// Coins earned locally that haven't been flushed to Firestore yet.
+    /// Published so the leaderboard can show them immediately (optimistic update).
+    @Published private(set) var localPendingCoins: Int = 0
     private var batchTimer: Timer?
     private let batchInterval: TimeInterval = 30
 
     // MARK: - Dependencies
+
     private let db = Firestore.firestore()
     private let functions = Functions.functions()
     private let auth = FirebaseManager.shared
@@ -39,6 +57,9 @@ class CompetitionService: ObservableObject {
     func createPrivateCompetition(name: String, username: String, avatarIcon: String) async throws -> Competition {
         guard let uid = auth.currentUID else {
             throw CompetitionError.notAuthenticated
+        }
+        guard canJoinPrivate else {
+            throw CompetitionError.tooManyCompetitions
         }
 
         let inviteCode = generateInviteCode()
@@ -62,6 +83,7 @@ class CompetitionService: ObservableObject {
 
         // Join as first participant
         let participant: [String: Any] = [
+            "userId": uid,
             "username": username,
             "avatarIcon": avatarIcon,
             "coinsEarned": 0,
@@ -84,7 +106,7 @@ class CompetitionService: ObservableObject {
             participantCount: 1
         )
 
-        activeCompetition = competition
+        allCompetitions.append(competition)
         AnalyticsManager.shared.logCompetitionCreated(type: "private")
         AnalyticsManager.shared.logCompetitionJoined(competitionId: competition.id, type: "private")
         return competition
@@ -93,6 +115,9 @@ class CompetitionService: ObservableObject {
     func joinPublicMatchmaking(username: String, avatarIcon: String) async throws {
         guard auth.currentUID != nil else {
             throw CompetitionError.notAuthenticated
+        }
+        guard canJoinPublic else {
+            throw CompetitionError.alreadyInPublicCompetition
         }
 
         let callable = functions.httpsCallable("joinPublicMatchmaking")
@@ -103,13 +128,16 @@ class CompetitionService: ObservableObject {
             throw CompetitionError.invalidResponse
         }
 
-        await loadCompetition(id: competitionId)
+        await loadAndAppendCompetition(id: competitionId, replacingType: .public)
         AnalyticsManager.shared.logCompetitionJoined(competitionId: competitionId, type: "public")
     }
 
     func joinByInviteCode(_ code: String, username: String, avatarIcon: String) async throws {
         guard auth.currentUID != nil else {
             throw CompetitionError.notAuthenticated
+        }
+        guard canJoinPrivate else {
+            throw CompetitionError.tooManyCompetitions
         }
 
         let callable = functions.httpsCallable("joinByInviteCode")
@@ -124,43 +152,46 @@ class CompetitionService: ObservableObject {
             throw CompetitionError.invalidResponse
         }
 
-        await loadCompetition(id: competitionId)
+        await loadAndAppendCompetition(id: competitionId, replacingType: nil)
         AnalyticsManager.shared.logCompetitionJoined(competitionId: competitionId, type: "private")
     }
 
-    func leaveCompetition() async throws {
-        guard let competition = activeCompetition,
-              let uid = auth.currentUID else { return }
+    func leaveCompetition(id: String) async throws {
+        guard let uid = auth.currentUID else { return }
 
-        // Remove participant doc and decrement count
+        let leaving = allCompetitions.first { $0.id == id }
+
         let batch = db.batch()
         let participantRef = db
-            .collection("competitions")
-            .document(competition.id)
-            .collection("participants")
-            .document(uid)
+            .collection("competitions").document(id)
+            .collection("participants").document(uid)
         batch.deleteDocument(participantRef)
-        let compRef = db.collection("competitions").document(competition.id)
+        let compRef = db.collection("competitions").document(id)
         batch.updateData(["participantCount": FieldValue.increment(Int64(-1))], forDocument: compRef)
         try await batch.commit()
 
-        activeCompetition = nil
-        myRankInActiveCompetition = nil
-        myCoinsInActiveCompetition = 0
+        allCompetitions.removeAll { $0.id == id }
+
+        if let comp = leaving {
+            AnalyticsManager.shared.logCompetitionLeft(
+                competitionId: id,
+                type: comp.type == .public ? "public" : "private",
+                coinsEarned: localPendingCoins
+            )
+        }
     }
 
     // MARK: - Loading
 
-    /// Load the user's active competition on app start
+    /// Load all of the user's active/waiting competitions on app start.
     func loadActiveCompetition(uid: String) async {
         do {
-            // Query for competitions where user is a participant and competition is active/waiting
-            // We check the participants subcollection via a collectionGroup query
             let participantSnaps = try await db
                 .collectionGroup("participants")
-                .whereField(FieldPath.documentID(), isEqualTo: uid)
+                .whereField("userId", isEqualTo: uid)
                 .getDocuments()
 
+            var competitions: [Competition] = []
             for pDoc in participantSnaps.documents {
                 guard let compRef = pDoc.reference.parent.parent else { continue }
                 let compSnap = try await compRef.getDocument()
@@ -169,24 +200,25 @@ class CompetitionService: ObservableObject {
                       status == "active" || status == "waiting" else { continue }
 
                 if let comp = Competition(from: compSnap) {
-                    activeCompetition = comp
-                    // Update my coins from participant doc
-                    if let coins = pDoc.data()["coinsEarned"] as? Int {
-                        myCoinsInActiveCompetition = coins
-                    }
-                    return
+                    competitions.append(comp)
                 }
             }
+            allCompetitions = competitions
         } catch {
-            print("CompetitionService: failed to load active competition: \(error)")
+            print("CompetitionService: failed to load competitions: \(error)")
         }
     }
 
-    private func loadCompetition(id: String) async {
+    private func loadAndAppendCompetition(id: String, replacingType: CompetitionType?) async {
         do {
             let snap = try await db.collection("competitions").document(id).getDocument()
             if let comp = Competition(from: snap) {
-                activeCompetition = comp
+                if let type = replacingType {
+                    allCompetitions.removeAll { $0.type == type }
+                } else {
+                    allCompetitions.removeAll { $0.id == id }
+                }
+                allCompetitions.append(comp)
             }
         } catch {
             print("CompetitionService: failed to load competition \(id): \(error)")
@@ -195,12 +227,11 @@ class CompetitionService: ObservableObject {
 
     // MARK: - Coin Batching
 
-    /// Called when the user earns coins. Accumulates locally; flushes via timer or background.
+    /// Called when the user earns coins. Accumulates locally; flushes to all active competitions.
     func recordCoinsEarned(_ amount: Int) {
         guard isInCompetition, amount > 0 else { return }
-        pendingCoins += amount
+        localPendingCoins += amount
 
-        // Reset 30-second flush timer
         batchTimer?.invalidate()
         batchTimer = Timer.scheduledTimer(withTimeInterval: batchInterval, repeats: false) { [weak self] _ in
             Task { @MainActor in
@@ -209,46 +240,88 @@ class CompetitionService: ObservableObject {
         }
     }
 
-    /// Flush accumulated coins to Firebase. Called on timer, app backgrounding, or explicit request.
+    /// Flush accumulated coins to all active competitions.
     func flushPendingCoins() async {
-        guard let competition = activeCompetition,
-              competition.isActive,
-              pendingCoins > 0,
-              auth.currentUID != nil else { return }
+        let activeComps = allCompetitions.filter { $0.isActive }
+        guard !activeComps.isEmpty, localPendingCoins > 0, auth.currentUID != nil else { return }
 
-        let delta = pendingCoins
-        pendingCoins = 0
+        let delta = localPendingCoins
+        localPendingCoins = 0
         batchTimer?.invalidate()
         batchTimer = nil
 
-        do {
-            let callable = functions.httpsCallable("submitCompetitionCoins")
-            try await callable.call([
-                "competitionId": competition.id,
-                "delta": delta
-            ])
-            // Update local display
-            myCoinsInActiveCompetition += delta
-            AnalyticsManager.shared.logCoinsSubmitted(amount: delta, competitionId: competition.id)
-        } catch {
-            // Return coins to pending on failure so they can be retried
-            pendingCoins += delta
-            print("CompetitionService: failed to flush coins: \(error)")
+        for comp in activeComps {
+            do {
+                let callable = functions.httpsCallable("submitCompetitionCoins")
+                _ = try await callable.call(["competitionId": comp.id, "delta": delta])
+                AnalyticsManager.shared.logCoinsSubmitted(amount: delta, competitionId: comp.id)
+            } catch {
+                // Return coins to pending on first failure
+                localPendingCoins += delta
+                print("CompetitionService: failed to flush coins for \(comp.id): \(error)")
+                return
+            }
         }
     }
 
     // MARK: - Watch Integration
 
     func activeCompetitionStatus() -> WatchCompetitionStatus {
-        guard let comp = activeCompetition else { return .none }
+        guard let comp = allCompetitions.first(where: { $0.isActive }) ?? allCompetitions.first else {
+            return .none
+        }
         return WatchCompetitionStatus(
             competitionName: comp.name,
-            myRank: myRankInActiveCompetition,
-            myCoins: myCoinsInActiveCompetition,
+            myRank: nil,
+            myCoins: 0,
             totalParticipants: comp.participantCount,
             daysRemaining: comp.daysRemaining,
             isActive: comp.isActive
         )
+    }
+
+    // MARK: - History
+
+    func loadCompetitionHistory(uid: String) async -> [CompetitionHistoryEntry] {
+        do {
+            let participantSnaps = try await db
+                .collectionGroup("participants")
+                .whereField("userId", isEqualTo: uid)
+                .getDocuments()
+
+            var entries: [CompetitionHistoryEntry] = []
+            for pDoc in participantSnaps.documents {
+                guard let compRef = pDoc.reference.parent.parent else { continue }
+                let compSnap = try await compRef.getDocument()
+                guard let data = compSnap.data(),
+                      let status = data["status"] as? String,
+                      status == "completed",
+                      let name = data["name"] as? String,
+                      let typeStr = data["type"] as? String,
+                      let type_ = CompetitionType(rawValue: typeStr),
+                      let endTs = data["endTime"] as? Timestamp,
+                      let participantCount = data["participantCount"] as? Int
+                else { continue }
+
+                let pData = pDoc.data()
+                let coinsEarned = pData["coinsEarned"] as? Int ?? 0
+                let finalRank = pData["finalRank"] as? Int
+
+                entries.append(CompetitionHistoryEntry(
+                    id: compSnap.documentID,
+                    name: name,
+                    type: type_,
+                    endTime: endTs.dateValue(),
+                    totalParticipants: participantCount,
+                    myCoinsEarned: coinsEarned,
+                    myFinalRank: finalRank
+                ))
+            }
+            return entries.sorted { $0.endTime > $1.endTime }
+        } catch {
+            print("CompetitionService: failed to load history: \(error)")
+            return []
+        }
     }
 
     // MARK: - Rewards
@@ -289,6 +362,8 @@ enum CompetitionError: LocalizedError {
     case competitionFull
     case competitionEnded
     case invalidCode
+    case alreadyInPublicCompetition
+    case tooManyCompetitions
 
     var errorDescription: String? {
         switch self {
@@ -297,6 +372,8 @@ enum CompetitionError: LocalizedError {
         case .competitionFull: return "This competition is full."
         case .competitionEnded: return "This competition has already ended."
         case .invalidCode: return "Invalid invite code."
+        case .alreadyInPublicCompetition: return "You're already in a public competition."
+        case .tooManyCompetitions: return "You can be in up to 4 private competitions at a time."
         }
     }
 }

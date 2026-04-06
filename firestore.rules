@@ -12,9 +12,12 @@ service cloud.firestore {
     // Friends: owner reads their own list; both parties can update status
     match /friends/{userId}/list/{friendId} {
       allow read: if request.auth != null && request.auth.uid == userId;
+      // Owner creates their own "pending_sent" entry; sender also creates receiver's "pending_received" entry
       allow create: if request.auth != null
-                    && request.auth.uid == userId
-                    && request.resource.data.status == "pending_sent";
+                    && (
+                      (request.auth.uid == userId && request.resource.data.status == "pending_sent")
+                      || (request.auth.uid == friendId && request.resource.data.status == "pending_received")
+                    );
       allow update: if request.auth != null
                     && (request.auth.uid == userId || request.auth.uid == friendId)
                     && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']);
@@ -29,23 +32,37 @@ service cloud.firestore {
       allow create: if request.auth != null
                     && request.resource.data.createdBy == request.auth.uid
                     && request.resource.data.type in ['private', 'public'];
-      allow update: if false; // Cloud Functions only
+      // Allow authenticated users to increment/decrement participantCount only
+      allow update: if request.auth != null
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['participantCount']);
       allow delete: if false;
 
       // Participants: anyone authenticated can read (leaderboard)
       // Users can create their own entry; updates only via Cloud Functions (anti-cheat)
+      // Users can delete their own entry (leave competition)
       match /participants/{userId} {
         allow read: if request.auth != null;
         allow create: if request.auth != null && request.auth.uid == userId;
         allow update: if false; // Cloud Functions only (submitCompetitionCoins)
-        allow delete: if false;
+        allow delete: if request.auth != null && request.auth.uid == userId;
       }
     }
 
-    // Rewards: only owner can read; only Cloud Functions can write
+    // Collection group rule required for collectionGroup("participants") queries
+    // (used to find a user's active competitions on app launch)
+    // Participant data is public (shown on leaderboards), so any authenticated user can read.
+    match /{path=**}/participants/{participantId} {
+      allow read: if request.auth != null;
+    }
+
+    // Rewards: only owner can read; Cloud Functions create; owner can mark as claimed
     match /rewards/{userId}/earned/{rewardId} {
       allow read: if request.auth != null && request.auth.uid == userId;
-      allow write: if false; // Cloud Functions only
+      allow update: if request.auth != null
+                    && request.auth.uid == userId
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['claimed'])
+                    && request.resource.data.claimed == true;
+      allow create, delete: if false; // Cloud Functions only
     }
   }
 }

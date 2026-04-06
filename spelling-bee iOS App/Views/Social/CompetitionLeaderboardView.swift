@@ -86,7 +86,7 @@ struct CompetitionLeaderboardView: View {
                             // Pinned user row (if outside top 50)
                             if let pinned = viewModel.pinnedUserEntry {
                                 Section {
-                                    LeaderboardRow(entry: pinned, isPinned: true)
+                                    LeaderboardRow(entry: pinned, isPinned: true, onTapUser: { _ in })
                                     Divider()
                                         .background(Color.white.opacity(0.2))
                                 } header: {
@@ -103,7 +103,9 @@ struct CompetitionLeaderboardView: View {
                             // Full leaderboard
                             Section {
                                 ForEach(Array(viewModel.entries.enumerated()), id: \.element.id) { _, entry in
-                                    LeaderboardRow(entry: entry, isPinned: false)
+                                    LeaderboardRow(entry: entry, isPinned: false, onTapUser: { tapped in
+                                        appState.navigateToUserProfile(userId: tapped.id, username: tapped.username)
+                                    })
                                     if entry.id != viewModel.entries.last?.id {
                                         Divider()
                                             .background(Color.white.opacity(0.1))
@@ -184,6 +186,7 @@ struct CompetitionLeaderboardView: View {
 private struct LeaderboardRow: View {
     let entry: LeaderboardEntry
     let isPinned: Bool
+    var onTapUser: ((LeaderboardEntry) -> Void)? = nil
 
     private var rankColor: Color {
         switch entry.rank {
@@ -259,5 +262,11 @@ private struct LeaderboardRow: View {
                 ? Color.yellow.opacity(0.1)
                 : (isPinned ? Color.white.opacity(0.05) : Color.clear)
         )
+        .contentShape(Rectangle())
+        .onTapGesture {
+            if !entry.isCurrentUser, let tap = onTapUser {
+                tap(entry)
+            }
+        }
     }
 }

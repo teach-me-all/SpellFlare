@@ -118,7 +118,7 @@ class LeaderboardService {
         }
 
         // Append to cache
-        if var existing = cache[competitionId] {
+        if let existing = cache[competitionId] {
             let combined = existing.entries + newEntries
             cache[competitionId] = CacheEntry(
                 entries: combined,
@@ -158,7 +158,7 @@ class LeaderboardService {
             .count
             .getAggregation(source: .server)
 
-        let rank = Int(higherSnap.count) + 1
+        let rank = (higherSnap.count as? Int ?? 0) + 1
 
         return LeaderboardEntry(
             id: uid,

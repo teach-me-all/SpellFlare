@@ -121,6 +121,7 @@
 		FBSOC003A2EFD0003009167B7 /* CompetitionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC003B2EFD0003009167B7 /* CompetitionService.swift */; };
 		FBSOC004A2EFD0004009167B7 /* LeaderboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC004B2EFD0004009167B7 /* LeaderboardService.swift */; };
 		FBSOC005A2EFD0005009167B7 /* FriendsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC005B2EFD0005009167B7 /* FriendsService.swift */; };
+		FBNOT001A2EFD0009009167B7 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBNOT001B2EFD0009009167B7 /* NotificationService.swift */; };
 		FBSOC006A2EFD0006009167B7 /* CompetitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC006B2EFD0006009167B7 /* CompetitionViewModel.swift */; };
 		FBSOC007A2EFD0007009167B7 /* LeaderboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC007B2EFD0007009167B7 /* LeaderboardViewModel.swift */; };
 		FBSOC008A2EFD0008009167B7 /* FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC008B2EFD0008009167B7 /* FriendsViewModel.swift */; };
@@ -131,6 +132,9 @@
 		FBSOC013A2EFD0013009167B7 /* CompetitionLeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC013B2EFD0013009167B7 /* CompetitionLeaderboardView.swift */; };
 		FBSOC014A2EFD0014009167B7 /* ActiveCompetitionBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC014B2EFD0014009167B7 /* ActiveCompetitionBanner.swift */; };
 		FBSOC015A2EFD0015009167B7 /* RewardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC015B2EFD0015009167B7 /* RewardsView.swift */; };
+		FBSOC017A2EFD0017009167B7 /* CompetitionHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBSOC017B2EFD0017009167B7 /* CompetitionHistoryView.swift */; };
+		FBPROF001A2EFD0001009167B7 /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBPROF001B2EFD0001009167B7 /* UserProfileView.swift */; };
+		FBPROF002A2EFD0002009167B7 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBPROF002B2EFD0002009167B7 /* UserProfileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -295,6 +299,7 @@
 		FBSOC003B2EFD0003009167B7 /* CompetitionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitionService.swift; sourceTree = "<group>"; };
 		FBSOC004B2EFD0004009167B7 /* LeaderboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardService.swift; sourceTree = "<group>"; };
 		FBSOC005B2EFD0005009167B7 /* FriendsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsService.swift; sourceTree = "<group>"; };
+		FBNOT001B2EFD0009009167B7 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		FBSOC006B2EFD0006009167B7 /* CompetitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitionViewModel.swift; sourceTree = "<group>"; };
 		FBSOC007B2EFD0007009167B7 /* LeaderboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewModel.swift; sourceTree = "<group>"; };
 		FBSOC008B2EFD0008009167B7 /* FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewModel.swift; sourceTree = "<group>"; };
@@ -305,6 +310,9 @@
 		FBSOC013B2EFD0013009167B7 /* CompetitionLeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitionLeaderboardView.swift; sourceTree = "<group>"; };
 		FBSOC014B2EFD0014009167B7 /* ActiveCompetitionBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCompetitionBanner.swift; sourceTree = "<group>"; };
 		FBSOC015B2EFD0015009167B7 /* RewardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardsView.swift; sourceTree = "<group>"; };
+		FBSOC017B2EFD0017009167B7 /* CompetitionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompetitionHistoryView.swift; sourceTree = "<group>"; };
+		FBPROF001B2EFD0001009167B7 /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
+		FBPROF002B2EFD0002009167B7 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -440,6 +448,7 @@
 				FBSOC003B2EFD0003009167B7 /* CompetitionService.swift */,
 				FBSOC004B2EFD0004009167B7 /* LeaderboardService.swift */,
 				FBSOC005B2EFD0005009167B7 /* FriendsService.swift */,
+				FBNOT001B2EFD0009009167B7 /* NotificationService.swift */,
 				FBANLYTB2EFD0016009167B7 /* AnalyticsManager.swift */,
 			);
 			path = Services;
@@ -453,6 +462,7 @@
 				FBSOC006B2EFD0006009167B7 /* CompetitionViewModel.swift */,
 				FBSOC007B2EFD0007009167B7 /* LeaderboardViewModel.swift */,
 				FBSOC008B2EFD0008009167B7 /* FriendsViewModel.swift */,
+				FBPROF002B2EFD0002009167B7 /* UserProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -682,6 +692,8 @@
 				FBSOC013B2EFD0013009167B7 /* CompetitionLeaderboardView.swift */,
 				FBSOC014B2EFD0014009167B7 /* ActiveCompetitionBanner.swift */,
 				FBSOC015B2EFD0015009167B7 /* RewardsView.swift */,
+				FBSOC017B2EFD0017009167B7 /* CompetitionHistoryView.swift */,
+				FBPROF001B2EFD0001009167B7 /* UserProfileView.swift */,
 			);
 			path = Social;
 			sourceTree = "<group>";
@@ -1006,6 +1018,7 @@
 					FBSOC003A2EFD0003009167B7 /* CompetitionService.swift in Sources */,
 					FBSOC004A2EFD0004009167B7 /* LeaderboardService.swift in Sources */,
 					FBSOC005A2EFD0005009167B7 /* FriendsService.swift in Sources */,
+					FBNOT001A2EFD0009009167B7 /* NotificationService.swift in Sources */,
 					FBSOC006A2EFD0006009167B7 /* CompetitionViewModel.swift in Sources */,
 					FBSOC007A2EFD0007009167B7 /* LeaderboardViewModel.swift in Sources */,
 					FBSOC008A2EFD0008009167B7 /* FriendsViewModel.swift in Sources */,
@@ -1016,7 +1029,10 @@
 					FBSOC013A2EFD0013009167B7 /* CompetitionLeaderboardView.swift in Sources */,
 					FBSOC014A2EFD0014009167B7 /* ActiveCompetitionBanner.swift in Sources */,
 					FBSOC015A2EFD0015009167B7 /* RewardsView.swift in Sources */,
+					FBSOC017A2EFD0017009167B7 /* CompetitionHistoryView.swift in Sources */,
 					FBANLYA2EFD0016009167B7 /* AnalyticsManager.swift in Sources */,
+					FBPROF001A2EFD0001009167B7 /* UserProfileView.swift in Sources */,
+					FBPROF002A2EFD0002009167B7 /* UserProfileViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
